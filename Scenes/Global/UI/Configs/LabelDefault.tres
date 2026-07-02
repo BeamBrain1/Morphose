@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://btqhdajtvvrq1"]
+
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="1_jxhyu"]
+
+[resource]
+line_spacing = 0.0
+font = ExtResource("1_jxhyu")
+font_size = 8

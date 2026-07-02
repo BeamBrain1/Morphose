@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://b6353027y4oac"]
+
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="1_85rcx"]
+[ext_resource type="Script" uid="uid://t652ikwfl6qw" path="res://Scenes/CharBuild/UI/stat_mod_window.gd" id="1_giepi"]
+[ext_resource type="LabelSettings" uid="uid://btqhdajtvvrq1" path="res://Scenes/Global/UI/Configs/LabelDefault.tres" id="2_giepi"]
+[ext_resource type="FontFile" uid="uid://d3eayc7bji2ar" path="res://Fonts/Morphont.ttf" id="3_mcojt"]
+[ext_resource type="Texture2D" uid="uid://dl7c4cblj7er4" path="res://Graphics/UI/button_default.png" id="4_7iinr"]
+[ext_resource type="StyleBox" uid="uid://d38l8e77lf4dm" path="res://Graphics/UI/Styleboxes/button_pressed.tres" id="5_xbco0"]
+[ext_resource type="StyleBox" uid="uid://0bxe55yohsmb" path="res://Graphics/UI/Styleboxes/button_hover.tres" id="6_lbfpq"]
+[ext_resource type="StyleBox" uid="uid://c17fwtplebg2s" path="res://Graphics/UI/Styleboxes/button_disabled.tres" id="7_uofgo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qpd4h"]
+line_spacing = 0.0
+font = ExtResource("3_mcojt")
+font_size = 8
+
+[sub_resource type="Theme" id="Theme_ba66s"]
+default_font = ExtResource("1_85rcx")
+
+[sub_resource type="FontVariation" id="FontVariation_uawj6"]
+base_font = ExtResource("1_85rcx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y1m00"]
+texture = ExtResource("4_7iinr")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5pkbu"]
+
+[node name="StatModWindow" type="Node2D" unique_id=578653506]
+script = ExtResource("1_giepi")
+
+[node name="BG1" type="ColorRect" parent="." unique_id=659261889]
+offset_left = 1.0
+offset_right = 88.0
+offset_bottom = 8.0
+color = Color(0, 0.33333334, 0, 1)
+
+[node name="FavoredStatMarker" type="ColorRect" parent="." unique_id=1467245334]
+offset_left = 1.0
+offset_right = 4.0
+offset_bottom = 8.0
+color = Color(0.6666667, 0.6666667, 0, 1)
+
+[node name="Name" type="Label" parent="." unique_id=1116155636]
+offset_left = 8.0
+offset_right = 72.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("1_85rcx")
+theme_override_font_sizes/font_size = 8
+text = "HIT POINTS"
+label_settings = ExtResource("2_giepi")
+autowrap_mode = 2
+
+[node name="Value" type="Label" parent="." unique_id=1137046300]
+offset_left = 56.0
+offset_right = 80.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("3_mcojt")
+theme_override_font_sizes/font_size = 8
+text = "999"
+label_settings = SubResource("LabelSettings_qpd4h")
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="ButtonMinus10" type="Button" parent="." unique_id=310255712]
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_ba66s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_uawj6")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_y1m00")
+theme_override_styles/pressed = ExtResource("5_xbco0")
+theme_override_styles/hover = ExtResource("6_lbfpq")
+theme_override_styles/disabled = ExtResource("7_uofgo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
+text = "  -10   "
+alignment = 0
+
+[node name="ButtonMinus1" type="Button" parent="." unique_id=207693490]
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 40.0
+offset_bottom = 24.0
+theme = SubResource("Theme_ba66s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_uawj6")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_y1m00")
+theme_override_styles/pressed = ExtResource("5_xbco0")
+theme_override_styles/hover = ExtResource("6_lbfpq")
+theme_override_styles/disabled = ExtResource("7_uofgo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
+text = "  - 1   "
+alignment = 0
+
+[node name="ButtonPlus1" type="Button" parent="." unique_id=1188773077]
+offset_left = 48.0
+offset_top = 16.0
+offset_right = 80.0
+offset_bottom = 24.0
+theme = SubResource("Theme_ba66s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_uawj6")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_y1m00")
+theme_override_styles/pressed = ExtResource("5_xbco0")
+theme_override_styles/hover = ExtResource("6_lbfpq")
+theme_override_styles/disabled = ExtResource("7_uofgo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
+text = "  + 1   "
+alignment = 0
+
+[node name="ButtonPlus10" type="Button" parent="." unique_id=2088825032]
+offset_left = 48.0
+offset_top = 32.0
+offset_right = 80.0
+offset_bottom = 40.0
+theme = SubResource("Theme_ba66s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_uawj6")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_y1m00")
+theme_override_styles/pressed = ExtResource("5_xbco0")
+theme_override_styles/hover = ExtResource("6_lbfpq")
+theme_override_styles/disabled = ExtResource("7_uofgo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
+text = "  +10   "
+alignment = 0
+
+[node name="Separator2" type="ColorRect" parent="." unique_id=1608725869]
+offset_top = 47.0
+offset_right = 87.0
+offset_bottom = 48.0
+
+[node name="Separator3" type="ColorRect" parent="." unique_id=509983619]
+offset_left = 87.0
+offset_right = 89.0
+offset_bottom = 48.0
+
+[connection signal="pressed" from="ButtonMinus10" to="." method="_on_button_minus_10_pressed"]
+[connection signal="pressed" from="ButtonMinus1" to="." method="_on_button_minus_1_pressed"]
+[connection signal="pressed" from="ButtonPlus1" to="." method="_on_button_plus_1_pressed"]
+[connection signal="pressed" from="ButtonPlus10" to="." method="_on_button_plus_10_pressed"]

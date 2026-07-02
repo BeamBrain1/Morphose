@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://x84uv31ranly"]
+
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="1_81nfc"]
+[ext_resource type="Texture2D" uid="uid://dl7c4cblj7er4" path="res://Graphics/UI/button_default.png" id="2_vxxya"]
+[ext_resource type="StyleBox" uid="uid://d38l8e77lf4dm" path="res://Graphics/UI/Styleboxes/button_pressed.tres" id="3_anjw3"]
+[ext_resource type="StyleBox" uid="uid://0bxe55yohsmb" path="res://Graphics/UI/Styleboxes/button_hover.tres" id="4_e1db7"]
+[ext_resource type="StyleBox" uid="uid://c17fwtplebg2s" path="res://Graphics/UI/Styleboxes/button_disabled.tres" id="5_3mhxs"]
+[ext_resource type="Script" uid="uid://hs7l4ko7vljm" path="res://Scenes/Global/UI/tab_header_button.gd" id="6_vxxya"]
+[ext_resource type="StyleBox" uid="uid://bjwyl6qvpokso" path="res://Graphics/UI/Styleboxes/button_default.tres" id="7_anjw3"]
+
+[sub_resource type="Theme" id="Theme_ba66s"]
+default_font = ExtResource("1_81nfc")
+
+[sub_resource type="FontVariation" id="FontVariation_uawj6"]
+base_font = ExtResource("1_81nfc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y1m00"]
+texture = ExtResource("2_vxxya")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5pkbu"]
+
+[node name="TabHeaderButton" type="Button" unique_id=564856447]
+offset_right = 64.0
+offset_bottom = 8.0
+theme = SubResource("Theme_ba66s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_uawj6")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_y1m00")
+theme_override_styles/pressed = ExtResource("3_anjw3")
+theme_override_styles/hover = ExtResource("4_e1db7")
+theme_override_styles/disabled = ExtResource("5_3mhxs")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
+text = "  BLUEPRINTS"
+alignment = 0
+script = ExtResource("6_vxxya")
+TabHeaderDefault = ExtResource("7_anjw3")
+TabHeaderSelected = ExtResource("4_e1db7")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

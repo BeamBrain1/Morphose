@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://daqjmxdjcc5ed"]
+
+[ext_resource type="Script" uid="uid://bk7iv35e6s70g" path="res://Scenes/CharBuild/UI/window_stat_adjust.gd" id="1_efofg"]
+[ext_resource type="PackedScene" uid="uid://bf1khufx7scc" path="res://Scenes/Global/UI/DialogBox.tscn" id="2_iclww"]
+[ext_resource type="PackedScene" uid="uid://b6353027y4oac" path="res://Scenes/CharBuild/UI/StatModWindow.tscn" id="3_evw0g"]
+
+[node name="WindowStatsAdjust" type="Node2D" unique_id=1191827420]
+script = ExtResource("1_efofg")
+
+[node name="DialogCharacterStats" parent="." unique_id=1943375761 instance=ExtResource("2_iclww")]
+offset_left = 88.0
+offset_right = 264.0
+offset_bottom = 200.0
+expand_programmatically = false
+
+[node name="StatModWindowHP" parent="DialogCharacterStats" unique_id=578653506 instance=ExtResource("3_evw0g")]
+
+[node name="StatModWindowTP" parent="DialogCharacterStats" unique_id=2064274843 instance=ExtResource("3_evw0g")]
+position = Vector2(88, 0)
+assigned_stat = 5
+
+[node name="StatModWindowTPRegen" parent="DialogCharacterStats" unique_id=700223683 instance=ExtResource("3_evw0g")]
+visible = false
+position = Vector2(0, 48)
+
+[node name="StatModWindowAttack" parent="DialogCharacterStats" unique_id=1633342755 instance=ExtResource("3_evw0g")]
+position = Vector2(0, 48)
+assigned_stat = 1
+
+[node name="StatModWindowDefense" parent="DialogCharacterStats" unique_id=968766179 instance=ExtResource("3_evw0g")]
+position = Vector2(88, 48)
+assigned_stat = 2
+
+[node name="StatModWindowSpeed" parent="DialogCharacterStats" unique_id=258268917 instance=ExtResource("3_evw0g")]
+position = Vector2(0, 96)
+assigned_stat = 4
+
+[node name="StatModWindowSenses" parent="DialogCharacterStats" unique_id=175117640 instance=ExtResource("3_evw0g")]
+position = Vector2(88, 96)
+assigned_stat = 3
+
+[node name="Separator1" type="ColorRect" parent="." unique_id=982936531]
+offset_left = 88.0
+offset_top = 192.0
+offset_right = 265.0
+offset_bottom = 200.0
+
+[node name="Separator2" type="ColorRect" parent="." unique_id=261983311]
+offset_left = 88.0
+offset_top = 144.0
+offset_right = 264.0
+offset_bottom = 192.0

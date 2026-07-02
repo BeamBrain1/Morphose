@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://bcuk6jivll20u"]
+
+[ext_resource type="Script" uid="uid://c7u74dndpc1q0" path="res://Scenes/CharBuild/UI/window_blueprint_manage.gd" id="1_cbcc4"]
+[ext_resource type="PackedScene" uid="uid://bf1khufx7scc" path="res://Scenes/Global/UI/DialogBox.tscn" id="2_28com"]
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="3_s0u0a"]
+[ext_resource type="LabelSettings" uid="uid://btqhdajtvvrq1" path="res://Scenes/Global/UI/Configs/LabelDefault.tres" id="4_rw7tv"]
+[ext_resource type="Script" uid="uid://u4gb2avdyrui" path="res://Scenes/CharBuild/UI/tab_header_list_blueprint_type.gd" id="7_8s6ic"]
+[ext_resource type="PackedScene" uid="uid://bellyq4detmx8" path="res://Scenes/Global/UI/TabHeaderList.tscn" id="9_7lxc0"]
+[ext_resource type="PackedScene" uid="uid://x84uv31ranly" path="res://Scenes/Global/UI/TabHeaderButton.tscn" id="10_lse26"]
+[ext_resource type="PackedScene" uid="uid://c8hep1bdk3kxo" path="res://Scenes/CharBuild/UI/CharBuildBlueprintSelector.tscn" id="11_28com"]
+
+[node name="WindowBlueprintManage" type="Node2D" unique_id=1727583660]
+script = ExtResource("1_cbcc4")
+
+[node name="DialogInstalledBlueprints" parent="." unique_id=1943375761 instance=ExtResource("2_28com")]
+offset_left = 88.0
+offset_right = 176.0
+expand_programmatically = false
+
+[node name="Header" type="Label" parent="DialogInstalledBlueprints" unique_id=1850744744]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 8.0
+offset_right = 86.0
+offset_bottom = 24.0
+theme_override_fonts/font = ExtResource("3_s0u0a")
+theme_override_font_sizes/font_size = 8
+text = "INSTALLED
+ BLUEPRINTS"
+label_settings = ExtResource("4_rw7tv")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Selector" parent="DialogInstalledBlueprints" unique_id=2013800458 instance=ExtResource("11_28com")]
+layout_mode = 0
+offset_top = 32.0
+offset_bottom = 192.0
+
+[node name="DialogAvailableBlueprints" parent="." unique_id=245387802 instance=ExtResource("2_28com")]
+offset_left = 176.0
+offset_right = 264.0
+expand_programmatically = false
+
+[node name="Header" type="Label" parent="DialogAvailableBlueprints" unique_id=549208817]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 8.0
+offset_right = 86.0
+offset_bottom = 24.0
+theme_override_fonts/font = ExtResource("3_s0u0a")
+theme_override_font_sizes/font_size = 8
+text = "AVAILABLE
+ BLUEPRINTS"
+label_settings = ExtResource("4_rw7tv")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Selector" parent="DialogAvailableBlueprints" unique_id=653599530 instance=ExtResource("11_28com")]
+layout_mode = 0
+offset_top = 32.0
+offset_bottom = 192.0
+checks_tp_cost = true
+
+[node name="DialogBlueprintTypeSelect" parent="." unique_id=1155703355 instance=ExtResource("2_28com")]
+offset_left = 264.0
+offset_top = 32.0
+offset_bottom = 88.0
+expand_programmatically = false
+
+[node name="TabHeaderList" parent="DialogBlueprintTypeSelect" unique_id=1847180628 instance=ExtResource("9_7lxc0")]
+script = ExtResource("7_8s6ic")
+metadata/_edit_group_ = true
+
+[node name="TabHeaderAttack" parent="DialogBlueprintTypeSelect/TabHeaderList" unique_id=564856447 instance=ExtResource("10_lse26")]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 48.0
+offset_bottom = 16.0
+text = "  ATTACK"
+
+[node name="TabHeaderSupport" parent="DialogBlueprintTypeSelect/TabHeaderList" unique_id=1604775533 instance=ExtResource("10_lse26")]
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 48.0
+offset_bottom = 32.0
+text = "  SUPPORT"
+
+[node name="TabHeaderPassive" parent="DialogBlueprintTypeSelect/TabHeaderList" unique_id=1137166938 instance=ExtResource("10_lse26")]
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 48.0
+offset_bottom = 48.0
+text = "  PASSIVE"
+
+[node name="Separator2" type="ColorRect" parent="." unique_id=435943492]
+offset_left = 88.0
+offset_top = 192.0
+offset_right = 264.0
+offset_bottom = 200.0
+
+[connection signal="blueprint_selected" from="DialogInstalledBlueprints/Selector" to="." method="uninstallBlueprint"]
+[connection signal="blueprint_selected" from="DialogAvailableBlueprints/Selector" to="." method="installBlueprint"]
+[connection signal="tab_selected" from="DialogBlueprintTypeSelect/TabHeaderList" to="." method="onBlueprintTypeSelected"]

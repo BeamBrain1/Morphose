@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://pce2hrgqfira"]
+
+[ext_resource type="Script" uid="uid://bjrghsxci0s31" path="res://Scenes/Controllers/controller_build_character.gd" id="1_ba66s"]
+[ext_resource type="PackedScene" uid="uid://d0wwllof4pmee" path="res://Scenes/CharBuild/UI/WindowBase.tscn" id="2_2w7rf"]
+[ext_resource type="PackedScene" uid="uid://bcuk6jivll20u" path="res://Scenes/CharBuild/UI/WindowBlueprintManage.tscn" id="13_y1m00"]
+[ext_resource type="PackedScene" uid="uid://daqjmxdjcc5ed" path="res://Scenes/CharBuild/UI/WindowStatsAdjust.tscn" id="14_y1m00"]
+
+[node name="ControllerBuildCharacter" type="Node2D" unique_id=688014162]
+script = ExtResource("1_ba66s")
+metadata/_custom_type_script = "uid://c6b3kksmaoyke"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=923929659]
+offset_right = 320.0
+offset_bottom = 240.0
+color = Color(0, 0, 0, 1)
+
+[node name="WindowBase" parent="." unique_id=1312986081 instance=ExtResource("2_2w7rf")]
+
+[node name="WindowBlueprintManager" parent="." unique_id=1727583660 instance=ExtResource("13_y1m00")]
+visible = false
+
+[node name="WindowStatsAdjust" parent="." unique_id=1191827420 instance=ExtResource("14_y1m00")]
+visible = false
+
+[connection signal="cancel" from="WindowBase" to="." method="cancel"]
+[connection signal="reset" from="WindowBase" to="." method="resetActiveCharacter"]
+[connection signal="save" from="WindowBase" to="." method="save"]
+[connection signal="tab_selected_character" from="WindowBase" to="." method="partyMemberTabSelected"]
+[connection signal="tab_selected_window" from="WindowBase" to="." method="buildWindowSelected"]
+[connection signal="blueprint_lists_modified" from="WindowBlueprintManager" to="." method="updateAllDisplays"]
+[connection signal="blueprint_type_selected" from="WindowBlueprintManager" to="." method="blueprintTypeSelected"]
+[connection signal="on_stat_adjust" from="WindowStatsAdjust" to="." method="updateAllDisplays"]

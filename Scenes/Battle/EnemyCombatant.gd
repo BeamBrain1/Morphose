@@ -1,0 +1,70 @@
+class_name EnemyCombatant
+extends Combatant
+
+enum STAT {HP, ATTACK, DEFENSE, SENSES, SPEED, TECH_POINTS, TP_REGEN}
+
+var bio_e_reward: int = 0	# How much bio-energy this combatant gives upon defeat
+
+# Determines how much bio-energy this combatant awards upon defeat
+# Determined by combined stats and value of installed blueprints
+func getBioEnergyReward() -> int:
+	var result: int = 0
+	
+	for blueprint in allBlueprints():
+		result += blueprint.bio_energy_cost
+	
+	for stat in [STAT.HP, STAT.ATTACK, STAT.DEFENSE, STAT.SENSES, STAT.SPEED, STAT.TECH_POINTS]:
+		result += getStatBioEnergyValue(stat)
+	
+	return maxi(1, ceili(float(result) / 4))
+
+
+func getStatFromEnumType(stat: STAT) -> int:
+	if stat == STAT.HP:
+		return hp
+	if stat == STAT.ATTACK:
+		return attack
+	if stat == STAT.DEFENSE:
+		return defense
+	if stat == STAT.SENSES:
+		return senses
+	if stat == STAT.SPEED:
+		return speed
+	if stat == STAT.TECH_POINTS:
+		return tech_points
+	push_error("Unrecognized stat: " + str(stat))
+	return 0
+
+
+func getStatBioEnergyValue(stat: STAT) -> int:
+	
+	var stat_value: int = getStatFromEnumType(stat)
+	
+	var result: int = 0
+	
+	for i in range(stat_value):
+		result += i
+	
+	if stat in [STAT.HP, STAT.TECH_POINTS]:
+		result = ceili(result / 2)
+	
+	return result
+
+
+func chooseAction() -> ACTION:
+	# If it has the TP to act, act. Otherwise, wait.
+	if getPossibleBlueprintActions().size() > 0:
+		return ACTION.BLUEPRINT
+	else:
+		return ACTION.WAIT
+
+
+func chooseBlueprint() -> Blueprint:
+	var result = getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
+	pushBattleMessage(name + " uses " + result.getDialogDisplayName() + ".")
+	return result
+
+
+# Choose target for single-target blueprint action
+func chooseTarget(blueprint: Blueprint, target_list: Array) -> Combatant:
+	return target_list[randi() % target_list.size()]

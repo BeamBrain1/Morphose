@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://c8hep1bdk3kxo"]
+
+[ext_resource type="StyleBox" uid="uid://b8aqvyddpey1k" path="res://Graphics/UI/Styleboxes/dialog_box.tres" id="1_rg7r6"]
+[ext_resource type="Script" uid="uid://cvcfatxts4ltp" path="res://Scenes/CharBuild/UI/CharBuildBlueprintSelector.gd" id="2_qsk21"]
+[ext_resource type="PackedScene" uid="uid://bf677wtty6y85" path="res://Scenes/CharBuild/UI/SelectBlueprintButton.tscn" id="3_kym82"]
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="4_cei1c"]
+[ext_resource type="Texture2D" uid="uid://dl7c4cblj7er4" path="res://Graphics/UI/button_default.png" id="5_54pnx"]
+[ext_resource type="StyleBox" uid="uid://d38l8e77lf4dm" path="res://Graphics/UI/Styleboxes/button_pressed.tres" id="6_rm1uf"]
+[ext_resource type="StyleBox" uid="uid://0bxe55yohsmb" path="res://Graphics/UI/Styleboxes/button_hover.tres" id="7_srybt"]
+[ext_resource type="StyleBox" uid="uid://c17fwtplebg2s" path="res://Graphics/UI/Styleboxes/button_disabled.tres" id="8_mbr6s"]
+[ext_resource type="Texture2D" uid="uid://ceaajt25c2g5u" path="res://Graphics/UI/CharBuild/arrow_prev.png" id="8_qh8i2"]
+[ext_resource type="Texture2D" uid="uid://cb3lyltkkwgic" path="res://Graphics/UI/CharBuild/arrow_next.png" id="9_kym82"]
+
+[sub_resource type="Theme" id="Theme_gawdk"]
+default_font = ExtResource("4_cei1c")
+
+[sub_resource type="FontVariation" id="FontVariation_qh8i2"]
+base_font = ExtResource("4_cei1c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kym82"]
+texture = ExtResource("5_54pnx")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u7r4t"]
+
+[node name="CharBuildBlueprintSelector" type="Panel" unique_id=2013800458]
+offset_right = 88.0
+offset_bottom = 160.0
+theme_override_styles/panel = ExtResource("1_rg7r6")
+script = ExtResource("2_qsk21")
+SelectBlueprintButton = ExtResource("3_kym82")
+expand_programmatically = false
+metadata/_custom_type_script = "uid://uub1h1pdlop6"
+
+[node name="ButtonPrevList" type="Button" parent="." unique_id=344138621]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 144.0
+offset_right = 40.0
+offset_bottom = 152.0
+theme = SubResource("Theme_gawdk")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_qh8i2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_kym82")
+theme_override_styles/pressed = ExtResource("6_rm1uf")
+theme_override_styles/hover = ExtResource("7_srybt")
+theme_override_styles/disabled = ExtResource("8_mbr6s")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u7r4t")
+alignment = 0
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ButtonPrevList" unique_id=1725732824]
+position = Vector2(8, 0)
+texture = ExtResource("8_qh8i2")
+centered = false
+
+[node name="ButtonNextList" type="Button" parent="." unique_id=1211679973]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 144.0
+offset_right = 80.0
+offset_bottom = 152.0
+theme = SubResource("Theme_gawdk")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_qh8i2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_kym82")
+theme_override_styles/pressed = ExtResource("6_rm1uf")
+theme_override_styles/hover = ExtResource("7_srybt")
+theme_override_styles/disabled = ExtResource("8_mbr6s")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u7r4t")
+alignment = 0
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ButtonNextList" unique_id=723480069]
+position = Vector2(8, 0)
+texture = ExtResource("9_kym82")
+centered = false
+
+[connection signal="pressed" from="ButtonPrevList" to="." method="prevPage"]
+[connection signal="pressed" from="ButtonNextList" to="." method="nextPage"]

@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://ew05aou1d4qr"]
+
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="1_dx1pj"]
+[ext_resource type="StyleBox" uid="uid://bjwyl6qvpokso" path="res://Graphics/UI/Styleboxes/button_default.tres" id="1_rraxi"]
+[ext_resource type="Script" uid="uid://c5wnj6pxs2b1v" path="res://Scenes/Battle/UI/blueprint_action_button.gd" id="1_tgux2"]
+[ext_resource type="StyleBox" uid="uid://d38l8e77lf4dm" path="res://Graphics/UI/Styleboxes/button_pressed.tres" id="2_dx1pj"]
+[ext_resource type="StyleBox" uid="uid://c17fwtplebg2s" path="res://Graphics/UI/Styleboxes/button_disabled.tres" id="3_ek0wr"]
+[ext_resource type="StyleBox" uid="uid://dadsmlhik4wi2" path="res://Graphics/UI/Styleboxes/button_predecessors_only_default.tres" id="6_q6o8p"]
+[ext_resource type="StyleBox" uid="uid://c720am3wmhy2m" path="res://Graphics/UI/Styleboxes/button_predecessors_only_highlight.tres" id="7_pvaj2"]
+[ext_resource type="Texture2D" uid="uid://dl7c4cblj7er4" path="res://Graphics/UI/button_default.png" id="8_2676j"]
+[ext_resource type="StyleBox" uid="uid://0bxe55yohsmb" path="res://Graphics/UI/Styleboxes/button_hover.tres" id="9_kmose"]
+[ext_resource type="Texture2D" uid="uid://blbrri7rymcky" path="res://Graphics/UI/dropdown_selector.png" id="10_igie8"]
+
+[sub_resource type="Theme" id="Theme_q6o8p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vm01y"]
+bg_color = Color(0, 0, 0.6666667, 1)
+
+[sub_resource type="Theme" id="Theme_mcio8"]
+default_font = ExtResource("1_dx1pj")
+
+[sub_resource type="FontVariation" id="FontVariation_7jjky"]
+base_font = ExtResource("1_dx1pj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v2xy8"]
+texture = ExtResource("8_2676j")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d11rt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmose"]
+atlas = ExtResource("10_igie8")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igie8"]
+atlas = ExtResource("10_igie8")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mcio8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmose")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igie8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="BlueprintActionButton" type="Button" unique_id=607082603]
+offset_right = 80.0
+offset_bottom = 8.0
+theme = SubResource("Theme_q6o8p")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = ExtResource("1_dx1pj")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("1_rraxi")
+theme_override_styles/pressed = ExtResource("2_dx1pj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vm01y")
+theme_override_styles/disabled = ExtResource("3_ek0wr")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vm01y")
+text = " 1234567890 100 TP"
+alignment = 0
+script = ExtResource("1_tgux2")
+PredecessorOnlyDefault = ExtResource("6_q6o8p")
+PredecessorOnlyHighlight = ExtResource("7_pvaj2")
+
+[node name="PredecessorsDropdownButton" type="Button" parent="." unique_id=1590334848]
+layout_mode = 0
+offset_left = 80.0
+offset_right = 88.0
+offset_bottom = 8.0
+theme = SubResource("Theme_mcio8")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_7jjky")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_v2xy8")
+theme_override_styles/pressed = ExtResource("2_dx1pj")
+theme_override_styles/hover = ExtResource("9_kmose")
+theme_override_styles/disabled = ExtResource("3_ek0wr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d11rt")
+alignment = 0
+
+[node name="DropdownArrow" type="AnimatedSprite2D" parent="." unique_id=152791813]
+position = Vector2(80, 0)
+sprite_frames = SubResource("SpriteFrames_mcio8")
+autoplay = "default"
+centered = false
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="pressed" from="PredecessorsDropdownButton" to="." method="_on_predecessors_dropdown_button_pressed"]

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dflf7vsvxe5wq"]
+
+[ext_resource type="Script" uid="uid://cxi64mqcexy5i" path="res://Scenes/Battle/UI/party_status_display.gd" id="1_4jlp3"]
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="2_kulqj"]
+[ext_resource type="PackedScene" uid="uid://ccweh3o3p2qmv" path="res://Scenes/Battle/UI/PartyMemberStatusDisplay.tscn" id="3_kulqj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4jlp3"]
+line_spacing = 0.0
+font_size = 8
+
+[node name="PartyStatusDisplay" type="Node2D" unique_id=861670439]
+script = ExtResource("1_4jlp3")
+PartyMemberStatusDisplay = ExtResource("3_kulqj")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1817931928]
+offset_right = 320.0
+offset_bottom = 64.0
+color = Color(0, 0, 0, 1)
+
+[node name="Header" type="Label" parent="." unique_id=824783458]
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 304.0
+offset_bottom = 27.0
+theme_override_fonts/font = ExtResource("2_kulqj")
+theme_override_font_sizes/font_size = 8
+text = "                 HP        TP                    Status"
+label_settings = SubResource("LabelSettings_4jlp3")

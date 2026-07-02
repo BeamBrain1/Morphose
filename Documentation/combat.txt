@@ -1,0 +1,68 @@
+STATS
+	HP
+	Attack
+	Defense
+	Senses
+		Accuracy, crit chance
+	Speed
+		Turn frequency, evasion
+	Tech Points
+		Used to execute abilities
+	TP Gain
+		How many Tech Points are gained per turn
+
+STAT RANGES
+	HP/TP/TP Gain: 1-999
+	Others: 1-255
+
+TURN ORDER
+	At the beginning of every combat turn:
+		1. Add each character's speed +/- 25% to their stored "accumulated speed."
+		2. Find the character with the highest accumulated speed, breaking ties randomly. This character takes their turn.
+		3. The character who just took their turn gets their accumulated speed set to 0.
+		4. Repeat starting from step 1.
+	This allows for exceptionally fast characters to potentially take multiple consecutive turns.
+
+CALCULATIONS
+	Attack damage: (Attack stat + Ability damage) +/- 10% - Defense
+	Hit Chance: (90 + Attacker Senses - Defender Speed)%, minimum 10%
+	Crit Chance: (5 + (Attacker Senses - Defender Speed) / 2)%, minimum 1%
+	Crit Damage: x1.5 before defense reduction
+
+STATUS EFFECTS
+	MECHANICS
+		Status effects can stack.
+		Base chance 50% to remove 1 stack of each status (positive or negative) per turn.
+		Positive/negative counterpart statuses stack additively: ex. 3 Hardened/2 Acid has the same effect as 1 Hardened.
+		Max 5x stack.
+		Status effects can push stats above their caps during calculation step.
+	POSITIVE
+		Healing: +10% HP per turn per stack.
+		Sharpened: +20% Attack per stack.
+		Hardened: +20% Defense per stack.
+		Keen: +20% Senses per stack.
+		Energized: +20% Speed per stack.
+		Focused: +20% TP Gain per turn per stack.
+	NEGATIVE
+		Burning: -10% HP per turn per stack.
+		Tranqed: -20% Attack per stack.
+		Acid: -20% Defense per stack.
+		Blind: -20% Dexterity per stack.
+		Slimed: -20% Speed per stack.
+		Rage: -20% TP Gain per turn per stack.
+
+ABILITY TRAITS
+	OFFENSIVE
+		Damage: How much base damage the ability inflicts
+		Pierce: % of target Defense to ignore
+		Mental: Always hits and inflicts fixed damage, ignoring attack/defense
+		Multi-Hit: Hits target an indicated number of times per attack
+		Multi-Target: Hits all enemies
+		Status: Inflicts a given status with a given % chance
+	SUPPORT
+		Multi-Target: Affects all allies
+		Heal Amount: How much HP the ability restores +/- 10%
+		TP Restore Amount: How much TP the status restores +/- 10%
+		Status Cure: Cures a given status (or possibly all statuses)
+	PASSIVE
+		Status Resistance: Indicates resisted status and % resistance chance

@@ -1,0 +1,23 @@
+-Have a global singleton with all relevant game state data that would need to persist between scenes (party member stats, world location, event flags, etc.)
+-Menus: Build menu system as a list, where last menu in the list is the currently open submenu. Root menu system passes all user input to the last menu in the list. When an action closes a menu, pop it off of the list and make the next menu in line the active menu; if no menus remain, close menu interface
+-Scene Types
+--Maps
+--Menus
+--Interactables (Doors, chests, scripted battles, etc.)
+--Controllers
+---Main Menu
+---World Map
+---Battle
+---Character Builder
+---Ending
+---File I/O
+-In-engine cutscenes that happen during Map scenes. Will need scripting system.
+-Big question: How to handle blueprints?
+--Individual scene for each?
+--Generic "blueprint" class with customizable parameters? YES
+---Standardized types and attributes (e.g. halves defenses, multi-target)? YES
+---Subclasses for different types (attack, support, passive, etc.)? YES
+--Blueprints defined in text document
+---Separate entries with blank lines
+---Format per line is attribute:value
+---Unlisted attributes revert to default value

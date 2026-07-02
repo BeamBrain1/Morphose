@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://dx01ss867apo1"]
+
+[ext_resource type="Script" uid="uid://c2otqnoa3bwhr" path="res://Scenes/Battle/UI/battle_action_menu.gd" id="1_tfcwp"]
+[ext_resource type="PackedScene" uid="uid://bda7v8bwtfxne" path="res://Scenes/Battle/UI/BattleBlueprintSelector.tscn" id="2_hap72"]
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="2_prvpu"]
+[ext_resource type="StyleBox" uid="uid://d38l8e77lf4dm" path="res://Graphics/UI/Styleboxes/button_pressed.tres" id="3_hap72"]
+[ext_resource type="StyleBox" uid="uid://c17fwtplebg2s" path="res://Graphics/UI/Styleboxes/button_disabled.tres" id="4_adgct"]
+[ext_resource type="Texture2D" uid="uid://dl7c4cblj7er4" path="res://Graphics/UI/button_default.png" id="4_hap72"]
+[ext_resource type="StyleBox" uid="uid://0bxe55yohsmb" path="res://Graphics/UI/Styleboxes/button_hover.tres" id="6_hap72"]
+
+[sub_resource type="Theme" id="Theme_ui1bq"]
+default_font = ExtResource("2_prvpu")
+
+[sub_resource type="FontVariation" id="FontVariation_yeyaf"]
+base_font = ExtResource("2_prvpu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_adgct"]
+texture = ExtResource("4_hap72")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ui1bq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_065sh"]
+bg_color = Color(0.6666667, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wpgqy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10e6b"]
+bg_color = Color(0.6666667, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_10e6b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ui1bq"]
+bg_color = Color(0.6666667, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o007y"]
+
+[node name="BattleActionMenu" type="Node2D" unique_id=1542124744]
+script = ExtResource("1_tfcwp")
+BattleBlueprintSelector = ExtResource("2_hap72")
+
+[node name="WhiteSeparator" type="ColorRect" parent="." unique_id=314035111]
+offset_right = 320.0
+offset_bottom = 2.0
+
+[node name="WhiteSeparator2" type="ColorRect" parent="." unique_id=2140311865]
+offset_top = 22.0
+offset_right = 320.0
+offset_bottom = 24.0
+
+[node name="Buttons" type="Node2D" parent="." unique_id=2004047174]
+
+[node name="Attack" type="Button" parent="Buttons" unique_id=907771383]
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 16.0
+theme = SubResource("Theme_ui1bq")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_yeyaf")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_adgct")
+theme_override_styles/pressed = ExtResource("3_hap72")
+theme_override_styles/hover = ExtResource("6_hap72")
+theme_override_styles/disabled = ExtResource("4_adgct")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ui1bq")
+text = " ATTACK"
+alignment = 0
+
+[node name="Support" type="Button" parent="Buttons" unique_id=1889107261]
+offset_left = 96.0
+offset_top = 8.0
+offset_right = 144.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = ExtResource("2_prvpu")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_adgct")
+theme_override_styles/pressed = ExtResource("3_hap72")
+theme_override_styles/hover = ExtResource("6_hap72")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_065sh")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wpgqy")
+text = " SUPPORT"
+alignment = 0
+
+[node name="Wait" type="Button" parent="Buttons" unique_id=376728678]
+offset_left = 176.0
+offset_top = 8.0
+offset_right = 224.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = ExtResource("2_prvpu")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_adgct")
+theme_override_styles/pressed = ExtResource("3_hap72")
+theme_override_styles/hover = ExtResource("6_hap72")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_10e6b")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_10e6b")
+text = " WAIT"
+alignment = 0
+
+[node name="Run" type="Button" parent="Buttons" unique_id=34161306]
+offset_left = 256.0
+offset_top = 8.0
+offset_right = 304.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_prvpu")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_adgct")
+theme_override_styles/pressed = ExtResource("3_hap72")
+theme_override_styles/hover = ExtResource("6_hap72")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ui1bq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_o007y")
+text = " RUN"
+alignment = 0
+
+[connection signal="pressed" from="Buttons/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Buttons/Support" to="." method="_on_support_pressed"]
+[connection signal="pressed" from="Buttons/Wait" to="." method="_on_wait_pressed"]
+[connection signal="pressed" from="Buttons/Run" to="." method="_on_run_pressed"]

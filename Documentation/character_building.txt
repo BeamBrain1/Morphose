@@ -1,0 +1,13 @@
+STAT BOOSTING
+	The cost of boosting through bio-energy is as follows:
+		Boosting HP/TP always has a lower base cost than boosting other stats.
+		The base cost of boosting a given stat depends on the character.
+			For Primus, cheapest stats are Attack, Senses, Speed
+			For Defector, cheapest stats are HP, Attack, Defense
+			For Scholar, cheapest stats are HP, Tech Points, TP gain
+		Diminishing returns: As stat increases, cost per point to increase goes up as well
+
+BLUEPRINTS
+	Each genetic blueprint contains its "precursor" blueprints; e.g. installing Claw 3 on a party member also allows Claw 1 and Claw 2
+	Each blueprint has "compatibility" flags which indicate which party member(s) can use it. Some blueprints are useable by any party members, others only for certain ones.
+	Blueprints are copied, not equipped: a single blueprint can be installed for every compatible party member at once

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cuxhos122qym0"]
+
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="1_48cm8"]
+[ext_resource type="Script" uid="uid://mcycs12oui02" path="res://Scenes/Battle/UI/battle_message_display.gd" id="1_fk43i"]
+[ext_resource type="LabelSettings" uid="uid://btqhdajtvvrq1" path="res://Scenes/Global/UI/Configs/LabelDefault.tres" id="2_lpvuk"]
+
+[node name="BattleMessageDisplay" type="ColorRect" unique_id=1269281296]
+offset_top = 136.0
+offset_right = 320.0
+offset_bottom = 240.0
+color = Color(0, 0, 0.52156866, 1)
+script = ExtResource("1_fk43i")
+
+[node name="Text" type="Label" parent="." unique_id=51218243]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 11.0
+offset_right = 312.0
+offset_bottom = 64.0
+theme_override_fonts/font = ExtResource("1_48cm8")
+theme_override_font_sizes/font_size = 8
+text = "Battle messages"
+label_settings = ExtResource("2_lpvuk")
+autowrap_mode = 2
+
+[node name="DisplayDurationTimer" type="Timer" parent="." unique_id=1061475066]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="DisplayDurationTimer" to="." method="endMessageDisplay"]

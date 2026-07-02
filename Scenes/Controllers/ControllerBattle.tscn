@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://clas87yp6648t"]
+
+[ext_resource type="Script" uid="uid://c81e8g24jglxj" path="res://Scenes/Controllers/ControllerBattle.gd" id="1_xpctl"]
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="2_78gec"]
+[ext_resource type="StyleBox" uid="uid://d38l8e77lf4dm" path="res://Graphics/UI/Styleboxes/button_pressed.tres" id="4_cxpmc"]
+[ext_resource type="StyleBox" uid="uid://bjwyl6qvpokso" path="res://Graphics/UI/Styleboxes/button_default.tres" id="5_c6nqd"]
+[ext_resource type="PackedScene" uid="uid://dflf7vsvxe5wq" path="res://Scenes/Battle/UI/PartyStatusDisplay.tscn" id="6_gpcgo"]
+[ext_resource type="PackedScene" uid="uid://dx01ss867apo1" path="res://Scenes/Battle/UI/BattleActionMenu.tscn" id="7_e57gr"]
+[ext_resource type="PackedScene" uid="uid://babhdsnfnirth" path="res://Scenes/Battle/UI/EnemyDisplayGrid.tscn" id="8_78gec"]
+[ext_resource type="PackedScene" uid="uid://cuxhos122qym0" path="res://Scenes/Battle/UI/BattleMessageDisplay.tscn" id="8_spact"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdqo5"]
+bg_color = Color(0, 0, 0.6666667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ui1bq"]
+bg_color = Color(0.6666667, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o007y"]
+
+[node name="ControllerBattle" type="Node2D" unique_id=1891342347]
+script = ExtResource("1_xpctl")
+metadata/_custom_type_script = "uid://c6b3kksmaoyke"
+
+[node name="Background" type="ColorRect" parent="." unique_id=786671990]
+offset_right = 320.0
+offset_bottom = 240.0
+color = Color(0, 0, 0, 1)
+
+[node name="PrepareForNextBattleButton" type="Button" parent="." unique_id=1103267266]
+offset_left = 104.0
+offset_top = 64.0
+offset_right = 216.0
+offset_bottom = 89.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_78gec")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_pdqo5")
+theme_override_styles/pressed = ExtResource("4_cxpmc")
+theme_override_styles/hover = ExtResource("5_c6nqd")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ui1bq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_o007y")
+text = " Prepare For Next Battle"
+alignment = 0
+
+[node name="PartyStatusDisplay" parent="." unique_id=861670439 instance=ExtResource("6_gpcgo")]
+position = Vector2(0, 160)
+
+[node name="EnemyDisplayGrid" parent="." unique_id=1951764823 instance=ExtResource("8_78gec")]
+
+[node name="BattleActionMenu" parent="." unique_id=1542124744 instance=ExtResource("7_e57gr")]
+position = Vector2(0, 136)
+
+[node name="BattleMessageDisplay" parent="." unique_id=1269281296 instance=ExtResource("8_spact")]
+visible = false
+
+[connection signal="pressed" from="PrepareForNextBattleButton" to="." method="_on_prepare_for_next_battle_button_pressed"]
+[connection signal="select_as_support_target" from="PartyStatusDisplay" to="." method="_on_party_status_display_select_as_support_target"]
+[connection signal="combatant_selected" from="EnemyDisplayGrid" to="." method="selectEnemyAsAttackTarget"]
+[connection signal="attack" from="BattleActionMenu" to="." method="attackPressed"]
+[connection signal="choose_blueprint" from="BattleActionMenu" to="." method="blueprintSelected"]
+[connection signal="run" from="BattleActionMenu" to="." method="runPressed"]
+[connection signal="support" from="BattleActionMenu" to="." method="supportPressed"]
+[connection signal="wait" from="BattleActionMenu" to="." method="waitPressed"]

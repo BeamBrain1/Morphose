@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dkw5tagt7a2vj"]
+
+[ext_resource type="Script" uid="uid://c621us3w31in3" path="res://Scenes/Battle/UI/status_effect_display.gd" id="1_75bi6"]
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="1_ed582"]
+[ext_resource type="Texture2D" uid="uid://dtkjhve3b3fmn" path="res://Graphics/UI/Battle/status_icons.png" id="2_75bi6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ovuqp"]
+line_spacing = 0.0
+font = ExtResource("1_ed582")
+font_size = 8
+
+[node name="StatusEffectDisplay" type="Node2D" unique_id=35012509]
+script = ExtResource("1_75bi6")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=380671663]
+position = Vector2(8, 0)
+texture = ExtResource("2_75bi6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 8)
+
+[node name="Count" type="Label" parent="." unique_id=1101189509]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("1_ed582")
+theme_override_font_sizes/font_size = 8
+text = "1"
+label_settings = SubResource("LabelSettings_ovuqp")
+metadata/_edit_use_anchors_ = true

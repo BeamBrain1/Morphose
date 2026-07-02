@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bellyq4detmx8"]
+
+[ext_resource type="Script" uid="uid://b6hangsom2ney" path="res://Scenes/Global/UI/tab_header_list.gd" id="1_153mw"]
+
+[node name="TabHeaderList" type="Node2D" unique_id=1847180628]
+script = ExtResource("1_153mw")

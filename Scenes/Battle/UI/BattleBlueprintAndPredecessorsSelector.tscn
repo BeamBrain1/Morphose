@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bkb6hxoitxheo"]
+
+[ext_resource type="StyleBox" uid="uid://b8aqvyddpey1k" path="res://Graphics/UI/Styleboxes/dialog_box.tres" id="1_jgvcm"]
+[ext_resource type="Script" uid="uid://crw7snieqw2va" path="res://Scenes/Battle/UI/battle_blueprint_and_predecessors_selector.gd" id="2_snqw2"]
+[ext_resource type="PackedScene" uid="uid://ew05aou1d4qr" path="res://Scenes/Battle/UI/BlueprintActionButton.tscn" id="3_8s2ya"]
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="4_xpfld"]
+[ext_resource type="Texture2D" uid="uid://dl7c4cblj7er4" path="res://Graphics/UI/button_default.png" id="5_rhbqs"]
+[ext_resource type="StyleBox" uid="uid://0bxe55yohsmb" path="res://Graphics/UI/Styleboxes/button_hover.tres" id="6_jgvcm"]
+[ext_resource type="StyleBox" uid="uid://d38l8e77lf4dm" path="res://Graphics/UI/Styleboxes/button_pressed.tres" id="6_xbnp2"]
+[ext_resource type="StyleBox" uid="uid://bjwyl6qvpokso" path="res://Graphics/UI/Styleboxes/button_default.tres" id="7_pqtj6"]
+[ext_resource type="StyleBox" uid="uid://c17fwtplebg2s" path="res://Graphics/UI/Styleboxes/button_disabled.tres" id="8_qxh6g"]
+
+[sub_resource type="Theme" id="Theme_3jqfu"]
+default_font = ExtResource("4_xpfld")
+
+[sub_resource type="FontVariation" id="FontVariation_su4a0"]
+base_font = ExtResource("4_xpfld")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_su4a0"]
+texture = ExtResource("5_rhbqs")
+
+[node name="BattleBlueprintAndPredecessorsSelector" type="Panel" unique_id=2013800458]
+offset_right = 96.0
+offset_bottom = 24.0
+theme_override_styles/panel = ExtResource("1_jgvcm")
+script = ExtResource("2_snqw2")
+BlueprintActionButton = ExtResource("3_8s2ya")
+metadata/_custom_type_script = "uid://uub1h1pdlop6"
+
+[node name="ButtonCancel" type="Button" parent="." unique_id=1727399673]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 88.0
+offset_bottom = 16.0
+theme = SubResource("Theme_3jqfu")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_su4a0")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_su4a0")
+theme_override_styles/pressed = ExtResource("6_xbnp2")
+theme_override_styles/hover = ExtResource("6_jgvcm")
+theme_override_styles/disabled = ExtResource("8_qxh6g")
+theme_override_styles/focus = ExtResource("7_pqtj6")
+text = "       CANCEL"
+alignment = 0
+
+[connection signal="pressed" from="ButtonCancel" to="." method="cancelPressed"]

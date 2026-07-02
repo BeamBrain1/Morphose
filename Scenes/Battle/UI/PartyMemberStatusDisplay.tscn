@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://ccweh3o3p2qmv"]
+
+[ext_resource type="Script" uid="uid://0lr8ic5p80mr" path="res://Scenes/Battle/UI/party_member_status_display.gd" id="1_8cxyo"]
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="2_rjb1y"]
+[ext_resource type="Texture2D" uid="uid://dl7c4cblj7er4" path="res://Graphics/UI/button_default.png" id="3_8bjkl"]
+[ext_resource type="PackedScene" uid="uid://dkw5tagt7a2vj" path="res://Scenes/Battle/UI/StatusEffectDisplay.tscn" id="3_rjb1y"]
+[ext_resource type="StyleBox" uid="uid://d38l8e77lf4dm" path="res://Graphics/UI/Styleboxes/button_pressed.tres" id="4_cb4et"]
+[ext_resource type="StyleBox" uid="uid://c17fwtplebg2s" path="res://Graphics/UI/Styleboxes/button_disabled.tres" id="5_80qw4"]
+
+[sub_resource type="Theme" id="Theme_3ltow"]
+default_font = ExtResource("2_rjb1y")
+
+[sub_resource type="FontVariation" id="FontVariation_ro2se"]
+base_font = ExtResource("2_rjb1y")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n83kk"]
+texture = ExtResource("3_8bjkl")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkf3r"]
+bg_color = Color(0, 0, 0.6666667, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n6sxo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rjb1y"]
+line_spacing = 0.0
+font = ExtResource("2_rjb1y")
+font_size = 8
+shadow_size = 0
+
+[node name="PartyMemberStatusDisplay" type="Node2D" unique_id=1412300620]
+script = ExtResource("1_8cxyo")
+
+[node name="TurnIndicator" type="ColorRect" parent="." unique_id=1982427533]
+offset_left = 8.0
+offset_right = 64.0
+offset_bottom = 8.0
+color = Color(0, 0, 1, 0.6666667)
+
+[node name="ButtonSelectAsTarget" type="Button" parent="." unique_id=1361860635]
+offset_left = 8.0
+offset_right = 304.0
+offset_bottom = 8.0
+theme = SubResource("Theme_3ltow")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_ro2se")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_n83kk")
+theme_override_styles/pressed = ExtResource("4_cb4et")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lkf3r")
+theme_override_styles/disabled = ExtResource("5_80qw4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_n6sxo")
+alignment = 0
+
+[node name="Labels" type="Node2D" parent="." unique_id=1154566719]
+
+[node name="LabelName" type="Label" parent="Labels" unique_id=768870363]
+offset_left = 16.0
+offset_right = 64.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("2_rjb1y")
+theme_override_font_sizes/font_size = 8
+text = "1234567890"
+label_settings = SubResource("LabelSettings_rjb1y")
+
+[node name="LabelTP" type="Label" parent="Labels" unique_id=1575755908]
+offset_left = 104.0
+offset_right = 132.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("2_rjb1y")
+theme_override_font_sizes/font_size = 8
+text = "123/123"
+label_settings = SubResource("LabelSettings_rjb1y")
+
+[node name="LabelHP" type="Label" parent="Labels" unique_id=467035140]
+offset_left = 72.0
+offset_right = 100.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("2_rjb1y")
+theme_override_font_sizes/font_size = 8
+text = "123/123"
+label_settings = SubResource("LabelSettings_rjb1y")
+
+[node name="LabelTPRegen" type="Label" parent="Labels" unique_id=312405505]
+offset_left = 136.0
+offset_right = 160.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("2_rjb1y")
+theme_override_font_sizes/font_size = 8
+text = "(+123)"
+label_settings = SubResource("LabelSettings_rjb1y")
+
+[node name="RegenDisplay" parent="." unique_id=35012509 instance=ExtResource("3_rjb1y")]
+position = Vector2(208, 0)
+
+[node name="SharpenedDisplay" parent="." unique_id=84644371 instance=ExtResource("3_rjb1y")]
+position = Vector2(240, 0)
+display_effect = 1
+
+[node name="HardenedDisplay" parent="." unique_id=1065555317 instance=ExtResource("3_rjb1y")]
+position = Vector2(256, 0)
+display_effect = 2
+
+[node name="KeenDisplay" parent="." unique_id=999606513 instance=ExtResource("3_rjb1y")]
+position = Vector2(272, 0)
+display_effect = 3
+
+[node name="EnergizedDisplay" parent="." unique_id=1051008116 instance=ExtResource("3_rjb1y")]
+position = Vector2(288, 0)
+display_effect = 4
+
+[node name="FocusedDisplay" parent="." unique_id=905643079 instance=ExtResource("3_rjb1y")]
+position = Vector2(224, 0)
+display_effect = 5
+
+[connection signal="pressed" from="ButtonSelectAsTarget" to="." method="_on_button_select_as_target_pressed"]

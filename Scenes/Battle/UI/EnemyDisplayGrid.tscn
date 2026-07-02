@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://babhdsnfnirth"]
+
+[ext_resource type="Script" uid="uid://civ7tu2lqgjuh" path="res://Scenes/Battle/UI/enemy_display_grid.gd" id="1_303m2"]
+[ext_resource type="PackedScene" uid="uid://ssie3f4v1ma1" path="res://Scenes/Battle/UI/EnemyDisplay.tscn" id="2_mfrul"]
+
+[node name="EnemyDisplayGrid" type="Node2D" unique_id=1951764823]
+script = ExtResource("1_303m2")
+EnemyStatusDisplay = ExtResource("2_mfrul")
