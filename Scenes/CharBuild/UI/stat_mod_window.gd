@@ -1,19 +1,19 @@
 class_name StatModWindow
 extends Node2D
 
-@export var assigned_stat: PartyMember.MODDABLE_STAT
+@export var assigned_stat: GlobalProgramData.COMBAT_STAT
 
 var party_member: PartyMember
 
 signal update_bio_energy
 
 var stat_name_map: Dictionary = {
-	PartyMember.MODDABLE_STAT.HP: "Hit Points",
-	PartyMember.MODDABLE_STAT.TECH_POINTS: "Tech Points",
-	PartyMember.MODDABLE_STAT.ATTACK: "Attack",
-	PartyMember.MODDABLE_STAT.DEFENSE: "Defense",
-	PartyMember.MODDABLE_STAT.SPEED: "Speed",
-	PartyMember.MODDABLE_STAT.SENSES: "Senses"
+	GlobalProgramData.COMBAT_STAT.HP: "Hit Points",
+	GlobalProgramData.COMBAT_STAT.TECH_POINTS: "Tech Points",
+	GlobalProgramData.COMBAT_STAT.ATTACK: "Attack",
+	GlobalProgramData.COMBAT_STAT.DEFENSE: "Defense",
+	GlobalProgramData.COMBAT_STAT.SPEED: "Speed",
+	GlobalProgramData.COMBAT_STAT.SENSES: "Senses"
 }
 
 
@@ -33,17 +33,17 @@ func updateDisplay() -> void:
 
 
 func setStatDisplay() -> void:
-	if assigned_stat == PartyMember.MODDABLE_STAT.HP:
+	if assigned_stat == GlobalProgramData.COMBAT_STAT.HP:
 		$Value.text = str(party_member.hp)
-	elif assigned_stat == PartyMember.MODDABLE_STAT.TECH_POINTS:
+	elif assigned_stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
 		$Value.text = str(party_member.tech_points)
-	elif assigned_stat == PartyMember.MODDABLE_STAT.ATTACK:
+	elif assigned_stat == GlobalProgramData.COMBAT_STAT.ATTACK:
 		$Value.text = str(party_member.attack)
-	elif assigned_stat == PartyMember.MODDABLE_STAT.DEFENSE:
+	elif assigned_stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
 		$Value.text = str(party_member.defense)
-	elif assigned_stat == PartyMember.MODDABLE_STAT.SPEED:
+	elif assigned_stat == GlobalProgramData.COMBAT_STAT.SPEED:
 		$Value.text = str(party_member.speed)
-	elif assigned_stat == PartyMember.MODDABLE_STAT.SENSES:
+	elif assigned_stat == GlobalProgramData.COMBAT_STAT.SENSES:
 		$Value.text = str(party_member.senses)
 
 

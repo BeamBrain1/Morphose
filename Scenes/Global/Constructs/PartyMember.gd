@@ -1,7 +1,5 @@
 class_name PartyMember
 
-enum MODDABLE_STAT {HP, ATTACK, DEFENSE, SENSES, SPEED, TECH_POINTS}
-
 const PARTY_MEMBER_1_NAME: String = "Primus"
 const PARTY_MEMBER_2_NAME: String = "Defector"
 const PARTY_MEMBER_3_NAME: String = "Scholar"
@@ -14,23 +12,23 @@ const STAT_CAP: int = 255
 const STAT_MINIMUM: int = 1
 
 var name: String = "[NO DATA]"
-var hp: int = 1
-var attack: int = 1
-var defense: int = 1
-var senses: int = 1
-var speed: int = 1
-var tech_points: int = 1
+var hp: int = HP_MINIMUM
+var attack: int = STAT_MINIMUM
+var defense: int = STAT_MINIMUM
+var senses: int = STAT_MINIMUM
+var speed: int = STAT_MINIMUM
+var tech_points: int = TP_MINIMUM
 var bio_energy: int = 0		# Unspent bio-energy
 
 var blueprints_attack: Array[BlueprintAttack] = []
 var blueprints_support: Array[BlueprintSupport] = []
 var blueprints_passive: Array[BlueprintPassive] = []
 
-var discounted_stats: Array[MODDABLE_STAT] = [] # Discounted stats are cheaper to upgrade than base cost
+var discounted_stats: Array[GlobalProgramData.COMBAT_STAT] = [] # Discounted stats are cheaper to upgrade than base cost
 
 
 # Cost in bio-energy to boost a stat were it a given value
-func costToBoostStatForValue(stat: MODDABLE_STAT, value: int) -> int:
+func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) -> int:
 	
 	var result: int = value
 	
@@ -41,7 +39,7 @@ func costToBoostStatForValue(stat: MODDABLE_STAT, value: int) -> int:
 		result = result >> 1
 	
 	# HP/TP cost 25% to boost
-	if stat in [MODDABLE_STAT.HP, MODDABLE_STAT.TECH_POINTS]:
+	if stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
 		result = result >> 2
 	
 	# Round up for scaling - small change that stops it from getting out of hand
@@ -52,11 +50,11 @@ func costToBoostStatForValue(stat: MODDABLE_STAT, value: int) -> int:
 
 
 # Cost in bio-energy to boost a given stat by 1 point from its current value
-func costToBoostStatByOne(stat: MODDABLE_STAT) -> int:
+func costToBoostStatByOne(stat: GlobalProgramData.COMBAT_STAT) -> int:
 	return costToBoostStatForValue(stat, getStatFromEnumType(stat))
 
 
-func costToBoostStatBy(stat: MODDABLE_STAT, amount: int) -> int:
+func costToBoostStatBy(stat: GlobalProgramData.COMBAT_STAT, amount: int) -> int:
 	
 	var result: int = 0
 	
@@ -66,72 +64,72 @@ func costToBoostStatBy(stat: MODDABLE_STAT, amount: int) -> int:
 	return result
 
 
-func getStatFromEnumType(stat: MODDABLE_STAT) -> int:
-	if stat == MODDABLE_STAT.HP:
+func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
+	if stat == GlobalProgramData.COMBAT_STAT.HP:
 		return hp
-	if stat == MODDABLE_STAT.ATTACK:
+	if stat == GlobalProgramData.COMBAT_STAT.ATTACK:
 		return attack
-	if stat == MODDABLE_STAT.DEFENSE:
+	if stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
 		return defense
-	if stat == MODDABLE_STAT.SENSES:
+	if stat == GlobalProgramData.COMBAT_STAT.SENSES:
 		return senses
-	if stat == MODDABLE_STAT.SPEED:
+	if stat == GlobalProgramData.COMBAT_STAT.SPEED:
 		return speed
-	if stat == MODDABLE_STAT.TECH_POINTS:
+	if stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
 		return tech_points
 	push_error("Unrecognized stat: " + str(stat))
 	return 0
 
 
-func setStatFromEnumType(stat: MODDABLE_STAT, value: int) -> void:
-	if stat == MODDABLE_STAT.HP:
+func setStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT, value: int) -> void:
+	if stat == GlobalProgramData.COMBAT_STAT.HP:
 		hp = clampi(value, HP_MINIMUM, HP_CAP)
-	elif stat == MODDABLE_STAT.ATTACK:
+	elif stat == GlobalProgramData.COMBAT_STAT.ATTACK:
 		attack = clampi(value, STAT_MINIMUM, STAT_CAP)
-	elif stat == MODDABLE_STAT.DEFENSE:
+	elif stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
 		defense = clampi(value, STAT_MINIMUM, STAT_CAP)
-	elif stat == MODDABLE_STAT.SENSES:
+	elif stat == GlobalProgramData.COMBAT_STAT.SENSES:
 		senses = clampi(value, STAT_MINIMUM, STAT_CAP)
-	elif stat == MODDABLE_STAT.SPEED:
+	elif stat == GlobalProgramData.COMBAT_STAT.SPEED:
 		speed = clampi(value, STAT_MINIMUM, STAT_CAP)
-	elif stat == MODDABLE_STAT.TECH_POINTS:
+	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
 		tech_points = clampi(value, TP_MINIMUM, TP_CAP)
 	else:
 		push_error("Unrecognized status type: " + str(stat))
 
 
-func getStatMinimumFromEnumType(stat: MODDABLE_STAT) -> int:
-	if stat == MODDABLE_STAT.HP:
+func getStatMinimumFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
+	if stat == GlobalProgramData.COMBAT_STAT.HP:
 		return HP_MINIMUM
-	elif stat == MODDABLE_STAT.TECH_POINTS:
+	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
 		return TP_MINIMUM
 	else:
 		return STAT_MINIMUM
 
 
-func getStatMaximumFromEnumType(stat: MODDABLE_STAT) -> int:
-	if stat == MODDABLE_STAT.HP:
+func getStatMaximumFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
+	if stat == GlobalProgramData.COMBAT_STAT.HP:
 		return HP_CAP
-	elif stat == MODDABLE_STAT.TECH_POINTS:
+	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
 		return TP_CAP
 	else:
 		return STAT_CAP
 
 
-func canIncreaseStat(stat: MODDABLE_STAT) -> bool:
+func canIncreaseStat(stat: GlobalProgramData.COMBAT_STAT) -> bool:
 	return bio_energy >= costToBoostStatByOne(stat) and getStatFromEnumType(stat) < getStatMaximumFromEnumType(stat)
 
 
-func canDecreaseStat(stat: MODDABLE_STAT) -> bool:
+func canDecreaseStat(stat: GlobalProgramData.COMBAT_STAT) -> bool:
 	return getStatFromEnumType(stat) > getStatMinimumFromEnumType(stat)
 
 
-func statPlusOne(stat: MODDABLE_STAT) -> void:
+func statPlusOne(stat: GlobalProgramData.COMBAT_STAT) -> void:
 	bio_energy -= costToBoostStatByOne(stat)
 	setStatFromEnumType(stat, getStatFromEnumType(stat) + 1)
 
 
-func statMinusOne(stat: MODDABLE_STAT) -> void:
+func statMinusOne(stat: GlobalProgramData.COMBAT_STAT) -> void:
 	setStatFromEnumType(stat, getStatFromEnumType(stat) - 1)
 	bio_energy += costToBoostStatByOne(stat)
 
@@ -140,7 +138,7 @@ func statMinusOne(stat: MODDABLE_STAT) -> void:
 func liquidateBioEnergy() -> void:
 	
 	# Set stats to minimum values
-	for stat in [MODDABLE_STAT.HP, MODDABLE_STAT.ATTACK, MODDABLE_STAT.DEFENSE, MODDABLE_STAT.SENSES, MODDABLE_STAT.SPEED, MODDABLE_STAT.TECH_POINTS]:
+	for stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE, GlobalProgramData.COMBAT_STAT.SENSES, GlobalProgramData.COMBAT_STAT.SPEED, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
 		while getStatFromEnumType(stat) > getStatMinimumFromEnumType(stat):
 			statMinusOne(stat)
 

@@ -286,21 +286,24 @@ func buildPlayerCharacters() -> void:
 func buildEnemies() -> void:
 	
 	var result: Array[EnemyCombatant] = []
+	var enemies_with_base_name: Dictionary = {}
 	
-	for i in range(4):
-		var combatant: EnemyCombatant = EnemyCombatant.new()
-		combatant.name = "Worker" + str(i)
-		combatant.setInitialHP(25)
-		combatant.setInitialTP(15)
-		combatant.attack = 5
-		combatant.defense = 6
-		combatant.senses = 4
-		combatant.speed = 8
-		combatant.giveBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1))
-		combatant.giveBlueprint(Blueprint.getBlueprintFromGlobalList("Enrage", 1))
+	var encounter_enemy_list = EncounterTable.getEncounterAtIndex(ActiveSaveData.current_battle)
+	
+	# If more than 1 enemy of a given type, update name to reflect this
+	for enemy_type in encounter_enemy_list:
+		var combatant = EnemyCombatant.new(enemy_type)
+		if enemies_with_base_name.has(enemy_type.name):
+			enemies_with_base_name[enemy_type.name] += 1
+			combatant.name += " " + str(enemies_with_base_name[enemy_type.name])
+		else:
+			enemies_with_base_name[enemy_type.name] = 1
 		result.append(combatant)
 	
 	$EnemyDisplayGrid.assignEnemyStatusDisplaysFromList(result)
+
+
+
 
 
 func updateCombatantStatusDisplays() -> void:

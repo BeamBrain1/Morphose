@@ -50,7 +50,7 @@ func loadStartingPartyMembers() -> void:
 	c2.senses = PartyMember.STAT_MINIMUM
 	c2.speed = PartyMember.STAT_MINIMUM
 	c2.bio_energy = STARTING_BIO_ENERGY
-	c2.discounted_stats = [PartyMember.MODDABLE_STAT.HP, PartyMember.MODDABLE_STAT.ATTACK, PartyMember.MODDABLE_STAT.DEFENSE]
+	c2.discounted_stats = [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE]
 
 	c2.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 	
@@ -63,7 +63,7 @@ func loadStartingPartyMembers() -> void:
 	c3.senses = PartyMember.STAT_MINIMUM
 	c3.speed = PartyMember.STAT_MINIMUM
 	c3.bio_energy = STARTING_BIO_ENERGY
-	c3.discounted_stats = [PartyMember.MODDABLE_STAT.HP, PartyMember.MODDABLE_STAT.TECH_POINTS, PartyMember.MODDABLE_STAT.SENSES]
+	c3.discounted_stats = [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS, GlobalProgramData.COMBAT_STAT.SENSES]
 
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 
