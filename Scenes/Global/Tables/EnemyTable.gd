@@ -14,7 +14,7 @@ static func buildEnemyList() -> void:
 	var worker = EnemyType.new()
 	worker.name = "Worker"
 	worker.hp = 20
-	worker.tp = 10
+	worker.tech_points = 10
 	worker.attack = 5
 	worker.defense = 6
 	worker.senses = 4

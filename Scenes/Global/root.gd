@@ -4,7 +4,7 @@ var active_controller
 
 const CONTROLLER_DIRECTORY_AND_PREFIX = "res://Scenes/Controllers/Controller"
 
-const STARTING_BIO_ENERGY: int = 20000
+const STARTING_BIO_ENERGY: int = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -37,7 +37,7 @@ func loadStartingPartyMembers() -> void:
 	c1.senses = PartyMember.STAT_MINIMUM
 	c1.speed = PartyMember.STAT_MINIMUM
 	c1.bio_energy = STARTING_BIO_ENERGY
-	c1.discounted_stats = [PartyMember.MODDABLE_STAT.ATTACK, PartyMember.MODDABLE_STAT.SPEED, PartyMember.MODDABLE_STAT.SENSES]
+	c1.discounted_stats = [GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.SPEED, GlobalProgramData.COMBAT_STAT.SENSES]
 	
 	c1.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 

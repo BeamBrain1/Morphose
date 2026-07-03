@@ -25,6 +25,7 @@ func displayMessages(remain_until_cleared: bool = false) -> void:
 	while not battle_messages.is_empty():
 		$Text.text += battle_messages.pop_front() + "\n"
 	show()
+	await get_tree().create_timer(0.1).timeout
 	if not remain_until_cleared:
 		$DisplayDurationTimer.start()
 
