@@ -29,7 +29,9 @@ func getBioEnergyReward() -> int:
 	for stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE, GlobalProgramData.COMBAT_STAT.SENSES, GlobalProgramData.COMBAT_STAT.SPEED, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
 		result += getStatBioEnergyValue(stat)
 	
-	return maxi(1, ceili(float(result) / 2))
+	
+	return maxi(1, ceili(float(result)))	# Temporary formula for current build
+	#return maxi(1, ceili(float(result)) / 4)
 
 
 func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
