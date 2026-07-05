@@ -8,7 +8,7 @@ const HP_CAP: int = 999
 const HP_MINIMUM: int = 10
 const TP_MINIMUM: int = 5
 const TP_CAP: int = 999
-const STAT_CAP: int = 255
+const STAT_CAP: int = 250
 const STAT_MINIMUM: int = 1
 
 var name: String = "[NO DATA]"

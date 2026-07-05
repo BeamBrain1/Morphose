@@ -14,6 +14,8 @@ var selected_action: Combatant.ACTION
 var selected_blueprint
 var selected_target
 
+var party_ran: bool = false		# Party running results in immediate combat loss. Avoids softlocks
+
 func _ready() -> void:
 	initializeTestFight()
 	mainLoop()
@@ -98,6 +100,7 @@ func displayAndRunChosenAction(actor, action: Combatant.ACTION, blueprint = null
 		pushCombatantBattleMessages(actor)
 	elif action == Combatant.ACTION.RUN:
 		actor.run()
+		party_ran = true
 		pushCombatantBattleMessages(actor)
 	elif action == Combatant.ACTION.BLUEPRINT:
 		if blueprint.multitarget:
@@ -170,10 +173,11 @@ func applyAttack(user, blueprint: BlueprintAttack, target) -> void:
 	for hit in range(blueprint.num_hits):
 		if attackHits(user, blueprint, target):
 			var raw_damage: int = user.rawAttackDamage(blueprint)
-			if attackCrits(user, blueprint, target):
+			var crit = attackCrits(user, blueprint, target)
+			if crit:
 				raw_damage *= 2
 				$BattleMessageDisplay.pushBattleMessage("Critical hit!")
-			target.receiveAttack(blueprint, raw_damage)
+			target.receiveAttack(blueprint, raw_damage, crit)
 			pushCombatantBattleMessages(target)
 		else:
 			$BattleMessageDisplay.pushBattleMessage("Missed!")
@@ -193,7 +197,7 @@ func attackHits(user, blueprint: BlueprintAttack, target) -> bool:
 
 
 func attackCrits(user, blueprint: BlueprintAttack, target) -> bool:
-	if blueprint.always_hit or blueprint.damageless:
+	if blueprint.always_hit:
 		return false
 	var crit_rate = clampi(user.rawCritRate(blueprint) - target.critEvasion(), MIN_CRIT, MAX_CRIT)
 	return randi() % 100 < crit_rate
@@ -201,6 +205,8 @@ func attackCrits(user, blueprint: BlueprintAttack, target) -> bool:
 
 # Party is defeated when all members dead
 func isPartyDefeated() -> bool:
+	if party_ran:
+		return true
 	for morphose in $PartyStatusDisplay.getPlayerCombatants():
 		if not morphose.isDefeated():
 			return false
@@ -216,7 +222,7 @@ func allEnemiesDefeated() -> bool:
 
 
 func isBattleOver() -> bool:
-	return isPartyDefeated() or allEnemiesDefeated()
+	return isPartyDefeated() or allEnemiesDefeated() or party_ran
 
 
 # Returns Morphose who will act next
@@ -395,7 +401,7 @@ func victoryMuta() -> int:
 
 # Muta player gets per party member even if they lose
 func consolationMuta() -> int:
-	return 25 * (ActiveSaveData.current_battle + 1)
+	return ceili(victoryMuta() / 4)
 
 
 func _on_prepare_for_next_battle_button_pressed() -> void:

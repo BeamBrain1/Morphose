@@ -30,7 +30,7 @@ func getBioEnergyReward() -> int:
 		result += getStatBioEnergyValue(stat)
 	
 	
-	return maxi(1, ceili(float(result)))	# Temporary formula for current build
+	return maxi(1, ceili(float(result)) / 2)	# Temporary formula for current build
 	#return maxi(1, ceili(float(result)) / 4)
 
 

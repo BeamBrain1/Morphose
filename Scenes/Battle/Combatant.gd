@@ -118,8 +118,9 @@ func getStatusEffectAdjustedSenses() -> int:
 	return floori(senses * (1 + keen_stacks * 0.2))
 
 
+# Speed status effects slightly weaker because of speed's importance to action economy
 func getStatusEffectAdjustedSpeed() -> int:
-	return floori(speed * (1 + energized_stacks * 0.2))
+	return floori(speed * (1 + energized_stacks * 0.15))
 
 
 func getStatusEffectAdjustedTPRegen() -> int:
@@ -344,7 +345,8 @@ func generateAccumulatedSpeed() -> void:
 	var random_factor: int = randi() % random_range
 	if randi() % 2 == 0:
 		random_factor *= -1
-	accumulated_speed += maxi(1, getStatusEffectAdjustedSpeed() + random_factor)
+	# Base value of 10 ensures speed doesn't completely dominate in early game
+	accumulated_speed += 10 + getStatusEffectAdjustedSpeed() + random_factor
 
 
 # If Morphose defeated, clear all status effects
@@ -415,7 +417,7 @@ func rawAttackDamage(blueprint: BlueprintAttack) -> int:
 	return base_damage + random_damage
 
 
-func receiveAttack(blueprint: BlueprintAttack, raw_damage: int) -> void:
+func receiveAttack(blueprint: BlueprintAttack, raw_damage: int, crit: bool = false) -> void:
 
 	if not blueprint.damageless:
 		var damage_amt: int = raw_damage
@@ -423,13 +425,31 @@ func receiveAttack(blueprint: BlueprintAttack, raw_damage: int) -> void:
 			damage_amt -= getStatusEffectAdjustedDefense()
 		damage(damage_amt)
 	
+	
+	
 	if not isDefeated():
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * blueprint.burning)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * blueprint.tranqed)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * blueprint.acid)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * blueprint.blind)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * blueprint.slimed)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * blueprint.rage)
+		if crit:
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * critAdjustedStatusValue(blueprint.burning))
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * critAdjustedStatusValue(blueprint.tranqed))
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * critAdjustedStatusValue(blueprint.acid))
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * critAdjustedStatusValue(blueprint.blind))
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * critAdjustedStatusValue(blueprint.slimed))
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * critAdjustedStatusValue(blueprint.rage))
+		else:
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * blueprint.burning)
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * blueprint.tranqed)
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * blueprint.acid)
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * blueprint.blind)
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * blueprint.slimed)
+			adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * blueprint.rage)
+
+
+# Status effect crits deal 1 additional level of the status effect
+func critAdjustedStatusValue(value_in: int) -> int:
+	# If attack does not apply status effect to begin with, don't 
+	if value_in == 0:
+		return 0
+	return value_in + 1
 
 
 # self_applied: Is the combatant applying this support to themselves?
@@ -571,7 +591,7 @@ func wait() -> void:
 
 
 func run() -> void:
-	pushBattleMessage(name + " waits, because running isn't implemented yet.")
+	pushBattleMessage("The party runs away.")
 
 
 func isValidSupportTarget(blueprint: BlueprintSupport) -> bool:

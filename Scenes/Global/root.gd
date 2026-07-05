@@ -60,7 +60,7 @@ func loadStartingPartyMembers() -> void:
 	c3.tech_points = PartyMember.TP_MINIMUM
 	c3.attack = PartyMember.STAT_MINIMUM
 	c3.defense = PartyMember.STAT_MINIMUM
-	c3.senses = PartyMember.STAT_MINIMUM
+	c3.senses = 200
 	c3.speed = PartyMember.STAT_MINIMUM
 	c3.bio_energy = STARTING_BIO_ENERGY
 	c3.discounted_stats = [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS, GlobalProgramData.COMBAT_STAT.SENSES]
