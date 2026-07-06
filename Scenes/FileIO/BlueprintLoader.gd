@@ -142,8 +142,10 @@ static func assignBlueprintAttribute(blueprint, key: String, value: String) -> v
 			return
 		elif key_upper == "REVIVES":
 			blueprint.can_revive = valueIsTrue(blueprint, key, value)
+			return
 		elif key_upper == "SELF_TARGET_ONLY":
 			blueprint.self_target_only = valueIsTrue(blueprint, key, value)
+			return
 		elif key_upper == "REGEN":
 			blueprint.regen = int(value)
 			return
