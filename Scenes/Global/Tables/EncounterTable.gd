@@ -16,7 +16,11 @@ static func buildEncounterList() -> void:
 	table.append([enemy("Boss")])
 	table.append([enemy("Hunter"), enemy("Hunter")])
 	table.append([enemy("Darter"), enemy("Shellon")])
-	table.append([enemy("Hunter"), enemy("Darter"), enemy("Darter")])
+	table.append([enemy("Hunter"), enemy("Darter"), enemy("Shellon")])
+	table.append([enemy("Pyroid"), enemy("Pyroid")])
+	table.append([enemy("Brute"), enemy("Brute")])
+	table.append([enemy("Pyroid"), enemy("Brute"), enemy("Pyroid")])
+	table.append([enemy("Pyroid"), enemy("Gang Boss"), enemy("Brute")])
 
 
 # Returns encounter at index

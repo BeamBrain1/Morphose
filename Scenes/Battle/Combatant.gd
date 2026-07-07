@@ -107,24 +107,23 @@ func getStatusEffectFromEnumType(effect: STATUS_EFFECT) -> int:
 
 
 func getStatusEffectAdjustedAttack() -> int:
-	return floori(attack * (1 + sharpened_stacks * 0.2))
+	return floori(attack * (1 + sharpened_stacks * 0.15))
 
 
 func getStatusEffectAdjustedDefense() -> int:
-	return floori(defense * (1 + hardened_stacks * 0.2))
+	return floori(defense * (1 + hardened_stacks * 0.15))
 
 
 func getStatusEffectAdjustedSenses() -> int:
-	return floori(senses * (1 + keen_stacks * 0.2))
+	return floori(senses * (1 + keen_stacks * 0.15))
 
 
-# Speed status effects slightly weaker because of speed's importance to action economy
 func getStatusEffectAdjustedSpeed() -> int:
 	return floori(speed * (1 + energized_stacks * 0.15))
 
 
 func getStatusEffectAdjustedTPRegen() -> int:
-	return maxi(0, ceili((0.2 * focused_stacks + 1) * getBaseTPRegen()))
+	return maxi(0, ceili((0.15 * focused_stacks + 1) * getBaseTPRegen()))
 
 
 func getBaseTPRegen() -> int:
