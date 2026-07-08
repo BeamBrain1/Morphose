@@ -15,6 +15,7 @@ var selected_blueprint
 var selected_target
 
 var party_ran: bool = false		# Party running results in immediate combat loss. Avoids softlocks
+var battle_won: bool = false
 
 func _ready() -> void:
 	initializeTestFight()
@@ -67,6 +68,7 @@ func mainLoop():
 func battleLost() -> void:
 	$BattleMessageDisplay.pushBattleMessage("You lose! All party members have been given " + str(consolationMuta()) + " Muta. Build them up and try again!")
 	ActiveSaveData.awardMuta(consolationMuta())
+	battle_won = false
 	await showBattleMessages(true)
 
 
@@ -75,6 +77,7 @@ func battleWon() -> void:
 	$BattleMessageDisplay.pushBattleMessage("You win!\nReceived " + str(victoryMuta()) + " Muta. Build your party up for the next battle!")
 	ActiveSaveData.awardMuta(victoryMuta())
 	ActiveSaveData.current_battle += 1
+	battle_won = true
 	await showBattleMessages(true)
 
 
@@ -405,4 +408,4 @@ func consolationMuta() -> int:
 
 
 func _on_prepare_for_next_battle_button_pressed() -> void:
-	root.setActiveController("BuildCharacter")
+	root.toCharacterBuildScreen(battle_won)

@@ -14,11 +14,11 @@ static func buildEnemyList() -> void:
 	var current_enemy = EnemyType.new()
 	current_enemy.name = "Worker"
 	current_enemy.hp = 10
-	current_enemy.tech_points = 10
+	current_enemy.tech_points = 8
 	current_enemy.attack = 5
 	current_enemy.defense = 6
 	current_enemy.senses = 4
-	current_enemy.speed = 8
+	current_enemy.speed = 5
 	current_enemy.giveBlueprintByNameAndTier("Claw", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -78,11 +78,11 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Pyroid"
 	current_enemy.hp = 70
 	current_enemy.tech_points = 25
-	current_enemy.attack = 20
+	current_enemy.attack = 10
 	current_enemy.defense = 12
-	current_enemy.senses = 15
-	current_enemy.speed = 18
-	current_enemy.giveBlueprintByNameAndTier("Flame Jet", 1)
+	current_enemy.senses = 18
+	current_enemy.speed = 24
+	current_enemy.giveBlueprintByNameAndTier("Flamejet", 1)
 	current_enemy.giveBlueprintByNameAndTier("Napalm", 1)
 	addEnemyToTable(current_enemy)
 	

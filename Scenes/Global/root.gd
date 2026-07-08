@@ -19,12 +19,24 @@ func _process(delta: float) -> void:
 	pass
 
 
-func setActiveController(controller: String) -> void:
+func setActiveController(controller: String) -> void:	
 	if active_controller != null:
 		active_controller.call_deferred("queue_free")
 	active_controller = load(CONTROLLER_DIRECTORY_AND_PREFIX + controller + ".tscn").instantiate()
 	active_controller.root = self
 	add_child(active_controller)
+
+
+# won_previous: Did we win a previous battle? Used to determine whether to add a new party member
+#	(a party member only gets added the first time we prep for a specific battle number
+func toCharacterBuildScreen(won_previous = false):
+	if won_previous:
+		if ActiveSaveData.current_battle == GlobalProgramData.ADD_DEFECTOR_AFTER_BATTLE:
+			addDefector()
+		if ActiveSaveData.current_battle == GlobalProgramData.ADD_SCHOLAR_AFTER_BATTLE:
+			addScholar()
+
+	setActiveController("BuildCharacter")
 
 
 func loadStartingPartyMembers() -> void:
@@ -41,34 +53,43 @@ func loadStartingPartyMembers() -> void:
 	
 	c1.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 
+	ActiveSaveData.addPartyMember(c1)
+	#ActiveSaveData.addPartyMember(c2)
+	#ActiveSaveData.addPartyMember(c3)
+
+
+func addDefector():
 	var c2: PartyMember = PartyMember.new()
 	c2.name = PartyMember.PARTY_MEMBER_2_NAME
-	c2.hp = PartyMember.HP_MINIMUM
-	c2.tech_points = PartyMember.TP_MINIMUM
-	c2.attack = PartyMember.STAT_MINIMUM
-	c2.defense = PartyMember.STAT_MINIMUM
-	c2.senses = PartyMember.STAT_MINIMUM
-	c2.speed = PartyMember.STAT_MINIMUM
-	c2.bio_energy = STARTING_BIO_ENERGY
+	c2.hp = 10
+	c2.tech_points = 8
+	c2.attack = 5
+	c2.defense = 6
+	c2.senses = 4
+	c2.speed = 5
+	c2.bio_energy = 0
 	c2.discounted_stats = [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE]
 
 	c2.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
-	
+	ActiveSaveData.addPartyMember(c2)
+
+
+func addScholar():
 	var c3: PartyMember = PartyMember.new()
 	c3.name = PartyMember.PARTY_MEMBER_3_NAME
-	c3.hp = PartyMember.HP_MINIMUM
-	c3.tech_points = PartyMember.TP_MINIMUM
-	c3.attack = PartyMember.STAT_MINIMUM
-	c3.defense = PartyMember.STAT_MINIMUM
-	c3.senses = PartyMember.STAT_MINIMUM
-	c3.speed = PartyMember.STAT_MINIMUM
-	c3.bio_energy = STARTING_BIO_ENERGY
+	c3.hp = 60
+	c3.tech_points = 35
+	c3.attack = 5
+	c3.defense = 15
+	c3.senses = 20
+	c3.speed = 10
+	c3.bio_energy = 0
 	c3.discounted_stats = [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS, GlobalProgramData.COMBAT_STAT.SENSES]
 
-	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
-
-	ActiveSaveData.addPartyMember(c1)
-	ActiveSaveData.addPartyMember(c2)
+	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Psypulse", 1), true)
+	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("FlameJet", 1), true)
+	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Honey", 1), true)
+	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Panacea", 1), true)
 	ActiveSaveData.addPartyMember(c3)
 
 

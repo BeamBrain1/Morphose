@@ -35,7 +35,7 @@ func giveBlueprint(blueprint) -> void:
 		blueprints_passive.append(blueprint)
 		blueprints_passive.sort_custom(Blueprint.sortBlueprintsAscending)
 	else:
-		push_error("Attempted to give enemy type" + name + " unrecognized blueprint " + blueprint)
+		push_error("Attempted to give enemy type" + name + " unrecognized blueprint")
 
 
 func giveBlueprintByNameAndTier(bp_name: String, bp_tier: int) -> void:
