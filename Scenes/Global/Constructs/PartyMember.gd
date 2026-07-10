@@ -1,28 +1,11 @@
 class_name PartyMember
+extends Morphose
 
 const PARTY_MEMBER_1_NAME: String = "Primus"
 const PARTY_MEMBER_2_NAME: String = "Defector"
 const PARTY_MEMBER_3_NAME: String = "Scholar"
 
-const HP_CAP: int = 999
-const HP_MINIMUM: int = 10
-const TP_MINIMUM: int = 5
-const TP_CAP: int = 999
-const STAT_CAP: int = 250
-const STAT_MINIMUM: int = 1
-
-var name: String = "[NO DATA]"
-var hp: int = HP_MINIMUM
-var attack: int = STAT_MINIMUM
-var defense: int = STAT_MINIMUM
-var senses: int = STAT_MINIMUM
-var speed: int = STAT_MINIMUM
-var tech_points: int = TP_MINIMUM
 var bio_energy: int = 0		# Unspent bio-energy
-
-var blueprints_attack: Array[BlueprintAttack] = []
-var blueprints_support: Array[BlueprintSupport] = []
-var blueprints_passive: Array[BlueprintPassive] = []
 
 var discounted_stats: Array[GlobalProgramData.COMBAT_STAT] = [] # Discounted stats are cheaper to upgrade than base cost
 

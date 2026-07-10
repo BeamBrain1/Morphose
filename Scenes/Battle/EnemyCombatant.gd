@@ -21,14 +21,10 @@ func _init(enemy_type: EnemyType):
 # Determines how much bio-energy this combatant awards upon defeat
 # Determined by combined stats and value of installed blueprints
 func getBioEnergyReward() -> int:
-	var result: int = 0
-	
-	for blueprint in allBlueprints():
-		result += blueprint.bio_energy_cost
+	var result: int = mostExpensiveBlueprintValue()
 	
 	for stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE, GlobalProgramData.COMBAT_STAT.SENSES, GlobalProgramData.COMBAT_STAT.SPEED, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
 		result += getStatBioEnergyValue(stat)
-	
 	
 	return maxi(1, ceili(float(result)) / 3)	# Temporary formula for current build
 	#return maxi(1, ceili(float(result)) / 4)
@@ -53,7 +49,14 @@ func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
 
 func getStatBioEnergyValue(stat: GlobalProgramData.COMBAT_STAT) -> int:
 	
-	var stat_value: int = getStatFromEnumType(stat)
+	var stat_value: int
+	
+	if stat == GlobalProgramData.COMBAT_STAT.HP:
+		stat_value = max_hp
+	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
+		stat_value = max_tp
+	else:
+		stat_value = getStatFromEnumType(stat)
 	
 	var result: int = 0
 	
@@ -61,7 +64,7 @@ func getStatBioEnergyValue(stat: GlobalProgramData.COMBAT_STAT) -> int:
 		result += i
 	
 	if stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
-		result = ceili(result / 2)
+		result = ceili(result / 4)
 	
 	return result
 
@@ -83,3 +86,12 @@ func chooseBlueprint() -> Blueprint:
 # Choose target for single-target blueprint action
 func chooseTarget(blueprint: Blueprint, target_list: Array) -> Combatant:
 	return target_list[randi() % target_list.size()]
+
+
+func mostExpensiveBlueprintValue() -> int:
+	var result: int = 0
+	for blueprint in allBlueprints():
+		if blueprint.bio_energy_cost > result:
+			result = blueprint.bio_energy_cost
+	
+	return result

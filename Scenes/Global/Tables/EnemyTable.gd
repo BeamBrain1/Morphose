@@ -19,7 +19,7 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 6
 	current_enemy.senses = 4
 	current_enemy.speed = 5
-	current_enemy.giveBlueprintByNameAndTier("Claw", 1)
+	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -30,10 +30,10 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 10
 	current_enemy.senses = 8
 	current_enemy.speed = 8
-	current_enemy.giveBlueprintByNameAndTier("Claw", 1)
-	current_enemy.giveBlueprintByNameAndTier("Hammer", 1)
-	current_enemy.giveBlueprintByNameAndTier("Napalm", 1)
-	current_enemy.giveBlueprintByNameAndTier("Aegis", 1)
+	current_enemy.installBlueprintByNameAndTier("Claw", 1)
+	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
+	current_enemy.installBlueprintByNameAndTier("Napalm", 1)
+	current_enemy.installBlueprintByNameAndTier("Aegis", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -44,7 +44,7 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 3
 	current_enemy.senses = 12
 	current_enemy.speed = 24
-	current_enemy.giveBlueprintByNameAndTier("Chaingun", 1)
+	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -55,10 +55,10 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 12
 	current_enemy.senses = 5
 	current_enemy.speed = 7
-	current_enemy.giveBlueprintByNameAndTier("Claw", 1)
-	current_enemy.giveBlueprintByNameAndTier("Hammer", 1)
-	current_enemy.giveBlueprintByNameAndTier("Aegis", 1)
-	current_enemy.giveBlueprintByNameAndTier("Mucus", 1)
+	current_enemy.installBlueprintByNameAndTier("Claw", 1)
+	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
+	current_enemy.installBlueprintByNameAndTier("Aegis", 1)
+	current_enemy.installBlueprintByNameAndTier("Mucus", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -69,9 +69,9 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 10
 	current_enemy.senses = 10
 	current_enemy.speed = 10
-	current_enemy.giveBlueprintByNameAndTier("Claw", 1)
-	current_enemy.giveBlueprintByNameAndTier("Laser", 1)
-	current_enemy.giveBlueprintByNameAndTier("Acid Spit", 1)
+	current_enemy.installBlueprintByNameAndTier("Claw", 1)
+	current_enemy.installBlueprintByNameAndTier("Laser", 1)
+	current_enemy.installBlueprintByNameAndTier("Acid Spit", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -82,8 +82,8 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 12
 	current_enemy.senses = 18
 	current_enemy.speed = 24
-	current_enemy.giveBlueprintByNameAndTier("Flamejet", 1)
-	current_enemy.giveBlueprintByNameAndTier("Napalm", 1)
+	current_enemy.installBlueprintByNameAndTier("Flamejet", 1)
+	current_enemy.installBlueprintByNameAndTier("Napalm", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -94,8 +94,8 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 20
 	current_enemy.senses = 12
 	current_enemy.speed = 12
-	current_enemy.giveBlueprintByNameAndTier("Chaingun", 1)
-	current_enemy.giveBlueprintByNameAndTier("Hammer", 1)
+	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
+	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -106,9 +106,9 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 25
 	current_enemy.senses = 25
 	current_enemy.speed = 30
-	current_enemy.giveBlueprintByNameAndTier("Laser", 2)
-	current_enemy.giveBlueprintByNameAndTier("Chaingun", 1)
-	current_enemy.giveBlueprintByNameAndTier("Flechets", 1)
+	current_enemy.installBlueprintByNameAndTier("Laser", 2)
+	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
+	current_enemy.installBlueprintByNameAndTier("Flechets", 1)
 	addEnemyToTable(current_enemy)
 
 
