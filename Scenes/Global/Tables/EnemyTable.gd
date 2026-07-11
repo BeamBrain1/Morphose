@@ -24,25 +24,24 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Boss"
-	current_enemy.hp = 100
-	current_enemy.tech_points = 25
-	current_enemy.attack = 10
+	current_enemy.hp = 60
+	current_enemy.tech_points = 12
+	current_enemy.attack = 8
 	current_enemy.defense = 10
-	current_enemy.senses = 8
+	current_enemy.senses = 5
 	current_enemy.speed = 8
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
-	current_enemy.installBlueprintByNameAndTier("Napalm", 1)
-	current_enemy.installBlueprintByNameAndTier("Aegis", 1)
+	current_enemy.installBlueprintByNameAndTier("Mucus", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Darter"
 	current_enemy.hp = 15
-	current_enemy.tech_points = 20
+	current_enemy.tech_points = 17
 	current_enemy.attack = 10
 	current_enemy.defense = 3
-	current_enemy.senses = 12
+	current_enemy.senses = 10
 	current_enemy.speed = 24
 	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
 	addEnemyToTable(current_enemy)

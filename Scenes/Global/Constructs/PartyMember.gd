@@ -17,9 +17,9 @@ func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) ->
 	
 	var is_odd: bool = result % 2 == 1
 	
-	# Discounted stats can be boosted at half price
+	# Discounted stats can be boosted at 3/4 price
 	if stat in discounted_stats:
-		result = result >> 1
+		result = maxi(1, (result * 3) / 4)
 	
 	# HP/TP cost 25% to boost
 	if stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
