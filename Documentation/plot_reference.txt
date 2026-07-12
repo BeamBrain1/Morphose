@@ -1,0 +1,58 @@
+MORPHOSE FACTORY
+	Awaken
+	Shoving match with other livestock knocks loose panel
+	Get Claw blueprint and Muta
+	Defector joins
+	Kill factory boss
+
+CITY RUINS
+	Evade gangs
+	Find Scholar
+	Scholar joins
+	Kill gang boss
+
+SKELETON FOREST
+	Scholar loredumps about apocalypse
+	Foreshadow Zenith?
+
+SPACE CENTER
+	Find rocket
+	Discover rocket is not ready to launch
+	Need:
+		Fuel
+		Battery
+		Navigation Blueprint (allows Morphose to interface with controls)
+
+FUEL
+
+	MOUNTAINS
+		Filler dungeon
+
+	MISSILE SILO
+		Fight something
+		Get fuel
+
+BATTERY
+
+	CANYON
+		Filler dungeon
+
+	MILITARY BASE
+		Fight Tank Prototype
+		Get Battery
+
+
+BLUEPRINT
+
+	SEAFLOOR
+		Filler dungeon
+
+	LABORATORY
+		More info about Morphose origins
+		Get Blueprint
+
+
+SPACE CENTER
+	Zenith is there and waiting, announces plan to kill party, take Navigation blueprint, and harvest other worlds
+	Party kills Zenith
+	Party takes rocket, leaves, roll credits

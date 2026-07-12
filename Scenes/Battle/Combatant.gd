@@ -407,7 +407,7 @@ func rawAttackDamage(blueprint: BlueprintAttack) -> int:
 	if not blueprint.fixed_damage:
 		base_damage += getStatusEffectAdjustedAttack()
 
-	var random_damage: int = (base_damage >> 2) + 2
+	var random_damage: int = maxi(2, base_damage >> 3)
 	random_damage = randi() % (random_damage)
 
 	if randi() % 2 == 0:

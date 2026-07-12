@@ -10,9 +10,17 @@ func _init() -> void:
 
 static func buildEncounterList() -> void:
 	table = []
+	table.append([enemy("Livestock")])
+	table.append([enemy("Livestock")])
+	table.append([enemy("Livestock")])
+	table.append([enemy("Livestock")])
+	table.append([enemy("Livestock")])
+	table.append([enemy("Worker")])
 	table.append([enemy("Worker")])
 	table.append([enemy("Worker"), enemy("Worker")])
-	table.append([enemy("Worker"), enemy("Worker"), enemy("Worker"), enemy("Worker")])
+	table.append([enemy("Worker"), enemy("Worker")])
+	table.append([enemy("Enforcer"), enemy("Enforcer")])
+	table.append([enemy("Worker"), enemy("Enforcer"), enemy("Worker")])
 	table.append([enemy("Boss")])
 	table.append([enemy("Hunter"), enemy("Hunter")])
 	table.append([enemy("Darter"), enemy("Shellon")])
@@ -21,6 +29,7 @@ static func buildEncounterList() -> void:
 	table.append([enemy("Brute"), enemy("Brute")])
 	table.append([enemy("Pyroid"), enemy("Brute"), enemy("Pyroid")])
 	table.append([enemy("Pyroid"), enemy("Gang Boss"), enemy("Brute")])
+	table.append([enemy("Hunter"), enemy("Darter"), enemy("Shellon")])
 
 
 # Returns encounter at index

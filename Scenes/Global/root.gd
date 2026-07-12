@@ -4,7 +4,7 @@ var active_controller
 
 const CONTROLLER_DIRECTORY_AND_PREFIX = "res://Scenes/Controllers/Controller"
 
-const STARTING_BIO_ENERGY: int = 100
+const STARTING_BIO_ENERGY: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,9 +31,9 @@ func setActiveController(controller: String) -> void:
 #	(a party member only gets added the first time we prep for a specific battle number
 func toCharacterBuildScreen(won_previous = false):
 	if won_previous:
-		if ActiveSaveData.current_battle == GlobalProgramData.ADD_DEFECTOR_AFTER_BATTLE:
+		if ActiveSaveData.current_battle == GlobalProgramData.ADD_DEFECTOR_BEFORE_BATTLE:
 			addDefector()
-		if ActiveSaveData.current_battle == GlobalProgramData.ADD_SCHOLAR_AFTER_BATTLE:
+		if ActiveSaveData.current_battle == GlobalProgramData.ADD_SCHOLAR_BEFORE_BATTLE:
 			addScholar()
 
 	setActiveController("BuildCharacter")
@@ -61,13 +61,13 @@ func loadStartingPartyMembers() -> void:
 func addDefector():
 	var c2: PartyMember = PartyMember.new()
 	c2.name = PartyMember.PARTY_MEMBER_2_NAME
-	c2.hp = 10
+	c2.hp = 15
 	c2.tech_points = 8
 	c2.attack = 5
-	c2.defense = 6
-	c2.senses = 4
-	c2.speed = 5
-	c2.bio_energy = 0
+	c2.defense = 7
+	c2.senses = 6
+	c2.speed = 6
+	c2.bio_energy = 20
 	c2.discounted_stats = [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE]
 
 	c2.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)

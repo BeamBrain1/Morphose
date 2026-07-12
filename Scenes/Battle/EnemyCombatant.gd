@@ -1,6 +1,7 @@
 class_name EnemyCombatant
 extends Combatant
 
+const BASE_BIO_ENERGY_REWARD = 10
 
 func _init(enemy_type: EnemyType):
 	name = enemy_type.name
@@ -21,13 +22,24 @@ func _init(enemy_type: EnemyType):
 # Determines how much bio-energy this combatant awards upon defeat
 # Determined by combined stats and value of installed blueprints
 func getBioEnergyReward() -> int:
-	var result: int = mostExpensiveBlueprintValue()
+	var blueprint_value: int = mostExpensiveBlueprintValue()
 	
-	for stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE, GlobalProgramData.COMBAT_STAT.SENSES, GlobalProgramData.COMBAT_STAT.SPEED, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
-		result += getStatBioEnergyValue(stat)
+	var stat_average: int = (max_hp + max_tp) / 4
 	
-	return maxi(1, ceili(float(result)) / 4)	# Temporary formula for current build
-	#return maxi(1, ceili(float(result)) / 4)
+	for stat in [GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE, GlobalProgramData.COMBAT_STAT.SENSES, GlobalProgramData.COMBAT_STAT.SPEED]:
+		stat_average += getStatFromEnumType(stat)
+	
+	stat_average /= 6
+	
+	var stat_value = 0
+	
+	for i in range(stat_average):
+		stat_value += i
+	
+	stat_value *= 6
+	
+	return BASE_BIO_ENERGY_REWARD + ceili(float(stat_value + blueprint_value)) / 4	# Temporary formula for current build
+	#return maxi(1, ceili(float(stat_value + blueprint_value)) / 4)
 
 
 func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
@@ -45,28 +57,6 @@ func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
 		return tech_points
 	push_error("Unrecognized stat: " + str(stat))
 	return 0
-
-
-func getStatBioEnergyValue(stat: GlobalProgramData.COMBAT_STAT) -> int:
-	
-	var stat_value: int
-	
-	if stat == GlobalProgramData.COMBAT_STAT.HP:
-		stat_value = max_hp
-	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
-		stat_value = max_tp
-	else:
-		stat_value = getStatFromEnumType(stat)
-	
-	var result: int = 0
-	
-	for i in range(stat_value):
-		result += i
-	
-	if stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
-		result = ceili(result / 4)
-	
-	return result
 
 
 func chooseAction() -> ACTION:
