@@ -69,7 +69,6 @@ static func buildEnemyList() -> void:
 	current_enemy.senses = 10
 	current_enemy.speed = 10
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
-	current_enemy.installBlueprintByNameAndTier("Laser", 1)
 	current_enemy.installBlueprintByNameAndTier("Acid Spit", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -99,12 +98,12 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Gang Boss"
-	current_enemy.hp = 300
-	current_enemy.tech_points = 50
-	current_enemy.attack = 35
+	current_enemy.hp = 250
+	current_enemy.tech_points = 40
+	current_enemy.attack = 30
 	current_enemy.defense = 25
 	current_enemy.senses = 25
-	current_enemy.speed = 30
+	current_enemy.speed = 20
 	current_enemy.installBlueprintByNameAndTier("Laser", 2)
 	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
 	current_enemy.installBlueprintByNameAndTier("Flechets", 1)

@@ -7,7 +7,7 @@ signal dies
 enum ACTION {NULL, BLUEPRINT, WAIT, RUN, PROMPT_PLAYER}
 
 const MAX_STATUS_EFFECT_STACKS: int = 5
-const BASE_ACCURACY = 75
+const BASE_ACCURACY = 80
 const BASE_CRIT_RATE = 5
 
 var name: String = "[NO DATA]"
