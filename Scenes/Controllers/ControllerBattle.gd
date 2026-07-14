@@ -76,7 +76,6 @@ func battleLost() -> void:
 func battleWon() -> void:
 	$BattleMessageDisplay.pushBattleMessage("You win!\nReceived " + str(victoryMuta()) + " Muta. Build your party up for the next battle!")
 	ActiveSaveData.awardMuta(victoryMuta())
-	ActiveSaveData.current_battle += 1
 	battle_won = true
 	await showBattleMessages(true)
 

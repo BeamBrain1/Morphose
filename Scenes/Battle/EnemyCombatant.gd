@@ -1,6 +1,8 @@
 class_name EnemyCombatant
 extends Combatant
 
+var base_type: EnemyType
+
 const BASE_BIO_ENERGY_REWARD = 10
 
 func _init(enemy_type: EnemyType):
@@ -13,6 +15,7 @@ func _init(enemy_type: EnemyType):
 	defense = enemy_type.defense
 	senses = enemy_type.senses
 	speed = enemy_type.speed
+	base_type = enemy_type
 	
 	blueprints_attack = enemy_type.blueprints_attack
 	blueprints_support = enemy_type.blueprints_support
@@ -22,24 +25,7 @@ func _init(enemy_type: EnemyType):
 # Determines how much bio-energy this combatant awards upon defeat
 # Determined by combined stats and value of installed blueprints
 func getBioEnergyReward() -> int:
-	var blueprint_value: int = mostExpensiveBlueprintValue()
-	
-	var stat_average: int = (max_hp + max_tp) / 4
-	
-	for stat in [GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE, GlobalProgramData.COMBAT_STAT.SENSES, GlobalProgramData.COMBAT_STAT.SPEED]:
-		stat_average += getStatFromEnumType(stat)
-	
-	stat_average /= 6
-	
-	var stat_value = 0
-	
-	for i in range(stat_average):
-		stat_value += i
-	
-	stat_value *= 6
-	
-	return BASE_BIO_ENERGY_REWARD + ceili(float(stat_value + blueprint_value)) / 4	# Temporary formula for current build
-	#return maxi(1, ceili(float(stat_value + blueprint_value)) / 4)
+	return base_type.getBioEnergyValue()
 
 
 func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:

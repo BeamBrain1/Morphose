@@ -10,6 +10,8 @@ const MAX_STATUS_EFFECT_STACKS: int = 5
 const BASE_ACCURACY = 80
 const BASE_CRIT_RATE = 5
 
+const STATUS_STACK_DEFAULT_MULTIPLIER: float = 0.2
+
 var name: String = "[NO DATA]"
 var max_hp: int = 1
 var hp: int = max_hp
@@ -107,23 +109,23 @@ func getStatusEffectFromEnumType(effect: STATUS_EFFECT) -> int:
 
 
 func getStatusEffectAdjustedAttack() -> int:
-	return floori(attack * (1 + sharpened_stacks * 0.15))
+	return floori(attack * (1 + sharpened_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
 
 
 func getStatusEffectAdjustedDefense() -> int:
-	return floori(defense * (1 + hardened_stacks * 0.15))
+	return floori(defense * (1 + hardened_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
 
 
 func getStatusEffectAdjustedSenses() -> int:
-	return floori(senses * (1 + keen_stacks * 0.15))
+	return floori(senses * (1 + keen_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
 
 
 func getStatusEffectAdjustedSpeed() -> int:
-	return floori(speed * (1 + energized_stacks * 0.15))
+	return floori(speed * (1 + energized_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
 
 
 func getStatusEffectAdjustedTPRegen() -> int:
-	return maxi(0, ceili((0.15 * focused_stacks + 1) * getBaseTPRegen()))
+	return maxi(0, ceili((STATUS_STACK_DEFAULT_MULTIPLIER * focused_stacks + 1) * getBaseTPRegen()))
 
 
 func getBaseTPRegen() -> int:

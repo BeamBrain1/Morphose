@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 	pass
 
 
-func setActiveController(controller: String) -> void:	
+func setActiveController(controller: String) -> void:
 	if active_controller != null:
 		active_controller.call_deferred("queue_free")
 	active_controller = load(CONTROLLER_DIRECTORY_AND_PREFIX + controller + ".tscn").instantiate()
@@ -29,14 +29,21 @@ func setActiveController(controller: String) -> void:
 
 # won_previous: Did we win a previous battle? Used to determine whether to add a new party member
 #	(a party member only gets added the first time we prep for a specific battle number
-func toCharacterBuildScreen(won_previous = false):
+func toCharacterBuildScreen(won_previous = false) -> void:
 	if won_previous:
+		ActiveSaveData.current_battle += 1
 		if ActiveSaveData.current_battle == GlobalProgramData.ADD_DEFECTOR_BEFORE_BATTLE:
 			addDefector()
 		if ActiveSaveData.current_battle == GlobalProgramData.ADD_SCHOLAR_BEFORE_BATTLE:
 			addScholar()
 
 	setActiveController("BuildCharacter")
+
+
+func skipBattle() -> void:
+	var base_muta_value : int = EncounterTable.getEncounterBioEnergyValue(ActiveSaveData.current_battle)
+	ActiveSaveData.awardMuta(ceili(float(base_muta_value) / ActiveSaveData.party_members.size()))
+	toCharacterBuildScreen(true)
 
 
 func loadStartingPartyMembers() -> void:
@@ -77,12 +84,12 @@ func addDefector():
 func addScholar():
 	var c3: PartyMember = PartyMember.new()
 	c3.name = PartyMember.PARTY_MEMBER_3_NAME
-	c3.hp = 60
-	c3.tech_points = 35
-	c3.attack = 5
+	c3.hp = 50
+	c3.tech_points = 25
+	c3.attack = 10
 	c3.defense = 15
 	c3.senses = 20
-	c3.speed = 10
+	c3.speed = 15
 	c3.bio_energy = 0
 	c3.discounted_stats = [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS, GlobalProgramData.COMBAT_STAT.SENSES]
 

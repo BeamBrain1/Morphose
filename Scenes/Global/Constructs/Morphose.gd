@@ -40,3 +40,32 @@ func installBlueprint(blueprint) -> void:
 
 func installBlueprintByNameAndTier(bp_name: String, bp_tier: int) -> void:
 	installBlueprint(Blueprint.getBlueprintFromGlobalList(bp_name, bp_tier))
+
+
+func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
+	if stat == GlobalProgramData.COMBAT_STAT.HP:
+		return hp
+	if stat == GlobalProgramData.COMBAT_STAT.ATTACK:
+		return attack
+	if stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
+		return defense
+	if stat == GlobalProgramData.COMBAT_STAT.SENSES:
+		return senses
+	if stat == GlobalProgramData.COMBAT_STAT.SPEED:
+		return speed
+	if stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
+		return tech_points
+	push_error("Unrecognized stat: " + str(stat))
+	return 0
+
+
+# Returns a list of all blueprints installed for this character
+func allBlueprints() -> Array:
+	var result = []
+	for blueprint in blueprints_attack:
+		result.append(blueprint)
+	for blueprint in blueprints_support:
+		result.append(blueprint)
+	for blueprint in blueprints_passive:
+		result.append(blueprint)
+	return result

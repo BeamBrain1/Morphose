@@ -44,3 +44,10 @@ static func getEncounterAtIndex(index: int) -> Array:
 # Mostly used for brevity. Get enemy by name
 static func enemy(name_in: String) -> EnemyType:
 	return EnemyTable.getEnemyByName(name_in)
+
+
+static func getEncounterBioEnergyValue(encounter: Array) -> int:
+	var result = 0
+	for enemy in encounter:
+		result += enemy.getBioEnergyValue()
+	return result

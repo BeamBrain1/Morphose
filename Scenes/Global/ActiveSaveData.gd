@@ -24,3 +24,7 @@ static func addBlueprint(blueprint) -> void:
 static func awardMuta(muta: int) -> void:
 	for member in party_members:
 		member.bio_energy += muta
+
+
+static func getNextBattle() -> Array:
+	return EncounterTable.getEncounterAtIndex(current_battle)

@@ -25,6 +25,7 @@ visible = false
 [connection signal="cancel" from="WindowBase" to="." method="cancel"]
 [connection signal="reset" from="WindowBase" to="." method="resetActiveCharacter"]
 [connection signal="save" from="WindowBase" to="." method="save"]
+[connection signal="skip" from="WindowBase" to="." method="_on_window_base_skip"]
 [connection signal="tab_selected_character" from="WindowBase" to="." method="partyMemberTabSelected"]
 [connection signal="tab_selected_window" from="WindowBase" to="." method="buildWindowSelected"]
 [connection signal="blueprint_lists_modified" from="WindowBlueprintManager" to="." method="updateAllDisplays"]

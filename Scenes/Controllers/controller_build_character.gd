@@ -105,3 +105,8 @@ func save() -> void:
 
 func cancel() -> void:
 	root.setActiveController("Battle")
+
+
+# Skip upcoming battle
+func _on_window_base_skip() -> void:
+	root.skipBattle()
