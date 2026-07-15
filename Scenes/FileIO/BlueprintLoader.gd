@@ -91,6 +91,9 @@ static func assignBlueprintAttribute(blueprint, key: String, value: String) -> v
 	elif key_upper == "SCHOLAR":
 		blueprint.scholar_compatible = valueIsTrue(blueprint, key, value)
 		return
+	elif key_upper == "SPECIAL":
+		blueprint.special = value
+		return
 	
 	
 	if blueprint is BlueprintAttack:

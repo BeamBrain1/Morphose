@@ -7,6 +7,7 @@ const FIRST_ENEMY_DISPLAY_POSITION: Vector2 = Vector2(24, 16)
 const NEXT_ENEMY_DISPLAY_OFFSET_X: int = 80
 const NEXT_ENEMY_DISPLAY_OFFSET_Y: int = 48
 const ENEMIES_PER_ROW: int = 4
+const MAX_ENEMIES: int = 8
 
 signal combatant_selected
 

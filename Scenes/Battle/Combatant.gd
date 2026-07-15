@@ -259,7 +259,7 @@ func applyStartOfTurnPassiveBlueprintEffects() -> void:
 
 func applyHealingBurning() -> void:
 	if getStatusEffectFromEnumType(STATUS_EFFECT.REGEN) != 0:
-		var heal_amount: int = maxi(floori(hp/10), 1)
+		var heal_amount: int = maxi(floori(max_hp/10), 1)
 		heal_amount *= getStatusEffectFromEnumType(STATUS_EFFECT.REGEN)
 		if heal_amount > 0:
 			heal(heal_amount)

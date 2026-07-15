@@ -49,6 +49,6 @@ func nextBattleEnemyList() -> String:
 	var result: String = ""
 	for enemy in ActiveSaveData.getNextBattle():
 		if result != "":
-			result += " "
+			result += ", "
 		result += enemy.name.to_upper()
 	return result

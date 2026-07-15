@@ -15,6 +15,7 @@ var scholar_compatible: bool = false
 var tp_cost: int = 0			# tech point cost per use
 var multitarget: bool = false	# If true, affects all eligible targets
 var predecessors: Array = []	# List of predecessor blueprints: lower-tier bluepritns of same name
+var special: String = ""		# Used to assign additional one-off capabilities
 
 
 func getDialogDisplayName() -> String:

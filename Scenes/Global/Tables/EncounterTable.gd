@@ -46,8 +46,8 @@ static func enemy(name_in: String) -> EnemyType:
 	return EnemyTable.getEnemyByName(name_in)
 
 
-static func getEncounterBioEnergyValue(encounter: Array) -> int:
+static func getEncounterBioEnergyValue(index: int) -> int:
 	var result = 0
-	for enemy in encounter:
+	for enemy in table[index]:
 		result += enemy.getBioEnergyValue()
 	return result

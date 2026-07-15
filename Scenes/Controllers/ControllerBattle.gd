@@ -155,6 +155,14 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 		applySupport(user, blueprint, target)
 	else:
 		push_error("Unknown blueprint type for " + blueprint.getDialogDisplayName())
+	if blueprint.special.matchn("swarm"):
+		specialSwarmReinforce()
+
+
+func specialSwarmReinforce() -> void:
+	var number_joiners: int = 5
+	var enemy_type: String = "Swarmer"
+	$BattleMessageDisplay.pushBattleMessage(str(number_joiners) + " " + enemy_type + " joined the battle!")
 
 
 func executeMultitargetBlueprint(user, blueprint: Blueprint, target_list: Array) -> void:
@@ -309,9 +317,6 @@ func buildEnemies() -> void:
 		result.append(combatant)
 	
 	$EnemyDisplayGrid.assignEnemyStatusDisplaysFromList(result)
-
-
-
 
 
 func updateCombatantStatusDisplays() -> void:
