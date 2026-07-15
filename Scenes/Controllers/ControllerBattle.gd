@@ -160,9 +160,12 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 
 
 func specialSwarmReinforce() -> void:
-	var number_joiners: int = 5
+	var number_joiners: int = 4
 	var enemy_type: String = "Swarmer"
-	$BattleMessageDisplay.pushBattleMessage(str(number_joiners) + " " + enemy_type + " joined the battle!")
+	for i in range(number_joiners):
+		var enemy = EnemyTable.getEnemyByName(enemy_type)
+		$EnemyDisplayGrid.addEnemy(enemy)
+	$BattleMessageDisplay.pushBattleMessage(enemy_type + "s joined the battle!")
 
 
 func executeMultitargetBlueprint(user, blueprint: Blueprint, target_list: Array) -> void:
@@ -299,24 +302,9 @@ func buildPlayerCharacters() -> void:
 	$PartyStatusDisplay.assignPartyMemberStatusDisplaysFromList(party_members)
 
 
-func buildEnemies() -> void:
-	
-	var result: Array[EnemyCombatant] = []
-	var enemies_with_base_name: Dictionary = {}
-	
-	var encounter_enemy_list = EncounterTable.getEncounterAtIndex(ActiveSaveData.current_battle)
-	
-	# If more than 1 enemy of a given type, update name to reflect this
-	for enemy_type in encounter_enemy_list:
-		var combatant = EnemyCombatant.new(enemy_type)
-		if enemies_with_base_name.has(enemy_type.name):
-			enemies_with_base_name[enemy_type.name] += 1
-			combatant.name += " " + str(enemies_with_base_name[enemy_type.name])
-		else:
-			enemies_with_base_name[enemy_type.name] = 1
-		result.append(combatant)
-	
-	$EnemyDisplayGrid.assignEnemyStatusDisplaysFromList(result)
+func buildEnemies() -> void:	
+	var encounter_enemy_list = EncounterTable.getEncounterAtIndex(ActiveSaveData.current_battle)	
+	$EnemyDisplayGrid.assignEnemyStatusDisplaysFromList(encounter_enemy_list)
 
 
 func updateCombatantStatusDisplays() -> void:

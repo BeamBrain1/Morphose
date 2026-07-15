@@ -3,7 +3,8 @@ extends Combatant
 
 var base_type: EnemyType
 
-const BASE_BIO_ENERGY_REWARD = 10
+const BASE_BIO_ENERGY_REWARD: int = 10
+var number_in_battle: int = 1	# Number of instance of this enemy in battle, used to determine display name
 
 func _init(enemy_type: EnemyType):
 	name = enemy_type.name
@@ -21,6 +22,12 @@ func _init(enemy_type: EnemyType):
 	blueprints_support = enemy_type.blueprints_support
 	blueprints_passive = enemy_type.blueprints_passive
 
+
+func getDisplayName() -> String:
+	if number_in_battle == 1:
+		return name
+	else:
+		return name + " " + str(number_in_battle)
 
 # Determines how much bio-energy this combatant awards upon defeat
 # Determined by combined stats and value of installed blueprints
