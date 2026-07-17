@@ -21,8 +21,7 @@ func getBioEnergyValue() -> int:
 	
 	stat_value *= 6
 	
-	return BASE_BIO_ENERGY_REWARD + ceili(float(stat_value + blueprint_value)) / 4	# Temporary formula for current build
-	#return maxi(1, ceili(float(stat_value + blueprint_value)) / 4)
+	return BASE_BIO_ENERGY_REWARD + ceili(float(stat_value + blueprint_value)) / 4
 
 
 func mostExpensiveBlueprintValue() -> int:

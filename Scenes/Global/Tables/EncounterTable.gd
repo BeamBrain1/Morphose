@@ -10,6 +10,9 @@ func _init() -> void:
 
 static func buildEncounterList() -> void:
 	table = []
+	
+	table.append([enemy("Queen")]) # Temporary
+	
 	table.append([enemy("Livestock")])
 	table.append([enemy("Livestock")])
 	table.append([enemy("Livestock")])

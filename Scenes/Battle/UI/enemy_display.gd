@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func assignCombatant(enemy_in: EnemyCombatant) -> void:
 	enemy = enemy_in
-	$EnemySprite.show()
+	show()
 	$LabelName.text = enemy.getName()
 	if $LabelName.text.length() % 2 == 1:
 		$LabelName.text += " "	# Since label centered, even number of characters necessary to align text to grid
@@ -26,10 +26,6 @@ func enableTargetingIfEnemyAlive():
 
 func disableTargeting():
 	disabled = true
-
-
-func enemyDefeated():
-	$EnemySprite.hide()
 
 
 func updateDisplay():

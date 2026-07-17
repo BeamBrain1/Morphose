@@ -21,7 +21,6 @@ var senses: int = 1
 var speed: int = 1
 var max_tp: int = 1
 var tech_points: int = max_tp
-#var tp_regen: int = 1
 
 # Negative status effects are just a negative number of stacks of the positive status effect
 var regen_stacks: int = 0
@@ -362,22 +361,6 @@ func markDefeated():
 		pushBattleMessage(name + " is defeated!")
 		marked_defeated = true
 		emit_signal("dies")
-
-
-func chooseAction() -> ACTION:
-	push_error("Oops! You were supposed to override this in the subclass.")
-	return ACTION.WAIT
-
-
-func chooseBlueprint() -> Blueprint:
-	push_error("Oops! You were supposed to override this in the subclass.")
-	return null
-
-
-# Choose target for single-target blueprint action
-func chooseTarget(blueprint: Blueprint, target_list: Array) -> Combatant:
-	push_error("Oops! You were supposed to override this in the subclass.")
-	return target_list[0]
 
 
 # Raw accuracy of an attack, before any defender bonuses apply

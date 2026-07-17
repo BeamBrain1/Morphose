@@ -52,7 +52,7 @@ func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
 	return 0
 
 
-func chooseAction() -> ACTION:
+func chooseAction(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> ACTION:
 	# If it has the TP to act, act. Otherwise, wait.
 	if getPossibleBlueprintActions().size() > 0:
 		return ACTION.BLUEPRINT
@@ -60,14 +60,36 @@ func chooseAction() -> ACTION:
 		return ACTION.WAIT
 
 
-func chooseBlueprint() -> Blueprint:
-	var result = getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
+func chooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
+	
+	var result
+	
+	if base_type.name.matchn("QUEEN"):
+		result = queenChooseBlueprint(party_combatants, enemy_combatants)
+	else:	
+		result = getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
+
 	pushBattleMessage(name + " uses " + result.getDialogDisplayName() + ".")
 	return result
 
 
+func queenChooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
+	var possible_actions = getPossibleBlueprintActions()
+	if possible_actions.size() == 0:
+		return possible_actions[0]
+	else:
+		var living_enemies: int = 0
+		for enemy in enemy_combatants:
+			if not enemy.isDefeated():
+				living_enemies += 1
+		if living_enemies < 5:
+			return Blueprint.getBlueprintFromList(possible_actions, "Swarm")
+		else:
+			return Blueprint.getBlueprintFromList(possible_actions, "Marshal")
+
+
 # Choose target for single-target blueprint action
-func chooseTarget(blueprint: Blueprint, target_list: Array) -> Combatant:
+func chooseTarget(blueprint: Blueprint, target_list: Array, party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Combatant:
 	return target_list[randi() % target_list.size()]
 
 

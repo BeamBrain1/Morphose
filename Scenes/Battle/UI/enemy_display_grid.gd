@@ -17,7 +17,7 @@ func selectCombatantAsTarget(combatant: EnemyCombatant) -> void:
 	emit_signal("combatant_selected", combatant)
 
 
-func assignEnemyStatusDisplaysFromList(enemy_types: Array[EnemyType]) -> void:
+func assignEnemyStatusDisplaysFromList(enemy_types: Array) -> void:
 	for display in enemy_status_displays:
 		display.call_deferred("queue_free")
 	enemy_status_displays = []

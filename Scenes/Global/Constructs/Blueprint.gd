@@ -62,10 +62,10 @@ func sufficientTPForAtLeastOnePredecessor(tp: int) -> bool:
 
 
 # Given a blueprint name and a tier, pull blueprint from supplied list
-static func getBlueprintFromList(blueprint_list: Array, name_in: String, tier_in: int):
+static func getBlueprintFromList(blueprint_list: Array, name_in: String, tier_in: int = 1):
 	
 	for blueprint in blueprint_list:
-		if blueprint.base_display_name.to_upper() == name_in.to_upper() and blueprint.tier == tier_in:
+		if blueprint.base_display_name.matchn(name_in) and blueprint.tier == tier_in:
 			return blueprint
 	
 	push_error("Blueprint not found: " + getDialogDisplayNameFromParameters(name_in, tier_in))
