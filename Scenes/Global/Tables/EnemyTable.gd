@@ -133,25 +133,38 @@ static func buildEnemyList() -> void:
 	
 	### SKELETON FOREST ###
 	# This section will teach the importance of crowd control
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Pack Bug"
+	current_enemy.hp = 60
+	current_enemy.tech_points = 20
+	current_enemy.attack = 18
+	current_enemy.defense = 12
+	current_enemy.senses = 15
+	current_enemy.speed = 18
+	current_enemy.installBlueprintByNameAndTier("Claw", 1)
+	current_enemy.installBlueprintByNameAndTier("Acid Spit", 1)
+	addEnemyToTable(current_enemy)
+	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Swarmer"
 	current_enemy.hp = 10
 	current_enemy.tech_points = 20
 	current_enemy.attack = 15
 	current_enemy.defense = 3
-	current_enemy.senses = 8
-	current_enemy.speed = 8
+	current_enemy.senses = 10
+	current_enemy.speed = 12
 	current_enemy.installBlueprintByNameAndTier("Laser", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Queen"
-	current_enemy.hp = 250
+	current_enemy.hp = 300
 	current_enemy.tech_points = 50
-	current_enemy.attack = 10
+	current_enemy.attack = 1
 	current_enemy.defense = 20
 	current_enemy.senses = 5
-	current_enemy.speed = 16
+	current_enemy.speed = 20
 	current_enemy.installBlueprintByNameAndTier("Swarm", 1)
 	current_enemy.installBlueprintByNameAndTier("Marshal", 1)
 	addEnemyToTable(current_enemy)
