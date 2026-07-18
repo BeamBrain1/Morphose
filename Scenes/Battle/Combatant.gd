@@ -240,6 +240,9 @@ func beginTurn() -> void:
 func endTurn() -> void:
 	if not isDefeated():
 		shedStatusEffects()
+		if hasPassiveBlueprint("Molt"):
+			for i in range(passiveBlueprintTier("Molt")):
+				shedStatusEffects()
 		clearSelfAppliedBuffsThisTurn()
 
 
@@ -263,6 +266,8 @@ func applyHealingBurning() -> void:
 		if heal_amount > 0:
 			heal(heal_amount)
 		elif heal_amount < 0:
+			if hasPassiveBlueprint("HydroCoat"):
+				heal_amount -= (heal_amount * passiveBlueprintTier("HydroCoat") / 4)
 			damage(-1 * heal_amount)
 
 
@@ -409,8 +414,6 @@ func receiveAttack(blueprint: BlueprintAttack, raw_damage: int, crit: bool = fal
 			damage_amt -= getStatusEffectAdjustedDefense()
 		damage(damage_amt)
 	
-	
-	
 	if not isDefeated():
 		if crit:
 			adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * critAdjustedStatusValue(blueprint.burning))
@@ -530,6 +533,12 @@ func getPossibleBlueprintActions() -> Array:
 		for blueprint in blueprint_list:
 			if blueprint.tp_cost <= tech_points:
 				result.append(blueprint)
+			else:
+				if blueprint.hasPredecessors():
+					for pred in blueprint.predecessors:
+						if pred.tp_cost <= tech_points:
+							result.append(pred)
+							break
 
 	return result
 
@@ -540,6 +549,12 @@ func getPossibleAttackActions() -> Array[BlueprintAttack]:
 	for blueprint in blueprints_attack:
 		if blueprint.tp_cost <= tech_points:
 			result.append(blueprint)
+		else:
+			if blueprint.hasPredecessors():
+				for pred in blueprint.predecessors:
+					if pred.tp_cost <= tech_points:
+						result.append(pred)
+						break
 
 	return result
 
@@ -558,6 +573,12 @@ func getPossibleSupportActions() -> Array[BlueprintSupport]:
 	for blueprint in blueprints_support:
 		if blueprint.tp_cost <= tech_points:
 			result.append(blueprint)
+		else:
+			if blueprint.hasPredecessors():
+				for pred in blueprint.predecessors:
+					if pred.tp_cost <= tech_points:
+						result.append(pred)
+						break
 
 	return result
 
@@ -580,3 +601,22 @@ func run() -> void:
 
 func isValidSupportTarget(blueprint: BlueprintSupport) -> bool:
 	return (isDefeated() and blueprint.can_revive) or (not isDefeated() and not blueprint.can_revive)
+
+
+# Return true if Morphose has the blueprint with the specified name
+# If tier left default, not checked. Otherwise, checked for exact match
+func hasPassiveBlueprint(bp_name: String, tier_in: int = 0) -> bool:
+	for bp in blueprints_passive:
+		if bp.base_display_name.matchn(bp_name):
+			if tier_in == 0 or bp.tier == tier_in:
+				return true
+	return false
+
+
+# Returns tier of passive blueprint, or null and -1 if blueprint not found
+func passiveBlueprintTier(bp_name: String) -> int:
+	for bp in blueprints_passive:
+		if bp.base_display_name.matchn(bp_name):
+			return bp.tier
+	push_error(name + " passive blueprint not found: " + bp_name)
+	return -1

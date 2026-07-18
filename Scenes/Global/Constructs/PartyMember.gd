@@ -136,12 +136,17 @@ func installBlueprint(blueprint, free: bool = false) -> void:
 	
 	uninstallPredecessorsAndSuccessors(blueprint)
 	
+	var blueprint_list: Array
+	
 	if blueprint is BlueprintAttack:
-		blueprints_attack.append(blueprint)
+		blueprint_list = blueprints_attack
 	elif blueprint is BlueprintSupport:
-		blueprints_support.append(blueprint)
+		blueprint_list = blueprints_support
 	elif blueprint is BlueprintPassive:
-		blueprints_passive.append(blueprint)
+		blueprint_list = blueprints_passive
+	
+	blueprint_list.append(blueprint)
+	blueprint_list.sort_custom(Blueprint.sortBlueprintsAscending)
 	
 	if not free:
 		bio_energy -= blueprint.bio_energy_cost
