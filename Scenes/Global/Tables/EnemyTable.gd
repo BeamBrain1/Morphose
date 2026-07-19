@@ -115,7 +115,7 @@ static func buildEnemyList() -> void:
 	current_enemy.senses = 10
 	current_enemy.speed = 10
 	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
-	current_enemy.installBlueprintByNameAndTier("Acid Rain", 1)
+	current_enemy.installBlueprintByNameAndTier("ChemBomb", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()

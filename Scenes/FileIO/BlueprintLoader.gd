@@ -152,12 +152,6 @@ static func assignBlueprintAttribute(blueprint, key: String, value: String) -> v
 		elif key_upper == "REGEN":
 			blueprint.regen = int(value)
 			return
-		elif key_upper == "REGEN":
-			blueprint.regen = int(value)
-			return
-		elif key_upper == "REGEN":
-			blueprint.regen = int(value)
-			return
 		elif key_upper == "SHARPENED":
 			blueprint.sharpened = int(value)
 			return
