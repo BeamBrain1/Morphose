@@ -174,11 +174,95 @@ static func buildEnemyList() -> void:
 	
 	### EASTERN PLAINS ###
 	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Launcher"
+	current_enemy.hp = 40
+	current_enemy.tech_points = 20
+	current_enemy.attack = 25
+	current_enemy.defense = 10
+	current_enemy.senses = 15
+	current_enemy.speed = 25
+	current_enemy.installBlueprintByNameAndTier("Missile", 1)
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Saiyon"
+	current_enemy.hp = 40
+	current_enemy.tech_points = 25
+	current_enemy.attack = 5
+	current_enemy.defense = 10
+	current_enemy.senses = 30
+	current_enemy.speed = 20
+	current_enemy.installBlueprintByNameAndTier("Psypulse", 1)
+	current_enemy.installBlueprintByNameAndTier("Enrage", 1)
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Marauder"
+	current_enemy.hp = 50
+	current_enemy.tech_points = 20
+	current_enemy.attack = 22
+	current_enemy.defense = 12
+	current_enemy.senses = 13
+	current_enemy.speed = 16
+	current_enemy.installBlueprintByNameAndTier("Claw", 1)
+	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
+	addEnemyToTable(current_enemy)
+	
 	### SPACE CENTER ###
+	
+	# No Morphose here. Zenith is keeping them away.
 	
 	### MOUNTAIN OVERWORLD ###
 	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Brawler"
+	current_enemy.hp = 80
+	current_enemy.tech_points = 50
+	current_enemy.attack = 20
+	current_enemy.defense = 15
+	current_enemy.senses = 20
+	current_enemy.speed = 18
+	current_enemy.installBlueprintByNameAndTier("Claw", 2)
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Aquila"
+	current_enemy.hp = 60
+	current_enemy.tech_points = 50
+	current_enemy.attack = 25
+	current_enemy.defense = 10
+	current_enemy.senses = 25
+	current_enemy.speed = 25
+	current_enemy.installBlueprintByNameAndTier("Flechets", 1)
+	current_enemy.installBlueprintByNameAndTier("ChemBomb", 1)
+	addEnemyToTable(current_enemy)
+	
 	### MOUNTAIN ###
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Marksman"
+	current_enemy.hp = 50
+	current_enemy.tech_points = 30
+	current_enemy.attack = 25
+	current_enemy.defense = 10
+	current_enemy.senses = 50
+	current_enemy.speed = 25
+	current_enemy.installBlueprintByNameAndTier("Claw", 1)
+	current_enemy.installBlueprintByNameAndTier("Laser", 1)
+	current_enemy.installBlueprintByNameAndTier("Bullseye", 2)
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Stoneback"
+	current_enemy.hp = 60
+	current_enemy.tech_points = 50
+	current_enemy.attack = 20
+	current_enemy.defense = 50
+	current_enemy.senses = 30
+	current_enemy.speed = 10
+	current_enemy.installBlueprintByNameAndTier("Hammer", 2)
+	addEnemyToTable(current_enemy)
 	
 	### MISSILE SILO ###
 	
