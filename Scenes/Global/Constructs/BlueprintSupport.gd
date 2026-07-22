@@ -2,7 +2,7 @@ class_name BlueprintSupport extends Blueprint
 	
 var base_healing: int = 0		# How much ability heals
 var can_revive: bool = false	# If true, can revive downed party members
-var self_target_only: bool = false	# If true, can only target self
+var self_only: bool = false	# If true, can only target self
 	
 var regen: int = 0			# num Healing stacks ability gives per hit
 var sharpened: int = 0			# num Sharpened stacks ability gives per hit
@@ -18,3 +18,11 @@ var heal_acid: int = 0
 var heal_blind: int = 0
 var heal_slimed: int = 0
 var heal_rage: int = 0
+
+# For support blueprints that have adverse side effects
+var burning: int = 0
+var tranqed: int = 0
+var acid: int = 0
+var blind: int = 0
+var slimed: int = 0
+var rage: int = 0

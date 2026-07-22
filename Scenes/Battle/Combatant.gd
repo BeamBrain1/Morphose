@@ -6,11 +6,11 @@ signal dies
 
 enum ACTION {NULL, BLUEPRINT, WAIT, RUN, PROMPT_PLAYER}
 
-const MAX_STATUS_EFFECT_STACKS: int = 5
+const MAX_STATUS_EFFECT_STACKS: int = 6
 const BASE_ACCURACY = 80
 const BASE_CRIT_RATE = 5
 
-const STATUS_STACK_DEFAULT_MULTIPLIER: float = 0.2
+const STATUS_STACK_DEFAULT_MULTIPLIER: float = 0.15
 
 var name: String = "[NO DATA]"
 var max_hp: int = 1
@@ -461,6 +461,14 @@ func receiveSupport(blueprint: BlueprintSupport, self_applied: bool = false) -> 
 	adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, blueprint.keen, self_applied)
 	adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, blueprint.energized, self_applied)
 	adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, blueprint.focused, self_applied)
+	
+	if not isDefeated():
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * blueprint.burning)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * blueprint.tranqed)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * blueprint.acid)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * blueprint.blind)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * blueprint.slimed)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * blueprint.rage)
 
 
 func pushBattleMessage(update: String) -> void:

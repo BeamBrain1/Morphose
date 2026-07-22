@@ -120,7 +120,7 @@ func getTargetList(combatant: Combatant, blueprint: Blueprint) -> Array:
 		else:
 			return activeCombatantsInGroup($PartyStatusDisplay.getPlayerCombatants())
 	elif blueprint is BlueprintSupport:
-		if blueprint.self_target_only:
+		if blueprint.self_only:
 			return [combatant]
 		elif combatant is PartyCombatant:
 			if blueprint.can_revive:

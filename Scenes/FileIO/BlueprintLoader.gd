@@ -146,8 +146,8 @@ static func assignBlueprintAttribute(blueprint, key: String, value: String) -> v
 		elif key_upper == "REVIVES":
 			blueprint.can_revive = valueIsTrue(blueprint, key, value)
 			return
-		elif key_upper == "SELF_TARGET_ONLY":
-			blueprint.self_target_only = valueIsTrue(blueprint, key, value)
+		elif key_upper == "SELF_ONLY":
+			blueprint.self_only = valueIsTrue(blueprint, key, value)
 			return
 		elif key_upper == "REGEN":
 			blueprint.regen = int(value)
@@ -184,6 +184,24 @@ static func assignBlueprintAttribute(blueprint, key: String, value: String) -> v
 			return
 		elif key_upper == "HEAL_RAGE":
 			blueprint.heal_rage = int(value)
+			return
+		elif key_upper == "BURNING":
+			blueprint.burning = int(value)
+			return
+		elif key_upper == "TRANQED":
+			blueprint.tranqed = int(value)
+			return
+		elif key_upper == "ACID":
+			blueprint.acid = int(value)
+			return
+		elif key_upper == "BLIND":
+			blueprint.blind = int(value)
+			return
+		elif key_upper == "SLIMED":
+			blueprint.slimed = int(value)
+			return
+		elif key_upper == "RAGE":
+			blueprint.rage = int(value)
 			return
 	elif blueprint is BlueprintPassive:
 		pass

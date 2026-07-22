@@ -266,6 +266,17 @@ static func buildEnemyList() -> void:
 	
 	### MISSILE SILO ###
 	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Stoneback"
+	current_enemy.hp = 60
+	current_enemy.tech_points = 50
+	current_enemy.attack = 20
+	current_enemy.defense = 50
+	current_enemy.senses = 30
+	current_enemy.speed = 10
+	current_enemy.installBlueprintByNameAndTier("Hammer", 2)
+	addEnemyToTable(current_enemy)
+	
 	### CANYON OVERWORLD ###
 	
 	### CANYON ###
