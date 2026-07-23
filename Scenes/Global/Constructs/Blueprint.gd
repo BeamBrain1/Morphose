@@ -72,6 +72,13 @@ static func getBlueprintFromList(blueprint_list: Array, name_in: String, tier_in
 	return null
 
 
+static func blueprintIsInList(blueprint_list: Array, name_in: String, tier_in: int = 1):
+	for blueprint in blueprint_list:
+		if blueprint.base_display_name.matchn(name_in) and blueprint.tier == tier_in:
+			return true
+	return false
+
+
 func isInList(blueprint_list: Array):
 	for blueprint in blueprint_list:
 		if base_display_name.to_upper() == blueprint.base_display_name.to_upper() and tier == blueprint.tier:

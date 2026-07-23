@@ -5,6 +5,7 @@ var base_type: EnemyType
 
 const BASE_BIO_ENERGY_REWARD: int = 10
 var number_in_battle: int = 1	# Number of instance of this enemy in battle, used to determine display name
+var buff_priority: int
 
 func _init(enemy_type: EnemyType):
 	name = enemy_type.name
@@ -16,6 +17,7 @@ func _init(enemy_type: EnemyType):
 	defense = enemy_type.defense
 	senses = enemy_type.senses
 	speed = enemy_type.speed
+	support_priority = enemy_type.support_priority
 	base_type = enemy_type
 	
 	blueprints_attack = enemy_type.blueprints_attack
@@ -54,10 +56,22 @@ func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
 
 func chooseAction(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> ACTION:
 	# If it has the TP to act, act. Otherwise, wait.
+	if base_type.name.matchn("SILO LORD"):
+		return siloLordChooseAction()
 	if getPossibleBlueprintActions().size() > 0:
 		return ACTION.BLUEPRINT
 	else:
 		return ACTION.WAIT
+
+
+# Silo lord only uses highest-tier attacks
+func siloLordChooseAction() -> ACTION:
+	
+	if Blueprint.blueprintIsInList(getPossibleBlueprintActions(), "Missile", 2):
+		return ACTION.BLUEPRINT	
+	elif Blueprint.blueprintIsInList(getPossibleBlueprintActions(), "ChemBomb", 2) and energized_stacks >= 3:
+		return ACTION.BLUEPRINT
+	return ACTION.WAIT
 
 
 func chooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
@@ -66,6 +80,8 @@ func chooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: 
 	
 	if base_type.name.matchn("QUEEN"):
 		result = queenChooseBlueprint(party_combatants, enemy_combatants)
+	elif base_type.name.matchn("SILO LORD"):
+		result = siloLordChooseBlueprint()
 	else:	
 		result = getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
 
@@ -87,6 +103,15 @@ func queenChooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combata
 		else:
 			return Blueprint.getBlueprintFromList(possible_actions, "Marshal")
 
+
+func siloLordChooseBlueprint() -> Blueprint:
+	var possible_actions = getPossibleBlueprintActions()
+	if Blueprint.blueprintIsInList(possible_actions, "Missile", 2):
+		return Blueprint.getBlueprintFromList(possible_actions, "Missile", 2)
+	elif Blueprint.blueprintIsInList(possible_actions, "ChemBomb", 2):
+		return Blueprint.getBlueprintFromList(possible_actions, "ChemBomb", 2)
+	else:
+		return possible_actions[randi() % possible_actions.size()]
 
 # Choose target for single-target blueprint action
 func chooseTarget(blueprint: Blueprint, target_list: Array, party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Combatant:

@@ -3,6 +3,8 @@ extends Morphose
 
 const BASE_BIO_ENERGY_REWARD: int = 10
 
+var support_priority: int = 5		# Priority bracket when AI targets support actions. Lower numbers always take priority
+
 # Return the Muta value of the enemy upon its defeat 
 func getBioEnergyValue() -> int:
 	var blueprint_value: int = mostExpensiveBlueprintValue()
