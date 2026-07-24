@@ -5,7 +5,7 @@ var base_type: EnemyType
 
 const BASE_BIO_ENERGY_REWARD: int = 10
 var number_in_battle: int = 1	# Number of instance of this enemy in battle, used to determine display name
-var buff_priority: int
+var support_priority: int
 
 func _init(enemy_type: EnemyType):
 	name = enemy_type.name
@@ -114,7 +114,20 @@ func siloLordChooseBlueprint() -> Blueprint:
 		return possible_actions[randi() % possible_actions.size()]
 
 # Choose target for single-target blueprint action
-func chooseTarget(blueprint: Blueprint, target_list: Array, party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Combatant:
+func chooseTarget(blueprint, target_list: Array, party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Combatant:
+	if blueprint is BlueprintSupport:
+		return chooseSupportTarget(blueprint, enemy_combatants)
+	return target_list[randi() % target_list.size()]
+
+
+func chooseSupportTarget(blueprint, enemy_combatants: Array[EnemyCombatant]) -> Combatant:
+	var highest_priority: int = 1000
+	for combatant in enemy_combatants:
+		highest_priority = mini(highest_priority, combatant.support_priority)
+	var target_list = []
+	for combatant in enemy_combatants:
+		if combatant.support_priority == highest_priority:
+			target_list.append(combatant)
 	return target_list[randi() % target_list.size()]
 
 
