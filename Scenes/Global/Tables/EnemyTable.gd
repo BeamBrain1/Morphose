@@ -151,19 +151,19 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Swarmer"
 	current_enemy.hp = 10
 	current_enemy.tech_points = 20
-	current_enemy.attack = 20
+	current_enemy.attack = 30
 	current_enemy.defense = 3
 	current_enemy.senses = 10
-	current_enemy.speed = 15
+	current_enemy.speed = 20
 	current_enemy.installBlueprintByNameAndTier("Laser", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Queen"
-	current_enemy.hp = 300
+	current_enemy.hp = 400
 	current_enemy.tech_points = 50
 	current_enemy.attack = 1
-	current_enemy.defense = 10
+	current_enemy.defense = 20
 	current_enemy.senses = 5
 	current_enemy.speed = 20
 	current_enemy.installBlueprintByNameAndTier("Swarm", 1)

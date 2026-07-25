@@ -14,6 +14,7 @@ func _ready() -> void:
 
 func displayText(text: String) -> void:
 	$Label.text = text
+	setLabelSize()
 
 
 func setSizeAndPosition() -> void:
@@ -21,8 +22,15 @@ func setSizeAndPosition() -> void:
 	size.y = ROW_HEIGHT_PX * (num_rows + 2)		# 2 additional rows for box edges
 	if not expands_down:
 		position.y -= (size.y - size_y_old)
+	setLabelSize()
 
 
 # Returns true if the dialog box extends down past the bottom of the screen
 func extendsPastScreenBottom() -> bool:
 	return global_position.y + size.y > GlobalProgramData.VIEWPORT_RESOLUTION.y
+
+
+func setLabelSize() -> void:
+	if has_node("Label"):
+		if $Label != null:
+			$Label.size.x = size.x - ($Label.position.x * 2)
