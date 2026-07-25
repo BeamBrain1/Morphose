@@ -175,17 +175,6 @@ static func buildEnemyList() -> void:
 	### EASTERN PLAINS ###
 	
 	current_enemy = EnemyType.new()
-	current_enemy.name = "Launcher"
-	current_enemy.hp = 40
-	current_enemy.tech_points = 20
-	current_enemy.attack = 25
-	current_enemy.defense = 10
-	current_enemy.senses = 15
-	current_enemy.speed = 25
-	current_enemy.installBlueprintByNameAndTier("Missile", 1)
-	addEnemyToTable(current_enemy)
-	
-	current_enemy = EnemyType.new()
 	current_enemy.name = "Saiyon"
 	current_enemy.hp = 40
 	current_enemy.tech_points = 25
@@ -207,6 +196,18 @@ static func buildEnemyList() -> void:
 	current_enemy.speed = 16
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Harrier"
+	current_enemy.hp = 45
+	current_enemy.tech_points = 20
+	current_enemy.attack = 25
+	current_enemy.defense = 10
+	current_enemy.senses = 15
+	current_enemy.speed = 15
+	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
+	current_enemy.installBlueprintByNameAndTier("Overclock", 1)
 	addEnemyToTable(current_enemy)
 	
 	### SPACE CENTER ###
@@ -268,13 +269,37 @@ static func buildEnemyList() -> void:
 	### MISSILE SILO ###
 	
 	current_enemy = EnemyType.new()
+	current_enemy.name = "Searcher"
+	current_enemy.hp = 80
+	current_enemy.tech_points = 60
+	current_enemy.attack = 25
+	current_enemy.defense = 15
+	current_enemy.senses = 25
+	current_enemy.speed = 25
+	current_enemy.installBlueprintByNameAndTier("Claw", 2)
+	current_enemy.installBlueprintByNameAndTier("Spot", 2)
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Launcher"
+	current_enemy.hp = 100
+	current_enemy.tech_points = 80
+	current_enemy.attack = 35
+	current_enemy.defense = 12
+	current_enemy.senses = 25
+	current_enemy.speed = 25
+	current_enemy.installBlueprintByNameAndTier("Missile", 1)
+	current_enemy.installBlueprintByNameAndTier("Flechets", 1)
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
 	current_enemy.name = "Silo Lord"
 	current_enemy.hp = 500
 	current_enemy.tech_points = 150
 	current_enemy.attack = 40
 	current_enemy.defense = 18
-	current_enemy.senses = 25
-	current_enemy.speed = 15
+	current_enemy.senses = 30
+	current_enemy.speed = 18
 	current_enemy.support_priority = 1
 	current_enemy.installBlueprintByNameAndTier("Missile", 2)
 	current_enemy.installBlueprintByNameAndTier("ChemBomb", 2)
@@ -284,10 +309,10 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Tanker"
 	current_enemy.hp = 200
 	current_enemy.tech_points = 100
-	current_enemy.attack = 20
+	current_enemy.attack = 25
 	current_enemy.defense = 15
-	current_enemy.senses = 20
-	current_enemy.speed = 20
+	current_enemy.senses = 25
+	current_enemy.speed = 25
 	current_enemy.installBlueprintByNameAndTier("Napalm", 1)
 	current_enemy.installBlueprintByNameAndTier("Turbo", 2)
 	current_enemy.installBlueprintByNameAndTier("Honey", 2)
