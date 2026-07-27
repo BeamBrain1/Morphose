@@ -41,8 +41,9 @@ func mainLoop():
 
 		$PartyStatusDisplay.toggleTurnIndicators(current_actor)
 
-		await chooseAction(current_actor)
-		await displayAndRunChosenAction(current_actor, selected_action, selected_blueprint, selected_target)
+		if not current_actor.isDefeated():
+			await chooseAction(current_actor)
+			await displayAndRunChosenAction(current_actor, selected_action, selected_blueprint, selected_target)
 
 		$PartyStatusDisplay.toggleTurnIndicators(current_actor)
 

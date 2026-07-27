@@ -3,7 +3,6 @@ extends Combatant
 
 var base_type: EnemyType
 
-const BASE_BIO_ENERGY_REWARD: int = 10
 var number_in_battle: int = 1	# Number of instance of this enemy in battle, used to determine display name
 var support_priority: int
 
@@ -126,7 +125,7 @@ func chooseSupportTarget(blueprint, enemy_combatants: Array[EnemyCombatant]) -> 
 		highest_priority = mini(highest_priority, combatant.support_priority)
 	var target_list = []
 	for combatant in enemy_combatants:
-		if combatant.support_priority == highest_priority:
+		if combatant.support_priority == highest_priority and not combatant.isDefeated():
 			target_list.append(combatant)
 	return target_list[randi() % target_list.size()]
 

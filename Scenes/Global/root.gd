@@ -84,19 +84,19 @@ func addDefector():
 func addScholar():
 	var c3: PartyMember = PartyMember.new()
 	c3.name = PartyMember.PARTY_MEMBER_3_NAME
-	c3.hp = 50
+	c3.hp = 40
 	c3.tech_points = 25
-	c3.attack = 10
-	c3.defense = 15
-	c3.senses = 20
-	c3.speed = 15
+	c3.attack = 8
+	c3.defense = 10
+	c3.senses = 15
+	c3.speed = 10
 	c3.bio_energy = 0
 	c3.discounted_stats = [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS, GlobalProgramData.COMBAT_STAT.SENSES]
 
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Psypulse", 1), true)
-	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("FlameJet", 1), true)
+	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Acid Spit", 1), true)
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Honey", 1), true)
-	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Panacea", 1), true)
+	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Firefoam", 1), true)
 	ActiveSaveData.addPartyMember(c3)
 
 
