@@ -18,9 +18,9 @@ func _ready() -> void:
 
 func assignBlueprint(blueprint_in, actor_tp: int, check_predecessors: bool = false) -> void:
 	blueprint = blueprint_in
-	text = blueprint.getMenuDisplayName() + "  " + str(blueprint.tp_cost).lpad(3) + " TP "
+	text = blueprint.getMenuDisplayName() + "  " + str(blueprint.getTechPointCost()).lpad(3) + " TP "
 	
-	disabled = blueprint_in.tp_cost > actor_tp
+	disabled = blueprint_in.getTechPointCost() > actor_tp
 	
 	if check_predecessors:
 		if blueprint_in.hasPredecessors():

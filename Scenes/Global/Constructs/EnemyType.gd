@@ -23,13 +23,13 @@ func getBioEnergyValue() -> int:
 	
 	stat_value *= 6
 	
-	return BASE_BIO_ENERGY_REWARD + ceili(float(stat_value + blueprint_value)) / 8
+	return BASE_BIO_ENERGY_REWARD + ceili(float(stat_value + blueprint_value)) * 3 / 8
 
 
 func mostExpensiveBlueprintValue() -> int:
 	var result: int = 0
 	for blueprint in allBlueprints():
-		if blueprint.bio_energy_cost > result:
-			result = blueprint.bio_energy_cost
+		if blueprint.getBioEnergyCost() > result:
+			result = blueprint.getBioEnergyCost()
 	
 	return result

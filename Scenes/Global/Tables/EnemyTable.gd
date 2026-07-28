@@ -24,9 +24,9 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Worker"
-	current_enemy.hp = 10
+	current_enemy.hp = 8
 	current_enemy.tech_points = 8
-	current_enemy.attack = 2
+	current_enemy.attack = 1
 	current_enemy.defense = 6
 	current_enemy.senses = 4
 	current_enemy.speed = 5
@@ -50,7 +50,7 @@ static func buildEnemyList() -> void:
 	current_enemy.tech_points = 70
 	current_enemy.attack = 8
 	current_enemy.defense = 6
-	current_enemy.senses = 8
+	current_enemy.senses = 5
 	current_enemy.speed = 8
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
@@ -61,21 +61,21 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Darter"
 	current_enemy.hp = 10
 	current_enemy.tech_points = 15
-	current_enemy.attack = 12
+	current_enemy.attack = 10
 	current_enemy.defense = 3
-	current_enemy.senses = 8
+	current_enemy.senses = 6
 	current_enemy.speed = 18
 	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Shellon"
-	current_enemy.hp = 25
+	current_enemy.hp = 15
 	current_enemy.tech_points = 10
-	current_enemy.attack = 10
+	current_enemy.attack = 6
 	current_enemy.defense = 10
-	current_enemy.senses = 5
-	current_enemy.speed = 5
+	current_enemy.senses = 4
+	current_enemy.speed = 4
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
 	current_enemy.installBlueprintByNameAndTier("Mucus", 1)
@@ -108,13 +108,14 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Brute"
-	current_enemy.hp = 40
+	current_enemy.hp = 30
 	current_enemy.tech_points = 20
-	current_enemy.attack = 14
-	current_enemy.defense = 10
+	current_enemy.attack = 12
+	current_enemy.defense = 8
 	current_enemy.senses = 10
 	current_enemy.speed = 8
-	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
+	current_enemy.installBlueprintByNameAndTier("Claw", 1)
+	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
 	current_enemy.installBlueprintByNameAndTier("ChemBomb", 1)
 	addEnemyToTable(current_enemy)
 	

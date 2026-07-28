@@ -149,7 +149,7 @@ func installBlueprint(blueprint, free: bool = false) -> void:
 	blueprint_list.sort_custom(Blueprint.sortBlueprintsAscending)
 	
 	if not free:
-		bio_energy -= blueprint.bio_energy_cost
+		bio_energy -= blueprint.getBioEnergyCost()
 
 
 func uninstallBlueprint(blueprint) -> void:
@@ -170,7 +170,7 @@ func uninstallBlueprint(blueprint) -> void:
 			break
 	
 	if found:
-		bio_energy += blueprint.bio_energy_cost
+		bio_energy += blueprint.getBioEnergyCost()
 	else:
 		push_error("Blueprint not found: " + blueprint.getDialogDisplayName())
 

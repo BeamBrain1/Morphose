@@ -77,7 +77,7 @@ func populateButtonList() -> void:
 		select_blueprint_button.blueprint = blueprint_list[i]
 		select_blueprint_button.position = INITIAL_BLUEPRINT_BUTTON_POSITION + Vector2(0, NEXT_BLUEPRINT_Y_OFFSET * (i - BLUEPRINTS_PER_PAGE * current_page))
 		if checks_tp_cost:
-			select_blueprint_button.disabled = blueprint_list[i].bio_energy_cost > assigned_party_member.bio_energy
+			select_blueprint_button.disabled = blueprint_list[i].getBioEnergyCost() > assigned_party_member.bio_energy
 		select_blueprint_button.choose_blueprint.connect(blueprintSelected)
 		select_blueprint_button.text = blueprintButtonText(blueprint_list[i])
 
@@ -99,4 +99,4 @@ func blueprintSelected(blueprint):
 
 
 func blueprintButtonText(blueprint) -> String:
-	return " " + blueprint.getMenuDisplayName() + " " + str(blueprint.bio_energy_cost).lpad(MAX_BIO_ENERGY_COST_DIGITS) + "M"
+	return " " + blueprint.getMenuDisplayName() + " " + str(blueprint.getBioEnergyCost()).lpad(MAX_BIO_ENERGY_COST_DIGITS) + "M"

@@ -6,17 +6,39 @@ var base_display_name: String = "[NO DATA]"
 var tier: int = 1						# Higher tiers are stronger versions of same abilities
 										# Higher tiers of attack/passive abilities also give access
 										#	to their lower-tier versions
-var bio_energy_cost: int = 0			# How much bio-energy a Morphose must spend to install
+var bio_cost_track: String = "X"			# Track for how much bio-energy a Morphose must spend to install
+
 
 var primus_compatible: bool = false		# Determines whether each party member can install it
 var defector_compatible: bool = false
 var scholar_compatible: bool = false
 
-var tp_cost: int = 0			# tech point cost per use
+var tp_cost_track: String = "X"			# Track for tech point cost per use
 var multitarget: bool = false	# If true, affects all eligible targets
 var predecessors: Array = []	# List of predecessor blueprints: lower-tier bluepritns of same name
 var special: String = ""		# Used to assign additional one-off capabilities
 
+# Blueprints are organized into bio cost "tracks." Individual blueprint cost is determined by track letter and tier.
+const BIO_COST_TRACKS: Dictionary = {
+	"X": [0, 0, 0],
+	"A": [20, 190, 900],
+	"B": [30, 280, 1300],
+	"C": [40, 370, 1700],
+	"D": [50, 460, 2100],
+	"E": [60, 540, 2400]
+}
+
+# Determines how much TP it costs to use a given blueprint
+const TP_COST_TRACKS: Dictionary = {
+	"X": [0, 0, 0],
+	"A": [2, 12, 60],
+	"B": [3, 15, 70],
+	"C": [4, 18, 85],
+	"D": [6, 27, 130],
+	"E": [10, 48, 230],
+	"F": [12, 58, 260],
+	"G": [15, 72, 310]
+}
 
 func getDialogDisplayName() -> String:
 	if tier == 1:
@@ -110,3 +132,11 @@ static func sortBlueprintsDescending(a, b):
 	elif a.base_display_name == b.base_display_name:
 		return a.tier > b.tier
 	return false
+
+
+func getBioEnergyCost() -> int:
+	return BIO_COST_TRACKS[bio_cost_track.to_upper()][tier-1]
+
+
+func getTechPointCost() -> int:
+	return TP_COST_TRACKS[tp_cost_track.to_upper()][tier-1]

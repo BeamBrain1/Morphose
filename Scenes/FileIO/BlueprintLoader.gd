@@ -73,11 +73,11 @@ static func assignBlueprintAttribute(blueprint, key: String, value: String) -> v
 	elif key_upper == "TIER":
 		blueprint.tier = int(value)
 		return
-	elif key_upper == "BIO_COST":
-		blueprint.bio_energy_cost = int(value)
+	elif key_upper == "BIO_COST_TRACK":
+		blueprint.bio_cost_track = value.to_upper()
 		return
-	elif key_upper == "TP_COST":
-		blueprint.tp_cost = int(value)
+	elif key_upper == "TP_COST_TRACK":
+		blueprint.tp_cost_track = value.to_upper()
 		return
 	elif key_upper == "MULTITARGET":
 		blueprint.multitarget = valueIsTrue(blueprint, key, value)

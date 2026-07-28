@@ -539,12 +539,12 @@ func getPossibleBlueprintActions() -> Array:
 
 	for blueprint_list in [blueprints_attack, blueprints_support]:
 		for blueprint in blueprint_list:
-			if blueprint.tp_cost <= tech_points:
+			if blueprint.getTechPointCost() <= tech_points:
 				result.append(blueprint)
 			else:
 				if blueprint.hasPredecessors():
 					for pred in blueprint.predecessors:
-						if pred.tp_cost <= tech_points:
+						if pred.getTechPointCost() <= tech_points:
 							result.append(pred)
 							break
 
@@ -555,12 +555,12 @@ func getPossibleAttackActions() -> Array[BlueprintAttack]:
 	var result: Array[BlueprintAttack] = []
 
 	for blueprint in blueprints_attack:
-		if blueprint.tp_cost <= tech_points:
+		if blueprint.getTechPointCost() <= tech_points:
 			result.append(blueprint)
 		else:
 			if blueprint.hasPredecessors():
 				for pred in blueprint.predecessors:
-					if pred.tp_cost <= tech_points:
+					if pred.getTechPointCost() <= tech_points:
 						result.append(pred)
 						break
 
@@ -579,12 +579,12 @@ func getPossibleSupportActions() -> Array[BlueprintSupport]:
 	var result: Array[BlueprintSupport] = []
 
 	for blueprint in blueprints_support:
-		if blueprint.tp_cost <= tech_points:
+		if blueprint.getTechPointCost() <= tech_points:
 			result.append(blueprint)
 		else:
 			if blueprint.hasPredecessors():
 				for pred in blueprint.predecessors:
-					if pred.tp_cost <= tech_points:
+					if pred.getTechPointCost() <= tech_points:
 						result.append(pred)
 						break
 

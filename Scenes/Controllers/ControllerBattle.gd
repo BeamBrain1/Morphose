@@ -147,7 +147,7 @@ func activeCombatantsInGroup(combatant_list: Array) -> Array:
 
 
 func executeBlueprint(user, blueprint: Blueprint, target) -> void:
-	user.spendTP(blueprint.tp_cost)
+	user.spendTP(blueprint.getTechPointCost())
 	pushCombatantBattleMessages(user)
 	
 	if blueprint is BlueprintAttack:
@@ -170,7 +170,7 @@ func specialSwarmReinforce() -> void:
 
 
 func executeMultitargetBlueprint(user, blueprint: Blueprint, target_list: Array) -> void:
-	user.spendTP(blueprint.tp_cost)
+	user.spendTP(blueprint.getTechPointCost())
 	pushCombatantBattleMessages(user)
 	
 	if blueprint is BlueprintAttack:
