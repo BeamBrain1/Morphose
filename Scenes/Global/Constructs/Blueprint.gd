@@ -18,25 +18,31 @@ var multitarget: bool = false	# If true, affects all eligible targets
 var predecessors: Array = []	# List of predecessor blueprints: lower-tier bluepritns of same name
 var special: String = ""		# Used to assign additional one-off capabilities
 
+const BIO_COST_T2_MULT: int = 20
+const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 5
+const TP_COST_T2_MULT: int = 6
+const TP_COST_T3_MULT: int = TP_COST_T2_MULT*5
+
+
 # Blueprints are organized into bio cost "tracks." Individual blueprint cost is determined by track letter and tier.
 const BIO_COST_TRACKS: Dictionary = {
 	"X": [0, 0, 0],
-	"A": [20, 190, 900],
-	"B": [30, 280, 1300],
-	"C": [40, 370, 1700],
-	"D": [50, 460, 2100],
-	"E": [60, 540, 2400]
+	"A": [20, 20*BIO_COST_T2_MULT, 20*BIO_COST_T3_MULT],
+	"B": [30, 30*BIO_COST_T2_MULT, 30*BIO_COST_T3_MULT],
+	"C": [40, 40*BIO_COST_T2_MULT, 40*BIO_COST_T3_MULT],
+	"D": [50, 50*BIO_COST_T2_MULT, 50*BIO_COST_T3_MULT],
+	"E": [60, 60*BIO_COST_T2_MULT, 60*BIO_COST_T3_MULT]
 }
 
 # Determines how much TP it costs to use a given blueprint
 const TP_COST_TRACKS: Dictionary = {
 	"X": [0, 0, 0],
-	"A": [3, 15, 70],
-	"B": [4, 18, 85],
-	"C": [6, 27, 130],
-	"D": [8, 36, 170],
-	"E": [12, 58, 260],
-	"F": [15, 72, 310]
+	"A": [3, 3*TP_COST_T2_MULT, 3*TP_COST_T3_MULT],
+	"B": [4, 4*TP_COST_T2_MULT, 4*TP_COST_T3_MULT],
+	"C": [6, 6*TP_COST_T2_MULT, 6*TP_COST_T3_MULT],
+	"D": [8, 8*TP_COST_T2_MULT, 8*TP_COST_T3_MULT],
+	"E": [12, 12*TP_COST_T2_MULT, 12*TP_COST_T3_MULT],
+	"F": [15, 15*TP_COST_T2_MULT, 15*TP_COST_T3_MULT]
 }
 
 func getDialogDisplayName() -> String:

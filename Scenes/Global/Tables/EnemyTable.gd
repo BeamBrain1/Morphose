@@ -153,7 +153,7 @@ static func buildEnemyList() -> void:
 	current_enemy.attack = 25
 	current_enemy.defense = 3
 	current_enemy.senses = 10
-	current_enemy.speed = 20
+	current_enemy.speed = 16
 	current_enemy.installBlueprintByNameAndTier("Laser", 1)
 	addEnemyToTable(current_enemy)
 	
