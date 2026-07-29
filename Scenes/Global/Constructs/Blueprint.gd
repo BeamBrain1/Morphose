@@ -31,13 +31,12 @@ const BIO_COST_TRACKS: Dictionary = {
 # Determines how much TP it costs to use a given blueprint
 const TP_COST_TRACKS: Dictionary = {
 	"X": [0, 0, 0],
-	"A": [2, 12, 60],
-	"B": [3, 15, 70],
-	"C": [4, 18, 85],
-	"D": [6, 27, 130],
-	"E": [10, 48, 230],
-	"F": [12, 58, 260],
-	"G": [15, 72, 310]
+	"A": [3, 15, 70],
+	"B": [4, 18, 85],
+	"C": [6, 27, 130],
+	"D": [8, 36, 170],
+	"E": [12, 58, 260],
+	"F": [15, 72, 310]
 }
 
 func getDialogDisplayName() -> String:

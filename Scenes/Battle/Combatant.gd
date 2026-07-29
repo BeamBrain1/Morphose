@@ -261,14 +261,16 @@ func applyStartOfTurnPassiveBlueprintEffects() -> void:
 
 func applyHealingBurning() -> void:
 	if getStatusEffectFromEnumType(STATUS_EFFECT.REGEN) != 0:
-		var heal_amount: int = maxi(floori(max_hp/12), 1)
-		heal_amount *= getStatusEffectFromEnumType(STATUS_EFFECT.REGEN)
-		if heal_amount > 0:
-			heal(heal_amount)
-		elif heal_amount < 0:
+		var healing: bool = getStatusEffectFromEnumType(STATUS_EFFECT.REGEN) > 0
+		var change_amount: int = max_hp * abs(getStatusEffectFromEnumType(STATUS_EFFECT.REGEN))
+		change_amount = maxi(floori(change_amount/12), 1)
+		if healing:
+			heal(change_amount)
+		else:
 			if hasPassiveBlueprint("HydroCoat"):
-				heal_amount -= (heal_amount * passiveBlueprintTier("HydroCoat") / 4)
-			damage(-1 * heal_amount)
+				change_amount -= (change_amount * passiveBlueprintTier("HydroCoat") / 4)
+				change_amount = maxi(change_amount, 1)
+			damage(change_amount)
 
 
 func regenTP() -> void:

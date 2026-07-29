@@ -48,11 +48,10 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Boss"
 	current_enemy.hp = 80
 	current_enemy.tech_points = 70
-	current_enemy.attack = 8
+	current_enemy.attack = 6
 	current_enemy.defense = 6
 	current_enemy.senses = 5
 	current_enemy.speed = 8
-	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -60,8 +59,8 @@ static func buildEnemyList() -> void:
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Darter"
 	current_enemy.hp = 10
-	current_enemy.tech_points = 15
-	current_enemy.attack = 10
+	current_enemy.tech_points = 35
+	current_enemy.attack = 12
 	current_enemy.defense = 3
 	current_enemy.senses = 6
 	current_enemy.speed = 18
@@ -70,9 +69,9 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Shellon"
-	current_enemy.hp = 15
-	current_enemy.tech_points = 10
-	current_enemy.attack = 6
+	current_enemy.hp = 20
+	current_enemy.tech_points = 35
+	current_enemy.attack = 8
 	current_enemy.defense = 10
 	current_enemy.senses = 4
 	current_enemy.speed = 4
@@ -83,12 +82,12 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Hunter"
-	current_enemy.hp = 20
-	current_enemy.tech_points = 15
-	current_enemy.attack = 10
+	current_enemy.hp = 25
+	current_enemy.tech_points = 25
+	current_enemy.attack = 12
 	current_enemy.defense = 6
-	current_enemy.senses = 8
-	current_enemy.speed = 8
+	current_enemy.senses = 10
+	current_enemy.speed = 10
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	current_enemy.installBlueprintByNameAndTier("Acid Spit", 1)
 	addEnemyToTable(current_enemy)
@@ -96,40 +95,39 @@ static func buildEnemyList() -> void:
 	### CITY ###
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Pyroid"
-	current_enemy.hp = 25
-	current_enemy.tech_points = 15
+	current_enemy.hp = 30
+	current_enemy.tech_points = 30
 	current_enemy.attack = 10
-	current_enemy.defense = 6
-	current_enemy.senses = 15
-	current_enemy.speed = 10
+	current_enemy.defense = 8
+	current_enemy.senses = 12
+	current_enemy.speed = 12
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	current_enemy.installBlueprintByNameAndTier("Flamejet", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Brute"
-	current_enemy.hp = 30
-	current_enemy.tech_points = 20
-	current_enemy.attack = 12
+	current_enemy.hp = 50
+	current_enemy.tech_points = 40
+	current_enemy.attack = 15
 	current_enemy.defense = 8
 	current_enemy.senses = 10
-	current_enemy.speed = 8
+	current_enemy.speed = 10
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
-	current_enemy.installBlueprintByNameAndTier("ChemBomb", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Gang Boss"
-	current_enemy.hp = 150
-	current_enemy.tech_points = 30
-	current_enemy.attack = 14
+	current_enemy.hp = 120
+	current_enemy.tech_points = 35
+	current_enemy.attack = 12
 	current_enemy.defense = 25
-	current_enemy.senses = 30
-	current_enemy.speed = 15
+	current_enemy.senses = 18
+	current_enemy.speed = 22
 	current_enemy.installBlueprintByNameAndTier("Flamejet", 1)
 	current_enemy.installBlueprintByNameAndTier("Napalm", 1)
-	current_enemy.installBlueprintByNameAndTier("Claw", 1)
+	current_enemy.installBlueprintByNameAndTier("Psypulse", 1)
 	addEnemyToTable(current_enemy)
 	
 	### SKELETON FOREST ###
@@ -137,12 +135,12 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Pack Bug"
-	current_enemy.hp = 60
-	current_enemy.tech_points = 20
-	current_enemy.attack = 24
-	current_enemy.defense = 12
-	current_enemy.senses = 15
-	current_enemy.speed = 18
+	current_enemy.hp = 45
+	current_enemy.tech_points = 25
+	current_enemy.attack = 17
+	current_enemy.defense = 8
+	current_enemy.senses = 14
+	current_enemy.speed = 14
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
 	current_enemy.installBlueprintByNameAndTier("Acid Spit", 1)
@@ -151,8 +149,8 @@ static func buildEnemyList() -> void:
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Swarmer"
 	current_enemy.hp = 10
-	current_enemy.tech_points = 20
-	current_enemy.attack = 30
+	current_enemy.tech_points = 30
+	current_enemy.attack = 25
 	current_enemy.defense = 3
 	current_enemy.senses = 10
 	current_enemy.speed = 20
@@ -161,10 +159,10 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Queen"
-	current_enemy.hp = 400
+	current_enemy.hp = 250
 	current_enemy.tech_points = 50
 	current_enemy.attack = 1
-	current_enemy.defense = 20
+	current_enemy.defense = 10
 	current_enemy.senses = 5
 	current_enemy.speed = 20
 	current_enemy.installBlueprintByNameAndTier("Swarm", 1)
@@ -177,8 +175,8 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Saiyon"
-	current_enemy.hp = 40
-	current_enemy.tech_points = 25
+	current_enemy.hp = 50
+	current_enemy.tech_points = 30
 	current_enemy.attack = 5
 	current_enemy.defense = 10
 	current_enemy.senses = 30
@@ -189,24 +187,24 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Marauder"
-	current_enemy.hp = 50
-	current_enemy.tech_points = 20
+	current_enemy.hp = 70
+	current_enemy.tech_points = 25
 	current_enemy.attack = 22
 	current_enemy.defense = 12
 	current_enemy.senses = 13
-	current_enemy.speed = 16
+	current_enemy.speed = 20
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Harrier"
-	current_enemy.hp = 45
+	current_enemy.hp = 50
 	current_enemy.tech_points = 20
 	current_enemy.attack = 25
-	current_enemy.defense = 10
+	current_enemy.defense = 12
 	current_enemy.senses = 15
-	current_enemy.speed = 15
+	current_enemy.speed = 21
 	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
 	current_enemy.installBlueprintByNameAndTier("Overclock", 1)
 	addEnemyToTable(current_enemy)
