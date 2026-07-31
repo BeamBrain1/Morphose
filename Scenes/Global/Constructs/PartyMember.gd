@@ -17,6 +17,15 @@ func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) ->
 	
 	var is_odd: bool = result % 2 == 1
 	
+	if stat == GlobalProgramData.COMBAT_STAT.HP:
+		result -= Morphose.HP_MINIMUM
+	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
+		result -= Morphose.TP_MINIMUM
+	else:
+		result -= Morphose.STAT_MINIMUM
+	
+	result = maxi(1, result)
+	
 	# Discounted stats can be boosted at 3/4 price
 	if stat in discounted_stats:
 		result = maxi(1, (result * 3) / 4)
@@ -25,11 +34,7 @@ func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) ->
 	if stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
 		result = result >> 2
 	
-	# Round up for scaling - small change that stops it from getting out of hand
-	if is_odd:
-		result += 1
-	
-	return max(1, result)	# All boosts cost at least 1 point
+	return maxi(1, result)	# All boosts cost at least 1 point
 
 
 # Cost in bio-energy to boost a given stat by 1 point from its current value
@@ -128,7 +133,7 @@ func liquidateBioEnergy() -> void:
 	# Uninstall blueprints
 	for blueprint_list in [blueprints_attack, blueprints_support, blueprints_passive]:
 		while not blueprint_list.is_empty():
-			bio_energy += blueprint_list.pop_front().bio_energy_cost
+			bio_energy += blueprint_list.pop_front().getBioEnergyCost()
 
 
 # Free: If true, blueprint is installed without paying Muta

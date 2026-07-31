@@ -88,6 +88,7 @@ func heal(amount: int) -> void:
 	var final_amount: int = maxi(amount, 0)
 	pushBattleMessage(name + " recovers " + str(final_amount) + " HP.")
 	changeHP(final_amount)
+	marked_defeated = false
 
 
 func getStatusEffectFromEnumType(effect: STATUS_EFFECT) -> int:

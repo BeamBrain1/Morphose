@@ -108,6 +108,8 @@ func displayAndRunChosenAction(actor, action: Combatant.ACTION, blueprint = null
 	elif action == Combatant.ACTION.BLUEPRINT:
 		if blueprint.multitarget:
 			executeMultitargetBlueprint(actor, blueprint, getTargetList(actor, blueprint))
+		elif blueprint is BlueprintSupport and blueprint.self_only:
+			executeBlueprint(actor, blueprint, actor)
 		else:
 			executeBlueprint(actor, blueprint, target)
 	else:

@@ -67,8 +67,6 @@ func chooseAction(party_combatants: Array[PartyCombatant], enemy_combatants: Arr
 func siloLordChooseAction() -> ACTION:
 	
 	if Blueprint.blueprintIsInList(getPossibleBlueprintActions(), "Missile", 2):
-		return ACTION.BLUEPRINT	
-	elif Blueprint.blueprintIsInList(getPossibleBlueprintActions(), "ChemBomb", 2) and energized_stacks >= 3:
 		return ACTION.BLUEPRINT
 	return ACTION.WAIT
 
@@ -80,7 +78,7 @@ func chooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: 
 	if base_type.name.matchn("QUEEN"):
 		result = queenChooseBlueprint(party_combatants, enemy_combatants)
 	elif base_type.name.matchn("SILO LORD"):
-		result = siloLordChooseBlueprint()
+		result = siloLordChooseBlueprint(party_combatants)
 	else:	
 		result = getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
 
@@ -103,12 +101,23 @@ func queenChooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combata
 			return Blueprint.getBlueprintFromList(possible_actions, "Marshal")
 
 
-func siloLordChooseBlueprint() -> Blueprint:
+func siloLordChooseBlueprint(party_combatants: Array[PartyCombatant]) -> Blueprint:
 	var possible_actions = getPossibleBlueprintActions()
-	if Blueprint.blueprintIsInList(possible_actions, "Missile", 2):
+	
+	var party_avg_defense: int = 0
+	var living_party_members: int = 0
+	
+	for combatant in party_combatants:
+		if not combatant.isDefeated():
+			party_avg_defense += combatant.getStatusEffectAdjustedDefense()
+			living_party_members += 1
+	
+	party_avg_defense /= maxi(living_party_members, 1)
+	
+	if Blueprint.blueprintIsInList(possible_actions, "Missile", 2) and party_avg_defense > 40:
 		return Blueprint.getBlueprintFromList(possible_actions, "Missile", 2)
-	elif Blueprint.blueprintIsInList(possible_actions, "ChemBomb", 2):
-		return Blueprint.getBlueprintFromList(possible_actions, "ChemBomb", 2)
+	elif Blueprint.blueprintIsInList(possible_actions, "FragBomb", 2):
+		return Blueprint.getBlueprintFromList(possible_actions, "FragBomb", 2)
 	else:
 		return possible_actions[randi() % possible_actions.size()]
 

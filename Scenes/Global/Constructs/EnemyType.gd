@@ -9,7 +9,9 @@ var support_priority: int = 5		# Priority bracket when AI targets support action
 func getBioEnergyValue() -> int:
 	var blueprint_value: int = mostExpensiveBlueprintValue()
 	
-	var stat_average: int = (hp + tech_points) / 4
+	var stat_average: int = 0
+	
+	stat_average += (hp + tech_points) / 4
 	
 	for stat in [GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE, GlobalProgramData.COMBAT_STAT.SENSES, GlobalProgramData.COMBAT_STAT.SPEED]:
 		stat_average += getStatFromEnumType(stat)

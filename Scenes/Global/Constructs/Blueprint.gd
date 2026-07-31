@@ -83,7 +83,7 @@ func buildPredecessorList(blueprint_list: Array) -> void:
 
 func sufficientTPForAtLeastOnePredecessor(tp: int) -> bool:
 	for bp in predecessors:
-		if bp.tp_cost <= tp:
+		if bp.getTechPointCost() <= tp:
 			return true
 	return false
 

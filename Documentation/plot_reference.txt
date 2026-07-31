@@ -44,12 +44,15 @@ BATTERY
 
 BLUEPRINT
 
+	NAVAL BASE
+		Get Amphib Blueprint to move along seafloor
+
 	SEAFLOOR
 		Filler dungeon
 
 	LABORATORY
 		More info about Morphose origins
-		Get Blueprint
+		Get Pilot Blueprint
 
 
 SPACE CENTER
