@@ -32,7 +32,7 @@ func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) ->
 	
 	# HP/TP cost 25% to boost
 	if stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
-		result = result >> 2
+		result = roundi(float(result) / 4)
 	
 	return maxi(1, result)	# All boosts cost at least 1 point
 

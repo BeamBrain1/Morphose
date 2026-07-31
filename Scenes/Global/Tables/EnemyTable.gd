@@ -25,33 +25,36 @@ static func buildEnemyList() -> void:
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Worker"
 	current_enemy.hp = 8
-	current_enemy.tech_points = 8
+	current_enemy.tech_points = 10
 	current_enemy.attack = 1
 	current_enemy.defense = 6
 	current_enemy.senses = 4
 	current_enemy.speed = 5
+	current_enemy.never_crits = true
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Enforcer"
 	current_enemy.hp = 15
-	current_enemy.tech_points = 12
+	current_enemy.tech_points = 10
 	current_enemy.attack = 6
 	current_enemy.defense = 6
 	current_enemy.senses = 4
 	current_enemy.speed = 5
+	current_enemy.never_crits = true
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Boss"
-	current_enemy.hp = 80
+	current_enemy.hp = 120
 	current_enemy.tech_points = 70
-	current_enemy.attack = 6
+	current_enemy.attack = 8
 	current_enemy.defense = 6
-	current_enemy.senses = 5
+	current_enemy.senses = 10
 	current_enemy.speed = 8
+	current_enemy.never_crits = true
 	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -119,8 +122,8 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Gang Boss"
-	current_enemy.hp = 120
-	current_enemy.tech_points = 35
+	current_enemy.hp = 150
+	current_enemy.tech_points = 40
 	current_enemy.attack = 12
 	current_enemy.defense = 25
 	current_enemy.senses = 18
@@ -136,7 +139,7 @@ static func buildEnemyList() -> void:
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Pack Bug"
 	current_enemy.hp = 45
-	current_enemy.tech_points = 25
+	current_enemy.tech_points = 30
 	current_enemy.attack = 17
 	current_enemy.defense = 8
 	current_enemy.senses = 14
@@ -160,7 +163,7 @@ static func buildEnemyList() -> void:
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Queen"
 	current_enemy.hp = 250
-	current_enemy.tech_points = 50
+	current_enemy.tech_points = 80
 	current_enemy.attack = 1
 	current_enemy.defense = 10
 	current_enemy.senses = 5
@@ -293,7 +296,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Silo Lord"
-	current_enemy.hp = 500
+	current_enemy.hp = 600
 	current_enemy.tech_points = 200
 	current_enemy.attack = 70
 	current_enemy.defense = 60

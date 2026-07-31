@@ -20,8 +20,8 @@ var special: String = ""		# Used to assign additional one-off capabilities
 
 const BIO_COST_T2_MULT: int = 20
 const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 5
-const TP_COST_T2_MULT: int = 6
-const TP_COST_T3_MULT: int = TP_COST_T2_MULT*5
+const TP_COST_T2_MULT: int = 5
+const TP_COST_T3_MULT: int = TP_COST_T2_MULT*4
 
 
 # Blueprints are organized into bio cost "tracks." Individual blueprint cost is determined by track letter and tier.
@@ -38,11 +38,12 @@ const BIO_COST_TRACKS: Dictionary = {
 const TP_COST_TRACKS: Dictionary = {
 	"X": [0, 0, 0],
 	"A": [3, 3*TP_COST_T2_MULT, 3*TP_COST_T3_MULT],
-	"B": [4, 4*TP_COST_T2_MULT, 4*TP_COST_T3_MULT],
-	"C": [6, 6*TP_COST_T2_MULT, 6*TP_COST_T3_MULT],
-	"D": [8, 8*TP_COST_T2_MULT, 8*TP_COST_T3_MULT],
-	"E": [12, 12*TP_COST_T2_MULT, 12*TP_COST_T3_MULT],
-	"F": [15, 15*TP_COST_T2_MULT, 15*TP_COST_T3_MULT]
+	"B": [5, 5*TP_COST_T2_MULT, 5*TP_COST_T3_MULT],
+	"C": [7, 7*TP_COST_T2_MULT, 7*TP_COST_T3_MULT],
+	"D": [10, 10*TP_COST_T2_MULT, 10*TP_COST_T3_MULT],
+	"E": [15, 15*TP_COST_T2_MULT, 15*TP_COST_T3_MULT],
+	"F": [20, 20*TP_COST_T2_MULT, 20*TP_COST_T3_MULT],
+	"G": [24, 24*TP_COST_T2_MULT, 24*TP_COST_T3_MULT]
 }
 
 func getDialogDisplayName() -> String:

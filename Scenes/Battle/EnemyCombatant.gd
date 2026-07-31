@@ -17,6 +17,7 @@ func _init(enemy_type: EnemyType):
 	senses = enemy_type.senses
 	speed = enemy_type.speed
 	support_priority = enemy_type.support_priority
+	never_crits = base_type.never_crits
 	base_type = enemy_type
 	
 	blueprints_attack = enemy_type.blueprints_attack
@@ -131,7 +132,8 @@ func chooseTarget(blueprint, target_list: Array, party_combatants: Array[PartyCo
 func chooseSupportTarget(blueprint, enemy_combatants: Array[EnemyCombatant]) -> Combatant:
 	var highest_priority: int = 1000
 	for combatant in enemy_combatants:
-		highest_priority = mini(highest_priority, combatant.support_priority)
+		if not combatant.isDefeated():
+			highest_priority = mini(highest_priority, combatant.support_priority)
 	var target_list = []
 	for combatant in enemy_combatants:
 		if combatant.support_priority == highest_priority and not combatant.isDefeated():

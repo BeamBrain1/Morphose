@@ -68,8 +68,8 @@ func loadStartingPartyMembers() -> void:
 func addDefector():
 	var c2: PartyMember = PartyMember.new()
 	c2.name = PartyMember.PARTY_MEMBER_2_NAME
-	c2.hp = 15
-	c2.tech_points = 10
+	c2.hp = 25
+	c2.tech_points = 15
 	c2.attack = 5
 	c2.defense = 8
 	c2.senses = 6

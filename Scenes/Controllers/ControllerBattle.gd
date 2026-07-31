@@ -213,7 +213,7 @@ func attackHits(user, blueprint: BlueprintAttack, target) -> bool:
 
 
 func attackCrits(user, blueprint: BlueprintAttack, target) -> bool:
-	if blueprint.always_hit:
+	if blueprint.always_hit or user.never_crits:
 		return false
 	var crit_rate = clampi(user.rawCritRate(blueprint) - target.critEvasion(), MIN_CRIT, MAX_CRIT)
 	return randi() % 100 < crit_rate

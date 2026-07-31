@@ -39,6 +39,8 @@ var gained_focused_on_own_turn: bool = false
 
 var accumulated_speed: int = 0
 
+var never_crits: bool = false	# Avoids enemies oneshotting Primus in early game
+
 var blueprints_attack: Array[BlueprintAttack] = []
 var blueprints_support: Array[BlueprintSupport] = []
 var blueprints_passive: Array[BlueprintPassive] = []
