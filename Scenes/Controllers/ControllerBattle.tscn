@@ -26,6 +26,17 @@ offset_right = 320.0
 offset_bottom = 240.0
 color = Color(0, 0, 0, 1)
 
+[node name="PartyStatusDisplay" parent="." unique_id=861670439 instance=ExtResource("6_gpcgo")]
+position = Vector2(0, 160)
+
+[node name="EnemyDisplayGrid" parent="." unique_id=1951764823 instance=ExtResource("8_78gec")]
+
+[node name="BattleActionMenu" parent="." unique_id=1542124744 instance=ExtResource("7_e57gr")]
+position = Vector2(0, 136)
+
+[node name="BattleMessageDisplay" parent="." unique_id=1269281296 instance=ExtResource("8_spact")]
+visible = false
+
 [node name="PrepareForNextBattleButton" type="Button" parent="." unique_id=1103267266]
 offset_left = 104.0
 offset_top = 64.0
@@ -46,22 +57,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_o007y")
 text = " Prepare For Next Battle"
 alignment = 0
 
-[node name="PartyStatusDisplay" parent="." unique_id=861670439 instance=ExtResource("6_gpcgo")]
-position = Vector2(0, 160)
-
-[node name="EnemyDisplayGrid" parent="." unique_id=1951764823 instance=ExtResource("8_78gec")]
-
-[node name="BattleActionMenu" parent="." unique_id=1542124744 instance=ExtResource("7_e57gr")]
-position = Vector2(0, 136)
-
-[node name="BattleMessageDisplay" parent="." unique_id=1269281296 instance=ExtResource("8_spact")]
-visible = false
-
-[connection signal="pressed" from="PrepareForNextBattleButton" to="." method="_on_prepare_for_next_battle_button_pressed"]
-[connection signal="select_as_support_target" from="PartyStatusDisplay" to="." method="_on_party_status_display_select_as_support_target"]
+[connection signal="select_as_support_target" from="PartyStatusDisplay" to="." method="selectSupportTarget"]
 [connection signal="combatant_selected" from="EnemyDisplayGrid" to="." method="selectEnemyAsAttackTarget"]
 [connection signal="attack" from="BattleActionMenu" to="." method="attackPressed"]
 [connection signal="choose_blueprint" from="BattleActionMenu" to="." method="blueprintSelected"]
 [connection signal="run" from="BattleActionMenu" to="." method="runPressed"]
 [connection signal="support" from="BattleActionMenu" to="." method="supportPressed"]
 [connection signal="wait" from="BattleActionMenu" to="." method="waitPressed"]
+[connection signal="pressed" from="PrepareForNextBattleButton" to="." method="_on_prepare_for_next_battle_button_pressed"]

@@ -274,8 +274,8 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Searcher"
 	current_enemy.hp = 80
 	current_enemy.tech_points = 80
-	current_enemy.attack = 40
-	current_enemy.defense = 25
+	current_enemy.attack = 50
+	current_enemy.defense = 20
 	current_enemy.senses = 60
 	current_enemy.speed = 40
 	current_enemy.installBlueprintByNameAndTier("Claw", 2)
@@ -285,23 +285,22 @@ static func buildEnemyList() -> void:
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Launcher"
 	current_enemy.hp = 130
-	current_enemy.tech_points = 80
+	current_enemy.tech_points = 100
 	current_enemy.attack = 60
 	current_enemy.defense = 20
-	current_enemy.senses = 40
-	current_enemy.speed = 40
+	current_enemy.senses = 35
+	current_enemy.speed = 30
 	current_enemy.installBlueprintByNameAndTier("Missile", 1)
-	current_enemy.installBlueprintByNameAndTier("FragBomb", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Silo Lord"
 	current_enemy.hp = 600
 	current_enemy.tech_points = 200
-	current_enemy.attack = 70
-	current_enemy.defense = 60
-	current_enemy.senses = 60
-	current_enemy.speed = 70
+	current_enemy.attack = 80
+	current_enemy.defense = 40
+	current_enemy.senses = 50
+	current_enemy.speed = 60
 	current_enemy.support_priority = 1
 	current_enemy.installBlueprintByNameAndTier("Missile", 2)
 	current_enemy.installBlueprintByNameAndTier("FragBomb", 2)
@@ -314,7 +313,7 @@ static func buildEnemyList() -> void:
 	current_enemy.hp = 300
 	current_enemy.tech_points = 120
 	current_enemy.attack = 5
-	current_enemy.defense = 50
+	current_enemy.defense = 30
 	current_enemy.senses = 40
 	current_enemy.speed = 60
 	current_enemy.installBlueprintByNameAndTier("ChemBomb", 2)

@@ -93,6 +93,7 @@ func addScholar():
 	c3.bio_energy = 0
 	c3.discounted_stats = [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS, GlobalProgramData.COMBAT_STAT.SENSES]
 
+	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Acid Spit", 1), true)
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Psypulse", 1), true)
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Honey", 1), true)

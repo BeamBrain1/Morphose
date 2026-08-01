@@ -347,7 +347,10 @@ func blueprintSelected(blueprint) -> void:
 		if blueprint is BlueprintAttack:
 			$EnemyDisplayGrid.activateAttackTargetButtons()
 		elif blueprint is BlueprintSupport:
-			$PartyStatusDisplay.activateSupportTargetButtons(blueprint)
+			if blueprint.self_only:
+				selectSupportTarget(current_actor)
+			else:
+				$PartyStatusDisplay.activateSupportTargetButtons(blueprint)
 
 
 func attackPressed() -> void:
@@ -386,7 +389,7 @@ func selectEnemyAsAttackTarget(combatant) -> void:
 	emit_signal("player_action_finalized")
 
 
-func _on_party_status_display_select_as_support_target(combatant) -> void:
+func selectSupportTarget(combatant) -> void:
 	selected_target = combatant
 	$BattleMessageDisplay.pushBattleMessage(current_actor.name + " uses " + selected_blueprint.getDialogDisplayName() + ".")
 	emit_signal("player_action_finalized")
