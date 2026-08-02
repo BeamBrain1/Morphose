@@ -295,9 +295,9 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Silo Lord"
-	current_enemy.hp = 600
+	current_enemy.hp = 800
 	current_enemy.tech_points = 200
-	current_enemy.attack = 80
+	current_enemy.attack = 65
 	current_enemy.defense = 40
 	current_enemy.senses = 50
 	current_enemy.speed = 60
@@ -310,7 +310,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Tanker"
-	current_enemy.hp = 300
+	current_enemy.hp = 400
 	current_enemy.tech_points = 120
 	current_enemy.attack = 5
 	current_enemy.defense = 30

@@ -30,12 +30,12 @@ var keen_stacks: int = 0
 var energized_stacks: int = 0
 var focused_stacks: int = 0
 
-var gained_regen_on_own_turn: bool = false
-var gained_sharpened_on_own_turn: bool = false
-var gained_hardened_on_own_turn: bool = false
-var gained_keen_on_own_turn: bool = false
-var gained_energized_on_own_turn: bool = false
-var gained_focused_on_own_turn: bool = false
+var changed_regen_on_own_turn: bool = false
+var changed_sharpened_on_own_turn: bool = false
+var changed_hardened_on_own_turn: bool = false
+var changed_keen_on_own_turn: bool = false
+var changed_energized_on_own_turn: bool = false
+var changed_focused_on_own_turn: bool = false
 
 var accumulated_speed: int = 0
 
@@ -146,48 +146,48 @@ func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_app
 		regen_stacks = clamp(regen_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = regen_stacks - old_stacks
 		new_stacks = regen_stacks
-		if new_stacks > 0 and self_applied:
-			gained_regen_on_own_turn = true
+		if new_stacks != 0 and self_applied:
+			changed_regen_on_own_turn = true
 	elif effect == STATUS_EFFECT.SHARPENED and change != 0:
 		old_stacks = sharpened_stacks
 		sharpened_stacks += change
 		sharpened_stacks = clamp(sharpened_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = sharpened_stacks - old_stacks
 		new_stacks = sharpened_stacks
-		if new_stacks > 0 and self_applied:
-			gained_sharpened_on_own_turn = true
+		if new_stacks != 0 and self_applied:
+			changed_sharpened_on_own_turn = true
 	elif effect == STATUS_EFFECT.HARDENED and change != 0:
 		old_stacks = hardened_stacks
 		hardened_stacks += change
 		hardened_stacks = clamp(hardened_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = hardened_stacks - old_stacks
 		new_stacks = hardened_stacks
-		if new_stacks > 0 and self_applied:
-			gained_hardened_on_own_turn = true
+		if new_stacks != 0 and self_applied:
+			changed_hardened_on_own_turn = true
 	elif effect == STATUS_EFFECT.KEEN and change != 0:
 		old_stacks = keen_stacks
 		keen_stacks += change
 		keen_stacks = clamp(keen_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = keen_stacks - old_stacks
 		new_stacks = keen_stacks
-		if new_stacks > 0 and self_applied:
-			gained_keen_on_own_turn = true
+		if new_stacks != 0 and self_applied:
+			changed_keen_on_own_turn = true
 	elif effect == STATUS_EFFECT.ENERGIZED and change != 0:
 		old_stacks = energized_stacks
 		energized_stacks += change
 		energized_stacks = clamp(energized_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = energized_stacks - old_stacks
 		new_stacks = energized_stacks
-		if new_stacks > 0 and self_applied:
-			gained_energized_on_own_turn = true
+		if new_stacks != 0 and self_applied:
+			changed_energized_on_own_turn = true
 	elif effect == STATUS_EFFECT.FOCUSED and change != 0:
 		old_stacks = focused_stacks
 		focused_stacks += change
 		focused_stacks = clamp(focused_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = focused_stacks - old_stacks
 		new_stacks = focused_stacks
-		if new_stacks > 0 and self_applied:
-			gained_focused_on_own_turn = true
+		if new_stacks != 0 and self_applied:
+			changed_focused_on_own_turn = true
 	
 	if true_change > 0:
 		var bad_stacks_shed: int = mini(0, new_stacks) - mini(0, old_stacks)
@@ -245,17 +245,17 @@ func endTurn() -> void:
 		shedStatusEffects()
 		if hasPassiveBlueprint("Molt"):
 			for i in range(passiveBlueprintTier("Molt")):
-				shedStatusEffects()
-		clearSelfAppliedBuffsThisTurn()
+				shedNegativeStatusEffects()
+		clearSelfAppliedStatusChangeFlags()
 
 
-func clearSelfAppliedBuffsThisTurn() -> void:
-	gained_regen_on_own_turn = false
-	gained_sharpened_on_own_turn = false
-	gained_hardened_on_own_turn = false
-	gained_keen_on_own_turn = false
-	gained_energized_on_own_turn = false
-	gained_focused_on_own_turn = false
+func clearSelfAppliedStatusChangeFlags() -> void:
+	changed_regen_on_own_turn = false
+	changed_sharpened_on_own_turn = false
+	changed_hardened_on_own_turn = false
+	changed_keen_on_own_turn = false
+	changed_energized_on_own_turn = false
+	changed_focused_on_own_turn = false
 
 
 func applyStartOfTurnPassiveBlueprintEffects() -> void:
@@ -289,28 +289,54 @@ func spendTP(amount: int) -> void:
 
 
 func shedStatusEffects() -> void:
+	shedPositiveStatusEffects()
+	shedNegativeStatusEffects()
+
+
+func shedPositiveStatusEffects() -> void:
 	for status_effect in [STATUS_EFFECT.REGEN, STATUS_EFFECT.SHARPENED, STATUS_EFFECT.HARDENED, STATUS_EFFECT.KEEN, STATUS_EFFECT.ENERGIZED, STATUS_EFFECT.FOCUSED]:
 		if randi() % 2 == 0:
 			if getStatusEffectFromEnumType(status_effect) > 0:
 				shedBuffIfNotSelfAppliedThisTurn(status_effect)
-			elif getStatusEffectFromEnumType(status_effect) < 0:
-				adjustStatusEffectFromEnumType(status_effect, 1)
 
 
-# A character can only shed a buff at the end of turn if they did not self-apply one
+func shedNegativeStatusEffects() -> void:
+	for status_effect in [STATUS_EFFECT.REGEN, STATUS_EFFECT.SHARPENED, STATUS_EFFECT.HARDENED, STATUS_EFFECT.KEEN, STATUS_EFFECT.ENERGIZED, STATUS_EFFECT.FOCUSED]:
+		if randi() % 2 == 0:
+			if getStatusEffectFromEnumType(status_effect) < 0:
+				shedDebuffIfNotSelfAppliedThisTurn(status_effect)
+
+
+# A character can only shed a buff at the end of turn if they did not self-apply stacks of it
 func shedBuffIfNotSelfAppliedThisTurn(status_effect: STATUS_EFFECT) -> void:
-	if status_effect == STATUS_EFFECT.REGEN and not gained_regen_on_own_turn:
+	if status_effect == STATUS_EFFECT.REGEN and not changed_regen_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.SHARPENED and not gained_sharpened_on_own_turn:
+	elif status_effect == STATUS_EFFECT.SHARPENED and not changed_sharpened_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.HARDENED and not gained_hardened_on_own_turn:
+	elif status_effect == STATUS_EFFECT.HARDENED and not changed_hardened_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.KEEN and not gained_keen_on_own_turn:
+	elif status_effect == STATUS_EFFECT.KEEN and not changed_keen_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.ENERGIZED and not gained_energized_on_own_turn:
+	elif status_effect == STATUS_EFFECT.ENERGIZED and not changed_energized_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.FOCUSED and not gained_focused_on_own_turn:
+	elif status_effect == STATUS_EFFECT.FOCUSED and not changed_focused_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
+
+
+# A character can only shed a debuff at the end of turn if they did not self-apply stacks of it
+func shedDebuffIfNotSelfAppliedThisTurn(status_effect: STATUS_EFFECT) -> void:
+	if status_effect == STATUS_EFFECT.REGEN and not changed_regen_on_own_turn:
+		adjustStatusEffectFromEnumType(status_effect, +1)
+	elif status_effect == STATUS_EFFECT.SHARPENED and not changed_sharpened_on_own_turn:
+		adjustStatusEffectFromEnumType(status_effect, +1)
+	elif status_effect == STATUS_EFFECT.HARDENED and not changed_hardened_on_own_turn:
+		adjustStatusEffectFromEnumType(status_effect, +1)
+	elif status_effect == STATUS_EFFECT.KEEN and not changed_keen_on_own_turn:
+		adjustStatusEffectFromEnumType(status_effect, +1)
+	elif status_effect == STATUS_EFFECT.ENERGIZED and not changed_energized_on_own_turn:
+		adjustStatusEffectFromEnumType(status_effect, +1)
+	elif status_effect == STATUS_EFFECT.FOCUSED and not changed_focused_on_own_turn:
+		adjustStatusEffectFromEnumType(status_effect, +1)
 
 
 func getPositiveStatusEffectString(effect: STATUS_EFFECT) -> String:
