@@ -325,17 +325,162 @@ static func buildEnemyList() -> void:
 	
 	### CANYON OVERWORLD ###
 	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Toxoid"
+	current_enemy.hp = 140
+	current_enemy.tech_points = 140
+	current_enemy.attack = 65
+	current_enemy.defense = 40
+	current_enemy.senses = 60
+	current_enemy.speed = 60
+	current_enemy.installBlueprintByNameAndTier("Claw", 2)
+	current_enemy.installBlueprintByNameAndTier("Tear Gas", 2)
+	current_enemy.installBlueprintByNameAndTier("Numb Gas", 2)
+	addEnemyToTable(current_enemy)
+	
 	### CANYON ###
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Raptor"
+	current_enemy.hp = 110
+	current_enemy.tech_points = 160
+	current_enemy.attack = 60
+	current_enemy.defense = 35
+	current_enemy.senses = 80
+	current_enemy.speed = 85
+	current_enemy.installBlueprintByNameAndTier("Claw", 2)
+	current_enemy.installBlueprintByNameAndTier("FragBomb", 2)
+	current_enemy.installBlueprintByNameAndTier("ChemBomb", 2)
+	addEnemyToTable(current_enemy)
 	
 	### MILITARY BASE ###
 	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "APU-019"
+	current_enemy.hp = 60
+	current_enemy.tech_points = 100
+	current_enemy.attack = 30
+	current_enemy.defense = 15
+	current_enemy.senses = 60
+	current_enemy.speed = 70
+	current_enemy.installBlueprintByNameAndTier("Microwave", 1)
+	current_enemy.installBlueprintByNameAndTier("Grenade", 1)
+	current_enemy.gives_bio_energy = false
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "PROTOTYPE"
+	current_enemy.hp = 700
+	current_enemy.tech_points = 100
+	current_enemy.attack = 50
+	current_enemy.defense = 35
+	current_enemy.senses = 60
+	current_enemy.speed = 50
+	current_enemy.gives_bio_energy = false
+	current_enemy.installBlueprintByNameAndTier("160MM GUN", 1)
+	current_enemy.installBlueprintByNameAndTier("13.5MM MG", 1)
+	addEnemyToTable(current_enemy)
+	
 	### SEASIDE OVERWORLD ###
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Crab"
+	current_enemy.hp = 170
+	current_enemy.tech_points = 180
+	current_enemy.attack = 90
+	current_enemy.defense = 60
+	current_enemy.senses = 85
+	current_enemy.speed = 85
+	current_enemy.installBlueprintByNameAndTier("Claw", 2)
+	current_enemy.installBlueprintByNameAndTier("Hammer", 2)
+	addEnemyToTable(current_enemy)
+	
+	### NAVAL BASE ###
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Barnacle"
+	current_enemy.hp = 200
+	current_enemy.tech_points = 250
+	current_enemy.attack = 110
+	current_enemy.defense = 80
+	current_enemy.senses = 90
+	current_enemy.speed = 60
+	current_enemy.installBlueprintByNameAndTier("Claw", 2)
+	current_enemy.installBlueprintByNameAndTier("Mucus", 2)
+	addEnemyToTable(current_enemy)
 	
 	### SEAFLOOR ###
 	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Shark"
+	current_enemy.hp = 400
+	current_enemy.tech_points = 250
+	current_enemy.attack = 130
+	current_enemy.defense = 60
+	current_enemy.senses = 90
+	current_enemy.speed = 110
+	current_enemy.installBlueprintByNameAndTier("Claw", 3)
+	current_enemy.installBlueprintByNameAndTier("Web", 2)
+	addEnemyToTable(current_enemy)
+	
 	### LAB ###
 	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Pulser"
+	current_enemy.hp = 650
+	current_enemy.tech_points = 500
+	current_enemy.attack = 100
+	current_enemy.defense = 70
+	current_enemy.senses = 100
+	current_enemy.speed = 120
+	current_enemy.installBlueprintByNameAndTier("Laser", 3)
+	current_enemy.installBlueprintByNameAndTier("Bullseye", 3)
+	current_enemy.support_priority = 1
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Prometheus"
+	current_enemy.hp = 2400
+	current_enemy.tech_points = 1000
+	current_enemy.attack = 150
+	current_enemy.defense = 100
+	current_enemy.senses = 120
+	current_enemy.speed = 120
+	current_enemy.installBlueprintByNameAndTier("Laser", 3)
+	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
+	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
+	current_enemy.installBlueprintByNameAndTier("Stun Gas", 3)
+	current_enemy.installBlueprintByNameAndTier("Overclock", 3)
+	current_enemy.installBlueprintByNameAndTier("Panacea", 3)
+	current_enemy.installBlueprintByNameAndTier("Turbo", 3)
+	current_enemy.installBlueprintByNameAndTier("Molt", 3)
+	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 3)
+	current_enemy.support_priority = 1
+	addEnemyToTable(current_enemy)
+	
 	### ZENITH ###
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Zenith"
+	current_enemy.hp = 8000
+	current_enemy.tech_points = 1000
+	current_enemy.attack = 200
+	current_enemy.defense = 200
+	current_enemy.senses = 200
+	current_enemy.speed = 200
+	current_enemy.installBlueprintByNameAndTier("Laser", 3)
+	current_enemy.installBlueprintByNameAndTier("Chaingun", 3)
+	current_enemy.installBlueprintByNameAndTier("Hammer", 3)
+	current_enemy.installBlueprintByNameAndTier("Missile", 3)
+	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
+	current_enemy.installBlueprintByNameAndTier("FragBomb", 3)
+	current_enemy.installBlueprintByNameAndTier("Auger", 1)
+	current_enemy.installBlueprintByNameAndTier("Perfect", 1)
+	current_enemy.installBlueprintByNameAndTier("Panacea", 3)
+	current_enemy.installBlueprintByNameAndTier("Molt", 3)
+	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 3)
+	current_enemy.support_priority = 1
+	addEnemyToTable(current_enemy)
 
 
 static func getEnemyByName(name_in: String) -> EnemyType:

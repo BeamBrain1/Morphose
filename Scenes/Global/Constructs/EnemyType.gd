@@ -5,9 +5,14 @@ const BASE_BIO_ENERGY_REWARD: int = 10
 
 var support_priority: int = 5		# Priority bracket when AI targets support actions. Lower numbers always take priority
 var never_crits: bool = false		# Some early enemy types could oneshot Primus with a lucky crit
+var gives_bio_energy: bool = true	# Does this enemy give bio-energy upon defeat?
 
 # Return the Muta value of the enemy upon its defeat 
 func getBioEnergyValue() -> int:
+	
+	if not gives_bio_energy:
+		return 0
+	
 	var blueprint_value: int = mostExpensiveBlueprintValue()
 	
 	var stat_average: int = 0
