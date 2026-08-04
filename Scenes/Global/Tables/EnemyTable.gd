@@ -246,7 +246,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Marksman"
-	current_enemy.hp = 50
+	current_enemy.hp = 70
 	current_enemy.tech_points = 30
 	current_enemy.attack = 30
 	current_enemy.defense = 10
@@ -259,7 +259,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Stoneback"
-	current_enemy.hp = 60
+	current_enemy.hp = 70
 	current_enemy.tech_points = 50
 	current_enemy.attack = 20
 	current_enemy.defense = 50
@@ -272,7 +272,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Searcher"
-	current_enemy.hp = 80
+	current_enemy.hp = 110
 	current_enemy.tech_points = 80
 	current_enemy.attack = 50
 	current_enemy.defense = 20
@@ -284,7 +284,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Launcher"
-	current_enemy.hp = 130
+	current_enemy.hp = 170
 	current_enemy.tech_points = 100
 	current_enemy.attack = 60
 	current_enemy.defense = 20
@@ -327,7 +327,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Toxoid"
-	current_enemy.hp = 140
+	current_enemy.hp = 280
 	current_enemy.tech_points = 140
 	current_enemy.attack = 65
 	current_enemy.defense = 40
@@ -342,7 +342,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Raptor"
-	current_enemy.hp = 110
+	current_enemy.hp = 240
 	current_enemy.tech_points = 160
 	current_enemy.attack = 60
 	current_enemy.defense = 35
@@ -369,23 +369,23 @@ static func buildEnemyList() -> void:
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
-	current_enemy.name = "PROTOTYPE"
+	current_enemy.name = "Prototype"
 	current_enemy.hp = 700
 	current_enemy.tech_points = 100
-	current_enemy.attack = 50
+	current_enemy.attack = 10
 	current_enemy.defense = 35
-	current_enemy.senses = 60
+	current_enemy.senses = 70
 	current_enemy.speed = 50
 	current_enemy.gives_bio_energy = false
-	current_enemy.installBlueprintByNameAndTier("160MM GUN", 1)
-	current_enemy.installBlueprintByNameAndTier("13.5MM MG", 1)
+	current_enemy.installBlueprintByNameAndTier("160MM Gun", 1)
+	current_enemy.installBlueprintByNameAndTier("8MM MG", 1)
 	addEnemyToTable(current_enemy)
 	
 	### SEASIDE OVERWORLD ###
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Crab"
-	current_enemy.hp = 170
+	current_enemy.hp = 240
 	current_enemy.tech_points = 180
 	current_enemy.attack = 90
 	current_enemy.defense = 60
@@ -399,7 +399,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Barnacle"
-	current_enemy.hp = 200
+	current_enemy.hp = 300
 	current_enemy.tech_points = 250
 	current_enemy.attack = 110
 	current_enemy.defense = 80
@@ -413,7 +413,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Shark"
-	current_enemy.hp = 400
+	current_enemy.hp = 600
 	current_enemy.tech_points = 250
 	current_enemy.attack = 130
 	current_enemy.defense = 60
@@ -449,7 +449,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
 	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
-	current_enemy.installBlueprintByNameAndTier("Stun Gas", 3)
+	current_enemy.installBlueprintByNameAndTier("Web", 3)
 	current_enemy.installBlueprintByNameAndTier("Overclock", 3)
 	current_enemy.installBlueprintByNameAndTier("Panacea", 3)
 	current_enemy.installBlueprintByNameAndTier("Turbo", 3)
@@ -463,7 +463,7 @@ static func buildEnemyList() -> void:
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Zenith"
 	current_enemy.hp = 8000
-	current_enemy.tech_points = 1000
+	current_enemy.tech_points = 1200
 	current_enemy.attack = 200
 	current_enemy.defense = 200
 	current_enemy.senses = 200
@@ -474,12 +474,40 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Missile", 3)
 	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
 	current_enemy.installBlueprintByNameAndTier("FragBomb", 3)
+	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
+	current_enemy.installBlueprintByNameAndTier("Chembomb", 3)
 	current_enemy.installBlueprintByNameAndTier("Auger", 1)
+	current_enemy.installBlueprintByNameAndTier("FusionBomb", 1)
+	current_enemy.installBlueprintByNameAndTier("Quietus", 1)
+	current_enemy.installBlueprintByNameAndTier("Shutdown", 1)
+	current_enemy.installBlueprintByNameAndTier("Bud", 1)
 	current_enemy.installBlueprintByNameAndTier("Perfect", 1)
 	current_enemy.installBlueprintByNameAndTier("Panacea", 3)
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 3)
+	current_enemy.gives_bio_energy = false
 	current_enemy.support_priority = 1
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Z-Spawn"
+	current_enemy.hp = 800
+	current_enemy.tech_points = 500
+	current_enemy.attack = 130
+	current_enemy.defense = 130
+	current_enemy.senses = 130
+	current_enemy.speed = 130
+	current_enemy.installBlueprintByNameAndTier("Laser", 3)
+	current_enemy.installBlueprintByNameAndTier("Chaingun", 3)
+	current_enemy.installBlueprintByNameAndTier("Hammer", 3)
+	current_enemy.installBlueprintByNameAndTier("Missile", 3)
+	current_enemy.installBlueprintByNameAndTier("FragBomb", 3)
+	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
+	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
+	current_enemy.installBlueprintByNameAndTier("Panacea", 3)
+	current_enemy.installBlueprintByNameAndTier("Molt", 2)
+	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
+	current_enemy.gives_bio_energy = false
 	addEnemyToTable(current_enemy)
 
 

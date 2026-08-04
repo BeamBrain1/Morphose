@@ -439,7 +439,10 @@ func rawAttackDamage(blueprint: BlueprintAttack) -> int:
 
 func receiveAttack(blueprint: BlueprintAttack, raw_damage: int, crit: bool = false) -> void:
 
-	if not blueprint.damageless:
+	if blueprint.special.matchn("instakill"):
+		hp = 0
+		return
+	elif not blueprint.damageless:
 		var damage_amt: int = raw_damage
 		if not blueprint.fixed_damage:
 			damage_amt -= getStatusEffectAdjustedDefense()
