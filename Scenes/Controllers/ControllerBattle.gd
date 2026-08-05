@@ -159,13 +159,13 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 	else:
 		push_error("Unknown blueprint type for " + blueprint.getDialogDisplayName())
 	if blueprint.special.matchn("swarm"):
-		specialSwarmReinforce()
+		specialReinforce("Swarmer", 4)
+	elif blueprint.special.matchn("bud"):
+		specialReinforce("Z-Spawn", 2)
 
 
-func specialSwarmReinforce() -> void:
-	var number_joiners: int = 4
-	var enemy_type: String = "Swarmer"
-	for i in range(number_joiners):
+func specialReinforce(enemy_type: String, num_joiners: int) -> void:
+	for i in range(num_joiners):
 		var enemy = EnemyTable.getEnemyByName(enemy_type)
 		$EnemyDisplayGrid.addEnemy(enemy)
 	$BattleMessageDisplay.pushBattleMessage(enemy_type + "s joined the battle!")
