@@ -110,3 +110,7 @@ func cancel() -> void:
 # Skip upcoming battle
 func _on_window_base_skip() -> void:
 	root.skipBattle()
+
+
+func _on_window_base_zenith() -> void:
+	root.skipToZenith()

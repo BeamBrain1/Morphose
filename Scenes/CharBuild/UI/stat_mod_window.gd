@@ -48,10 +48,12 @@ func setStatDisplay() -> void:
 
 
 func setEnabledButtons() -> void:
+	$ButtonMinus100.disabled = not party_member.canDecreaseStat(assigned_stat)
 	$ButtonMinus10.disabled = not party_member.canDecreaseStat(assigned_stat)
 	$ButtonMinus1.disabled = not party_member.canDecreaseStat(assigned_stat)
-	$ButtonPlus1.disabled =  not party_member.canIncreaseStat(assigned_stat)
-	$ButtonPlus10.disabled =  not party_member.canIncreaseStat(assigned_stat)
+	$ButtonPlus1.disabled = not party_member.canIncreaseStat(assigned_stat)
+	$ButtonPlus10.disabled = not party_member.canIncreaseStat(assigned_stat)
+	$ButtonPlus100.disabled = not party_member.canIncreaseStat(assigned_stat)
 
 
 func setFavoredStatIndicator() -> void:
@@ -85,6 +87,24 @@ func _on_button_plus_1_pressed() -> void:
 
 func _on_button_plus_10_pressed() -> void:
 	for i in range(10):
+		if party_member.canIncreaseStat(assigned_stat):
+			party_member.statPlusOne(assigned_stat)
+		else:
+			break
+	emit_signal("update_bio_energy")
+
+
+func _on_button_minus_100_pressed() -> void:
+	for i in range(100):
+		if party_member.canDecreaseStat(assigned_stat):
+			party_member.statMinusOne(assigned_stat)
+		else:
+			break
+	emit_signal("update_bio_energy")
+
+
+func _on_button_plus_100_pressed() -> void:
+	for i in range(100):
 		if party_member.canIncreaseStat(assigned_stat):
 			party_member.statPlusOne(assigned_stat)
 		else:

@@ -28,6 +28,7 @@ visible = false
 [connection signal="skip" from="WindowBase" to="." method="_on_window_base_skip"]
 [connection signal="tab_selected_character" from="WindowBase" to="." method="partyMemberTabSelected"]
 [connection signal="tab_selected_window" from="WindowBase" to="." method="buildWindowSelected"]
+[connection signal="zenith" from="WindowBase" to="." method="_on_window_base_zenith"]
 [connection signal="blueprint_lists_modified" from="WindowBlueprintManager" to="." method="updateAllDisplays"]
 [connection signal="blueprint_type_selected" from="WindowBlueprintManager" to="." method="blueprintTypeSelected"]
 [connection signal="on_stat_adjust" from="WindowStatsAdjust" to="." method="updateAllDisplays"]

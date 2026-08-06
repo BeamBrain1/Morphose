@@ -46,6 +46,11 @@ func skipBattle() -> void:
 	toCharacterBuildScreen(true)
 
 
+func skipToZenith() -> void:
+	while ActiveSaveData.current_battle < EncounterTable.table.size() - 1:
+		skipBattle()
+
+
 func loadStartingPartyMembers() -> void:
 	var c1: PartyMember = PartyMember.new()
 	c1.name = PartyMember.PARTY_MEMBER_1_NAME

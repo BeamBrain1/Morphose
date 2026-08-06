@@ -409,6 +409,22 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Mucus", 2)
 	addEnemyToTable(current_enemy)
 	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "King Crab"
+	current_enemy.hp = 1400
+	current_enemy.tech_points = 600
+	current_enemy.attack = 200
+	current_enemy.defense = 200
+	current_enemy.senses = 140
+	current_enemy.speed = 75
+	current_enemy.installBlueprintByNameAndTier("Hammer", 3)
+	current_enemy.installBlueprintByNameAndTier("Bullseye", 3)
+	current_enemy.installBlueprintByNameAndTier("Aegis", 3)
+	current_enemy.installBlueprintByNameAndTier("Mucus", 3)
+	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 3)
+	current_enemy.installBlueprintByNameAndTier("Molt", 2)
+	addEnemyToTable(current_enemy)
+	
 	### SEAFLOOR ###
 	
 	current_enemy = EnemyType.new()
@@ -417,9 +433,9 @@ static func buildEnemyList() -> void:
 	current_enemy.tech_points = 250
 	current_enemy.attack = 130
 	current_enemy.defense = 60
-	current_enemy.senses = 90
+	current_enemy.senses = 110
 	current_enemy.speed = 110
-	current_enemy.installBlueprintByNameAndTier("Claw", 3)
+	current_enemy.installBlueprintByNameAndTier("Claw", 2)
 	current_enemy.installBlueprintByNameAndTier("Web", 2)
 	addEnemyToTable(current_enemy)
 	
@@ -429,9 +445,9 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Pulser"
 	current_enemy.hp = 650
 	current_enemy.tech_points = 500
-	current_enemy.attack = 100
+	current_enemy.attack = 130
 	current_enemy.defense = 70
-	current_enemy.senses = 100
+	current_enemy.senses = 120
 	current_enemy.speed = 120
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Bullseye", 3)
@@ -442,10 +458,10 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Prometheus"
 	current_enemy.hp = 2400
 	current_enemy.tech_points = 1000
-	current_enemy.attack = 150
+	current_enemy.attack = 180
 	current_enemy.defense = 100
-	current_enemy.senses = 120
-	current_enemy.speed = 120
+	current_enemy.senses = 130
+	current_enemy.speed = 140
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
 	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)

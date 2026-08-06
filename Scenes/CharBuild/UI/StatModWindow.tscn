@@ -61,10 +61,10 @@ label_settings = SubResource("LabelSettings_qpd4h")
 horizontal_alignment = 2
 autowrap_mode = 2
 
-[node name="ButtonMinus10" type="Button" parent="." unique_id=310255712]
+[node name="ButtonMinus100" type="Button" parent="." unique_id=1243889797]
 offset_left = 8.0
 offset_top = 32.0
-offset_right = 40.0
+offset_right = 44.0
 offset_bottom = 40.0
 theme = SubResource("Theme_ba66s")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -78,7 +78,27 @@ theme_override_styles/pressed = ExtResource("5_xbco0")
 theme_override_styles/hover = ExtResource("6_lbfpq")
 theme_override_styles/disabled = ExtResource("7_uofgo")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
-text = "  -10   "
+text = "  -100   "
+alignment = 0
+
+[node name="ButtonMinus10" type="Button" parent="." unique_id=310255712]
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 44.0
+offset_bottom = 32.0
+theme = SubResource("Theme_ba66s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_uawj6")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_y1m00")
+theme_override_styles/pressed = ExtResource("5_xbco0")
+theme_override_styles/hover = ExtResource("6_lbfpq")
+theme_override_styles/disabled = ExtResource("7_uofgo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
+text = "  - 10   "
 alignment = 0
 
 [node name="ButtonMinus1" type="Button" parent="." unique_id=207693490]
@@ -98,7 +118,7 @@ theme_override_styles/pressed = ExtResource("5_xbco0")
 theme_override_styles/hover = ExtResource("6_lbfpq")
 theme_override_styles/disabled = ExtResource("7_uofgo")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
-text = "  - 1   "
+text = "  -  1   "
 alignment = 0
 
 [node name="ButtonPlus1" type="Button" parent="." unique_id=1188773077]
@@ -118,10 +138,30 @@ theme_override_styles/pressed = ExtResource("5_xbco0")
 theme_override_styles/hover = ExtResource("6_lbfpq")
 theme_override_styles/disabled = ExtResource("7_uofgo")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
-text = "  + 1   "
+text = "  +  1   "
 alignment = 0
 
 [node name="ButtonPlus10" type="Button" parent="." unique_id=2088825032]
+offset_left = 48.0
+offset_top = 24.0
+offset_right = 80.0
+offset_bottom = 32.0
+theme = SubResource("Theme_ba66s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+theme_override_fonts/font = SubResource("FontVariation_uawj6")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_y1m00")
+theme_override_styles/pressed = ExtResource("5_xbco0")
+theme_override_styles/hover = ExtResource("6_lbfpq")
+theme_override_styles/disabled = ExtResource("7_uofgo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
+text = "  + 10   "
+alignment = 0
+
+[node name="ButtonPlus100" type="Button" parent="." unique_id=1865406589]
 offset_left = 48.0
 offset_top = 32.0
 offset_right = 80.0
@@ -138,7 +178,7 @@ theme_override_styles/pressed = ExtResource("5_xbco0")
 theme_override_styles/hover = ExtResource("6_lbfpq")
 theme_override_styles/disabled = ExtResource("7_uofgo")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
-text = "  +10   "
+text = "  +100   "
 alignment = 0
 
 [node name="Separator2" type="ColorRect" parent="." unique_id=1608725869]
@@ -151,7 +191,9 @@ offset_left = 87.0
 offset_right = 89.0
 offset_bottom = 48.0
 
+[connection signal="pressed" from="ButtonMinus100" to="." method="_on_button_minus_100_pressed"]
 [connection signal="pressed" from="ButtonMinus10" to="." method="_on_button_minus_10_pressed"]
 [connection signal="pressed" from="ButtonMinus1" to="." method="_on_button_minus_1_pressed"]
 [connection signal="pressed" from="ButtonPlus1" to="." method="_on_button_plus_1_pressed"]
 [connection signal="pressed" from="ButtonPlus10" to="." method="_on_button_plus_10_pressed"]
+[connection signal="pressed" from="ButtonPlus100" to="." method="_on_button_plus_100_pressed"]
