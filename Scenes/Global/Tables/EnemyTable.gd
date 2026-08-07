@@ -494,11 +494,10 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Chembomb", 3)
 	current_enemy.installBlueprintByNameAndTier("Auger", 1)
 	current_enemy.installBlueprintByNameAndTier("FusionBomb", 1)
-	current_enemy.installBlueprintByNameAndTier("Quietus", 1)
+	current_enemy.installBlueprintByNameAndTier("Mind Rip", 1)
 	current_enemy.installBlueprintByNameAndTier("Shutdown", 1)
 	current_enemy.installBlueprintByNameAndTier("Bud", 1)
 	current_enemy.installBlueprintByNameAndTier("Perfect", 1)
-	current_enemy.installBlueprintByNameAndTier("Panacea", 3)
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 3)
 	current_enemy.gives_bio_energy = false
@@ -507,7 +506,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Z-Spawn"
-	current_enemy.hp = 800
+	current_enemy.hp = 600
 	current_enemy.tech_points = 500
 	current_enemy.attack = 130
 	current_enemy.defense = 130
@@ -520,7 +519,6 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("FragBomb", 3)
 	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
 	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
-	current_enemy.installBlueprintByNameAndTier("Panacea", 3)
 	current_enemy.installBlueprintByNameAndTier("Molt", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
 	current_enemy.gives_bio_energy = false

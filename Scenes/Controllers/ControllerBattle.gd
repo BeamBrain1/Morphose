@@ -161,7 +161,7 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 	if blueprint.special.matchn("swarm"):
 		specialReinforce("Swarmer", 4)
 	elif blueprint.special.matchn("bud"):
-		specialReinforce("Z-Spawn", 2)
+		specialReinforce("Z-Spawn", 3)
 
 
 func specialReinforce(enemy_type: String, num_joiners: int) -> void:

@@ -5,6 +5,7 @@ var base_type: EnemyType
 
 var number_in_battle: int = 1	# Number of instance of this enemy in battle, used to determine display name
 var support_priority: int
+var ai_sequence: int = 0		# Used in cyclic AI decisions. Every action advances by 1 step
 
 func _init(enemy_type: EnemyType):
 	name = enemy_type.name
@@ -55,9 +56,12 @@ func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
 
 
 func chooseAction(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> ACTION:
-	# If it has the TP to act, act. Otherwise, wait.
+	
+	ai_sequence += 1	# For code simplicity, sequence updated at beginning of turn. This effectively makes it 1-indexed
+	
 	if base_type.name.matchn("SILO LORD"):
 		return siloLordChooseAction()
+	# If it has the TP to act, act. Otherwise, wait.
 	if getPossibleBlueprintActions().size() > 0:
 		return ACTION.BLUEPRINT
 	else:
@@ -66,7 +70,7 @@ func chooseAction(party_combatants: Array[PartyCombatant], enemy_combatants: Arr
 
 # Silo lord only uses highest-tier attacks
 func siloLordChooseAction() -> ACTION:
-	
+	# If it has the TP to act, act. Otherwise, wait.
 	if Blueprint.blueprintIsInList(getPossibleBlueprintActions(), "Missile", 2):
 		return ACTION.BLUEPRINT
 	return ACTION.WAIT
@@ -80,7 +84,9 @@ func chooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: 
 		result = queenChooseBlueprint(party_combatants, enemy_combatants)
 	elif base_type.name.matchn("SILO LORD"):
 		result = siloLordChooseBlueprint(party_combatants)
-	else:	
+	elif base_type.name.matchn("ZENITH"):
+		result = zenithChooseBlueprint()
+	else:
 		result = getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
 
 	pushBattleMessage(name + " uses " + result.getDialogDisplayName() + ".")
@@ -121,6 +127,24 @@ func siloLordChooseBlueprint(party_combatants: Array[PartyCombatant]) -> Bluepri
 		return Blueprint.getBlueprintFromList(possible_actions, "FragBomb", 2)
 	else:
 		return possible_actions[randi() % possible_actions.size()]
+
+
+func zenithChooseBlueprint() -> Blueprint:	
+	if ai_sequence == 1:		# Start battle by using Perfect
+		return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Perfect", 1)
+	elif ai_sequence % 2 == 1:	# Use a strong blueprint
+		var action_list: Array = []
+		for blueprint in getPossibleBlueprintActions():
+			if blueprint.isZenithBlueprint():
+				action_list.append(blueprint)
+		return action_list[randi() % action_list.size()]
+	else:						# Use a regular blueprint
+		var action_list: Array = []
+		for blueprint in getPossibleBlueprintActions():
+			if not blueprint.isZenithBlueprint():
+				action_list.append(blueprint)
+		return action_list[randi() % action_list.size()]
+
 
 # Choose target for single-target blueprint action
 func chooseTarget(blueprint, target_list: Array, party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Combatant:

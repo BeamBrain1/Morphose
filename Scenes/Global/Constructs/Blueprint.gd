@@ -45,10 +45,8 @@ const TP_COST_TRACKS: Dictionary = {
 	"E": [15, 15*TP_COST_T2_MULT, 15*TP_COST_T3_MULT],
 	"F": [20, 20*TP_COST_T2_MULT, 20*TP_COST_T3_MULT],
 	"G": [24, 24*TP_COST_T2_MULT, 24*TP_COST_T3_MULT],
-	"Z1": [24, 24*TP_COST_T2_MULT, 24*TP_COST_T3_MULT],
-	"Z2": [24, 24*TP_COST_T2_MULT, 24*TP_COST_T3_MULT],
-	"Z3": [24, 24*TP_COST_T2_MULT, 24*TP_COST_T3_MULT],
-	"Z4": [24, 24*TP_COST_T2_MULT, 24*TP_COST_T3_MULT]
+	"Z1": [30, 30, 30],
+	"Z2": [500, 500, 500],
 }
 
 func getDialogDisplayName() -> String:
@@ -151,3 +149,7 @@ func getBioEnergyCost() -> int:
 
 func getTechPointCost() -> int:
 	return TP_COST_TRACKS[tp_cost_track.to_upper()][tier-1]
+
+
+func isZenithBlueprint() -> bool:
+	return bio_cost_track.matchn("Z")

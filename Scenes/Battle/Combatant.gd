@@ -38,6 +38,7 @@ var changed_energized_on_own_turn: bool = false
 var changed_focused_on_own_turn: bool = false
 
 var accumulated_speed: int = 0
+var first_accumulated_speed_set = false
 
 var never_crits: bool = false	# Avoids enemies oneshotting Primus in early game
 
@@ -377,12 +378,16 @@ func getNegativeStatusEffectString(effect: STATUS_EFFECT) -> String:
 
 # builds accumulated speed, used to determine initiative
 func generateAccumulatedSpeed() -> void:
-	var random_range: int = maxi(getStatusEffectAdjustedSpeed() >> 2, 2)
-	var random_factor: int = randi() % random_range
-	if randi() % 2 == 0:
-		random_factor *= -1
-	# Base value of 10 ensures speed doesn't completely dominate in early game
-	accumulated_speed += 10 + getStatusEffectAdjustedSpeed() + random_factor
+	if hasPassiveBlueprint("1stStrike") and not first_accumulated_speed_set:
+		accumulated_speed = 9999
+	else:
+		var random_range: int = maxi(getStatusEffectAdjustedSpeed() >> 2, 2)
+		var random_factor: int = randi() % random_range
+		if randi() % 2 == 0:
+			random_factor *= -1
+		# Base value of 10 ensures speed doesn't completely dominate in early game
+		accumulated_speed += 10 + getStatusEffectAdjustedSpeed() + random_factor
+	first_accumulated_speed_set = true
 
 
 # If Morphose defeated, clear all status effects
@@ -580,7 +585,7 @@ func getPossibleBlueprintActions() -> Array:
 					for pred in blueprint.predecessors:
 						if pred.getTechPointCost() <= tech_points:
 							result.append(pred)
-							break
+							break	# We only want the strongest useable predecessor blueprint
 
 	return result
 
