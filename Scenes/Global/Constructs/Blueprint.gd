@@ -19,7 +19,7 @@ var predecessors: Array = []	# List of predecessor blueprints: lower-tier bluepr
 var special: String = ""		# Used to assign additional one-off capabilities
 
 const BIO_COST_T2_MULT: int = 20
-const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 5
+const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 4
 const TP_COST_T2_MULT: int = 5
 const TP_COST_T3_MULT: int = TP_COST_T2_MULT*4
 
@@ -46,7 +46,7 @@ const TP_COST_TRACKS: Dictionary = {
 	"F": [20, 20*TP_COST_T2_MULT, 20*TP_COST_T3_MULT],
 	"G": [24, 24*TP_COST_T2_MULT, 24*TP_COST_T3_MULT],
 	"Z1": [30, 30, 30],
-	"Z2": [500, 500, 500],
+	"Z2": [600, 600, 600],
 }
 
 func getDialogDisplayName() -> String:

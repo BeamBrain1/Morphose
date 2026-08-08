@@ -7,7 +7,7 @@ signal player_action_finalized	# Emitted once player has all necessary choices (
 const MIN_ACCURACY: int = 1
 const MAX_ACCURACY: int = 99
 const MIN_CRIT: int = 1
-const MAX_CRIT: int = 99
+const MAX_CRIT: int = 50
 
 var current_actor
 var selected_action: Combatant.ACTION

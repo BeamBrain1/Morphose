@@ -478,7 +478,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Zenith"
-	current_enemy.hp = 8000
+	current_enemy.hp = 4095
 	current_enemy.tech_points = 1200
 	current_enemy.attack = 200
 	current_enemy.defense = 200
@@ -500,18 +500,19 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Perfect", 1)
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 3)
+	current_enemy.installBlueprintByNameAndTier("1stStrike", 1)
 	current_enemy.gives_bio_energy = false
 	current_enemy.support_priority = 1
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Z-Spawn"
-	current_enemy.hp = 600
+	current_enemy.hp = 400
 	current_enemy.tech_points = 500
-	current_enemy.attack = 130
-	current_enemy.defense = 130
-	current_enemy.senses = 130
-	current_enemy.speed = 130
+	current_enemy.attack = 150
+	current_enemy.defense = 80
+	current_enemy.senses = 150
+	current_enemy.speed = 150
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Chaingun", 3)
 	current_enemy.installBlueprintByNameAndTier("Hammer", 3)

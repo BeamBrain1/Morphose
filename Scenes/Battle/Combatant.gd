@@ -667,3 +667,17 @@ func passiveBlueprintTier(bp_name: String) -> int:
 			return bp.tier
 	push_error(name + " passive blueprint not found: " + bp_name)
 	return -1
+
+
+# Returns sum of value of character's buffs, positive and negative
+func sumOfBuffs() -> int:
+	return regen_stacks + sharpened_stacks + hardened_stacks + keen_stacks + energized_stacks + focused_stacks
+
+
+# Returns value of biggest debuff
+func biggestDebuff() -> int:
+	var result: int = 0
+	for stacks in [regen_stacks, sharpened_stacks, hardened_stacks, keen_stacks, energized_stacks, focused_stacks]:
+		if stacks < result:
+			result = stacks
+	return abs(result)

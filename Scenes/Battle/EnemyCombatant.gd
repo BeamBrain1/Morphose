@@ -135,7 +135,12 @@ func zenithChooseBlueprint() -> Blueprint:
 	elif ai_sequence % 2 == 1:	# Use a strong blueprint
 		var action_list: Array = []
 		for blueprint in getPossibleBlueprintActions():
-			if blueprint.isZenithBlueprint():
+			if blueprint.base_display_name.matchn("Perfect"):
+				if biggestDebuff() >= 5:					# Only use Perfect if buff balance falls below a certain point
+					return blueprint
+				if sumOfBuffs() < 3:		# Add it to move pool if buff balance falls below a certain point
+					action_list.append(blueprint)
+			elif blueprint.isZenithBlueprint():
 				action_list.append(blueprint)
 		return action_list[randi() % action_list.size()]
 	else:						# Use a regular blueprint
