@@ -1,9 +1,12 @@
 class_name Morphose
 
 const HP_CAP: int = 999
+const HP_DIMINISHING_RETURNS_START: int = 800
 const HP_MINIMUM: int = 10
 const TP_CAP: int = 999
+const TP_DIMINISHING_RETURNS_START: int = 800
 const TP_MINIMUM: int = 10
+const STAT_DIMINISHING_RETURNS_START: int = 200
 const STAT_CAP: int = 250
 const STAT_MINIMUM: int = 1
 

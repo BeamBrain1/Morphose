@@ -480,10 +480,10 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Zenith"
 	current_enemy.hp = 4095
 	current_enemy.tech_points = 1200
-	current_enemy.attack = 200
-	current_enemy.defense = 200
-	current_enemy.senses = 200
-	current_enemy.speed = 200
+	current_enemy.attack = 220
+	current_enemy.defense = 220
+	current_enemy.senses = 220
+	current_enemy.speed = 220
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Chaingun", 3)
 	current_enemy.installBlueprintByNameAndTier("Hammer", 3)
@@ -507,10 +507,10 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Z-Spawn"
-	current_enemy.hp = 400
+	current_enemy.hp = 500
 	current_enemy.tech_points = 500
-	current_enemy.attack = 150
-	current_enemy.defense = 80
+	current_enemy.attack = 170
+	current_enemy.defense = 50
 	current_enemy.senses = 150
 	current_enemy.speed = 150
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)

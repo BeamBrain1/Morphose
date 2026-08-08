@@ -26,3 +26,7 @@ var acid: int = 0
 var blind: int = 0
 var slimed: int = 0
 var rage: int = 0
+
+
+func isStatusEffectBlueprint() -> bool:
+	return base_healing == 0

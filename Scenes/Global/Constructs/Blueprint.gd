@@ -19,34 +19,38 @@ var predecessors: Array = []	# List of predecessor blueprints: lower-tier bluepr
 var special: String = ""		# Used to assign additional one-off capabilities
 
 const BIO_COST_T2_MULT: int = 20
+const BIO_COST_T2_MULT_STATUS: int = 20
 const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 4
+const BIO_COST_T3_MULT_STATUS: int = BIO_COST_T2_MULT_STATUS * 3
 const TP_COST_T2_MULT: int = 5
-const TP_COST_T3_MULT: int = TP_COST_T2_MULT*4
+const TP_COST_T2_MULT_STATUS: int = 5
+const TP_COST_T3_MULT: int = TP_COST_T2_MULT * 4
+const TP_COST_T3_MULT_STATUS: int = TP_COST_T2_MULT_STATUS * 3
 
 
 # Blueprints are organized into bio cost "tracks." Individual blueprint cost is determined by track letter and tier.
 const BIO_COST_TRACKS: Dictionary = {
-	"X": [0, 0, 0],
-	"A": [20, 20*BIO_COST_T2_MULT, 20*BIO_COST_T3_MULT],
-	"B": [30, 30*BIO_COST_T2_MULT, 30*BIO_COST_T3_MULT],
-	"C": [40, 40*BIO_COST_T2_MULT, 40*BIO_COST_T3_MULT],
-	"D": [50, 50*BIO_COST_T2_MULT, 50*BIO_COST_T3_MULT],
-	"E": [60, 60*BIO_COST_T2_MULT, 60*BIO_COST_T3_MULT],
-	"Z": [9999, 9999, 9999]
+	"X": 0,
+	"A": 20,
+	"B": 30,
+	"C": 40,
+	"D": 50,
+	"E": 60,
+	"Z": 9999
 }
 
 # Determines how much TP it costs to use a given blueprint
 const TP_COST_TRACKS: Dictionary = {
-	"X": [0, 0, 0],
-	"A": [3, 3*TP_COST_T2_MULT, 3*TP_COST_T3_MULT],
-	"B": [5, 5*TP_COST_T2_MULT, 5*TP_COST_T3_MULT],
-	"C": [7, 7*TP_COST_T2_MULT, 7*TP_COST_T3_MULT],
-	"D": [10, 10*TP_COST_T2_MULT, 10*TP_COST_T3_MULT],
-	"E": [15, 15*TP_COST_T2_MULT, 15*TP_COST_T3_MULT],
-	"F": [20, 20*TP_COST_T2_MULT, 20*TP_COST_T3_MULT],
-	"G": [24, 24*TP_COST_T2_MULT, 24*TP_COST_T3_MULT],
-	"Z1": [30, 30, 30],
-	"Z2": [600, 600, 600],
+	"X": 0,
+	"A": 3,
+	"B": 5,
+	"C": 7,
+	"D": 10,
+	"E": 15,
+	"F": 20,
+	"G": 24,
+	"Z1": 30,
+	"Z2": 600
 }
 
 func getDialogDisplayName() -> String:
@@ -144,12 +148,39 @@ static func sortBlueprintsDescending(a, b):
 
 
 func getBioEnergyCost() -> int:
-	return BIO_COST_TRACKS[bio_cost_track.to_upper()][tier-1]
+	var result = BIO_COST_TRACKS[bio_cost_track.to_upper()]
+	if tier == 2:
+		if isStatusEffectBlueprint():
+			result *= BIO_COST_T2_MULT_STATUS
+		else:
+			result *= BIO_COST_T2_MULT
+	elif tier >= 3:
+		if isStatusEffectBlueprint():
+			result *= BIO_COST_T3_MULT_STATUS
+		else:
+			result *= BIO_COST_T3_MULT
+	return result
 
 
 func getTechPointCost() -> int:
-	return TP_COST_TRACKS[tp_cost_track.to_upper()][tier-1]
+	var result = TP_COST_TRACKS[tp_cost_track.to_upper()]
+	if tier == 2:
+		if isStatusEffectBlueprint():
+			result *= TP_COST_T2_MULT_STATUS
+		else:
+			result *= TP_COST_T2_MULT
+	elif tier >= 3:
+		if isStatusEffectBlueprint():
+			result *= TP_COST_T3_MULT_STATUS
+		else:
+			result *= TP_COST_T3_MULT
+	return result
 
 
 func isZenithBlueprint() -> bool:
 	return bio_cost_track.matchn("Z")
+
+
+# Override in children
+func isStatusEffectBlueprint() -> bool:
+	return false

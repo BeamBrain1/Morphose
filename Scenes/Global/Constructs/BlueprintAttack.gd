@@ -15,3 +15,7 @@ var acid: int = 0				# num Acid stacks attack inflicts per hit
 var blind: int = 0				# num Blind stacks attack inflicts per hit
 var slimed: int = 0				# num Slimed stacks attack inflicts per hit
 var rage: int = 0				# num Rage stacks attack inflicts per hit
+
+
+func isStatusEffectBlueprint() -> bool:
+	return damageless

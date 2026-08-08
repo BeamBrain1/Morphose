@@ -19,10 +19,17 @@ func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) ->
 	
 	if stat == GlobalProgramData.COMBAT_STAT.HP:
 		result -= Morphose.HP_MINIMUM
+		if result + Morphose.HP_MINIMUM >= HP_DIMINISHING_RETURNS_START:		# After hitting diminishing returns point, cost doubles regularly
+			result += result * (1 + ((result - HP_DIMINISHING_RETURNS_START) / 20))
 	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
 		result -= Morphose.TP_MINIMUM
+		if result + Morphose.TP_MINIMUM >= TP_DIMINISHING_RETURNS_START:
+			result += result * (1 + ((result - TP_DIMINISHING_RETURNS_START) / 20))
 	else:
 		result -= Morphose.STAT_MINIMUM
+		if result + Morphose.STAT_MINIMUM >= STAT_DIMINISHING_RETURNS_START:
+			result += result * (1 + ((result - STAT_DIMINISHING_RETURNS_START) / 5))
+	
 	
 	result = maxi(1, result)
 	
