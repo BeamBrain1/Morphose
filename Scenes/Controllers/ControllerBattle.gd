@@ -31,11 +31,13 @@ func mainLoop():
 		current_actor = getNextActor()
 		current_actor.beginTurn()
 
+		pushCombatantBattleMessages(current_actor)
+		updateCombatantStatusDisplays()
+
 		if isBattleOver():	# Character may have died from poison, so check here
+			switchToPlayAgainMode()
 			break
 		else:
-			updateCombatantStatusDisplays()
-			pushCombatantBattleMessages(current_actor)
 			if current_actor is PartyCombatant:
 				await showBattleMessages()
 

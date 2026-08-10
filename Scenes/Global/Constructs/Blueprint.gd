@@ -20,8 +20,8 @@ var special: String = ""		# Used to assign additional one-off capabilities
 
 const BIO_COST_T2_MULT: int = 20
 const BIO_COST_T2_MULT_STATUS: int = 20
-const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 4
-const BIO_COST_T3_MULT_STATUS: int = BIO_COST_T2_MULT_STATUS * 3
+const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 6
+const BIO_COST_T3_MULT_STATUS: int = BIO_COST_T2_MULT_STATUS * 4
 const TP_COST_T2_MULT: int = 5
 const TP_COST_T2_MULT_STATUS: int = 5
 const TP_COST_T3_MULT: int = TP_COST_T2_MULT * 4
