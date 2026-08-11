@@ -20,7 +20,7 @@ var special: String = ""		# Used to assign additional one-off capabilities
 
 const BIO_COST_T2_MULT: int = 20
 const BIO_COST_T2_MULT_STATUS: int = 20
-const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 6
+const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 8
 const BIO_COST_T3_MULT_STATUS: int = BIO_COST_T2_MULT_STATUS * 4
 const TP_COST_T2_MULT: int = 5
 const TP_COST_T2_MULT_STATUS: int = 5
@@ -97,10 +97,13 @@ func sufficientTPForAtLeastOnePredecessor(tp: int) -> bool:
 
 
 # Given a blueprint name and a tier, pull blueprint from supplied list
-static func getBlueprintFromList(blueprint_list: Array, name_in: String, tier_in: int = 1):
+# If no tier-in supplied, get first that matches name
+static func getBlueprintFromList(blueprint_list: Array, name_in: String, tier_in: int = -1):
 	
 	for blueprint in blueprint_list:
 		if blueprint.base_display_name.matchn(name_in) and blueprint.tier == tier_in:
+			return blueprint
+		elif blueprint.base_display_name.matchn(name_in) and tier_in == -1:
 			return blueprint
 	
 	push_error("Blueprint not found: " + getDialogDisplayNameFromParameters(name_in, tier_in))

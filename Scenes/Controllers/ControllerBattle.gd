@@ -189,16 +189,18 @@ func executeMultitargetBlueprint(user, blueprint: Blueprint, target_list: Array)
 
 func applyAttack(user, blueprint: BlueprintAttack, target) -> void:
 	for hit in range(blueprint.num_hits):
-		if attackHits(user, blueprint, target):
-			var raw_damage: int = user.rawAttackDamage(blueprint)
-			var crit = attackCrits(user, blueprint, target)
-			if crit:
-				raw_damage *= 2
-				$BattleMessageDisplay.pushBattleMessage("Critical hit!")
-			target.receiveAttack(blueprint, raw_damage, crit)
-			pushCombatantBattleMessages(target)
-		else:
-			$BattleMessageDisplay.pushBattleMessage("Missed!")
+		if not target.isDefeated():
+			if attackHits(user, blueprint, target):
+				var raw_damage: int = user.rawAttackDamage(blueprint)
+				var crit = attackCrits(user, blueprint, target)
+				if crit:
+					raw_damage *= 3
+					raw_damage /= 2
+					$BattleMessageDisplay.pushBattleMessage("Critical hit!")
+				target.receiveAttack(blueprint, raw_damage, crit)
+				pushCombatantBattleMessages(target)
+			else:
+				$BattleMessageDisplay.pushBattleMessage("Missed!")
 
 
 func applySupport(user, blueprint: BlueprintSupport, target) -> void:

@@ -73,7 +73,7 @@ static func buildEncounterList() -> void:
 	table.append([enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle")])
 	table.append([enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle")])
 	table.append([enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle")])
-	table.append([enemy("King Crab")])
+	table.append([enemy("King Crab"), enemy("King Crab"), enemy("King Crab"), enemy("King Crab")])
 	table.append([enemy("Shark"), enemy("Shark")])
 	table.append([enemy("Shark"), enemy("Shark")])
 	table.append([enemy("Shark"), enemy("Shark"), enemy("Shark")])

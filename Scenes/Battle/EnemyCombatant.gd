@@ -84,6 +84,8 @@ func chooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: 
 		result = queenChooseBlueprint(party_combatants, enemy_combatants)
 	elif base_type.name.matchn("SILO LORD"):
 		result = siloLordChooseBlueprint(party_combatants)
+	elif base_type.name.matchn("KING CRAB"):
+		result = kingCrabChooseBlueprint()
 	elif base_type.name.matchn("ZENITH"):
 		result = zenithChooseBlueprint()
 	else:
@@ -95,7 +97,7 @@ func chooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: 
 
 func queenChooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
 	var possible_actions = getPossibleBlueprintActions()
-	if possible_actions.size() == 0:
+	if possible_actions.size() == 1:
 		return possible_actions[0]
 	else:
 		var living_enemies: int = 0
@@ -129,7 +131,20 @@ func siloLordChooseBlueprint(party_combatants: Array[PartyCombatant]) -> Bluepri
 		return possible_actions[randi() % possible_actions.size()]
 
 
-func zenithChooseBlueprint() -> Blueprint:	
+func kingCrabChooseBlueprint() -> Blueprint:
+	if ai_sequence % 2 == 0:
+		if getPossibleAttackActions().size() > 0:
+			return getPossibleAttackActions()[randi() % getPossibleAttackActions().size()]
+	else:
+		if getPossibleSupportActions().size() > 0:
+			if Blueprint.blueprintIsInList(getPossibleSupportActions(), "Marshal", 2) and hardened_stacks == MAX_STATUS_EFFECT_STACKS:
+				return Blueprint.getBlueprintFromList(getPossibleSupportActions(), "Marshal", 2)
+			else:
+				return getPossibleSupportActions()[randi() % getPossibleSupportActions().size()]
+	return getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
+
+
+func zenithChooseBlueprint() -> Blueprint:
 	if ai_sequence == 1:		# Start battle by using Perfect
 		return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Perfect", 1)
 	elif ai_sequence % 2 == 1:	# Use a strong blueprint
