@@ -139,6 +139,8 @@ func kingCrabChooseBlueprint() -> Blueprint:
 		if getPossibleSupportActions().size() > 0:
 			if Blueprint.blueprintIsInList(getPossibleSupportActions(), "Marshal", 2) and hardened_stacks == MAX_STATUS_EFFECT_STACKS:
 				return Blueprint.getBlueprintFromList(getPossibleSupportActions(), "Marshal", 2)
+			elif Blueprint.blueprintIsInList(getPossibleSupportActions(), "Marshal", 2) and sharpened_stacks == MAX_STATUS_EFFECT_STACKS:
+				return Blueprint.getBlueprintFromList(getPossibleSupportActions(), "Formation", 2)
 			else:
 				return getPossibleSupportActions()[randi() % getPossibleSupportActions().size()]
 	return getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
@@ -151,7 +153,7 @@ func zenithChooseBlueprint() -> Blueprint:
 		var action_list: Array = []
 		for blueprint in getPossibleBlueprintActions():
 			if blueprint.base_display_name.matchn("Perfect"):
-				if biggestDebuff() >= 5:					# Only use Perfect if buff balance falls below a certain point
+				if biggestDebuff() >= 4:					# Auto-use perfect if any stat's debuff severe enough
 					return blueprint
 				if sumOfBuffs() < 3:		# Add it to move pool if buff balance falls below a certain point
 					action_list.append(blueprint)

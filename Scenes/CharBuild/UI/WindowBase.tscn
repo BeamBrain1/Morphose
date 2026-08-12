@@ -131,7 +131,7 @@ offset_right = 80.0
 offset_bottom = 240.0
 expand_programmatically = false
 
-[node name="ButtonZenith" type="Button" parent="DialogExitScreen" unique_id=330645868]
+[node name="ButtonSkipTo" type="Button" parent="DialogExitScreen" unique_id=330645868]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -149,7 +149,7 @@ theme_override_styles/pressed = ExtResource("8_f4qa5")
 theme_override_styles/hover = ExtResource("9_gkk13")
 theme_override_styles/disabled = ExtResource("10_jrur7")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
-text = " ZENITH"
+text = " SKIP TO"
 alignment = 0
 
 [node name="ButtonSkip" type="Button" parent="DialogExitScreen" unique_id=1251604811]
@@ -299,7 +299,7 @@ autowrap_mode = 2
 
 [connection signal="tab_selected" from="DialogCharacterSelect/Body/TabHeaderList" to="." method="tabSelectedCharacter"]
 [connection signal="tab_selected" from="DialogBuildWindow/Body/TabHeaderList" to="." method="tabSelectedWindow"]
-[connection signal="pressed" from="DialogExitScreen/ButtonZenith" to="." method="_on_button_zenith_pressed"]
+[connection signal="pressed" from="DialogExitScreen/ButtonSkipTo" to="." method="_on_button_skip_to_pressed"]
 [connection signal="pressed" from="DialogExitScreen/ButtonSkip" to="." method="_on_button_skip_pressed"]
 [connection signal="pressed" from="DialogExitScreen/ButtonSave" to="." method="_on_button_save_pressed"]
 [connection signal="pressed" from="DialogExitScreen/ButtonCancel" to="." method="_on_button_cancel_pressed"]

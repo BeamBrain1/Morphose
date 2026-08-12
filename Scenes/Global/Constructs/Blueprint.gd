@@ -19,6 +19,7 @@ var predecessors: Array = []	# List of predecessor blueprints: lower-tier bluepr
 var special: String = ""		# Used to assign additional one-off capabilities
 
 const BIO_COST_T2_MULT: int = 20
+const BIO_COST_T2_MULT_Q_TRACK: int = 8
 const BIO_COST_T2_MULT_STATUS: int = 20
 const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 8
 const BIO_COST_T3_MULT_STATUS: int = BIO_COST_T2_MULT_STATUS * 4
@@ -36,6 +37,7 @@ const BIO_COST_TRACKS: Dictionary = {
 	"C": 40,
 	"D": 50,
 	"E": 60,
+	"Q": 1000,
 	"Z": 9999
 }
 
@@ -46,7 +48,7 @@ const TP_COST_TRACKS: Dictionary = {
 	"B": 5,
 	"C": 7,
 	"D": 10,
-	"E": 15,
+	"E": 17,
 	"F": 20,
 	"G": 24,
 	"Z1": 30,
@@ -155,6 +157,8 @@ func getBioEnergyCost() -> int:
 	if tier == 2:
 		if isStatusEffectBlueprint():
 			result *= BIO_COST_T2_MULT_STATUS
+		elif bio_cost_track == "Q":
+			result *= BIO_COST_T2_MULT_Q_TRACK
 		else:
 			result *= BIO_COST_T2_MULT
 	elif tier >= 3:

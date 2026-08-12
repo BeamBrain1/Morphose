@@ -123,8 +123,9 @@ func getStatusEffectAdjustedSenses() -> int:
 	return floori(senses * (1 + keen_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
 
 
+# Speed stacks are less potent to mitigate action economy (dis)advantage
 func getStatusEffectAdjustedSpeed() -> int:
-	return floori(speed * (1 + energized_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
+	return floori(speed * (1 + energized_stacks * .1))
 
 
 func getStatusEffectAdjustedTPRegen() -> int:
@@ -135,60 +136,68 @@ func getBaseTPRegen() -> int:
 	return ceili(float(max_tp) / 4)
 
 
-func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_applied: bool = false) -> void:
+# self_applied_via_action: Was this Morphose's applied to themself by an action taken on their current turn?
+func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_applied_via_action: bool = false) -> void:
 	
 	var true_change: int = 0
 	var old_stacks: int
 	var new_stacks: int
 	
+	var immunity_adjusted_change: int = change
+	var immunity_tier: int = 0
+	
+	if change < 0 and hasPassiveBlueprintWithSpecial("Immunity"):
+		immunity_adjusted_change = mini(0, change + Blueprint.getBlueprintFromList(blueprints_passive, "Immunity").tier)
+	
 	if effect == STATUS_EFFECT.REGEN and change != 0:
 		old_stacks = regen_stacks
-		regen_stacks += change
+		regen_stacks += change		# Regen/burn unaffected by immunity
 		regen_stacks = clamp(regen_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = regen_stacks - old_stacks
 		new_stacks = regen_stacks
-		if new_stacks != 0 and self_applied:
+		if new_stacks != 0 and self_applied_via_action:
 			changed_regen_on_own_turn = true
 	elif effect == STATUS_EFFECT.SHARPENED and change != 0:
 		old_stacks = sharpened_stacks
-		sharpened_stacks += change
+		sharpened_stacks += immunity_adjusted_change
 		sharpened_stacks = clamp(sharpened_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = sharpened_stacks - old_stacks
 		new_stacks = sharpened_stacks
-		if new_stacks != 0 and self_applied:
+		if new_stacks != 0 and self_applied_via_action:
 			changed_sharpened_on_own_turn = true
 	elif effect == STATUS_EFFECT.HARDENED and change != 0:
 		old_stacks = hardened_stacks
-		hardened_stacks += change
+		hardened_stacks += immunity_adjusted_change
 		hardened_stacks = clamp(hardened_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = hardened_stacks - old_stacks
 		new_stacks = hardened_stacks
-		if new_stacks != 0 and self_applied:
+		if new_stacks != 0 and self_applied_via_action:
 			changed_hardened_on_own_turn = true
 	elif effect == STATUS_EFFECT.KEEN and change != 0:
 		old_stacks = keen_stacks
-		keen_stacks += change
+		keen_stacks += immunity_adjusted_change
 		keen_stacks = clamp(keen_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = keen_stacks - old_stacks
 		new_stacks = keen_stacks
-		if new_stacks != 0 and self_applied:
+		if new_stacks != 0 and self_applied_via_action:
 			changed_keen_on_own_turn = true
 	elif effect == STATUS_EFFECT.ENERGIZED and change != 0:
 		old_stacks = energized_stacks
-		energized_stacks += change
+		energized_stacks += immunity_adjusted_change
 		energized_stacks = clamp(energized_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = energized_stacks - old_stacks
 		new_stacks = energized_stacks
-		if new_stacks != 0 and self_applied:
+		if new_stacks != 0 and self_applied_via_action:
 			changed_energized_on_own_turn = true
 	elif effect == STATUS_EFFECT.FOCUSED and change != 0:
 		old_stacks = focused_stacks
-		focused_stacks += change
+		focused_stacks += immunity_adjusted_change
 		focused_stacks = clamp(focused_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = focused_stacks - old_stacks
 		new_stacks = focused_stacks
-		if new_stacks != 0 and self_applied:
+		if new_stacks != 0 and self_applied_via_action:
 			changed_focused_on_own_turn = true
+			print("Change flag set")
 	
 	if true_change > 0:
 		var bad_stacks_shed: int = mini(0, new_stacks) - mini(0, old_stacks)
@@ -244,7 +253,7 @@ func beginTurn() -> void:
 func endTurn() -> void:
 	if not isDefeated():
 		shedStatusEffects()
-		if hasPassiveBlueprint("Molt"):
+		if hasPassiveBlueprintWithSpecial("Molt"):
 			for i in range(passiveBlueprintTier("Molt")):
 				shedNegativeStatusEffects()
 		clearSelfAppliedStatusChangeFlags()
@@ -271,7 +280,7 @@ func applyHealingBurning() -> void:
 		if healing:
 			heal(change_amount)
 		else:
-			if hasPassiveBlueprint("HydroCoat"):
+			if hasPassiveBlueprintWithSpecial("HydroCoat"):
 				change_amount -= (change_amount * passiveBlueprintTier("HydroCoat") / 4)
 				change_amount = maxi(change_amount, 1)
 			damage(change_amount)
@@ -378,7 +387,7 @@ func getNegativeStatusEffectString(effect: STATUS_EFFECT) -> String:
 
 # builds accumulated speed, used to determine initiative
 func generateAccumulatedSpeed() -> void:
-	if hasPassiveBlueprint("1stStrike") and not first_accumulated_speed_set:
+	if hasPassiveBlueprintWithSpecial("1stStrike") and not first_accumulated_speed_set:
 		accumulated_speed = 9999
 	else:
 		var random_range: int = maxi(getStatusEffectAdjustedSpeed() >> 2, 2)
@@ -502,12 +511,12 @@ func receiveSupport(blueprint: BlueprintSupport, self_applied: bool = false) -> 
 	adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, blueprint.focused, self_applied)
 	
 	if not isDefeated():
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * blueprint.burning)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * blueprint.tranqed)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * blueprint.acid)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * blueprint.blind)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * blueprint.slimed)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * blueprint.rage)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * blueprint.burning, self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * blueprint.tranqed, self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * blueprint.acid, self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * blueprint.blind, self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * blueprint.slimed, self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * blueprint.rage, self_applied)
 
 
 func pushBattleMessage(update: String) -> void:
@@ -652,9 +661,9 @@ func isValidSupportTarget(blueprint: BlueprintSupport) -> bool:
 
 # Return true if Morphose has the blueprint with the specified name
 # If tier left default, not checked. Otherwise, checked for exact match
-func hasPassiveBlueprint(bp_name: String, tier_in: int = 0) -> bool:
+func hasPassiveBlueprintWithSpecial(special_name: String, tier_in: int = 0) -> bool:
 	for bp in blueprints_passive:
-		if bp.base_display_name.matchn(bp_name):
+		if bp.special.matchn(special_name):
 			if tier_in == 0 or bp.tier == tier_in:
 				return true
 	return false

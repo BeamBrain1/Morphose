@@ -3,7 +3,7 @@ extends Node2D
 signal tab_selected_window
 signal tab_selected_character
 signal skip
-signal zenith
+signal skip_to
 signal reset
 signal save
 signal cancel
@@ -46,8 +46,8 @@ func _on_button_skip_pressed() -> void:
 	emit_signal("skip")
 
 
-func _on_button_zenith_pressed() -> void:
-	emit_signal("zenith")
+func _on_button_skip_to_pressed() -> void:
+	emit_signal("skip_to")
 
 
 func nextBattleEnemyList() -> String:

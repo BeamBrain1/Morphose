@@ -104,3 +104,10 @@ static func getEncounterBioEnergyValue(index: int) -> int:
 	for enemy in table[index]:
 		result += enemy.getBioEnergyValue()
 	return result
+
+
+static func encounterHasEnemy(encounter: Array, name_in: String) -> bool:
+	for enemy in encounter:
+		if name_in.matchn(enemy.name):
+			return true
+	return false
