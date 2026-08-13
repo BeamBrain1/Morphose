@@ -143,12 +143,6 @@ func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_app
 	var old_stacks: int
 	var new_stacks: int
 	
-	var immunity_adjusted_change: int = change
-	var immunity_tier: int = 0
-	
-	if change < 0 and hasPassiveBlueprintWithSpecial("Immunity"):
-		immunity_adjusted_change = mini(0, change + Blueprint.getBlueprintFromList(blueprints_passive, "Immunity").tier)
-	
 	if effect == STATUS_EFFECT.REGEN and change != 0:
 		old_stacks = regen_stacks
 		regen_stacks += change		# Regen/burn unaffected by immunity
@@ -159,7 +153,7 @@ func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_app
 			changed_regen_on_own_turn = true
 	elif effect == STATUS_EFFECT.SHARPENED and change != 0:
 		old_stacks = sharpened_stacks
-		sharpened_stacks += immunity_adjusted_change
+		sharpened_stacks += change
 		sharpened_stacks = clamp(sharpened_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = sharpened_stacks - old_stacks
 		new_stacks = sharpened_stacks
@@ -167,7 +161,7 @@ func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_app
 			changed_sharpened_on_own_turn = true
 	elif effect == STATUS_EFFECT.HARDENED and change != 0:
 		old_stacks = hardened_stacks
-		hardened_stacks += immunity_adjusted_change
+		hardened_stacks += change
 		hardened_stacks = clamp(hardened_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = hardened_stacks - old_stacks
 		new_stacks = hardened_stacks
@@ -175,7 +169,7 @@ func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_app
 			changed_hardened_on_own_turn = true
 	elif effect == STATUS_EFFECT.KEEN and change != 0:
 		old_stacks = keen_stacks
-		keen_stacks += immunity_adjusted_change
+		keen_stacks += change
 		keen_stacks = clamp(keen_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = keen_stacks - old_stacks
 		new_stacks = keen_stacks
@@ -183,7 +177,7 @@ func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_app
 			changed_keen_on_own_turn = true
 	elif effect == STATUS_EFFECT.ENERGIZED and change != 0:
 		old_stacks = energized_stacks
-		energized_stacks += immunity_adjusted_change
+		energized_stacks += change
 		energized_stacks = clamp(energized_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = energized_stacks - old_stacks
 		new_stacks = energized_stacks
@@ -191,13 +185,12 @@ func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_app
 			changed_energized_on_own_turn = true
 	elif effect == STATUS_EFFECT.FOCUSED and change != 0:
 		old_stacks = focused_stacks
-		focused_stacks += immunity_adjusted_change
+		focused_stacks += change
 		focused_stacks = clamp(focused_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = focused_stacks - old_stacks
 		new_stacks = focused_stacks
 		if new_stacks != 0 and self_applied_via_action:
 			changed_focused_on_own_turn = true
-			print("Change flag set")
 	
 	if true_change > 0:
 		var bad_stacks_shed: int = mini(0, new_stacks) - mini(0, old_stacks)
@@ -252,7 +245,7 @@ func beginTurn() -> void:
 
 func endTurn() -> void:
 	if not isDefeated():
-		shedStatusEffects()
+		shedPositiveStatusEffects()
 		if hasPassiveBlueprintWithSpecial("Molt"):
 			for i in range(passiveBlueprintTier("Molt")):
 				shedNegativeStatusEffects()
@@ -463,28 +456,26 @@ func receiveAttack(blueprint: BlueprintAttack, raw_damage: int, crit: bool = fal
 		damage(damage_amt)
 	
 	if not isDefeated():
-		if crit:
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * critAdjustedStatusValue(blueprint.burning))
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * critAdjustedStatusValue(blueprint.tranqed))
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * critAdjustedStatusValue(blueprint.acid))
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * critAdjustedStatusValue(blueprint.blind))
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * critAdjustedStatusValue(blueprint.slimed))
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * critAdjustedStatusValue(blueprint.rage))
-		else:
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * blueprint.burning)
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * blueprint.tranqed)
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * blueprint.acid)
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * blueprint.blind)
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * blueprint.slimed)
-			adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * blueprint.rage)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * adjustedDebuffStacksInflicted(blueprint.burning, crit))
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * adjustedDebuffStacksInflicted(blueprint.tranqed, crit))
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * adjustedDebuffStacksInflicted(blueprint.acid, crit))
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * adjustedDebuffStacksInflicted(blueprint.blind, crit))
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * adjustedDebuffStacksInflicted(blueprint.slimed, crit))
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * adjustedDebuffStacksInflicted(blueprint.rage, crit))
 
 
-# Status effect crits deal 1 additional level of the status effect
-func critAdjustedStatusValue(value_in: int) -> int:
+# Final amount of debuff stacks applied after factoring in Immunity blueprint (if present) and crit
+func adjustedDebuffStacksInflicted(value_in: int, crit: bool = false) -> int:
 	# If attack does not apply status effect to begin with, don't 
 	if value_in == 0:
 		return 0
-	return value_in + 1
+	var result = value_in
+	if crit:
+		result += 1
+	if hasPassiveBlueprintWithSpecial("Immunity"):
+		result -= Blueprint.getBlueprintFromList(blueprints_passive, "Immunity").tier
+	
+	return maxi(result, 0)
 
 
 # self_applied: Is the combatant applying this support to themselves?
@@ -510,13 +501,12 @@ func receiveSupport(blueprint: BlueprintSupport, self_applied: bool = false) -> 
 	adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, blueprint.energized, self_applied)
 	adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, blueprint.focused, self_applied)
 	
-	if not isDefeated():
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * blueprint.burning, self_applied)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * blueprint.tranqed, self_applied)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * blueprint.acid, self_applied)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * blueprint.blind, self_applied)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * blueprint.slimed, self_applied)
-		adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * blueprint.rage, self_applied)
+	adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * adjustedDebuffStacksInflicted(blueprint.burning), self_applied)
+	adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * adjustedDebuffStacksInflicted(blueprint.tranqed), self_applied)
+	adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * adjustedDebuffStacksInflicted(blueprint.acid), self_applied)
+	adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * adjustedDebuffStacksInflicted(blueprint.blind), self_applied)
+	adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * adjustedDebuffStacksInflicted(blueprint.slimed), self_applied)
+	adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * adjustedDebuffStacksInflicted(blueprint.rage), self_applied)
 
 
 func pushBattleMessage(update: String) -> void:

@@ -22,11 +22,11 @@ const BIO_COST_T2_MULT: int = 20
 const BIO_COST_T2_MULT_Q_TRACK: int = 8
 const BIO_COST_T2_MULT_STATUS: int = 20
 const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 8
-const BIO_COST_T3_MULT_STATUS: int = BIO_COST_T2_MULT_STATUS * 4
+const BIO_COST_T3_MULT_STATUS: int = BIO_COST_T2_MULT_STATUS * 8
 const TP_COST_T2_MULT: int = 5
 const TP_COST_T2_MULT_STATUS: int = 5
 const TP_COST_T3_MULT: int = TP_COST_T2_MULT * 4
-const TP_COST_T3_MULT_STATUS: int = TP_COST_T2_MULT_STATUS * 3
+const TP_COST_T3_MULT_STATUS: int = TP_COST_T2_MULT_STATUS * 4
 
 
 # Blueprints are organized into bio cost "tracks." Individual blueprint cost is determined by track letter and tier.
@@ -48,7 +48,7 @@ const TP_COST_TRACKS: Dictionary = {
 	"B": 5,
 	"C": 7,
 	"D": 10,
-	"E": 17,
+	"E": 15,
 	"F": 20,
 	"G": 24,
 	"Z1": 30,

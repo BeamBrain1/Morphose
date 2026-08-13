@@ -4,7 +4,7 @@ var active_controller
 
 const CONTROLLER_DIRECTORY_AND_PREFIX = "res://Scenes/Controllers/Controller"
 
-const STARTING_BIO_ENERGY: int = 100000
+const STARTING_BIO_ENERGY: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -47,7 +47,7 @@ func skipBattle() -> void:
 
 
 func skipToEncounter() -> void:
-	while not EncounterTable.encounterHasEnemy(EncounterTable.table[ActiveSaveData.current_battle], "Crab"):
+	while not EncounterTable.encounterHasEnemy(EncounterTable.table[ActiveSaveData.current_battle], "Zenith"):
 		skipBattle()
 
 
