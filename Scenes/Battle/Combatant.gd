@@ -76,6 +76,12 @@ func changeHP(amount: int) -> void:
 		markDefeated()
 
 
+func setHP(amount: int) -> void:
+	hp = clamp(amount, 0, max_hp)
+	if isDefeated() and not marked_defeated:
+		markDefeated()
+
+
 func damage(amount: int) -> void:
 	var final_amount: int = maxi(amount, 0)
 	if final_amount == 0:
@@ -447,7 +453,7 @@ func rawAttackDamage(blueprint: BlueprintAttack) -> int:
 func receiveAttack(blueprint: BlueprintAttack, raw_damage: int, crit: bool = false) -> void:
 
 	if blueprint.special.matchn("instakill"):
-		hp = 0
+		setHP(0)
 		return
 	elif not blueprint.damageless:
 		var damage_amt: int = raw_damage

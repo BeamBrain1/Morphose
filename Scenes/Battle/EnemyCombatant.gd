@@ -147,25 +147,26 @@ func kingCrabChooseBlueprint() -> Blueprint:
 
 
 func zenithChooseBlueprint() -> Blueprint:
+	var action_list: Array = []
 	if ai_sequence == 1:		# Start battle by using Perfect
 		return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Perfect", 1)
-	elif ai_sequence % 2 == 1:	# Use a strong blueprint
-		var action_list: Array = []
+	elif ai_sequence % 2 == 1:	# Use a unique blueprint
 		for blueprint in getPossibleBlueprintActions():
-			if blueprint.base_display_name.matchn("Perfect"):
-				if biggestDebuff() >= 4:					# Auto-use perfect if any stat's debuff severe enough
-					return blueprint
-				if sumOfBuffs() < 3:		# Add it to move pool if buff balance falls below a certain point
+			if hp > max_hp * 3 / 4:
+				if blueprint.name.upper() in ["MINDRIP", "FRACTURE"]:
 					action_list.append(blueprint)
-			elif blueprint.isZenithBlueprint():
-				action_list.append(blueprint)
+			elif hp > max_hp * 1 / 2:
+				if blueprint.name.upper() in ["MINDRIP", "FRACTURE", "PERFECT", "BUD"]:
+					action_list.append(blueprint)
+			else:
+				if blueprint.name.upper() in ["MINDRIP", "FRACTURE", "PERFECT", "BUD", "FUSIONBOMB"]:
+					action_list.append(blueprint)
 		return action_list[randi() % action_list.size()]
 	else:						# Use a regular blueprint
-		var action_list: Array = []
 		for blueprint in getPossibleBlueprintActions():
 			if not blueprint.isZenithBlueprint():
 				action_list.append(blueprint)
-		return action_list[randi() % action_list.size()]
+	return action_list[randi() % action_list.size()]
 
 
 # Choose target for single-target blueprint action

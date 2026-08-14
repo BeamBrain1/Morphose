@@ -494,19 +494,19 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Zenith"
 	current_enemy.hp = 4095
 	current_enemy.tech_points = 1200
-	current_enemy.attack = 2
+	current_enemy.attack = 200
 	current_enemy.defense = 200
 	current_enemy.senses = 200
 	current_enemy.speed = 200
-	#current_enemy.installBlueprintByNameAndTier("Laser", 3)
+	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3)
-	#current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
-	#current_enemy.installBlueprintByNameAndTier("Napalm", 3)
-	#current_enemy.installBlueprintByNameAndTier("Chembomb", 3)
-	#current_enemy.installBlueprintByNameAndTier("FusionBomb", 1)
+	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
+	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
+	current_enemy.installBlueprintByNameAndTier("Chembomb", 3)
+	current_enemy.installBlueprintByNameAndTier("FusionBomb", 1)
 	current_enemy.installBlueprintByNameAndTier("Mind Rip", 1)
-	#current_enemy.installBlueprintByNameAndTier("Fracture", 1)
-	#current_enemy.installBlueprintByNameAndTier("Bud", 1)
+	current_enemy.installBlueprintByNameAndTier("Fracture", 1)
+	current_enemy.installBlueprintByNameAndTier("Bud", 1)
 	current_enemy.installBlueprintByNameAndTier("Perfect", 1)
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 3)
