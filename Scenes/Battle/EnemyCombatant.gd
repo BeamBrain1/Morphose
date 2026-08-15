@@ -153,13 +153,16 @@ func zenithChooseBlueprint() -> Blueprint:
 	elif ai_sequence % 2 == 1:	# Use a unique blueprint
 		for blueprint in getPossibleBlueprintActions():
 			if hp > max_hp * 3 / 4:
-				if blueprint.name.upper() in ["MINDRIP", "FRACTURE"]:
-					action_list.append(blueprint)
+				return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Mind Rip", 1)
 			elif hp > max_hp * 1 / 2:
-				if blueprint.name.upper() in ["MINDRIP", "FRACTURE", "PERFECT", "BUD"]:
+				if blueprint.base_display_name.to_upper() in ["MIND RIP", "FRACTURE", "BUD"]:
+					action_list.append(blueprint)
+				elif sumOfBuffs() <= 3 and blueprint.base_display_name.to_upper() == "PERFECT":
 					action_list.append(blueprint)
 			else:
-				if blueprint.name.upper() in ["MINDRIP", "FRACTURE", "PERFECT", "BUD", "FUSIONBOMB"]:
+				if blueprint.base_display_name.to_upper() in ["MIND RIP", "FRACTURE", "BUD", "FUSIONBOMB"]:
+					action_list.append(blueprint)
+				elif sumOfBuffs() <= 3 and blueprint.base_display_name.to_upper() == "PERFECT":
 					action_list.append(blueprint)
 		return action_list[randi() % action_list.size()]
 	else:						# Use a regular blueprint

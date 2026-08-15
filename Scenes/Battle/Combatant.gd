@@ -8,9 +8,15 @@ enum ACTION {NULL, BLUEPRINT, WAIT, RUN, PROMPT_PLAYER}
 
 const MAX_STATUS_EFFECT_STACKS: int = 6
 const BASE_ACCURACY = 80
-const BASE_CRIT_RATE = 5
+const BASE_CRIT_RATE = 10
+
+const MIN_ACCURACY: int = 1
+const MAX_ACCURACY: int = 99
+const MIN_CRIT: int = 1
+const MAX_CRIT: int = 99
 
 const STATUS_STACK_DEFAULT_MULTIPLIER: float = 0.15
+const SPEED_STACK_MULTIPLIER: float = 0.10
 
 var name: String = "[NO DATA]"
 var max_hp: int = 1
@@ -131,7 +137,7 @@ func getStatusEffectAdjustedSenses() -> int:
 
 # Speed stacks are less potent to mitigate action economy (dis)advantage
 func getStatusEffectAdjustedSpeed() -> int:
-	return floori(speed * (1 + energized_stacks * .1))
+	return floori(speed * (1 + energized_stacks * SPEED_STACK_MULTIPLIER))
 
 
 func getStatusEffectAdjustedTPRegen() -> int:
@@ -413,8 +419,8 @@ func markDefeated():
 
 
 # Raw accuracy of an attack, before any defender bonuses apply
-func rawAccuracy(blueprint: BlueprintAttack) -> int:
-	return BASE_ACCURACY + getStatusEffectAdjustedSenses() + blueprint.accuracy
+func attackAccuracy() -> int:
+	return getStatusEffectAdjustedSenses()
 
 
 func hitEvasion() -> int:
@@ -422,12 +428,28 @@ func hitEvasion() -> int:
 
 
 # Raw accuracy of an attack, before any defender bonuses apply
-func rawCritRate(blueprint: BlueprintAttack) -> int:
-	return BASE_CRIT_RATE + floori(getStatusEffectAdjustedSenses() / 2) + blueprint.crit_rate
+func attackCritRate() -> int:
+	return getStatusEffectAdjustedSenses()
 
 
 func critEvasion() -> int:
-	return floori(getStatusEffectAdjustedSpeed() / 2)
+	return getStatusEffectAdjustedSpeed()
+
+
+# Hit and crit rates are percentage based
+func attackHits(blueprint: BlueprintAttack, target) -> bool:
+	if blueprint.always_hit:
+		return true
+	
+	var accuracy: int = clampi((BASE_ACCURACY * attackAccuracy() / maxi(1, target.hitEvasion()) + blueprint.accuracy), MIN_ACCURACY, MAX_ACCURACY)
+	return randi() % 100 < accuracy
+
+
+func attackCrits(blueprint: BlueprintAttack, target) -> bool:
+	if blueprint.always_hit or never_crits:
+		return false
+	var crit_rate = clampi((BASE_CRIT_RATE * attackCritRate() / target.critEvasion()) + blueprint.crit_rate, MIN_CRIT, MAX_CRIT)
+	return randi() % 100 < crit_rate
 
 
 # Generates raw damage, before any defenses applied, for a given attack made by this character

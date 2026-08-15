@@ -4,11 +4,6 @@ extends Controller
 signal target_selected
 signal player_action_finalized	# Emitted once player has all necessary choices (action, possibly blueprint, possibly target) to select party member action
 
-const MIN_ACCURACY: int = 1
-const MAX_ACCURACY: int = 99
-const MIN_CRIT: int = 1
-const MAX_CRIT: int = 50
-
 var current_actor
 var selected_action: Combatant.ACTION
 var selected_blueprint
@@ -190,9 +185,9 @@ func executeMultitargetBlueprint(user, blueprint: Blueprint, target_list: Array)
 func applyAttack(user, blueprint: BlueprintAttack, target) -> void:
 	for hit in range(blueprint.num_hits):
 		if not target.isDefeated():
-			if attackHits(user, blueprint, target):
+			if user.attackHits(blueprint, target):
 				var raw_damage: int = user.rawAttackDamage(blueprint)
-				var crit = attackCrits(user, blueprint, target)
+				var crit = user.attackCrits(blueprint, target)
 				if crit:
 					raw_damage *= 3
 					raw_damage /= 2
@@ -206,21 +201,6 @@ func applyAttack(user, blueprint: BlueprintAttack, target) -> void:
 func applySupport(user, blueprint: BlueprintSupport, target) -> void:
 	target.receiveSupport(blueprint, user == target)
 	pushCombatantBattleMessages(target)
-
-
-# Hit and crit rates are percentage based
-func attackHits(user, blueprint: BlueprintAttack, target) -> bool:
-	if blueprint.always_hit:
-		return true
-	var accuracy: int = clampi(user.rawAccuracy(blueprint) - target.hitEvasion(), MIN_ACCURACY, MAX_ACCURACY)
-	return randi() % 100 < accuracy
-
-
-func attackCrits(user, blueprint: BlueprintAttack, target) -> bool:
-	if blueprint.always_hit or user.never_crits:
-		return false
-	var crit_rate = clampi(user.rawCritRate(blueprint) - target.critEvasion(), MIN_CRIT, MAX_CRIT)
-	return randi() % 100 < crit_rate
 
 
 # Party is defeated when all members dead

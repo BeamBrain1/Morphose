@@ -30,3 +30,7 @@ var rage: int = 0
 
 func isStatusEffectBlueprint() -> bool:
 	return base_healing == 0
+
+
+func isSupportStatusEffectBlueprint() -> bool:
+	return base_healing == 0
