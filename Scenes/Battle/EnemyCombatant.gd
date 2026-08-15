@@ -151,29 +151,42 @@ func zenithChooseBlueprint() -> Blueprint:
 	if ai_sequence == 1:		# Start battle by using Perfect
 		return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Perfect", 1)
 	elif ai_sequence % 2 == 1:	# Use a unique blueprint
-		for blueprint in getPossibleBlueprintActions():
-			if hp > max_hp * 3 / 4:
-				return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Mind Rip", 1)
-			elif hp > max_hp * 1 / 2:
-				if blueprint.base_display_name.to_upper() in ["MIND RIP", "FRACTURE", "BUD"]:
-					action_list.append(blueprint)
-				elif sumOfBuffs() <= 3 and blueprint.base_display_name.to_upper() == "PERFECT":
-					action_list.append(blueprint)
+		if hp > max_hp * 3 / 4:
+			return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Mind Rip", 1)
+		elif hp > max_hp * 1 / 2:
+			if ai_sequence < 5000 and canUseBlueprint(Blueprint.getBlueprintFromList(allCombatActionBlueprints(), "Bud")):
+				ai_sequence += 5000			# First time falling below 75% HP, use Bud ASAP
+				return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Bud")
 			else:
-				if blueprint.base_display_name.to_upper() in ["MIND RIP", "FRACTURE", "BUD", "FUSIONBOMB"]:
-					action_list.append(blueprint)
-				elif sumOfBuffs() <= 3 and blueprint.base_display_name.to_upper() == "PERFECT":
-					action_list.append(blueprint)
-		return action_list[randi() % action_list.size()]
+				addBlueprintToActionListIfUseable(action_list, "Mind Rip")
+				addBlueprintToActionListIfUseable(action_list, "Fracture")
+				addBlueprintToActionListIfUseable(action_list, "Bud")
+				if sumOfBuffs() < 1:	# Consider using Perfect is buffs too low
+					addBlueprintToActionListIfUseable(action_list, "Perfect")
+		else:
+			if ai_sequence < 10000 and canUseBlueprint(Blueprint.getBlueprintFromList(allCombatActionBlueprints(), "FusionBomb")):
+				ai_sequence += 10000		# First time falling below 50% HP, use FusionBomb ASAP
+				return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "FusionBomb")
+			else:
+				addBlueprintToActionListIfUseable(action_list, "Mind Rip")
+				addBlueprintToActionListIfUseable(action_list, "Fracture")
+				addBlueprintToActionListIfUseable(action_list, "Bud")
+				addBlueprintToActionListIfUseable(action_list, "FusionBomb")
+				if sumOfBuffs() < 3:	# Consider using Perfect is buffs too low (higher threshold)
+					addBlueprintToActionListIfUseable(action_list, "Perfect")
+		return chooseBlueprintOrNull(action_list)
 	else:						# Use a regular blueprint
 		for blueprint in getPossibleBlueprintActions():
 			if not blueprint.isZenithBlueprint():
 				action_list.append(blueprint)
-	return action_list[randi() % action_list.size()]
+	return chooseBlueprintOrNull(action_list)
 
 
 # Choose target for single-target blueprint action
-func chooseTarget(blueprint, target_list: Array, party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Combatant:
+# Returns null if null blueprint supplied
+func chooseTargetOrNull(blueprint, target_list: Array, party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Combatant:
+	if blueprint == null:
+		return null
 	if blueprint is BlueprintSupport:
 		return chooseSupportTarget(blueprint, enemy_combatants)
 	return target_list[randi() % target_list.size()]
@@ -198,3 +211,10 @@ func mostExpensiveBlueprintValue() -> int:
 			result = blueprint.bio_energy_cost
 	
 	return result
+
+
+#	Choose a blueprint from a list, or null if the list is empty
+func chooseBlueprintOrNull(blueprint_list: Array) -> Blueprint:
+	if blueprint_list.is_empty():
+		return null
+	return blueprint_list[randi() % blueprint_list.size()]

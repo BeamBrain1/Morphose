@@ -87,22 +87,28 @@ func chooseAction(current_actor) -> void:
 	else:
 		selected_action = current_actor.chooseAction($PartyStatusDisplay.getPlayerCombatants(), $EnemyDisplayGrid.getEnemyCombatants())
 		if selected_action == Combatant.ACTION.BLUEPRINT:
-			selected_blueprint = current_actor.chooseBlueprint($PartyStatusDisplay.getPlayerCombatants(), $EnemyDisplayGrid.getEnemyCombatants())
+			selected_blueprint = current_actor.chooseBlueprintOrNull($PartyStatusDisplay.getPlayerCombatants(), $EnemyDisplayGrid.getEnemyCombatants())
 			if not selected_blueprint.multitarget:
-				selected_target = current_actor.chooseTarget(selected_blueprint, getTargetList(current_actor, selected_blueprint), $PartyStatusDisplay.getPlayerCombatants(), $EnemyDisplayGrid.getEnemyCombatants())
+				selected_target = current_actor.chooseTargetOrNull(selected_blueprint, getTargetList(current_actor, selected_blueprint), $PartyStatusDisplay.getPlayerCombatants(), $EnemyDisplayGrid.getEnemyCombatants())
 
 
-# Not all actions will have assigned blueprints or targets
+# 	Not all actions will have assigned blueprints or targets
 # 	e.g. multitarget attacks have no assigned target, wait/run has no blueprint
 func displayAndRunChosenAction(actor, action: Combatant.ACTION, blueprint = null, target = null):
-	if action == Combatant.ACTION.WAIT:
+	
+	# Failsafe: if no available blueprints, wait
+	var finalized_action: Combatant.ACTION = action
+	if blueprint == null:
+		finalized_action= Combatant.ACTION.WAIT
+	
+	if finalized_action == Combatant.ACTION.WAIT:
 		actor.wait()
 		pushCombatantBattleMessages(actor)
-	elif action == Combatant.ACTION.RUN:
+	elif finalized_action == Combatant.ACTION.RUN:
 		actor.run()
 		party_ran = true
 		pushCombatantBattleMessages(actor)
-	elif action == Combatant.ACTION.BLUEPRINT:
+	elif finalized_action == Combatant.ACTION.BLUEPRINT:
 		if blueprint.multitarget:
 			executeMultitargetBlueprint(actor, blueprint, getTargetList(actor, blueprint))
 		elif blueprint is BlueprintSupport and blueprint.self_only:

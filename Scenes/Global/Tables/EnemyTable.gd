@@ -494,10 +494,10 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Zenith"
 	current_enemy.hp = 4095
 	current_enemy.tech_points = 1200
-	current_enemy.attack = 200
-	current_enemy.defense = 200
-	current_enemy.senses = 200
-	current_enemy.speed = 200
+	current_enemy.attack = 230
+	current_enemy.defense = 230
+	current_enemy.senses = 230
+	current_enemy.speed = 230
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3)
 	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
@@ -511,7 +511,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 3)
 	current_enemy.installBlueprintByNameAndTier("1stStrike", 1)
-	current_enemy.installBlueprintByNameAndTier("Immunity", 2)
+	current_enemy.installBlueprintByNameAndTier("Immunity", 3)
 	current_enemy.gives_bio_energy = false
 	current_enemy.support_priority = 1
 	addEnemyToTable(current_enemy)
@@ -524,13 +524,13 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 170
 	current_enemy.senses = 170
 	current_enemy.speed = 170
-	current_enemy.installBlueprintByNameAndTier("Laser", 3)
+	current_enemy.installBlueprintByNameAndTier("Claw", 3)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3)
 	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
 	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
-	current_enemy.installBlueprintByNameAndTier("Molt", 2)
+	current_enemy.installBlueprintByNameAndTier("Molt", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
-	current_enemy.installBlueprintByNameAndTier("Immunity", 1)
+	current_enemy.installBlueprintByNameAndTier("Immunity", 2)
 	current_enemy.gives_bio_energy = false
 	addEnemyToTable(current_enemy)
 

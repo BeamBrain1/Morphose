@@ -2,18 +2,22 @@ class_name Combatant
 
 enum STATUS_EFFECT {REGEN, SHARPENED, HARDENED, KEEN, ENERGIZED, FOCUSED}
 
-signal dies
-
 enum ACTION {NULL, BLUEPRINT, WAIT, RUN, PROMPT_PLAYER}
 
 const MAX_STATUS_EFFECT_STACKS: int = 6
-const BASE_ACCURACY = 80
-const BASE_CRIT_RATE = 10
+const DEFAULT_ACCURACY = 80					# Odds to hit if attacker accuracy = defender evasion
+const DEFAULT_CRIT_RATE = 10				# Odds to crit if attacker accuracy = defender evasion
+const BASE_ACCURACY_AND_EVADE = 10				# Base accuracy/evasion score before applying stats
+												# 	Stops Senses/Speed from completely dominating early game
+const BASE_CRIT_RATE_AND_CRIT_EVADE = 10		# Ditto for crit rate/evade
 
 const MIN_ACCURACY: int = 1
 const MAX_ACCURACY: int = 99
 const MIN_CRIT: int = 1
-const MAX_CRIT: int = 99
+const MAX_CRIT: int = 50
+
+const BASE_ACCUM_SPEED_GAIN = 10	# Per-turn base accumulated speed, onto which stat-derived speed is added
+									# 	Stops speed from completely dominating early game
 
 const STATUS_STACK_DEFAULT_MULTIPLIER: float = 0.15
 const SPEED_STACK_MULTIPLIER: float = 0.10
@@ -36,12 +40,12 @@ var keen_stacks: int = 0
 var energized_stacks: int = 0
 var focused_stacks: int = 0
 
-var changed_regen_on_own_turn: bool = false
-var changed_sharpened_on_own_turn: bool = false
-var changed_hardened_on_own_turn: bool = false
-var changed_keen_on_own_turn: bool = false
-var changed_energized_on_own_turn: bool = false
-var changed_focused_on_own_turn: bool = false
+var buffed_regen_on_own_turn: bool = false
+var buffed_sharpened_on_own_turn: bool = false
+var buffed_hardened_on_own_turn: bool = false
+var buffed_keen_on_own_turn: bool = false
+var buffed_energized_on_own_turn: bool = false
+var buffed_focused_on_own_turn: bool = false
 
 var accumulated_speed: int = 0
 var first_accumulated_speed_set = false
@@ -161,48 +165,48 @@ func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_app
 		regen_stacks = clamp(regen_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = regen_stacks - old_stacks
 		new_stacks = regen_stacks
-		if new_stacks != 0 and self_applied_via_action:
-			changed_regen_on_own_turn = true
+		if new_stacks != 0 and self_applied_via_action and change > 0:
+			buffed_regen_on_own_turn = true
 	elif effect == STATUS_EFFECT.SHARPENED and change != 0:
 		old_stacks = sharpened_stacks
 		sharpened_stacks += change
 		sharpened_stacks = clamp(sharpened_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = sharpened_stacks - old_stacks
 		new_stacks = sharpened_stacks
-		if new_stacks != 0 and self_applied_via_action:
-			changed_sharpened_on_own_turn = true
+		if new_stacks != 0 and self_applied_via_action and change > 0:
+			buffed_sharpened_on_own_turn = true
 	elif effect == STATUS_EFFECT.HARDENED and change != 0:
 		old_stacks = hardened_stacks
 		hardened_stacks += change
 		hardened_stacks = clamp(hardened_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = hardened_stacks - old_stacks
 		new_stacks = hardened_stacks
-		if new_stacks != 0 and self_applied_via_action:
-			changed_hardened_on_own_turn = true
+		if new_stacks != 0 and self_applied_via_action and change > 0:
+			buffed_hardened_on_own_turn = true
 	elif effect == STATUS_EFFECT.KEEN and change != 0:
 		old_stacks = keen_stacks
 		keen_stacks += change
 		keen_stacks = clamp(keen_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = keen_stacks - old_stacks
 		new_stacks = keen_stacks
-		if new_stacks != 0 and self_applied_via_action:
-			changed_keen_on_own_turn = true
+		if new_stacks != 0 and self_applied_via_action and change > 0:
+			buffed_keen_on_own_turn = true
 	elif effect == STATUS_EFFECT.ENERGIZED and change != 0:
 		old_stacks = energized_stacks
 		energized_stacks += change
 		energized_stacks = clamp(energized_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = energized_stacks - old_stacks
 		new_stacks = energized_stacks
-		if new_stacks != 0 and self_applied_via_action:
-			changed_energized_on_own_turn = true
+		if new_stacks != 0 and self_applied_via_action and change > 0:
+			buffed_energized_on_own_turn = true
 	elif effect == STATUS_EFFECT.FOCUSED and change != 0:
 		old_stacks = focused_stacks
 		focused_stacks += change
 		focused_stacks = clamp(focused_stacks, -1 * MAX_STATUS_EFFECT_STACKS, MAX_STATUS_EFFECT_STACKS)
 		true_change = focused_stacks - old_stacks
 		new_stacks = focused_stacks
-		if new_stacks != 0 and self_applied_via_action:
-			changed_focused_on_own_turn = true
+		if new_stacks != 0 and self_applied_via_action and change > 0:
+			buffed_focused_on_own_turn = true
 	
 	if true_change > 0:
 		var bad_stacks_shed: int = mini(0, new_stacks) - mini(0, old_stacks)
@@ -251,6 +255,7 @@ func beginTurn() -> void:
 	accumulated_speed = 0
 	applyStartOfTurnPassiveBlueprintEffects()
 	applyHealingBurning()
+	shedNegativeStatusEffects()
 	if not isDefeated():
 		regenTP()
 
@@ -258,19 +263,16 @@ func beginTurn() -> void:
 func endTurn() -> void:
 	if not isDefeated():
 		shedPositiveStatusEffects()
-		if hasPassiveBlueprintWithSpecial("Molt"):
-			for i in range(passiveBlueprintTier("Molt")):
-				shedNegativeStatusEffects()
-		clearSelfAppliedStatusChangeFlags()
+		clearSelfAppliedBuffFlags()
 
 
-func clearSelfAppliedStatusChangeFlags() -> void:
-	changed_regen_on_own_turn = false
-	changed_sharpened_on_own_turn = false
-	changed_hardened_on_own_turn = false
-	changed_keen_on_own_turn = false
-	changed_energized_on_own_turn = false
-	changed_focused_on_own_turn = false
+func clearSelfAppliedBuffFlags() -> void:
+	buffed_regen_on_own_turn = false
+	buffed_sharpened_on_own_turn = false
+	buffed_hardened_on_own_turn = false
+	buffed_keen_on_own_turn = false
+	buffed_energized_on_own_turn = false
+	buffed_focused_on_own_turn = false
 
 
 func applyStartOfTurnPassiveBlueprintEffects() -> void:
@@ -303,11 +305,6 @@ func spendTP(amount: int) -> void:
 	tech_points = clampi(tech_points - amount, 0, max_tp)
 
 
-func shedStatusEffects() -> void:
-	shedPositiveStatusEffects()
-	shedNegativeStatusEffects()
-
-
 func shedPositiveStatusEffects() -> void:
 	for status_effect in [STATUS_EFFECT.REGEN, STATUS_EFFECT.SHARPENED, STATUS_EFFECT.HARDENED, STATUS_EFFECT.KEEN, STATUS_EFFECT.ENERGIZED, STATUS_EFFECT.FOCUSED]:
 		if randi() % 2 == 0:
@@ -316,42 +313,38 @@ func shedPositiveStatusEffects() -> void:
 
 
 func shedNegativeStatusEffects() -> void:
-	for status_effect in [STATUS_EFFECT.REGEN, STATUS_EFFECT.SHARPENED, STATUS_EFFECT.HARDENED, STATUS_EFFECT.KEEN, STATUS_EFFECT.ENERGIZED, STATUS_EFFECT.FOCUSED]:
-		if randi() % 2 == 0:
-			if getStatusEffectFromEnumType(status_effect) < 0:
-				shedDebuffIfNotSelfAppliedThisTurn(status_effect)
+	
+	var num_sheds: int = 1
+	
+	if hasPassiveBlueprintWithSpecial("Molt"):
+		num_sheds += passiveBlueprintTier("Molt")
+	
+	for i in range(num_sheds):
+		for status_effect in [STATUS_EFFECT.REGEN, STATUS_EFFECT.SHARPENED, STATUS_EFFECT.HARDENED, STATUS_EFFECT.KEEN, STATUS_EFFECT.ENERGIZED, STATUS_EFFECT.FOCUSED]:
+			if randi() % 2 == 0:
+				if getStatusEffectFromEnumType(status_effect) < 0:
+					shedDebuff(status_effect)
 
 
 # A character can only shed a buff at the end of turn if they did not self-apply stacks of it
 func shedBuffIfNotSelfAppliedThisTurn(status_effect: STATUS_EFFECT) -> void:
-	if status_effect == STATUS_EFFECT.REGEN and not changed_regen_on_own_turn:
+	if status_effect == STATUS_EFFECT.REGEN and not buffed_regen_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.SHARPENED and not changed_sharpened_on_own_turn:
+	elif status_effect == STATUS_EFFECT.SHARPENED and not buffed_sharpened_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.HARDENED and not changed_hardened_on_own_turn:
+	elif status_effect == STATUS_EFFECT.HARDENED and not buffed_hardened_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.KEEN and not changed_keen_on_own_turn:
+	elif status_effect == STATUS_EFFECT.KEEN and not buffed_keen_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.ENERGIZED and not changed_energized_on_own_turn:
+	elif status_effect == STATUS_EFFECT.ENERGIZED and not buffed_energized_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.FOCUSED and not changed_focused_on_own_turn:
+	elif status_effect == STATUS_EFFECT.FOCUSED and not buffed_focused_on_own_turn:
 		adjustStatusEffectFromEnumType(status_effect, -1)
 
 
 # A character can only shed a debuff at the end of turn if they did not self-apply stacks of it
-func shedDebuffIfNotSelfAppliedThisTurn(status_effect: STATUS_EFFECT) -> void:
-	if status_effect == STATUS_EFFECT.REGEN and not changed_regen_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, +1)
-	elif status_effect == STATUS_EFFECT.SHARPENED and not changed_sharpened_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, +1)
-	elif status_effect == STATUS_EFFECT.HARDENED and not changed_hardened_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, +1)
-	elif status_effect == STATUS_EFFECT.KEEN and not changed_keen_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, +1)
-	elif status_effect == STATUS_EFFECT.ENERGIZED and not changed_energized_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, +1)
-	elif status_effect == STATUS_EFFECT.FOCUSED and not changed_focused_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, +1)
+func shedDebuff(status_effect: STATUS_EFFECT) -> void:
+	adjustStatusEffectFromEnumType(status_effect, +1)
 
 
 func getPositiveStatusEffectString(effect: STATUS_EFFECT) -> String:
@@ -395,12 +388,13 @@ func generateAccumulatedSpeed() -> void:
 	if hasPassiveBlueprintWithSpecial("1stStrike") and not first_accumulated_speed_set:
 		accumulated_speed = 9999
 	else:
-		var random_range: int = maxi(getStatusEffectAdjustedSpeed() >> 2, 2)
+		var default_accum_speed: int = getStatusEffectAdjustedSpeed() / 4
+		var random_range: int = maxi(default_accum_speed / 4, 2)
 		var random_factor: int = randi() % random_range
 		if randi() % 2 == 0:
 			random_factor *= -1
-		# Base value of 10 ensures speed doesn't completely dominate in early game
-		accumulated_speed += 10 + getStatusEffectAdjustedSpeed() + random_factor
+		# Base value ensures speed doesn't completely dominate in early game
+		accumulated_speed += maxi(1, BASE_ACCUM_SPEED_GAIN + default_accum_speed + random_factor)
 	first_accumulated_speed_set = true
 
 
@@ -415,25 +409,24 @@ func markDefeated():
 		focused_stacks = 0
 		pushBattleMessage(name + " is defeated!")
 		marked_defeated = true
-		emit_signal("dies")
 
 
 # Raw accuracy of an attack, before any defender bonuses apply
-func attackAccuracy() -> int:
-	return getStatusEffectAdjustedSenses()
+func attackAccuracy(blueprint: BlueprintAttack) -> int:
+	return BASE_ACCURACY_AND_EVADE + getStatusEffectAdjustedSenses() + blueprint.accuracy
 
 
 func hitEvasion() -> int:
-	return getStatusEffectAdjustedSpeed()
+	return BASE_ACCURACY_AND_EVADE + maxi(1, getStatusEffectAdjustedSpeed())
 
 
 # Raw accuracy of an attack, before any defender bonuses apply
-func attackCritRate() -> int:
-	return getStatusEffectAdjustedSenses()
+func attackCritRate(blueprint: BlueprintAttack) -> int:
+	return BASE_CRIT_RATE_AND_CRIT_EVADE + getStatusEffectAdjustedSenses() + blueprint.crit_rate
 
 
 func critEvasion() -> int:
-	return getStatusEffectAdjustedSpeed()
+	return BASE_CRIT_RATE_AND_CRIT_EVADE + maxi(1, getStatusEffectAdjustedSpeed())
 
 
 # Hit and crit rates are percentage based
@@ -441,14 +434,14 @@ func attackHits(blueprint: BlueprintAttack, target) -> bool:
 	if blueprint.always_hit:
 		return true
 	
-	var accuracy: int = clampi((BASE_ACCURACY * attackAccuracy() / maxi(1, target.hitEvasion()) + blueprint.accuracy), MIN_ACCURACY, MAX_ACCURACY)
+	var accuracy: int = clampi(DEFAULT_ACCURACY * attackAccuracy(blueprint) / maxi(1, target.hitEvasion()), MIN_ACCURACY, MAX_ACCURACY)
 	return randi() % 100 < accuracy
 
 
 func attackCrits(blueprint: BlueprintAttack, target) -> bool:
 	if blueprint.always_hit or never_crits:
 		return false
-	var crit_rate = clampi((BASE_CRIT_RATE * attackCritRate() / target.critEvasion()) + blueprint.crit_rate, MIN_CRIT, MAX_CRIT)
+	var crit_rate = clampi(DEFAULT_CRIT_RATE * attackCritRate(blueprint) / target.critEvasion(), MIN_CRIT, MAX_CRIT)
 	return randi() % 100 < crit_rate
 
 
@@ -560,6 +553,16 @@ func allBlueprints() -> Array:
 	return result
 
 
+# Returns a list of all combat action blueprints installed
+func allCombatActionBlueprints() -> Array:
+	var result = []
+	for blueprint in blueprints_attack:
+		result.append(blueprint)
+	for blueprint in blueprints_support:
+		result.append(blueprint)
+	return result
+
+
 func setInitialHP(hp_in: int):
 	max_hp = hp_in
 	hp = max_hp
@@ -605,12 +608,12 @@ func getPossibleBlueprintActions() -> Array:
 
 	for blueprint_list in [blueprints_attack, blueprints_support]:
 		for blueprint in blueprint_list:
-			if blueprint.getTechPointCost() <= tech_points:
+			if canUseBlueprint(blueprint):
 				result.append(blueprint)
 			else:
 				if blueprint.hasPredecessors():
 					for pred in blueprint.predecessors:
-						if pred.getTechPointCost() <= tech_points:
+						if canUseBlueprint(pred):
 							result.append(pred)
 							break	# We only want the strongest useable predecessor blueprint
 
@@ -708,3 +711,17 @@ func biggestDebuff() -> int:
 		if stacks < result:
 			result = stacks
 	return abs(result)
+
+
+# Returns true if blueprint added to list, false if insufficient TP
+func addBlueprintToActionListIfUseable(list: Array, blueprint_name: String, blueprint_tier: int = 0) -> bool:
+	var blueprint = Blueprint.getBlueprintFromList(allBlueprints(), blueprint_name, blueprint_tier)
+	if canUseBlueprint(blueprint):
+		list.append(blueprint)
+		return true
+	return false
+
+
+# Returns true if sufficient TP to use blueprint, false otherwise
+func canUseBlueprint(blueprint) -> bool:
+	return blueprint.getTechPointCost() <= tech_points
