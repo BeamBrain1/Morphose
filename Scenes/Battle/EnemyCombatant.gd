@@ -76,7 +76,7 @@ func siloLordChooseAction() -> ACTION:
 	return ACTION.WAIT
 
 
-func chooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
+func chooseBlueprintOrNull(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
 	
 	var result
 	
@@ -96,18 +96,18 @@ func chooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: 
 
 
 func queenChooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
-	var possible_actions = getPossibleBlueprintActions()
-	if possible_actions.size() == 1:
-		return possible_actions[0]
+	var action_list = getPossibleBlueprintActions()
+	if action_list.size() < 2:
+		return chooseBlueprintOrNullFromList(action_list)
 	else:
 		var living_enemies: int = 0
 		for enemy in enemy_combatants:
 			if not enemy.isDefeated():
 				living_enemies += 1
 		if living_enemies < 5:
-			return Blueprint.getBlueprintFromList(possible_actions, "Swarm")
+			return Blueprint.getBlueprintFromList(action_list, "Swarm")
 		else:
-			return Blueprint.getBlueprintFromList(possible_actions, "Marshal")
+			return Blueprint.getBlueprintFromList(action_list, "Marshal")
 
 
 func siloLordChooseBlueprint(party_combatants: Array[PartyCombatant]) -> Blueprint:
@@ -133,8 +133,7 @@ func siloLordChooseBlueprint(party_combatants: Array[PartyCombatant]) -> Bluepri
 
 func kingCrabChooseBlueprint() -> Blueprint:
 	if ai_sequence % 2 == 0:
-		if getPossibleAttackActions().size() > 0:
-			return getPossibleAttackActions()[randi() % getPossibleAttackActions().size()]
+		return chooseBlueprintOrNullFromList(getPossibleAttackActions())
 	else:
 		if getPossibleSupportActions().size() > 0:
 			if Blueprint.blueprintIsInList(getPossibleSupportActions(), "Marshal", 2) and hardened_stacks == MAX_STATUS_EFFECT_STACKS:
@@ -142,11 +141,12 @@ func kingCrabChooseBlueprint() -> Blueprint:
 			elif Blueprint.blueprintIsInList(getPossibleSupportActions(), "Marshal", 2) and sharpened_stacks == MAX_STATUS_EFFECT_STACKS:
 				return Blueprint.getBlueprintFromList(getPossibleSupportActions(), "Formation", 2)
 			else:
-				return getPossibleSupportActions()[randi() % getPossibleSupportActions().size()]
+				return chooseBlueprintOrNullFromList(getPossibleSupportActions())
 	return getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
 
 
 func zenithChooseBlueprint() -> Blueprint:
+	print(sumOfBuffs())
 	var action_list: Array = []
 	if ai_sequence == 1:		# Start battle by using Perfect
 		return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Perfect", 1)
@@ -174,12 +174,12 @@ func zenithChooseBlueprint() -> Blueprint:
 				addBlueprintToActionListIfUseable(action_list, "FusionBomb")
 				if sumOfBuffs() < 3:	# Consider using Perfect is buffs too low (higher threshold)
 					addBlueprintToActionListIfUseable(action_list, "Perfect")
-		return chooseBlueprintOrNull(action_list)
+		return chooseBlueprintOrNullFromList(action_list)
 	else:						# Use a regular blueprint
 		for blueprint in getPossibleBlueprintActions():
 			if not blueprint.isZenithBlueprint():
 				action_list.append(blueprint)
-	return chooseBlueprintOrNull(action_list)
+	return chooseBlueprintOrNullFromList(action_list)
 
 
 # Choose target for single-target blueprint action
@@ -214,7 +214,7 @@ func mostExpensiveBlueprintValue() -> int:
 
 
 #	Choose a blueprint from a list, or null if the list is empty
-func chooseBlueprintOrNull(blueprint_list: Array) -> Blueprint:
+func chooseBlueprintOrNullFromList(blueprint_list: Array) -> Blueprint:
 	if blueprint_list.is_empty():
 		return null
 	return blueprint_list[randi() % blueprint_list.size()]

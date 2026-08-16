@@ -96,10 +96,10 @@ func chooseAction(current_actor) -> void:
 # 	e.g. multitarget attacks have no assigned target, wait/run has no blueprint
 func displayAndRunChosenAction(actor, action: Combatant.ACTION, blueprint = null, target = null):
 	
-	# Failsafe: if no available blueprints, wait
+	# Failsafe: if blueprint chosen but no available blueprints, wait
 	var finalized_action: Combatant.ACTION = action
-	if blueprint == null:
-		finalized_action= Combatant.ACTION.WAIT
+	if blueprint == null and action == Combatant.ACTION.BLUEPRINT:
+		finalized_action = Combatant.ACTION.WAIT
 	
 	if finalized_action == Combatant.ACTION.WAIT:
 		actor.wait()
