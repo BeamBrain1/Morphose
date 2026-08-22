@@ -9,6 +9,11 @@ var bio_energy: int = 0		# Unspent bio-energy
 
 var discounted_stats: Array[GlobalProgramData.COMBAT_STAT] = [] # Discounted stats are cheaper to upgrade than base cost
 
+const STARTING_BLUEPRINT_SLOTS: int = 5
+var blueprint_slots: int = STARTING_BLUEPRINT_SLOTS
+const MAX_BLUEPRINT_SLOTS: int = 10
+const BASE_ADD_BLUEPRINT_SLOT_MUTA_COST: int = 100
+const ADD_BLUEPRINT_COST_MULTIPLIER: int = 4
 
 # Cost in bio-energy to boost a stat were it a given value
 func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) -> int:
@@ -157,11 +162,23 @@ func liquidateBioEnergy() -> void:
 	for blueprint_list in [blueprints_attack, blueprints_support, blueprints_passive]:
 		while not blueprint_list.is_empty():
 			bio_energy += blueprint_list.pop_front().getBioEnergyCost()
+	
+	# Remove blueprint slots
+	while canRemoveBlueprintSlot():
+		removeBlueprintSlot()
+
+
+func hasAFreeBlueprintSlot() -> bool:
+	return allBlueprints().size() < blueprint_slots
 
 
 # Free: If true, blueprint is installed without paying Muta
 func installBlueprint(blueprint, free: bool = false) -> void:
 	
+	if not hasAFreeBlueprintSlot():
+		push_error("Tried to install blueprint on " + name + " with no free slot.")
+		return
+
 	uninstallPredecessorsAndSuccessors(blueprint)
 	
 	var blueprint_list: Array
@@ -237,3 +254,37 @@ func blueprintIsCompatible(blueprint_in) -> bool:
 	
 	push_error("Blueprint compatibility check failed for party member " + name)
 	return false
+
+
+func mutaCostToAddBlueprintSlot() -> int:
+	return BASE_ADD_BLUEPRINT_SLOT_MUTA_COST * pow(ADD_BLUEPRINT_COST_MULTIPLIER, blueprint_slots - STARTING_BLUEPRINT_SLOTS + 1)
+
+
+func atMaxBlueprintSlots() -> bool:
+	return blueprint_slots == MAX_BLUEPRINT_SLOTS
+
+func canAddBlueprintSlot() -> bool:
+	return not atMaxBlueprintSlots() and bio_energy >= mutaCostToAddBlueprintSlot()
+
+
+func addBlueprintSlot() -> void:
+	if canAddBlueprintSlot():
+		bio_energy -= mutaCostToAddBlueprintSlot()
+		blueprint_slots += 1
+	else:
+		push_error("Tried to add blueprint slot at max slots")
+
+
+func canRemoveBlueprintSlot() -> bool:
+	return blueprint_slots > STARTING_BLUEPRINT_SLOTS
+
+
+func removeBlueprintSlot() -> void:
+	if canRemoveBlueprintSlot():
+		blueprint_slots -= 1
+		bio_energy += mutaCostToAddBlueprintSlot()
+		# Remove last blueprint if all slots were used
+		while allBlueprints().size() > blueprint_slots:
+			uninstallBlueprint(allBlueprints().back())
+	else:
+		push_error("Tried to remove blueprint slot at min slots")

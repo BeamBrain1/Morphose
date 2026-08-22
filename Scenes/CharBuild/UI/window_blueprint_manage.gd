@@ -24,6 +24,7 @@ func updateDisplay(party_member: PartyMember = active_party_member, blueprint_ty
 
 		$DialogInstalledBlueprints/Selector.assignPartyMemberBlueprintList(party_member)
 		$DialogAvailableBlueprints/Selector.assignBuyableBlueprintList(blueprint_list_to_assign, party_member)
+		$DialogBlueprintSlots.assignPartyMember(party_member)
 
 
 func updateAvailableBlueprints(attack: Array[BlueprintAttack], support: Array[BlueprintSupport], passive: Array[BlueprintPassive]) -> void:
@@ -50,5 +51,10 @@ func uninstallBlueprint(blueprint) -> void:
 
 func installBlueprint(blueprint) -> void:
 	active_party_member.installBlueprint(blueprint)
+	updateDisplay()
+	emit_signal("blueprint_lists_modified")
+
+
+func _on_dialog_blueprint_slots_slots_changed() -> void:
 	updateDisplay()
 	emit_signal("blueprint_lists_modified")

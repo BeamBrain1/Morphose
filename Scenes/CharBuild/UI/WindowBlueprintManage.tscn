@@ -6,6 +6,7 @@
 [ext_resource type="LabelSettings" uid="uid://btqhdajtvvrq1" path="res://Scenes/Global/UI/Configs/LabelDefault.tres" id="4_rw7tv"]
 [ext_resource type="Script" uid="uid://u4gb2avdyrui" path="res://Scenes/CharBuild/UI/tab_header_list_blueprint_type.gd" id="7_8s6ic"]
 [ext_resource type="PackedScene" uid="uid://bellyq4detmx8" path="res://Scenes/Global/UI/TabHeaderList.tscn" id="9_7lxc0"]
+[ext_resource type="PackedScene" uid="uid://p70mocf2kasj" path="res://Scenes/CharBuild/UI/BlueprintSlotsBox.tscn" id="9_cn66n"]
 [ext_resource type="PackedScene" uid="uid://x84uv31ranly" path="res://Scenes/Global/UI/TabHeaderButton.tscn" id="10_lse26"]
 [ext_resource type="PackedScene" uid="uid://c8hep1bdk3kxo" path="res://Scenes/CharBuild/UI/CharBuildBlueprintSelector.tscn" id="11_28com"]
 
@@ -16,6 +17,7 @@ script = ExtResource("1_cbcc4")
 offset_left = 88.0
 offset_right = 176.0
 expand_programmatically = false
+metadata/_edit_group_ = true
 
 [node name="Header" type="Label" parent="DialogInstalledBlueprints" unique_id=1850744744]
 layout_mode = 0
@@ -34,12 +36,14 @@ autowrap_mode = 2
 [node name="Selector" parent="DialogInstalledBlueprints" unique_id=2013800458 instance=ExtResource("11_28com")]
 layout_mode = 0
 offset_top = 32.0
-offset_bottom = 192.0
+offset_bottom = 128.0
+num_rows = 10
 
 [node name="DialogAvailableBlueprints" parent="." unique_id=245387802 instance=ExtResource("2_28com")]
 offset_left = 176.0
 offset_right = 264.0
 expand_programmatically = false
+metadata/_edit_group_ = true
 
 [node name="Header" type="Label" parent="DialogAvailableBlueprints" unique_id=549208817]
 layout_mode = 0
@@ -98,6 +102,13 @@ offset_top = 192.0
 offset_right = 264.0
 offset_bottom = 200.0
 
+[node name="DialogBlueprintSlots" parent="." unique_id=997346873 instance=ExtResource("9_cn66n")]
+offset_left = 88.0
+offset_top = 128.0
+offset_right = 176.0
+offset_bottom = 192.0
+
 [connection signal="blueprint_selected" from="DialogInstalledBlueprints/Selector" to="." method="uninstallBlueprint"]
 [connection signal="blueprint_selected" from="DialogAvailableBlueprints/Selector" to="." method="installBlueprint"]
 [connection signal="tab_selected" from="DialogBlueprintTypeSelect/TabHeaderList" to="." method="onBlueprintTypeSelected"]
+[connection signal="slots_changed" from="DialogBlueprintSlots" to="." method="_on_dialog_blueprint_slots_slots_changed"]

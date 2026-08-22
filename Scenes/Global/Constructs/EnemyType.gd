@@ -7,6 +7,11 @@ var support_priority: int = 5		# Priority bracket when AI targets support action
 var never_crits: bool = false		# Some early enemy types could oneshot Primus with a lucky crit
 var gives_bio_energy: bool = true	# Does this enemy give bio-energy upon defeat?
 
+# Used when deciding which blueprint to use.
+#	Key: Blueprint
+#	Value: An integer. Higher numbers = higher priority
+var blueprint_priority_table: Dictionary = {}
+
 # Return the Muta value of the enemy upon its defeat 
 func getBioEnergyValue() -> int:
 	
@@ -31,7 +36,7 @@ func getBioEnergyValue() -> int:
 	
 	stat_value *= 6
 	
-	return BASE_BIO_ENERGY_REWARD + ceili(float(stat_value + blueprint_value)) / 4
+	return BASE_BIO_ENERGY_REWARD + ceili(float(stat_value + blueprint_value)) * 3 / 16
 
 
 func mostExpensiveBlueprintValue() -> int:
@@ -41,3 +46,14 @@ func mostExpensiveBlueprintValue() -> int:
 			result = blueprint.getBioEnergyCost()
 	
 	return result
+
+
+# Overrides parent
+func installBlueprintByNameAndTier(bp_name: String, bp_tier: int, priority: int = 1) -> void:
+	installBlueprint(Blueprint.getBlueprintFromGlobalList(bp_name, bp_tier), priority)
+
+
+# Overrides parent
+func installBlueprint(blueprint, priority: int = 1):
+	super(blueprint)
+	blueprint_priority_table[blueprint.base_display_name] = priority

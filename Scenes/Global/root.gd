@@ -100,10 +100,8 @@ func addScholar():
 
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Acid Spit", 1), true)
-	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Psypulse", 1), true)
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Honey", 1), true)
-	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Firefoam", 1), true)
-	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Hydrocoat", 1), true)
+	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Whet", 1), true)
 	ActiveSaveData.addPartyMember(c3)
 
 

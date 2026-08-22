@@ -50,8 +50,6 @@ func nextPage() -> void:
 	populateButtonList()
 
 
-# actor_tp optional parameter checks whether an actor has the bio energy to install blueprint, and if not, disables
-# Default value of 0 will never disable a blueprint
 func populateButtonList() -> void:
 	
 	# First clear any existing buttons
@@ -77,7 +75,7 @@ func populateButtonList() -> void:
 		select_blueprint_button.blueprint = blueprint_list[i]
 		select_blueprint_button.position = INITIAL_BLUEPRINT_BUTTON_POSITION + Vector2(0, NEXT_BLUEPRINT_Y_OFFSET * (i - BLUEPRINTS_PER_PAGE * current_page))
 		if checks_tp_cost:
-			select_blueprint_button.disabled = blueprint_list[i].getBioEnergyCost() > assigned_party_member.bio_energy
+			select_blueprint_button.disabled = blueprint_list[i].getBioEnergyCost() > assigned_party_member.bio_energy or not assigned_party_member.hasAFreeBlueprintSlot()
 		select_blueprint_button.choose_blueprint.connect(blueprintSelected)
 		select_blueprint_button.text = blueprintButtonText(blueprint_list[i])
 

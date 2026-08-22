@@ -88,8 +88,9 @@ func chooseAction(current_actor) -> void:
 		selected_action = current_actor.chooseAction($PartyStatusDisplay.getPlayerCombatants(), $EnemyDisplayGrid.getEnemyCombatants())
 		if selected_action == Combatant.ACTION.BLUEPRINT:
 			selected_blueprint = current_actor.chooseBlueprintOrNull($PartyStatusDisplay.getPlayerCombatants(), $EnemyDisplayGrid.getEnemyCombatants())
-			if not selected_blueprint.multitarget:
-				selected_target = current_actor.chooseTargetOrNull(selected_blueprint, getTargetList(current_actor, selected_blueprint), $PartyStatusDisplay.getPlayerCombatants(), $EnemyDisplayGrid.getEnemyCombatants())
+			if selected_blueprint != null:
+				if not selected_blueprint.multitarget:
+					selected_target = current_actor.chooseTargetOrNull(selected_blueprint, getTargetList(current_actor, selected_blueprint), $PartyStatusDisplay.getPlayerCombatants(), $EnemyDisplayGrid.getEnemyCombatants())
 
 
 # 	Not all actions will have assigned blueprints or targets

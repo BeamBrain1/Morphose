@@ -32,6 +32,7 @@ expand_programmatically = false
 metadata/_custom_type_script = "uid://uub1h1pdlop6"
 
 [node name="ButtonPrevList" type="Button" parent="." unique_id=344138621]
+visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 144.0
@@ -58,6 +59,7 @@ texture = ExtResource("8_qh8i2")
 centered = false
 
 [node name="ButtonNextList" type="Button" parent="." unique_id=1211679973]
+visible = false
 layout_mode = 0
 offset_left = 48.0
 offset_top = 144.0

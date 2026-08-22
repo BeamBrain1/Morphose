@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://p70mocf2kasj"]
+
+[ext_resource type="PackedScene" uid="uid://bf1khufx7scc" path="res://Scenes/Global/UI/DialogBox.tscn" id="1_fav8m"]
+[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="2_l15bh"]
+[ext_resource type="Script" uid="uid://bso65gmfkpg6x" path="res://Scenes/CharBuild/UI/blueprint_slots_box.gd" id="2_t0hwb"]
+[ext_resource type="LabelSettings" uid="uid://btqhdajtvvrq1" path="res://Scenes/Global/UI/Configs/LabelDefault.tres" id="3_t0hwb"]
+[ext_resource type="PackedScene" uid="uid://dvbe60cdr4gi8" path="res://Scenes/Global/UI/ButtonDefault.tscn" id="4_w37nv"]
+
+[node name="BlueprintSlotsBox" unique_id=1943375761 instance=ExtResource("1_fav8m")]
+offset_right = 88.0
+offset_bottom = 64.0
+script = ExtResource("2_t0hwb")
+
+[node name="Label" parent="." index="0" unique_id=233643354]
+offset_right = 80.0
+
+[node name="LabelCurrentSlots" type="Label" parent="." index="1" unique_id=171894855]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 80.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("2_l15bh")
+theme_override_font_sizes/font_size = 8
+text = "CURRENT SLOTS: "
+label_settings = ExtResource("3_t0hwb")
+autowrap_mode = 2
+
+[node name="LabelExpansionCostHeader" type="Label" parent="." index="2" unique_id=421721260]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 80.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("2_l15bh")
+theme_override_font_sizes/font_size = 8
+text = "ADD SLOT:   10000M"
+label_settings = ExtResource("3_t0hwb")
+autowrap_mode = 2
+
+[node name="ButtonAddSlot" parent="." index="3" unique_id=564856447 instance=ExtResource("4_w37nv")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 48.0
+offset_right = 40.0
+offset_bottom = 56.0
+text = "  ADD"
+
+[node name="ButtonRemoveSlot" parent="." index="4" unique_id=959375937 instance=ExtResource("4_w37nv")]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 48.0
+offset_right = 80.0
+offset_bottom = 56.0
+text = " REMOVE"
+
+[connection signal="pressed" from="ButtonAddSlot" to="." method="_on_button_add_slot_pressed"]
+[connection signal="pressed" from="ButtonRemoveSlot" to="." method="_on_button_remove_slot_pressed"]

@@ -50,6 +50,9 @@ var buffed_focused_on_own_turn: bool = false
 var accumulated_speed: int = 0
 var first_accumulated_speed_set = false
 
+const BURNING_STACK_DIVISION: int = 12
+const HEALING_STACK_DIVISION: int = 12
+
 var never_crits: bool = false	# Avoids enemies oneshotting Primus in early game
 
 var blueprints_attack: Array[BlueprintAttack] = []
@@ -283,22 +286,21 @@ func applyHealingBurning() -> void:
 	if getStatusEffectFromEnumType(STATUS_EFFECT.REGEN) != 0:
 		var healing: bool = getStatusEffectFromEnumType(STATUS_EFFECT.REGEN) > 0
 		var change_amount: int = max_hp * abs(getStatusEffectFromEnumType(STATUS_EFFECT.REGEN))
-		change_amount = maxi(floori(change_amount/12), 1)
+		
 		if healing:
+			change_amount = maxi(floori(change_amount/HEALING_STACK_DIVISION), 1)
 			heal(change_amount)
 		else:
+			change_amount = maxi(floori(change_amount/BURNING_STACK_DIVISION), 1)
 			if hasPassiveBlueprintWithSpecial("HydroCoat"):
-				change_amount -= (change_amount * passiveBlueprintTier("HydroCoat") / 4)
+				change_amount *= 4 - passiveBlueprintTier("HydroCoat")
+				change_amount /= 4
 				change_amount = maxi(change_amount, 1)
 			damage(change_amount)
 
 
 func regenTP() -> void:
 	tech_points = clampi(tech_points + getStatusEffectAdjustedTPRegen(), 0, max_tp)
-
-
-func canUseAbility(tp_cost: int) -> bool:
-	return tech_points >= tp_cost
 
 
 func spendTP(amount: int) -> void:
@@ -435,6 +437,7 @@ func attackHits(blueprint: BlueprintAttack, target) -> bool:
 		return true
 	
 	var accuracy: int = clampi(DEFAULT_ACCURACY * attackAccuracy(blueprint) / maxi(1, target.hitEvasion()), MIN_ACCURACY, MAX_ACCURACY)
+
 	return randi() % 100 < accuracy
 
 

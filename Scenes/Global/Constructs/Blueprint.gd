@@ -21,14 +21,12 @@ var special: String = ""		# Used to assign additional one-off capabilities
 const BIO_COST_T2_MULT: int = 20
 const BIO_COST_T2_MULT_Q_TRACK: int = 8
 const BIO_COST_T2_MULT_STATUS: int = 20
-const BIO_COST_T2_MULT_SUPPORT_STATUS: int = 25
 const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 8
 const BIO_COST_T3_MULT_STATUS: int = BIO_COST_T2_MULT_STATUS * 8
-const BIO_COST_T3_MULT_SUPPORT_STATUS: int = BIO_COST_T2_MULT_SUPPORT_STATUS * 4
 const TP_COST_T2_MULT: int = 5
 const TP_COST_T2_MULT_STATUS: int = 6
 const TP_COST_T3_MULT: int = TP_COST_T2_MULT * 4
-const TP_COST_T3_MULT_STATUS: int = TP_COST_T2_MULT_STATUS * 3
+const TP_COST_T3_MULT_STATUS: int = TP_COST_T2_MULT_STATUS * 4
 
 
 # Blueprints are organized into bio cost "tracks." Individual blueprint cost is determined by track letter and tier.
@@ -48,11 +46,11 @@ const TP_COST_TRACKS: Dictionary = {
 	"X": 0,
 	"A": 3,
 	"B": 5,
-	"C": 7,
+	"C": 8,
 	"D": 10,
-	"E": 15,
+	"E": 16,
 	"F": 20,
-	"G": 24,
+	"G": 22,
 	"Z1": 30,
 	"Z2": 600
 }
@@ -158,7 +156,7 @@ func getBioEnergyCost() -> int:
 	var result = BIO_COST_TRACKS[bio_cost_track.to_upper()]
 	if tier == 2:
 		if isSupportStatusEffectBlueprint():
-			result *= BIO_COST_T2_MULT_SUPPORT_STATUS
+			result *= BIO_COST_T2_MULT_STATUS
 		elif isStatusEffectBlueprint():
 			result *= BIO_COST_T2_MULT_STATUS
 		elif bio_cost_track == "Q":
@@ -167,7 +165,7 @@ func getBioEnergyCost() -> int:
 			result *= BIO_COST_T2_MULT
 	elif tier >= 3:
 		if isSupportStatusEffectBlueprint():
-			result *= BIO_COST_T3_MULT_SUPPORT_STATUS
+			result *= BIO_COST_T3_MULT_STATUS
 		elif isStatusEffectBlueprint():
 			result *= BIO_COST_T3_MULT_STATUS
 		else:

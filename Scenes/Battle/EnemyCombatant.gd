@@ -59,40 +59,45 @@ func chooseAction(party_combatants: Array[PartyCombatant], enemy_combatants: Arr
 	
 	ai_sequence += 1	# For code simplicity, sequence updated at beginning of turn. This effectively makes it 1-indexed
 	
-	if base_type.name.matchn("SILO LORD"):
-		return siloLordChooseAction()
-	# If it has the TP to act, act. Otherwise, wait.
-	if getPossibleBlueprintActions().size() > 0:
-		return ACTION.BLUEPRINT
-	else:
-		return ACTION.WAIT
-
-
-# Silo lord only uses highest-tier attacks
-func siloLordChooseAction() -> ACTION:
-	# If it has the TP to act, act. Otherwise, wait.
-	if Blueprint.blueprintIsInList(getPossibleBlueprintActions(), "Missile", 2):
-		return ACTION.BLUEPRINT
-	return ACTION.WAIT
+	return ACTION.BLUEPRINT
 
 
 func chooseBlueprintOrNull(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
 	
 	var result
 	
-	if base_type.name.matchn("QUEEN"):
+	if base_type.name.matchn("GANG BOSS"):
+		result = gangBossChooseBlueprint()
+	elif base_type.name.matchn("QUEEN"):
 		result = queenChooseBlueprint(party_combatants, enemy_combatants)
 	elif base_type.name.matchn("SILO LORD"):
 		result = siloLordChooseBlueprint(party_combatants)
+	elif base_type.name.matchn("TANKER"):
+		result = tankerChooseBlueprint(enemy_combatants)
 	elif base_type.name.matchn("KING CRAB"):
 		result = kingCrabChooseBlueprint()
 	elif base_type.name.matchn("ZENITH"):
 		result = zenithChooseBlueprint()
 	else:
-		result = getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
+		result = chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
 
-	pushBattleMessage(name + " uses " + result.getDialogDisplayName() + ".")
+	if result != null:
+		pushBattleMessage(name + " uses " + result.getDialogDisplayName() + ".")
 	return result
+
+
+func gangBossChooseBlueprint() -> Blueprint:
+	
+	if ai_sequence % 4 == 1:
+		if canUseBlueprint(Blueprint.getBlueprintFromList(blueprints_attack, "Numb Gas")):
+			return Blueprint.getBlueprintFromList(blueprints_attack, "Numb Gas")
+		return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
+	else:
+		var choice_list = []
+		for blueprint in getPossibleBlueprintActions():
+			if not blueprint.base_display_name.matchn("Numb Gas"):
+				choice_list.append(blueprint)
+		return chooseBlueprintOrNullFromList(choice_list)
 
 
 func queenChooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
@@ -123,12 +128,31 @@ func siloLordChooseBlueprint(party_combatants: Array[PartyCombatant]) -> Bluepri
 	
 	party_avg_defense /= maxi(living_party_members, 1)
 	
-	if Blueprint.blueprintIsInList(possible_actions, "Missile", 2) and party_avg_defense > 40:
+	if Blueprint.blueprintIsInList(possible_actions, "Missile", 2) and party_avg_defense > 30:
 		return Blueprint.getBlueprintFromList(possible_actions, "Missile", 2)
 	elif Blueprint.blueprintIsInList(possible_actions, "FragBomb", 2):
 		return Blueprint.getBlueprintFromList(possible_actions, "FragBomb", 2)
 	else:
-		return possible_actions[randi() % possible_actions.size()]
+		return null
+
+
+func tankerChooseBlueprint(enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
+	var silo_lord: EnemyCombatant = null
+	for combatant in enemy_combatants:
+		if combatant.base_type.name.matchn("SILO LORD") and not combatant.isDefeated():
+			silo_lord = combatant
+			break
+	
+	if silo_lord == null:	# If Silo Lord absent or defeated, act randomly
+		return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
+	if silo_lord.sumOfBuffs() < 3 and canUseBlueprint(Blueprint.getBlueprintFromList(blueprints_support, "Turbo")):
+		return Blueprint.getBlueprintFromList(blueprints_support, "Turbo")
+	
+	var choice_list: Array = []
+	for blueprint in getPossibleBlueprintActions():
+		if not blueprint.base_display_name.matchn("Turbo"):
+			choice_list.append(blueprint)	# Don't Turbo Silo Lord if already buffed
+	return chooseBlueprintOrNullFromList(choice_list)
 
 
 func kingCrabChooseBlueprint() -> Blueprint:
@@ -142,11 +166,10 @@ func kingCrabChooseBlueprint() -> Blueprint:
 				return Blueprint.getBlueprintFromList(getPossibleSupportActions(), "Formation", 2)
 			else:
 				return chooseBlueprintOrNullFromList(getPossibleSupportActions())
-	return getPossibleBlueprintActions()[randi() % getPossibleBlueprintActions().size()]
+	return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
 
 
 func zenithChooseBlueprint() -> Blueprint:
-	print(sumOfBuffs())
 	var action_list: Array = []
 	if ai_sequence == 1:		# Start battle by using Perfect
 		return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Perfect", 1)
@@ -217,4 +240,8 @@ func mostExpensiveBlueprintValue() -> int:
 func chooseBlueprintOrNullFromList(blueprint_list: Array) -> Blueprint:
 	if blueprint_list.is_empty():
 		return null
-	return blueprint_list[randi() % blueprint_list.size()]
+	var prioritized_list: Array = []
+	for bp in blueprint_list:
+		for i in range(base_type.blueprint_priority_table[bp.base_display_name]):
+			prioritized_list.append(bp)
+	return prioritized_list[randi() % prioritized_list.size()]
