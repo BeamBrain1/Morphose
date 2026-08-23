@@ -24,9 +24,10 @@ EncounterTable="*uid://dqpq4xqtbj1v5"
 
 [display]
 
-window/size/viewport_width=320
-window/size/viewport_height=240
+window/size/viewport_width=960
+window/size/viewport_height=720
 window/stretch/mode="viewport"
+window/stretch/scale=3.0
 window/stretch/scale_mode="integer"
 
 [input]

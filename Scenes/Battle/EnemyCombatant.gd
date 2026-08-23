@@ -1,58 +1,26 @@
 class_name EnemyCombatant
 extends Combatant
 
-var base_type: EnemyType
-
 var number_in_battle: int = 1	# Number of instance of this enemy in battle, used to determine display name
 var support_priority: int
 var ai_sequence: int = 0		# Used in cyclic AI decisions. Every action advances by 1 step
 
-func _init(enemy_type: EnemyType):
-	name = enemy_type.name
-	hp = enemy_type.hp
-	max_hp = hp
-	tech_points = enemy_type.tech_points
-	max_tp = tech_points
-	attack = enemy_type.attack
-	defense = enemy_type.defense
-	senses = enemy_type.senses
-	speed = enemy_type.speed
-	support_priority = enemy_type.support_priority
-	never_crits = enemy_type.never_crits
-	base_type = enemy_type
-	
-	blueprints_attack = enemy_type.blueprints_attack
-	blueprints_support = enemy_type.blueprints_support
-	blueprints_passive = enemy_type.blueprints_passive
+func _init(morphose_in):
+	morphose = morphose_in
+	initializeHP()
+	initializeTP()
 
 
-func getDisplayName() -> String:
+func getName() -> String:
 	if number_in_battle == 1:
-		return name
+		return morphose.name
 	else:
-		return name + " " + str(number_in_battle)
+		return morphose.name + " " + str(number_in_battle)
 
 # Determines how much bio-energy this combatant awards upon defeat
 # Determined by combined stats and value of installed blueprints
 func getBioEnergyReward() -> int:
-	return base_type.getBioEnergyValue()
-
-
-func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
-	if stat == GlobalProgramData.COMBAT_STAT.HP:
-		return hp
-	if stat == GlobalProgramData.COMBAT_STAT.ATTACK:
-		return attack
-	if stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
-		return defense
-	if stat == GlobalProgramData.COMBAT_STAT.SENSES:
-		return senses
-	if stat == GlobalProgramData.COMBAT_STAT.SPEED:
-		return speed
-	if stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
-		return tech_points
-	push_error("Unrecognized stat: " + str(stat))
-	return 0
+	return morphose.getBioEnergyValue()
 
 
 func chooseAction(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> ACTION:
@@ -66,31 +34,31 @@ func chooseBlueprintOrNull(party_combatants: Array[PartyCombatant], enemy_combat
 	
 	var result
 	
-	if base_type.name.matchn("GANG BOSS"):
+	if morphose.name.matchn("GANG BOSS"):
 		result = gangBossChooseBlueprint()
-	elif base_type.name.matchn("QUEEN"):
+	elif morphose.name.matchn("QUEEN"):
 		result = queenChooseBlueprint(party_combatants, enemy_combatants)
-	elif base_type.name.matchn("SILO LORD"):
+	elif morphose.name.matchn("SILO LORD"):
 		result = siloLordChooseBlueprint(party_combatants)
-	elif base_type.name.matchn("TANKER"):
+	elif morphose.name.matchn("TANKER"):
 		result = tankerChooseBlueprint(enemy_combatants)
-	elif base_type.name.matchn("KING CRAB"):
+	elif morphose.name.matchn("KING CRAB"):
 		result = kingCrabChooseBlueprint()
-	elif base_type.name.matchn("ZENITH"):
+	elif morphose.name.matchn("ZENITH"):
 		result = zenithChooseBlueprint()
 	else:
 		result = chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
 
 	if result != null:
-		pushBattleMessage(name + " uses " + result.getDialogDisplayName() + ".")
+		pushBattleMessage(getName() + " uses " + result.getDialogDisplayName() + ".")
 	return result
 
 
 func gangBossChooseBlueprint() -> Blueprint:
 	
 	if ai_sequence % 4 == 1:
-		if canUseBlueprint(Blueprint.getBlueprintFromList(blueprints_attack, "Numb Gas")):
-			return Blueprint.getBlueprintFromList(blueprints_attack, "Numb Gas")
+		if canUseBlueprint(getBlueprint("Numb Gas")):
+			return getBlueprint("Numb Gas")
 		return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
 	else:
 		var choice_list = []
@@ -110,9 +78,9 @@ func queenChooseBlueprint(party_combatants: Array[PartyCombatant], enemy_combata
 			if not enemy.isDefeated():
 				living_enemies += 1
 		if living_enemies < 5:
-			return Blueprint.getBlueprintFromList(action_list, "Swarm")
+			return getBlueprint("Swarm")
 		else:
-			return Blueprint.getBlueprintFromList(action_list, "Marshal")
+			return getBlueprint("Marshal")
 
 
 func siloLordChooseBlueprint(party_combatants: Array[PartyCombatant]) -> Blueprint:
@@ -129,9 +97,9 @@ func siloLordChooseBlueprint(party_combatants: Array[PartyCombatant]) -> Bluepri
 	party_avg_defense /= maxi(living_party_members, 1)
 	
 	if Blueprint.blueprintIsInList(possible_actions, "Missile", 2) and party_avg_defense > 30:
-		return Blueprint.getBlueprintFromList(possible_actions, "Missile", 2)
+		return getBlueprint("Missile", 2)
 	elif Blueprint.blueprintIsInList(possible_actions, "FragBomb", 2):
-		return Blueprint.getBlueprintFromList(possible_actions, "FragBomb", 2)
+		return getBlueprint("FragBomb", 2)
 	else:
 		return null
 
@@ -145,8 +113,8 @@ func tankerChooseBlueprint(enemy_combatants: Array[EnemyCombatant]) -> Blueprint
 	
 	if silo_lord == null:	# If Silo Lord absent or defeated, act randomly
 		return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
-	if silo_lord.sumOfBuffs() < 3 and canUseBlueprint(Blueprint.getBlueprintFromList(blueprints_support, "Turbo")):
-		return Blueprint.getBlueprintFromList(blueprints_support, "Turbo")
+	if silo_lord.sumOfBuffs() < 3 and canUseBlueprint(getBlueprint("Turbo")):
+		return getBlueprint("Turbo")
 	
 	var choice_list: Array = []
 	for blueprint in getPossibleBlueprintActions():
@@ -161,9 +129,9 @@ func kingCrabChooseBlueprint() -> Blueprint:
 	else:
 		if getPossibleSupportActions().size() > 0:
 			if Blueprint.blueprintIsInList(getPossibleSupportActions(), "Marshal", 2) and hardened_stacks == MAX_STATUS_EFFECT_STACKS:
-				return Blueprint.getBlueprintFromList(getPossibleSupportActions(), "Marshal", 2)
+				return getBlueprint("Marshal", 2)
 			elif Blueprint.blueprintIsInList(getPossibleSupportActions(), "Marshal", 2) and sharpened_stacks == MAX_STATUS_EFFECT_STACKS:
-				return Blueprint.getBlueprintFromList(getPossibleSupportActions(), "Formation", 2)
+				return getBlueprint("Formation", 2)
 			else:
 				return chooseBlueprintOrNullFromList(getPossibleSupportActions())
 	return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
@@ -172,27 +140,27 @@ func kingCrabChooseBlueprint() -> Blueprint:
 func zenithChooseBlueprint() -> Blueprint:
 	var action_list: Array = []
 	if ai_sequence == 1:		# Start battle by using Perfect
-		return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Perfect", 1)
+		return getBlueprint("Perfect", 1)
 	elif ai_sequence % 2 == 1:	# Use a unique blueprint
-		if hp > max_hp * 3 / 4:
-			return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Mind Rip", 1)
-		elif hp > max_hp * 1 / 2:
-			if ai_sequence < 5000 and canUseBlueprint(Blueprint.getBlueprintFromList(allCombatActionBlueprints(), "Bud")):
+		if hp > getMaxHP() * 3 / 4:
+			return getBlueprint("Mind Rip", 1)
+		elif hp > getMaxTP() * 1 / 2:
+			if ai_sequence < 5000 and canUseBlueprint(getBlueprint("Bud")):
 				ai_sequence += 5000			# First time falling below 75% HP, use Bud ASAP
-				return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "Bud")
+				return getBlueprint("Bud")
 			else:
 				addBlueprintToActionListIfUseable(action_list, "Mind Rip")
-				addBlueprintToActionListIfUseable(action_list, "Fracture")
+				addBlueprintToActionListIfUseable(action_list, "Crush")
 				addBlueprintToActionListIfUseable(action_list, "Bud")
 				if sumOfBuffs() < 1:	# Consider using Perfect is buffs too low
 					addBlueprintToActionListIfUseable(action_list, "Perfect")
 		else:
-			if ai_sequence < 10000 and canUseBlueprint(Blueprint.getBlueprintFromList(allCombatActionBlueprints(), "FusionBomb")):
+			if ai_sequence < 10000 and canUseBlueprint(getBlueprint("FusionBomb")):
 				ai_sequence += 10000		# First time falling below 50% HP, use FusionBomb ASAP
-				return Blueprint.getBlueprintFromList(getPossibleBlueprintActions(), "FusionBomb")
+				return getBlueprint("FusionBomb")
 			else:
 				addBlueprintToActionListIfUseable(action_list, "Mind Rip")
-				addBlueprintToActionListIfUseable(action_list, "Fracture")
+				addBlueprintToActionListIfUseable(action_list, "Crush")
 				addBlueprintToActionListIfUseable(action_list, "Bud")
 				addBlueprintToActionListIfUseable(action_list, "FusionBomb")
 				if sumOfBuffs() < 3:	# Consider using Perfect is buffs too low (higher threshold)
@@ -227,21 +195,12 @@ func chooseSupportTarget(blueprint, enemy_combatants: Array[EnemyCombatant]) -> 
 	return target_list[randi() % target_list.size()]
 
 
-func mostExpensiveBlueprintValue() -> int:
-	var result: int = 0
-	for blueprint in allBlueprints():
-		if blueprint.bio_energy_cost > result:
-			result = blueprint.bio_energy_cost
-	
-	return result
-
-
 #	Choose a blueprint from a list, or null if the list is empty
 func chooseBlueprintOrNullFromList(blueprint_list: Array) -> Blueprint:
 	if blueprint_list.is_empty():
 		return null
 	var prioritized_list: Array = []
 	for bp in blueprint_list:
-		for i in range(base_type.blueprint_priority_table[bp.base_display_name]):
+		for i in range(morphose.blueprint_priority_table[bp.base_display_name]):
 			prioritized_list.append(bp)
 	return prioritized_list[randi() % prioritized_list.size()]

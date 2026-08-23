@@ -4,10 +4,11 @@ var active_controller
 
 const CONTROLLER_DIRECTORY_AND_PREFIX = "res://Scenes/Controllers/Controller"
 
-const STARTING_BIO_ENERGY: int = 0
+const STARTING_BIO_ENERGY: int = 10000
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	get_tree().root.content_scale_size = Vector2(960, 720)
 	randomize()
 	loadStartingPartyMembers()
 	loadBlueprints()

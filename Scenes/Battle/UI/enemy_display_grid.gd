@@ -32,12 +32,12 @@ func addEnemy(type: EnemyType) -> void:
 	
 	var combatant = EnemyCombatant.new(type)
 	
-	if max_enemy_with_base_name.has(combatant.name):
-		max_enemy_with_base_name[combatant.name] += 1
+	if max_enemy_with_base_name.has(combatant.getName()):
+		max_enemy_with_base_name[combatant.getName()] += 1
 	else:
-		max_enemy_with_base_name[combatant.name] = 1
+		max_enemy_with_base_name[combatant.getName()] = 1
 
-	combatant.number_in_battle = max_enemy_with_base_name[combatant.name]
+	combatant.number_in_battle = max_enemy_with_base_name[combatant.getName()]
 	
 	if not battleGridIsFull():
 		var enemy_status_display = EnemyStatusDisplay.instantiate()

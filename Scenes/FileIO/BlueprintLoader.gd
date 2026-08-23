@@ -204,7 +204,9 @@ static func assignBlueprintAttribute(blueprint, key: String, value: String) -> v
 			blueprint.rage = int(value)
 			return
 	elif blueprint is BlueprintPassive:
-		pass
+		if key_upper == "VALUE":
+			blueprint.value = int(value)
+			return
 	else:
 		push_error("Blueprint load error: " + blueprint.getDialogDisplayName() + " has unrecognized type")
 	push_error("Blueprint load error: " + blueprint.getDialogDisplayName() + " contains unrecognized key " + key)

@@ -31,28 +31,28 @@ script = ExtResource("1_giepi")
 [node name="BG1" type="ColorRect" parent="." unique_id=659261889]
 offset_left = 1.0
 offset_right = 88.0
-offset_bottom = 8.0
+offset_bottom = 16.0
 color = Color(0, 0.33333334, 0, 1)
 
 [node name="FavoredStatMarker" type="ColorRect" parent="." unique_id=1467245334]
 offset_left = 1.0
 offset_right = 4.0
-offset_bottom = 8.0
+offset_bottom = 16.0
 color = Color(0.6666667, 0.6666667, 0, 1)
 
 [node name="Name" type="Label" parent="." unique_id=1116155636]
 offset_left = 8.0
-offset_right = 72.0
+offset_right = 40.0
 offset_bottom = 8.0
 theme_override_fonts/font = ExtResource("1_85rcx")
 theme_override_font_sizes/font_size = 8
-text = "HIT POINTS"
+text = "HIT PTS"
 label_settings = ExtResource("2_giepi")
 autowrap_mode = 2
 
 [node name="Value" type="Label" parent="." unique_id=1137046300]
-offset_left = 56.0
-offset_right = 80.0
+offset_left = 40.0
+offset_right = 88.0
 offset_bottom = 8.0
 theme_override_fonts/font = ExtResource("3_mcojt")
 theme_override_font_sizes/font_size = 8

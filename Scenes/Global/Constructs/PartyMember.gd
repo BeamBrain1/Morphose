@@ -67,7 +67,7 @@ func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) ->
 
 # Cost in bio-energy to boost a given stat by 1 point from its current value
 func costToBoostStatByOne(stat: GlobalProgramData.COMBAT_STAT) -> int:
-	return costToBoostStatForValue(stat, getStatFromEnumType(stat))
+	return costToBoostStatForValue(stat, getRawStatFromEnumType(stat))
 
 
 func costToBoostStatBy(stat: GlobalProgramData.COMBAT_STAT, amount: int) -> int:
@@ -75,26 +75,9 @@ func costToBoostStatBy(stat: GlobalProgramData.COMBAT_STAT, amount: int) -> int:
 	var result: int = 0
 	
 	for i in range(amount):
-		result += costToBoostStatForValue(stat, getStatFromEnumType(stat) + i)
+		result += costToBoostStatForValue(stat, getRawStatFromEnumType(stat) + i)
 	
 	return result
-
-
-func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
-	if stat == GlobalProgramData.COMBAT_STAT.HP:
-		return hp
-	if stat == GlobalProgramData.COMBAT_STAT.ATTACK:
-		return attack
-	if stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
-		return defense
-	if stat == GlobalProgramData.COMBAT_STAT.SENSES:
-		return senses
-	if stat == GlobalProgramData.COMBAT_STAT.SPEED:
-		return speed
-	if stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
-		return tech_points
-	push_error("Unrecognized stat: " + str(stat))
-	return 0
 
 
 func setStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT, value: int) -> void:
@@ -137,16 +120,16 @@ func canIncreaseStat(stat: GlobalProgramData.COMBAT_STAT) -> bool:
 
 
 func canDecreaseStat(stat: GlobalProgramData.COMBAT_STAT) -> bool:
-	return getStatFromEnumType(stat) > getStatMinimumFromEnumType(stat)
+	return getRawStatFromEnumType(stat) > getStatMinimumFromEnumType(stat)
 
 
 func statPlusOne(stat: GlobalProgramData.COMBAT_STAT) -> void:
 	bio_energy -= costToBoostStatByOne(stat)
-	setStatFromEnumType(stat, getStatFromEnumType(stat) + 1)
+	setStatFromEnumType(stat, getRawStatFromEnumType(stat) + 1)
 
 
 func statMinusOne(stat: GlobalProgramData.COMBAT_STAT) -> void:
-	setStatFromEnumType(stat, getStatFromEnumType(stat) - 1)
+	setStatFromEnumType(stat, getRawStatFromEnumType(stat) - 1)
 	bio_energy += costToBoostStatByOne(stat)
 
 
@@ -155,7 +138,7 @@ func liquidateBioEnergy() -> void:
 	
 	# Set stats to minimum values
 	for stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE, GlobalProgramData.COMBAT_STAT.SENSES, GlobalProgramData.COMBAT_STAT.SPEED, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
-		while getStatFromEnumType(stat) > getStatMinimumFromEnumType(stat):
+		while getRawStatFromEnumType(stat) > getStatMinimumFromEnumType(stat):
 			statMinusOne(stat)
 
 	# Uninstall blueprints

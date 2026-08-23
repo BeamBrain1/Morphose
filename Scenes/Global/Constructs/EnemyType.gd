@@ -25,7 +25,7 @@ func getBioEnergyValue() -> int:
 	stat_average += (hp - HP_MINIMUM + tech_points - TP_MINIMUM) / 8
 	
 	for stat in [GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE, GlobalProgramData.COMBAT_STAT.SENSES, GlobalProgramData.COMBAT_STAT.SPEED]:
-		stat_average += getStatFromEnumType(stat)
+		stat_average += getRawStatFromEnumType(stat)
 	
 	stat_average /= 6
 	

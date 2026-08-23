@@ -510,7 +510,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Chembomb", 3)
 	current_enemy.installBlueprintByNameAndTier("FusionBomb", 1)
 	current_enemy.installBlueprintByNameAndTier("Mind Rip", 1)
-	current_enemy.installBlueprintByNameAndTier("Fracture", 1)
+	current_enemy.installBlueprintByNameAndTier("Crush", 1)
 	current_enemy.installBlueprintByNameAndTier("Bud", 1)
 	current_enemy.installBlueprintByNameAndTier("Perfect", 1)
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)

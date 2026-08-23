@@ -10,7 +10,7 @@ signal select_as_support_target
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Labels/LabelName.text = combatant.name
+	$Labels/LabelName.text = combatant.getName()
 	$ButtonSelectAsTarget.hide()
 	$TurnIndicator.hide()
 
@@ -37,11 +37,11 @@ func updateStatusDisplay() -> void:
 
 
 func updateHPDisplay() -> void:
-	$Labels/LabelHP.text = str(combatant.hp).lpad(MAX_DIGITS) + "/" + str(combatant.max_hp).lpad(MAX_DIGITS)
+	$Labels/LabelHP.text = str(combatant.hp).lpad(MAX_DIGITS) + "/" + str(combatant.getMaxHP()).lpad(MAX_DIGITS)
 
 
 func updateTPDisplay() -> void:
-	$Labels/LabelTP.text = str(combatant.tech_points).lpad(MAX_DIGITS) + "/" + str(combatant.max_tp).lpad(MAX_DIGITS)
+	$Labels/LabelTP.text = str(combatant.tech_points).lpad(MAX_DIGITS) + "/" + str(combatant.getMaxTP()).lpad(MAX_DIGITS)
 
 
 func updateTPRegenDisplay() -> void:

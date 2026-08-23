@@ -8,8 +8,8 @@ var party_member: PartyMember
 signal update_bio_energy
 
 var stat_name_map: Dictionary = {
-	GlobalProgramData.COMBAT_STAT.HP: "Hit Points",
-	GlobalProgramData.COMBAT_STAT.TECH_POINTS: "Tech Points",
+	GlobalProgramData.COMBAT_STAT.HP: "Hit Pts",
+	GlobalProgramData.COMBAT_STAT.TECH_POINTS: "Tech Pts",
 	GlobalProgramData.COMBAT_STAT.ATTACK: "Attack",
 	GlobalProgramData.COMBAT_STAT.DEFENSE: "Defense",
 	GlobalProgramData.COMBAT_STAT.SPEED: "Speed",
@@ -33,18 +33,9 @@ func updateDisplay() -> void:
 
 
 func setStatDisplay() -> void:
-	if assigned_stat == GlobalProgramData.COMBAT_STAT.HP:
-		$Value.text = str(party_member.hp)
-	elif assigned_stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
-		$Value.text = str(party_member.tech_points)
-	elif assigned_stat == GlobalProgramData.COMBAT_STAT.ATTACK:
-		$Value.text = str(party_member.attack)
-	elif assigned_stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
-		$Value.text = str(party_member.defense)
-	elif assigned_stat == GlobalProgramData.COMBAT_STAT.SPEED:
-		$Value.text = str(party_member.speed)
-	elif assigned_stat == GlobalProgramData.COMBAT_STAT.SENSES:
-		$Value.text = str(party_member.senses)
+	$Value.text = str(party_member.getRawStatFromEnumType(assigned_stat)) + " "
+	if party_member.getRawStatFromEnumType(assigned_stat) != party_member.getStatFromEnumType(assigned_stat):
+		$Value.text += "\n(" + str(party_member.getStatFromEnumType(assigned_stat)) + ")"
 
 
 func setEnabledButtons() -> void:

@@ -55,7 +55,7 @@ func displayAttackMenu(combatant) -> void:
 	battle_blueprint_selector.expands_down = true	# Expand down so player can see enemies
 	add_child(battle_blueprint_selector)
 	battle_blueprint_selector.position.y = ATTACK_SELECTOR_Y_POSITION
-	battle_blueprint_selector.assignBlueprintList(combatant.blueprints_attack, combatant.tech_points)
+	battle_blueprint_selector.assignBlueprintList(combatant.morphose.blueprints_attack, combatant.tech_points)
 	active_submenu = battle_blueprint_selector
 	active_submenu.choose_blueprint.connect(chooseBlueprint)
 	active_submenu.cancel.connect(closeActiveSubmenu)
