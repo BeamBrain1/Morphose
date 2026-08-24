@@ -332,7 +332,7 @@ func blueprintSelected(blueprint) -> void:
 	selected_action = Combatant.ACTION.BLUEPRINT
 	selected_blueprint = blueprint
 	if blueprint.multitarget:
-		$BattleMessageDisplay.pushBattleMessage(current_actor.name + " uses " + selected_blueprint.getDialogDisplayName() + ".")
+		$BattleMessageDisplay.pushBattleMessage(current_actor.getName() + " uses " + selected_blueprint.getDialogDisplayName() + ".")
 		emit_signal("player_action_finalized")
 	else:
 		if blueprint is BlueprintAttack:
@@ -376,13 +376,13 @@ func switchToActivePlayMode():
 
 func selectEnemyAsAttackTarget(combatant) -> void:
 	selected_target = combatant
-	$BattleMessageDisplay.pushBattleMessage(current_actor.name + " uses " + selected_blueprint.getDialogDisplayName() + ".")
+	$BattleMessageDisplay.pushBattleMessage(current_actor.getName() + " uses " + selected_blueprint.getDialogDisplayName() + ".")
 	emit_signal("player_action_finalized")
 
 
 func selectSupportTarget(combatant) -> void:
 	selected_target = combatant
-	$BattleMessageDisplay.pushBattleMessage(current_actor.name + " uses " + selected_blueprint.getDialogDisplayName() + ".")
+	$BattleMessageDisplay.pushBattleMessage(current_actor.getName() + " uses " + selected_blueprint.getDialogDisplayName() + ".")
 	emit_signal("player_action_finalized")
 
 

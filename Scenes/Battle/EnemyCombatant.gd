@@ -2,7 +2,6 @@ class_name EnemyCombatant
 extends Combatant
 
 var number_in_battle: int = 1	# Number of instance of this enemy in battle, used to determine display name
-var support_priority: int
 var ai_sequence: int = 0		# Used in cyclic AI decisions. Every action advances by 1 step
 
 func _init(morphose_in):
@@ -26,7 +25,6 @@ func getBioEnergyReward() -> int:
 func chooseAction(party_combatants: Array[PartyCombatant], enemy_combatants: Array[EnemyCombatant]) -> ACTION:
 	
 	ai_sequence += 1	# For code simplicity, sequence updated at beginning of turn. This effectively makes it 1-indexed
-	
 	return ACTION.BLUEPRINT
 
 
@@ -107,7 +105,7 @@ func siloLordChooseBlueprint(party_combatants: Array[PartyCombatant]) -> Bluepri
 func tankerChooseBlueprint(enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
 	var silo_lord: EnemyCombatant = null
 	for combatant in enemy_combatants:
-		if combatant.base_type.name.matchn("SILO LORD") and not combatant.isDefeated():
+		if combatant.morphose.name.matchn("SILO LORD") and not combatant.isDefeated():
 			silo_lord = combatant
 			break
 	
@@ -187,10 +185,11 @@ func chooseSupportTarget(blueprint, enemy_combatants: Array[EnemyCombatant]) -> 
 	var highest_priority: int = 1000
 	for combatant in enemy_combatants:
 		if not combatant.isDefeated():
-			highest_priority = mini(highest_priority, combatant.support_priority)
+			print(combatant.morphose.support_priority)
+			highest_priority = mini(highest_priority, combatant.morphose.support_priority)
 	var target_list = []
 	for combatant in enemy_combatants:
-		if combatant.support_priority == highest_priority and not combatant.isDefeated():
+		if combatant.morphose.support_priority == highest_priority and not combatant.isDefeated():
 			target_list.append(combatant)
 	return target_list[randi() % target_list.size()]
 

@@ -23,7 +23,7 @@ func assignBlueprint(blueprint, available_tp: int) -> void:
 	for i in range(blueprint_and_predecessors.size()):
 		var blueprint_button = BlueprintActionButton.instantiate()
 		add_child(blueprint_button)
-		blueprint_button.choose_blueprint.connect(chooseBlueprint)		
+		blueprint_button.choose_blueprint.connect(chooseBlueprint)
 		blueprint_button.assignBlueprint(blueprint_and_predecessors[i], available_tp, false)
 		blueprint_button.position = FIRST_BLUEPRINT_POSITION + Vector2(0, BLUEPRINT_Y_OFFSET * i)
 

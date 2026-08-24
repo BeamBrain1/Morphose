@@ -9,7 +9,7 @@ var bio_energy: int = 0		# Unspent bio-energy
 
 var discounted_stats: Array[GlobalProgramData.COMBAT_STAT] = [] # Discounted stats are cheaper to upgrade than base cost
 
-const STARTING_BLUEPRINT_SLOTS: int = 5
+const STARTING_BLUEPRINT_SLOTS: int = 4
 var blueprint_slots: int = STARTING_BLUEPRINT_SLOTS
 const MAX_BLUEPRINT_SLOTS: int = 10
 const BASE_ADD_BLUEPRINT_SLOT_MUTA_COST: int = 100
@@ -240,7 +240,7 @@ func blueprintIsCompatible(blueprint_in) -> bool:
 
 
 func mutaCostToAddBlueprintSlot() -> int:
-	return BASE_ADD_BLUEPRINT_SLOT_MUTA_COST * pow(ADD_BLUEPRINT_COST_MULTIPLIER, blueprint_slots - STARTING_BLUEPRINT_SLOTS + 1)
+	return BASE_ADD_BLUEPRINT_SLOT_MUTA_COST * pow(ADD_BLUEPRINT_COST_MULTIPLIER, blueprint_slots - STARTING_BLUEPRINT_SLOTS)
 
 
 func atMaxBlueprintSlots() -> bool:

@@ -128,8 +128,7 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 16
 	current_enemy.senses = 14
 	current_enemy.speed = 14
-	current_enemy.installBlueprintByNameAndTier("Chaingun", 1, 3)
-	current_enemy.installBlueprintByNameAndTier("Calcify", 1)
+	current_enemy.installBlueprintByNameAndTier("Fracture", 1, 3)
 	current_enemy.installBlueprintByNameAndTier("Numb Gas", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -153,10 +152,10 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Swarmer"
 	current_enemy.hp = 10
 	current_enemy.tech_points = 10
-	current_enemy.attack = 25
+	current_enemy.attack = 20
 	current_enemy.defense = 3
 	current_enemy.senses = 16
-	current_enemy.speed = 18
+	current_enemy.speed = 15
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	addEnemyToTable(current_enemy)
 	

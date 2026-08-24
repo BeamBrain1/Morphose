@@ -640,7 +640,8 @@ func hasSupportBlueprints() -> bool:
 
 
 func wait() -> void:
-	pushBattleMessage(getName() + " waits.")
+	regenTP()
+	pushBattleMessage(getName() + " focuses (regains Tech Points).")
 
 
 func run() -> void:
