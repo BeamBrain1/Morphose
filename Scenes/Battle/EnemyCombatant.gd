@@ -40,6 +40,8 @@ func chooseBlueprintOrNull(party_combatants: Array[PartyCombatant], enemy_combat
 		result = siloLordChooseBlueprint(party_combatants)
 	elif morphose.name.matchn("TANKER"):
 		result = tankerChooseBlueprint(enemy_combatants)
+	elif morphose.name.matchn("SNIPER"):
+		result = sniperChooseBlueprint()
 	elif morphose.name.matchn("KING CRAB"):
 		result = kingCrabChooseBlueprint()
 	elif morphose.name.matchn("ZENITH"):
@@ -121,14 +123,24 @@ func tankerChooseBlueprint(enemy_combatants: Array[EnemyCombatant]) -> Blueprint
 	return chooseBlueprintOrNullFromList(choice_list)
 
 
+func sniperChooseBlueprint() -> Blueprint:
+	if sumOfBuffs() < 5:
+		if canUseBlueprint("Bullseye"):
+			return getBlueprint("Bullseye")
+	else:
+		if canUseBlueprint("Laser"):
+			return getBlueprint("Laser")
+	return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
+
+
 func kingCrabChooseBlueprint() -> Blueprint:
 	if ai_sequence % 2 == 0:
 		return chooseBlueprintOrNullFromList(getPossibleAttackActions())
 	else:
 		if getPossibleSupportActions().size() > 0:
-			if Blueprint.blueprintIsInList(getPossibleSupportActions(), "Marshal", 2) and hardened_stacks == MAX_STATUS_EFFECT_STACKS:
+			if canUseBlueprint("Marshal") and hardened_stacks == MAX_STATUS_EFFECT_STACKS:
 				return getBlueprint("Marshal", 2)
-			elif Blueprint.blueprintIsInList(getPossibleSupportActions(), "Marshal", 2) and sharpened_stacks == MAX_STATUS_EFFECT_STACKS:
+			elif canUseBlueprint("Marshal") and sharpened_stacks == MAX_STATUS_EFFECT_STACKS:
 				return getBlueprint("Formation", 2)
 			else:
 				return chooseBlueprintOrNullFromList(getPossibleSupportActions())
@@ -182,6 +194,10 @@ func chooseTargetOrNull(blueprint, target_list: Array, party_combatants: Array[P
 
 
 func chooseSupportTarget(blueprint, enemy_combatants: Array[EnemyCombatant]) -> Combatant:
+	
+	if morphose.name.matchn("GANG BOSS"):
+		return sniperChooseSupportTarget()
+		
 	var highest_priority: int = 1000
 	for combatant in enemy_combatants:
 		if not combatant.isDefeated():
@@ -192,6 +208,10 @@ func chooseSupportTarget(blueprint, enemy_combatants: Array[EnemyCombatant]) -> 
 		if combatant.morphose.support_priority == highest_priority and not combatant.isDefeated():
 			target_list.append(combatant)
 	return target_list[randi() % target_list.size()]
+
+
+func sniperChooseSupportTarget() -> Combatant:
+	return self
 
 
 #	Choose a blueprint from a list, or null if the list is empty

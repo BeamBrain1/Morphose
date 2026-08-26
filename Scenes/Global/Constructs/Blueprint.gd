@@ -18,9 +18,9 @@ var multitarget: bool = false	# If true, affects all eligible targets
 var predecessors: Array = []	# List of predecessor blueprints: lower-tier bluepritns of same name
 var special: String = ""		# Used to assign additional one-off capabilities
 
-const BIO_COST_T2_MULT: int = 20
-const BIO_COST_T2_MULT_Q_TRACK: int = 8
-const BIO_COST_T2_MULT_STATUS: int = 20
+const BIO_COST_T2_MULT: int = 16
+const BIO_COST_T2_MULT_Q_TRACK: int = 6
+const BIO_COST_T2_MULT_STATUS: int = 16
 const BIO_COST_T3_MULT: int = BIO_COST_T2_MULT * 8
 const BIO_COST_T3_MULT_STATUS: int = BIO_COST_T2_MULT_STATUS * 8
 const TP_COST_T2_MULT: int = 5

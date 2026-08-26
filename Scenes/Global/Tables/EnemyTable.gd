@@ -251,7 +251,6 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 20
 	current_enemy.senses = 60
 	current_enemy.speed = 30
-	current_enemy.support_priority = 1
 	current_enemy.installBlueprintByNameAndTier("Laser", 1, 2)
 	current_enemy.installBlueprintByNameAndTier("Bullseye", 2)
 	current_enemy.support_priority = 1
@@ -327,12 +326,12 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Toxoid"
-	current_enemy.hp = 180
+	current_enemy.hp = 150
 	current_enemy.tech_points = 120
-	current_enemy.attack = 65
+	current_enemy.attack = 40
 	current_enemy.defense = 40
-	current_enemy.senses = 60
-	current_enemy.speed = 60
+	current_enemy.senses = 45
+	current_enemy.speed = 45
 	current_enemy.installBlueprintByNameAndTier("Claw", 2, 2)
 	current_enemy.installBlueprintByNameAndTier("Tear Gas", 2)
 	current_enemy.installBlueprintByNameAndTier("Numb Gas", 2)
@@ -342,15 +341,29 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Raptor"
-	current_enemy.hp = 200
+	current_enemy.hp = 150
 	current_enemy.tech_points = 160
-	current_enemy.attack = 70
+	current_enemy.attack = 50
 	current_enemy.defense = 35
-	current_enemy.senses = 90
-	current_enemy.speed = 90
-	current_enemy.installBlueprintByNameAndTier("Claw", 2, 2)
+	current_enemy.senses = 80
+	current_enemy.speed = 100
+	current_enemy.installBlueprintByNameAndTier("Claw", 2, 5)
+	current_enemy.installBlueprintByNameAndTier("ChemBomb", 2, 2)
 	current_enemy.installBlueprintByNameAndTier("FragBomb", 2)
-	current_enemy.installBlueprintByNameAndTier("ChemBomb", 2)
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Sniper"
+	current_enemy.hp = 700
+	current_enemy.tech_points = 300
+	current_enemy.attack = 80
+	current_enemy.defense = 50
+	current_enemy.senses = 120
+	current_enemy.speed = 70
+	current_enemy.installBlueprintByNameAndTier("Laser", 2)
+	current_enemy.installBlueprintByNameAndTier("Bullseye", 2)
+	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 1)
+	current_enemy.installBlueprintByNameAndTier("Molt", 1)
 	addEnemyToTable(current_enemy)
 	
 	### MILITARY BASE ###

@@ -4,7 +4,7 @@ var active_controller
 
 const CONTROLLER_DIRECTORY_AND_PREFIX = "res://Scenes/Controllers/Controller"
 
-const STARTING_BIO_ENERGY: int = 10000
+const STARTING_BIO_ENERGY: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,7 +48,7 @@ func skipBattle() -> void:
 
 
 func skipToEncounter() -> void:
-	while not EncounterTable.encounterHasEnemy(EncounterTable.table[ActiveSaveData.current_battle], "Silo Lord"):
+	while not EncounterTable.encounterHasEnemy(EncounterTable.table[ActiveSaveData.current_battle], "Raptor"):
 		skipBattle()
 
 
@@ -65,10 +65,8 @@ func loadStartingPartyMembers() -> void:
 	c1.discounted_stats = [GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.SPEED, GlobalProgramData.COMBAT_STAT.SENSES]
 	
 	c1.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
-
+	
 	ActiveSaveData.addPartyMember(c1)
-	#ActiveSaveData.addPartyMember(c2)
-	#ActiveSaveData.addPartyMember(c3)
 
 
 func addDefector():
@@ -84,6 +82,7 @@ func addDefector():
 	c2.discounted_stats = [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE]
 
 	c2.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
+	
 	ActiveSaveData.addPartyMember(c2)
 
 

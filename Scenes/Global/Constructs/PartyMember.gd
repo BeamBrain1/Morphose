@@ -13,7 +13,7 @@ const STARTING_BLUEPRINT_SLOTS: int = 4
 var blueprint_slots: int = STARTING_BLUEPRINT_SLOTS
 const MAX_BLUEPRINT_SLOTS: int = 10
 const BASE_ADD_BLUEPRINT_SLOT_MUTA_COST: int = 100
-const ADD_BLUEPRINT_COST_MULTIPLIER: int = 4
+const ADD_BLUEPRINT_COST_MULTIPLIER: int = 3
 
 # Cost in bio-energy to boost a stat were it a given value
 func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) -> int:
