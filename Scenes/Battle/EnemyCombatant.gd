@@ -125,10 +125,10 @@ func tankerChooseBlueprint(enemy_combatants: Array[EnemyCombatant]) -> Blueprint
 
 func sniperChooseBlueprint() -> Blueprint:
 	if sumOfBuffs() < 5:
-		if canUseBlueprint("Bullseye"):
+		if canUseBlueprint(getBlueprint("Bullseye")):
 			return getBlueprint("Bullseye")
 	else:
-		if canUseBlueprint("Laser"):
+		if canUseBlueprint(getBlueprint("Laser")):
 			return getBlueprint("Laser")
 	return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
 
@@ -138,9 +138,9 @@ func kingCrabChooseBlueprint() -> Blueprint:
 		return chooseBlueprintOrNullFromList(getPossibleAttackActions())
 	else:
 		if getPossibleSupportActions().size() > 0:
-			if canUseBlueprint("Marshal") and hardened_stacks == MAX_STATUS_EFFECT_STACKS:
+			if canUseBlueprint(getBlueprint("Marshal")) and hardened_stacks == MAX_STATUS_EFFECT_STACKS:
 				return getBlueprint("Marshal", 2)
-			elif canUseBlueprint("Marshal") and sharpened_stacks == MAX_STATUS_EFFECT_STACKS:
+			elif canUseBlueprint(getBlueprint("Formation")) and sharpened_stacks == MAX_STATUS_EFFECT_STACKS:
 				return getBlueprint("Formation", 2)
 			else:
 				return chooseBlueprintOrNullFromList(getPossibleSupportActions())
@@ -201,7 +201,6 @@ func chooseSupportTarget(blueprint, enemy_combatants: Array[EnemyCombatant]) -> 
 	var highest_priority: int = 1000
 	for combatant in enemy_combatants:
 		if not combatant.isDefeated():
-			print(combatant.morphose.support_priority)
 			highest_priority = mini(highest_priority, combatant.morphose.support_priority)
 	var target_list = []
 	for combatant in enemy_combatants:

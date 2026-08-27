@@ -13,9 +13,9 @@ script = ExtResource("1_fk43i")
 [node name="Text" type="Label" parent="." unique_id=51218243]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 11.0
+offset_top = 8.0
 offset_right = 312.0
-offset_bottom = 64.0
+offset_bottom = 61.0
 theme_override_fonts/font = ExtResource("2_07k05")
 theme_override_font_sizes/font_size = 8
 text = "Battle messages"

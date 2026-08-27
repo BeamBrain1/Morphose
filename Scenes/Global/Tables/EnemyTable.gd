@@ -219,33 +219,33 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Brawler"
-	current_enemy.hp = 100
+	current_enemy.hp = 70
 	current_enemy.tech_points = 50
-	current_enemy.attack = 30
+	current_enemy.attack = 15
 	current_enemy.defense = 20
-	current_enemy.senses = 30
-	current_enemy.speed = 30
+	current_enemy.senses = 25
+	current_enemy.speed = 25
 	current_enemy.installBlueprintByNameAndTier("Claw", 2)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Aquila"
-	current_enemy.hp = 70
+	current_enemy.hp = 50
 	current_enemy.tech_points = 60
-	current_enemy.attack = 35
-	current_enemy.defense = 18
-	current_enemy.senses = 35
+	current_enemy.attack = 20
+	current_enemy.defense = 10
+	current_enemy.senses = 30
 	current_enemy.speed = 40
+	current_enemy.installBlueprintByNameAndTier("Claw", 2, 2)
 	current_enemy.installBlueprintByNameAndTier("FragBomb", 1)
 	current_enemy.installBlueprintByNameAndTier("ChemBomb", 1)
-	current_enemy.installBlueprintByNameAndTier("Claw", 2, 2)
 	addEnemyToTable(current_enemy)
 	
 	### MOUNTAIN ###
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Marksman"
-	current_enemy.hp = 90
+	current_enemy.hp = 80
 	current_enemy.tech_points = 50
 	current_enemy.attack = 30
 	current_enemy.defense = 20
@@ -258,13 +258,25 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Stoneback"
-	current_enemy.hp = 80
-	current_enemy.tech_points = 70
+	current_enemy.hp = 60
+	current_enemy.tech_points = 150
 	current_enemy.attack = 30
 	current_enemy.defense = 40
 	current_enemy.senses = 30
-	current_enemy.speed = 12
+	current_enemy.speed = 10
 	current_enemy.installBlueprintByNameAndTier("Hammer", 2)
+	addEnemyToTable(current_enemy)
+	
+	current_enemy = EnemyType.new()
+	current_enemy.name = "Firefly"
+	current_enemy.hp = 200
+	current_enemy.tech_points = 130
+	current_enemy.attack = 25
+	current_enemy.defense = 15
+	current_enemy.senses = 45
+	current_enemy.speed = 45
+	current_enemy.installBlueprintByNameAndTier("Claw", 2)
+	current_enemy.installBlueprintByNameAndTier("Flamejet", 2)
 	addEnemyToTable(current_enemy)
 	
 	### MISSILE SILO ###
@@ -354,11 +366,11 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Sniper"
-	current_enemy.hp = 700
+	current_enemy.hp = 800
 	current_enemy.tech_points = 300
 	current_enemy.attack = 80
-	current_enemy.defense = 50
-	current_enemy.senses = 120
+	current_enemy.defense = 60
+	current_enemy.senses = 130
 	current_enemy.speed = 70
 	current_enemy.installBlueprintByNameAndTier("Laser", 2)
 	current_enemy.installBlueprintByNameAndTier("Bullseye", 2)
@@ -410,7 +422,6 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Hammer", 2)
 	current_enemy.installBlueprintByNameAndTier("Mucus", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
-	current_enemy.installBlueprintByNameAndTier("Immunity", 1)
 	current_enemy.installBlueprintByNameAndTier("Molt", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -418,7 +429,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Barnacle"
-	current_enemy.hp = 300
+	current_enemy.hp = 280
 	current_enemy.tech_points = 250
 	current_enemy.attack = 120
 	current_enemy.defense = 140
@@ -434,35 +445,35 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "King Crab"
-	current_enemy.hp = 800
-	current_enemy.tech_points = 800
-	current_enemy.attack = 150
-	current_enemy.defense = 150
+	current_enemy.hp = 600
+	current_enemy.tech_points = 600
+	current_enemy.attack = 130
+	current_enemy.defense = 130
 	current_enemy.senses = 110
-	current_enemy.speed = 80
+	current_enemy.speed = 60
 	current_enemy.installBlueprintByNameAndTier("Claw", 3)
-	current_enemy.installBlueprintByNameAndTier("Hammer", 3)
+	current_enemy.installBlueprintByNameAndTier("Hammer", 2)
 	current_enemy.installBlueprintByNameAndTier("Marshal", 2)
 	current_enemy.installBlueprintByNameAndTier("Formation", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
 	current_enemy.installBlueprintByNameAndTier("Molt", 2)
-	current_enemy.installBlueprintByNameAndTier("Immunity", 1)
 	addEnemyToTable(current_enemy)
 	
 	### SEAFLOOR ###
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Shark"
-	current_enemy.hp = 700
-	current_enemy.tech_points = 700
-	current_enemy.attack = 200
+	current_enemy.hp = 500
+	current_enemy.tech_points = 600
+	current_enemy.attack = 160
 	current_enemy.defense = 70
-	current_enemy.senses = 170
-	current_enemy.speed = 170
+	current_enemy.senses = 160
+	current_enemy.speed = 160
 	current_enemy.installBlueprintByNameAndTier("Claw", 3, 2)
 	current_enemy.installBlueprintByNameAndTier("Chaingun", 3)
 	current_enemy.installBlueprintByNameAndTier("Web", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
+	current_enemy.installBlueprintByNameAndTier("Molt", 1)
 	addEnemyToTable(current_enemy)
 	
 	### LAB ###
@@ -475,10 +486,8 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 120
 	current_enemy.senses = 145
 	current_enemy.speed = 145
-	current_enemy.installBlueprintByNameAndTier("Claw", 3)
-	current_enemy.installBlueprintByNameAndTier("Laser", 3)
-	current_enemy.installBlueprintByNameAndTier("Bullseye", 3)
-	current_enemy.installBlueprintByNameAndTier("Molt", 1)
+	current_enemy.installBlueprintByNameAndTier("Psypulse", 3, 2)
+	current_enemy.installBlueprintByNameAndTier("Molt", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 1)
 	current_enemy.installBlueprintByNameAndTier("Immunity", 1)
 	current_enemy.support_priority = 2
@@ -486,7 +495,7 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Prometheus"
-	current_enemy.hp = 2400
+	current_enemy.hp = 2000
 	current_enemy.tech_points = 1000
 	current_enemy.attack = 200
 	current_enemy.defense = 150
@@ -528,7 +537,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 3)
 	current_enemy.installBlueprintByNameAndTier("1stStrike", 1)
-	current_enemy.installBlueprintByNameAndTier("Immunity", 3)
+	current_enemy.installBlueprintByNameAndTier("Immunity", 2)
 	current_enemy.gives_bio_energy = false
 	current_enemy.support_priority = 1
 	addEnemyToTable(current_enemy)

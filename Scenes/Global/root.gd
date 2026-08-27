@@ -48,7 +48,7 @@ func skipBattle() -> void:
 
 
 func skipToEncounter() -> void:
-	while not EncounterTable.encounterHasEnemy(EncounterTable.table[ActiveSaveData.current_battle], "Raptor"):
+	while not EncounterTable.encounterHasEnemy(EncounterTable.table[ActiveSaveData.current_battle], "Shark"):
 		skipBattle()
 
 
