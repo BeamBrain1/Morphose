@@ -44,6 +44,8 @@ func chooseBlueprintOrNull(party_combatants: Array[PartyCombatant], enemy_combat
 		result = sniperChooseBlueprint()
 	elif morphose.name.matchn("KING CRAB"):
 		result = kingCrabChooseBlueprint()
+	elif morphose.name.matchn("PROMETHEUS"):
+		result = prometheusChooseBlueprint()
 	elif morphose.name.matchn("ZENITH"):
 		result = zenithChooseBlueprint()
 	else:
@@ -138,12 +140,19 @@ func kingCrabChooseBlueprint() -> Blueprint:
 		return chooseBlueprintOrNullFromList(getPossibleAttackActions())
 	else:
 		if getPossibleSupportActions().size() > 0:
-			if canUseBlueprint(getBlueprint("Marshal")) and hardened_stacks == MAX_STATUS_EFFECT_STACKS:
-				return getBlueprint("Marshal", 2)
-			elif canUseBlueprint(getBlueprint("Formation")) and sharpened_stacks == MAX_STATUS_EFFECT_STACKS:
-				return getBlueprint("Formation", 2)
+			if canUseBlueprint(getBlueprint("Marshal")) and sharpened_stacks < hardened_stacks:
+				return getBlueprint("Marshal", 3)
+			elif canUseBlueprint(getBlueprint("Formation")) and hardened_stacks < sharpened_stacks:
+				return getBlueprint("Formation", 3)
 			else:
 				return chooseBlueprintOrNullFromList(getPossibleSupportActions())
+	return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
+
+
+func prometheusChooseBlueprint() -> Blueprint:
+	if ai_sequence % 4 == 1:
+		if canUseBlueprint(getBlueprint("Recombine")):
+			return getBlueprint("Recombine")
 	return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
 
 
@@ -195,7 +204,7 @@ func chooseTargetOrNull(blueprint, target_list: Array, party_combatants: Array[P
 
 func chooseSupportTarget(blueprint, enemy_combatants: Array[EnemyCombatant]) -> Combatant:
 	
-	if morphose.name.matchn("GANG BOSS"):
+	if morphose.name.matchn("SNIPER"):
 		return sniperChooseSupportTarget()
 		
 	var highest_priority: int = 1000
@@ -215,10 +224,10 @@ func sniperChooseSupportTarget() -> Combatant:
 
 #	Choose a blueprint from a list, or null if the list is empty
 func chooseBlueprintOrNullFromList(blueprint_list: Array) -> Blueprint:
-	if blueprint_list.is_empty():
-		return null
 	var prioritized_list: Array = []
 	for bp in blueprint_list:
 		for i in range(morphose.blueprint_priority_table[bp.base_display_name]):
 			prioritized_list.append(bp)
+	if prioritized_list.is_empty():
+		return null
 	return prioritized_list[randi() % prioritized_list.size()]

@@ -74,7 +74,7 @@ static func buildEncounterList() -> void:
 	table.append([enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle")])
 	table.append([enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle")])
 	table.append([enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle"), enemy("Barnacle")])
-	table.append([enemy("King Crab"), enemy("King Crab"), enemy("King Crab"), enemy("King Crab")])
+	table.append([enemy("King Crab"), enemy("King Crab")])
 	table.append([enemy("Shark"), enemy("Shark")])
 	table.append([enemy("Shark"), enemy("Shark")])
 	table.append([enemy("Shark"), enemy("Shark"), enemy("Shark")])
@@ -83,7 +83,7 @@ static func buildEncounterList() -> void:
 	table.append([enemy("Pulser"), enemy("Pulser"), enemy("Pulser")])
 	table.append([enemy("Pulser"), enemy("Pulser"), enemy("Pulser"), enemy("Pulser")])
 	table.append([enemy("Pulser"), enemy("Pulser"), enemy("Pulser"), enemy("Pulser"), enemy("Pulser"), enemy("Pulser")])
-	table.append([enemy("Prometheus"), enemy("Pulser"), enemy("Pulser")])
+	table.append([enemy("Prometheus"), enemy("Dispenser")])
 	table.append([enemy("Zenith")])
 
 # Returns encounter at index

@@ -54,6 +54,8 @@ var marked_defeated: bool = false
 var morphose	# The base Morphose from which this combatant draws its unmodified stats
 				# For party combatants, this is PartyMember. For enemies, it's EnemyType
 
+const RECOMBINE_STACKS: int = 6
+
 
 func _init(morphose_in):
 	morphose = morphose_in
@@ -442,14 +444,13 @@ func attackHits(blueprint: BlueprintAttack, target) -> bool:
 		return true
 	
 	var accuracy: int = clampi(DEFAULT_ACCURACY * attackAccuracy(blueprint) / maxi(1, target.hitEvasion()), MIN_ACCURACY, MAX_ACCURACY)
-
 	return randi() % 100 < accuracy
 
 
 func attackCrits(blueprint: BlueprintAttack, target) -> bool:
 	if blueprint.always_hit or never_crits:
 		return false
-	var crit_rate = clampi(DEFAULT_CRIT_RATE * attackCritRate(blueprint) / target.critEvasion(), MIN_CRIT, MAX_CRIT)
+	var crit_rate = clampi(DEFAULT_CRIT_RATE + 3 * ((DEFAULT_CRIT_RATE * attackCritRate(blueprint) / target.critEvasion()) - DEFAULT_CRIT_RATE), MIN_CRIT, MAX_CRIT)
 	return randi() % 100 < crit_rate
 
 
@@ -509,33 +510,56 @@ func adjustedDebuffStacksInflicted(value_in: int, crit: bool = false) -> int:
 
 # self_applied: Is the combatant applying this support to themselves?
 func receiveSupport(blueprint: BlueprintSupport, self_applied: bool = false) -> void:
-	if blueprint.base_healing != 0:
-		var random_healing: int = maxi(2, (blueprint.base_healing >> 2) + 1)
-		random_healing = randi() % random_healing
-		if randi() % 2 == 0:
-			random_healing *= -1
-		heal(blueprint.base_healing + random_healing)
-
-	healStatusEffectFromEnumType(STATUS_EFFECT.REGEN, blueprint.heal_burning)
-	healStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, blueprint.heal_tranqed)
-	healStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, blueprint.heal_acid)
-	healStatusEffectFromEnumType(STATUS_EFFECT.KEEN, blueprint.heal_blind)
-	healStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, blueprint.heal_slimed)
-	healStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, blueprint.heal_rage)
-
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, blueprint.regen, self_applied)
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, blueprint.sharpened, self_applied)
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, blueprint.hardened, self_applied)
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, blueprint.keen, self_applied)
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, blueprint.energized, self_applied)
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, blueprint.focused, self_applied)
 	
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * adjustedDebuffStacksInflicted(blueprint.burning), self_applied)
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * adjustedDebuffStacksInflicted(blueprint.tranqed), self_applied)
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * adjustedDebuffStacksInflicted(blueprint.acid), self_applied)
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * adjustedDebuffStacksInflicted(blueprint.blind), self_applied)
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * adjustedDebuffStacksInflicted(blueprint.slimed), self_applied)
-	adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * adjustedDebuffStacksInflicted(blueprint.rage), self_applied)
+	if blueprint.special.matchn("RECOMBINE"):
+		receiveRecombination(self_applied)
+		return
+	else:
+		if blueprint.base_healing != 0:
+			var random_healing: int = maxi(2, (blueprint.base_healing >> 2) + 1)
+			random_healing = randi() % random_healing
+			if randi() % 2 == 0:
+				random_healing *= -1
+			heal(blueprint.base_healing + random_healing)
+
+		healStatusEffectFromEnumType(STATUS_EFFECT.REGEN, blueprint.heal_burning)
+		healStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, blueprint.heal_tranqed)
+		healStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, blueprint.heal_acid)
+		healStatusEffectFromEnumType(STATUS_EFFECT.KEEN, blueprint.heal_blind)
+		healStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, blueprint.heal_slimed)
+		healStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, blueprint.heal_rage)
+
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, blueprint.regen, self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, blueprint.sharpened, self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, blueprint.hardened, self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, blueprint.keen, self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, blueprint.energized, self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, blueprint.focused, self_applied)
+		
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * adjustedDebuffStacksInflicted(blueprint.burning), self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * adjustedDebuffStacksInflicted(blueprint.tranqed), self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * adjustedDebuffStacksInflicted(blueprint.acid), self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * adjustedDebuffStacksInflicted(blueprint.blind), self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * adjustedDebuffStacksInflicted(blueprint.slimed), self_applied)
+		adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * adjustedDebuffStacksInflicted(blueprint.rage), self_applied)
+
+
+func receiveRecombination(self_applied: bool) -> void:
+	var buffs: Array[STATUS_EFFECT] = []
+	var debuff: STATUS_EFFECT
+	
+	# All effects except regen/burning eligible
+	var candidate_effects: Array[STATUS_EFFECT] = [STATUS_EFFECT.SHARPENED, STATUS_EFFECT.HARDENED, STATUS_EFFECT.KEEN, STATUS_EFFECT.ENERGIZED, STATUS_EFFECT.FOCUSED]
+	
+	# Pop one effect from the candidates array. This is the debuff
+	debuff = candidate_effects.pop_at(randi() % candidate_effects.size() - 1)
+	# Pop one additional effect from the candidates array. What remains are the ones that will be buffed
+	candidate_effects.pop_at(randi() % candidate_effects.size() - 1)
+	buffs = candidate_effects
+	
+	for effect in buffs:
+		adjustStatusEffectFromEnumType(effect, RECOMBINE_STACKS, self_applied)
+	adjustStatusEffectFromEnumType(debuff, RECOMBINE_STACKS * -1, self_applied)
 
 
 func pushBattleMessage(update: String) -> void:
