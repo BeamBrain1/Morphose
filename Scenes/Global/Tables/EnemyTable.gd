@@ -496,31 +496,30 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Prometheus"
-	current_enemy.hp = 2400
-	current_enemy.tech_points = 800
-	current_enemy.attack = 180
-	current_enemy.defense = 180
-	current_enemy.senses = 180
-	current_enemy.speed = 180
+	current_enemy.hp = 2000
+	current_enemy.tech_points = 1000
+	current_enemy.attack = 160
+	current_enemy.defense = 160
+	current_enemy.senses = 160
+	current_enemy.speed = 160
 	current_enemy.installBlueprintByNameAndTier("Laser", 3, 2)
 	current_enemy.installBlueprintByNameAndTier("Hammer", 3, 2)
 	current_enemy.installBlueprintByNameAndTier("Psypulse", 3, 1)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3, 1)
 	current_enemy.installBlueprintByNameAndTier("Recombine", 1, 0)
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)
-	current_enemy.installBlueprintByNameAndTier("Immunity", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
 	current_enemy.support_priority = 1
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Dispenser"
-	current_enemy.hp = 1600
-	current_enemy.tech_points = 800
-	current_enemy.attack = 140
-	current_enemy.defense = 140
-	current_enemy.senses = 140
-	current_enemy.speed = 140
+	current_enemy.hp = 1500
+	current_enemy.tech_points = 1000
+	current_enemy.attack = 130
+	current_enemy.defense = 130
+	current_enemy.senses = 130
+	current_enemy.speed = 130
 	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
 	current_enemy.installBlueprintByNameAndTier("Numb Gas", 3)
 	current_enemy.installBlueprintByNameAndTier("ChemBomb", 3)
@@ -530,7 +529,6 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Molt", 2)
 	current_enemy.installBlueprintByNameAndTier("Immunity", 1)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
-	current_enemy.support_priority = 1
 	addEnemyToTable(current_enemy)
 	
 	### ZENITH ###
@@ -539,10 +537,10 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Zenith"
 	current_enemy.hp = 4095
 	current_enemy.tech_points = 1200
-	current_enemy.attack = 230
-	current_enemy.defense = 230
-	current_enemy.senses = 230
-	current_enemy.speed = 230
+	current_enemy.attack = 200
+	current_enemy.defense = 200
+	current_enemy.senses = 200
+	current_enemy.speed = 200
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3)
 	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
@@ -552,7 +550,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Mind Rip", 1)
 	current_enemy.installBlueprintByNameAndTier("Crush", 1)
 	current_enemy.installBlueprintByNameAndTier("Bud", 1)
-	current_enemy.installBlueprintByNameAndTier("Perfect", 1)
+	current_enemy.installBlueprintByNameAndTier("Perfect", 1, 2)
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 3)
 	current_enemy.installBlueprintByNameAndTier("1stStrike", 1)
@@ -565,17 +563,17 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Z-Spawn"
 	current_enemy.hp = 500
 	current_enemy.tech_points = 800
-	current_enemy.attack = 170
-	current_enemy.defense = 170
-	current_enemy.senses = 170
-	current_enemy.speed = 170
+	current_enemy.attack = 150
+	current_enemy.defense = 100
+	current_enemy.senses = 120
+	current_enemy.speed = 120
 	current_enemy.installBlueprintByNameAndTier("Claw", 3)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3)
 	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
 	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
-	current_enemy.installBlueprintByNameAndTier("Molt", 3)
-	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
-	current_enemy.installBlueprintByNameAndTier("Immunity", 2)
+	current_enemy.installBlueprintByNameAndTier("Molt", 1)
+	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 1)
+	current_enemy.installBlueprintByNameAndTier("Immunity", 1)
 	current_enemy.gives_bio_energy = false
 	addEnemyToTable(current_enemy)
 

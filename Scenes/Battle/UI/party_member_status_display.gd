@@ -10,7 +10,7 @@ signal select_as_support_target
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Labels/LabelName.text = combatant.getName()
+	$Labels/LabelName.text = combatant.getName().to_upper()
 	$ButtonSelectAsTarget.hide()
 	$TurnIndicator.hide()
 

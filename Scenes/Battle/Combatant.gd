@@ -109,6 +109,8 @@ func damage(amount: int) -> void:
 	changeHP(-1 * final_amount)
 	if isDefeated():
 		markDefeated()
+	if morphose.name.matchn("Dispenser") or morphose.name.matchn("Prometheus"):
+		print(hp)
 
 
 func heal(amount: int) -> void:
@@ -133,6 +135,35 @@ func getStatusEffectFromEnumType(effect: STATUS_EFFECT) -> int:
 		return focused_stacks
 	push_error("Unrecognized status type: " + str(effect))
 	return 0
+
+
+func setStatusEffectFromEnumType(effect: STATUS_EFFECT, value: int, self_applied: bool = false) -> void:
+	if effect == STATUS_EFFECT.REGEN:
+		regen_stacks = value
+		if self_applied and value > 0:
+			buffed_regen_on_own_turn = true
+	elif effect == STATUS_EFFECT.SHARPENED:
+		sharpened_stacks = value
+		if self_applied and value > 0:
+			buffed_sharpened_on_own_turn = true
+	elif effect == STATUS_EFFECT.HARDENED:
+		hardened_stacks = value
+		if self_applied and value > 0:
+			buffed_hardened_on_own_turn = true
+	elif effect == STATUS_EFFECT.KEEN:
+		keen_stacks = value
+		if self_applied and value > 0:
+			buffed_keen_on_own_turn = true
+	elif effect == STATUS_EFFECT.ENERGIZED:
+		energized_stacks = value
+		if self_applied and value > 0:
+			buffed_energized_on_own_turn = true
+	elif effect == STATUS_EFFECT.FOCUSED:
+		focused_stacks = value
+		if self_applied and value > 0:
+			buffed_focused_on_own_turn = true
+	else:
+		push_error("Unrecognized status type: " + str(effect))
 
 
 func getStatusEffectAdjustedAttack() -> int:
@@ -410,6 +441,7 @@ func generateAccumulatedSpeed() -> void:
 # If Morphose defeated, clear all status effects
 func markDefeated():
 	if not marked_defeated:
+		tech_points = 0
 		regen_stacks = 0
 		sharpened_stacks = 0
 		hardened_stacks = 0
@@ -547,19 +579,21 @@ func receiveSupport(blueprint: BlueprintSupport, self_applied: bool = false) -> 
 func receiveRecombination(self_applied: bool) -> void:
 	var buffs: Array[STATUS_EFFECT] = []
 	var debuff: STATUS_EFFECT
+	var neutralize: STATUS_EFFECT
 	
 	# All effects except regen/burning eligible
 	var candidate_effects: Array[STATUS_EFFECT] = [STATUS_EFFECT.SHARPENED, STATUS_EFFECT.HARDENED, STATUS_EFFECT.KEEN, STATUS_EFFECT.ENERGIZED, STATUS_EFFECT.FOCUSED]
 	
 	# Pop one effect from the candidates array. This is the debuff
 	debuff = candidate_effects.pop_at(randi() % candidate_effects.size() - 1)
-	# Pop one additional effect from the candidates array. What remains are the ones that will be buffed
-	candidate_effects.pop_at(randi() % candidate_effects.size() - 1)
+	# Pop one additional effect from the candidates array to set to 0. What remains are the ones that will be buffed
+	neutralize = candidate_effects.pop_at(randi() % candidate_effects.size() - 1)
 	buffs = candidate_effects
 	
 	for effect in buffs:
-		adjustStatusEffectFromEnumType(effect, RECOMBINE_STACKS, self_applied)
-	adjustStatusEffectFromEnumType(debuff, RECOMBINE_STACKS * -1, self_applied)
+		setStatusEffectFromEnumType(effect, RECOMBINE_STACKS, self_applied)
+	setStatusEffectFromEnumType(debuff, RECOMBINE_STACKS * -1, self_applied)
+	setStatusEffectFromEnumType(neutralize, 0, self_applied)
 
 
 func pushBattleMessage(update: String) -> void:

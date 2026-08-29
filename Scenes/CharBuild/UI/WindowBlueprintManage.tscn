@@ -36,7 +36,7 @@ autowrap_mode = 2
 [node name="Selector" parent="DialogInstalledBlueprints" unique_id=2013800458 instance=ExtResource("11_28com")]
 layout_mode = 0
 offset_top = 32.0
-offset_bottom = 128.0
+offset_bottom = 144.0
 num_rows = 10
 
 [node name="DialogAvailableBlueprints" parent="." unique_id=245387802 instance=ExtResource("2_28com")]
@@ -104,7 +104,7 @@ offset_bottom = 200.0
 
 [node name="DialogBlueprintSlots" parent="." unique_id=997346873 instance=ExtResource("9_cn66n")]
 offset_left = 88.0
-offset_top = 128.0
+offset_top = 144.0
 offset_right = 176.0
 offset_bottom = 192.0
 

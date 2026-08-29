@@ -1,26 +1,16 @@
 class_name Morphose
 
-const HP_CAP: int = 999
-const HP_DIMINISHING_RETURNS_START: int = 500
-const HP_DIMINISHING_RETURNS_INTERVAL: int = 20
-const HP_MINIMUM: int = 10
-const TP_CAP: int = 999
-const TP_DIMINISHING_RETURNS_START: int = 500
-const TP_DIMINISHING_RETURNS_INTERVAL: int = 20
-const TP_MINIMUM: int = 10
-const STAT_DIMINISHING_RETURNS_START: int = 125
-const STAT_FAVORED_DIMINISHING_RETURNS_START: int = 150
-const STAT_DIMINISHING_RETURNS_INTERVAL: int = 5
-const STAT_CAP: int = 250
-const STAT_MINIMUM: int = 1
-
 var name: String = "[NO DATA]"
-var hp: int = HP_MINIMUM
-var attack: int = STAT_MINIMUM
-var defense: int = STAT_MINIMUM
-var senses: int = STAT_MINIMUM
-var speed: int = STAT_MINIMUM
-var tech_points: int = TP_MINIMUM
+var hp: int
+var attack: int
+var defense: int
+var senses: int
+var speed: int
+var tech_points: int
+
+const HP_MINIMUM: int = 10
+const TP_MINIMUM: int = 10
+const STAT_MINIMUM: int = 1
 
 var blueprints_attack: Array[BlueprintAttack] = []
 var blueprints_support: Array[BlueprintSupport] = []
@@ -51,17 +41,17 @@ func installBlueprintByNameAndTier(bp_name: String, bp_tier: int) -> void:
 
 func getRawStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
 	if stat == GlobalProgramData.COMBAT_STAT.HP:
-		return mini(hp, HP_CAP)
+		return hp
 	if stat == GlobalProgramData.COMBAT_STAT.ATTACK:
-		return mini(attack, STAT_CAP)
+		return attack
 	if stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
-		return mini(defense, STAT_CAP)
+		return defense
 	if stat == GlobalProgramData.COMBAT_STAT.SENSES:
-		return mini(senses, STAT_CAP)
+		return senses
 	if stat == GlobalProgramData.COMBAT_STAT.SPEED:
-		return mini(speed, STAT_CAP)
+		return speed
 	if stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
-		return mini(tech_points, TP_CAP)
+		return tech_points
 	push_error("Unrecognized stat: " + str(stat))
 	return 0
 

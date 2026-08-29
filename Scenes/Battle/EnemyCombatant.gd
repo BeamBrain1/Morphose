@@ -163,7 +163,7 @@ func zenithChooseBlueprint() -> Blueprint:
 	elif ai_sequence % 2 == 1:	# Use a unique blueprint
 		if hp > getMaxHP() * 3 / 4:
 			return getBlueprint("Mind Rip", 1)
-		elif hp > getMaxTP() * 1 / 2:
+		elif hp > getMaxHP() * 1 / 2:
 			if ai_sequence < 5000 and canUseBlueprint(getBlueprint("Bud")):
 				ai_sequence += 5000			# First time falling below 75% HP, use Bud ASAP
 				return getBlueprint("Bud")
@@ -182,7 +182,7 @@ func zenithChooseBlueprint() -> Blueprint:
 				addBlueprintToActionListIfUseable(action_list, "Crush")
 				addBlueprintToActionListIfUseable(action_list, "Bud")
 				addBlueprintToActionListIfUseable(action_list, "FusionBomb")
-				if sumOfBuffs() < 3:	# Consider using Perfect is buffs too low (higher threshold)
+				if sumOfBuffs() < 4:	# Consider using Perfect is buffs too low (higher threshold)
 					addBlueprintToActionListIfUseable(action_list, "Perfect")
 		return chooseBlueprintOrNullFromList(action_list)
 	else:						# Use a regular blueprint

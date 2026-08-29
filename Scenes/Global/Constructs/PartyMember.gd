@@ -1,6 +1,17 @@
 class_name PartyMember
 extends Morphose
 
+const HP_CAP: int = 999
+const HP_DIMINISHING_RETURNS_START: int = 500
+const HP_DIMINISHING_RETURNS_INTERVAL: int = 20
+const TP_CAP: int = 999
+const TP_DIMINISHING_RETURNS_START: int = 500
+const TP_DIMINISHING_RETURNS_INTERVAL: int = 20
+const STAT_DIMINISHING_RETURNS_START: int = 125
+const STAT_FAVORED_DIMINISHING_RETURNS_START: int = 150
+const STAT_DIMINISHING_RETURNS_INTERVAL: int = 5
+const STAT_CAP: int = 250
+
 const PARTY_MEMBER_1_NAME: String = "Primus"
 const PARTY_MEMBER_2_NAME: String = "Defector"
 const PARTY_MEMBER_3_NAME: String = "Scholar"
@@ -11,9 +22,9 @@ var discounted_stats: Array[GlobalProgramData.COMBAT_STAT] = [] # Discounted sta
 
 const STARTING_BLUEPRINT_SLOTS: int = 4
 var blueprint_slots: int = STARTING_BLUEPRINT_SLOTS
-const MAX_BLUEPRINT_SLOTS: int = 10
+const MAX_BLUEPRINT_SLOTS: int = 12
 const BASE_ADD_BLUEPRINT_SLOT_MUTA_COST: int = 100
-const ADD_BLUEPRINT_COST_MULTIPLIER: int = 3
+const ADD_BLUEPRINT_COST_MULTIPLIER: int = 2
 
 # Cost in bio-energy to boost a stat were it a given value
 func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) -> int:
@@ -39,16 +50,16 @@ func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) ->
 			diminishing_returns_start = STAT_FAVORED_DIMINISHING_RETURNS_START
 	
 	if stat == GlobalProgramData.COMBAT_STAT.HP:
-		result -= Morphose.HP_MINIMUM
-		if result + Morphose.HP_MINIMUM >= diminishing_returns_start:		# After hitting diminishing returns point, cost doubles regularly
+		result -= HP_MINIMUM
+		if result + HP_MINIMUM >= diminishing_returns_start:		# After hitting diminishing returns point, cost doubles regularly
 			result += result * (1 + ((result - diminishing_returns_start) / HP_DIMINISHING_RETURNS_INTERVAL))
 	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
-		result -= Morphose.TP_MINIMUM
-		if result + Morphose.TP_MINIMUM >= diminishing_returns_start:
+		result -= TP_MINIMUM
+		if result + TP_MINIMUM >= diminishing_returns_start:
 			result += result * (1 + ((result - diminishing_returns_start) / TP_DIMINISHING_RETURNS_INTERVAL))
 	else:
-		result -= Morphose.STAT_MINIMUM
-		if result + Morphose.STAT_MINIMUM >= diminishing_returns_start:
+		result -= STAT_MINIMUM
+		if result + STAT_MINIMUM >= diminishing_returns_start:
 			result += result * (1 + ((result - diminishing_returns_start) / STAT_DIMINISHING_RETURNS_INTERVAL))
 	
 	
@@ -63,6 +74,23 @@ func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) ->
 		result = roundi(float(result) / 4)
 	
 	return maxi(1, result)	# All boosts cost at least 1 point
+
+
+func getRawStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
+	if stat == GlobalProgramData.COMBAT_STAT.HP:
+		return mini(hp, HP_CAP)
+	if stat == GlobalProgramData.COMBAT_STAT.ATTACK:
+		return mini(attack, STAT_CAP)
+	if stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
+		return mini(defense, STAT_CAP)
+	if stat == GlobalProgramData.COMBAT_STAT.SENSES:
+		return mini(senses, STAT_CAP)
+	if stat == GlobalProgramData.COMBAT_STAT.SPEED:
+		return mini(speed, STAT_CAP)
+	if stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
+		return mini(tech_points, TP_CAP)
+	push_error("Unrecognized stat: " + str(stat))
+	return 0
 
 
 # Cost in bio-energy to boost a given stat by 1 point from its current value
