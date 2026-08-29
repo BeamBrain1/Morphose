@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bhyb70w2bbolu"]
+
+[ext_resource type="Script" uid="uid://bo3xlx1smhxx6" path="res://Scenes/Controllers/controller_overworld.gd" id="1_b4ioc"]
+
+[node name="ControllerOverworld" type="Node2D" unique_id=936877717]
+script = ExtResource("1_b4ioc")
+metadata/_custom_type_script = "uid://c6b3kksmaoyke"

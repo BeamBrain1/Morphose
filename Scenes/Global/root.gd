@@ -43,12 +43,12 @@ func toCharacterBuildScreen(won_previous = false) -> void:
 
 func skipBattle() -> void:
 	var base_muta_value : int = EncounterTable.getEncounterBioEnergyValue(ActiveSaveData.current_battle)
-	ActiveSaveData.awardMuta(ceili(float(base_muta_value) / ActiveSaveData.party_members.size()))
+	ActiveSaveData.party.awardMuta(ceili(float(base_muta_value) / ActiveSaveData.party.members.size()))
 	toCharacterBuildScreen(true)
 
 
 func skipToEncounter() -> void:
-	while not EncounterTable.encounterHasEnemy(EncounterTable.table[ActiveSaveData.current_battle], "Zenith"):
+	while not EncounterTable.encounterHasEnemy(EncounterTable.table[ActiveSaveData.current_battle], "Silo Lord"):
 		skipBattle()
 
 
@@ -66,7 +66,7 @@ func loadStartingPartyMembers() -> void:
 	
 	c1.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 	
-	ActiveSaveData.addPartyMember(c1)
+	ActiveSaveData.party.addPartyMember(c1)
 
 
 func addDefector():
@@ -83,7 +83,7 @@ func addDefector():
 
 	c2.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 	
-	ActiveSaveData.addPartyMember(c2)
+	ActiveSaveData.party.addPartyMember(c2)
 
 
 func addScholar():
@@ -102,14 +102,14 @@ func addScholar():
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Acid Spit", 1), true)
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Honey", 1), true)
 	c3.installBlueprint(Blueprint.getBlueprintFromGlobalList("Whet", 1), true)
-	ActiveSaveData.addPartyMember(c3)
+	ActiveSaveData.party.addPartyMember(c3)
 
 
 func loadBlueprints() -> void:
 	for blueprint in GlobalProgramData.all_blueprints:
 		if blueprint is BlueprintAttack:
-			ActiveSaveData.found_blueprints_attack.append(blueprint)
+			ActiveSaveData.party.found_blueprints_attack.append(blueprint)
 		elif blueprint is BlueprintSupport:
-			ActiveSaveData.found_blueprints_support.append(blueprint)
+			ActiveSaveData.party.found_blueprints_support.append(blueprint)
 		elif blueprint is BlueprintPassive:
-			ActiveSaveData.found_blueprints_passive.append(blueprint)
+			ActiveSaveData.party.found_blueprints_passive.append(blueprint)

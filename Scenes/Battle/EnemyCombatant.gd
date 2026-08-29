@@ -47,7 +47,7 @@ func chooseBlueprintOrNull(party_combatants: Array[PartyCombatant], enemy_combat
 	elif morphose.name.matchn("PROMETHEUS"):
 		result = prometheusChooseBlueprint()
 	elif morphose.name.matchn("ZENITH"):
-		result = zenithChooseBlueprint()
+		result = zenithChooseBlueprint(enemy_combatants)
 	else:
 		result = chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
 
@@ -115,13 +115,12 @@ func tankerChooseBlueprint(enemy_combatants: Array[EnemyCombatant]) -> Blueprint
 	
 	if silo_lord == null:	# If Silo Lord absent or defeated, act randomly
 		return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
-	if silo_lord.sumOfBuffs() < 3 and canUseBlueprint(getBlueprint("Turbo")):
+	if silo_lord.biggestBuff() < 2 and canUseBlueprint(getBlueprint("Turbo")):
 		return getBlueprint("Turbo")
 	
 	var choice_list: Array = []
 	for blueprint in getPossibleBlueprintActions():
-		if not blueprint.base_display_name.matchn("Turbo"):
-			choice_list.append(blueprint)	# Don't Turbo Silo Lord if already buffed
+		choice_list.append(blueprint)
 	return chooseBlueprintOrNullFromList(choice_list)
 
 
@@ -156,7 +155,7 @@ func prometheusChooseBlueprint() -> Blueprint:
 	return chooseBlueprintOrNullFromList(getPossibleBlueprintActions())
 
 
-func zenithChooseBlueprint() -> Blueprint:
+func zenithChooseBlueprint(enemy_combatants: Array[EnemyCombatant]) -> Blueprint:
 	var action_list: Array = []
 	if ai_sequence == 1:		# Start battle by using Perfect
 		return getBlueprint("Perfect", 1)
@@ -170,7 +169,8 @@ func zenithChooseBlueprint() -> Blueprint:
 			else:
 				addBlueprintToActionListIfUseable(action_list, "Mind Rip")
 				addBlueprintToActionListIfUseable(action_list, "Crush")
-				addBlueprintToActionListIfUseable(action_list, "Bud")
+				if enemy_combatants.size() < 5:
+					addBlueprintToActionListIfUseable(action_list, "Bud")
 				if sumOfBuffs() < 1:	# Consider using Perfect is buffs too low
 					addBlueprintToActionListIfUseable(action_list, "Perfect")
 		else:
@@ -180,7 +180,8 @@ func zenithChooseBlueprint() -> Blueprint:
 			else:
 				addBlueprintToActionListIfUseable(action_list, "Mind Rip")
 				addBlueprintToActionListIfUseable(action_list, "Crush")
-				addBlueprintToActionListIfUseable(action_list, "Bud")
+				if enemy_combatants.size() < 5:
+					addBlueprintToActionListIfUseable(action_list, "Bud")
 				addBlueprintToActionListIfUseable(action_list, "FusionBomb")
 				if sumOfBuffs() < 4:	# Consider using Perfect is buffs too low (higher threshold)
 					addBlueprintToActionListIfUseable(action_list, "Perfect")

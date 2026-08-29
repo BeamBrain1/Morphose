@@ -21,16 +21,16 @@ func loadDataFromGlobal() -> void:
 	blueprints_support = []
 	blueprints_passive = []
 	
-	for item in ActiveSaveData.party_members:
+	for item in ActiveSaveData.party.members:
 		party_member_list.append(item)
 
-	for item in ActiveSaveData.found_blueprints_attack:
+	for item in ActiveSaveData.party.found_blueprints_attack:
 		blueprints_attack.append(item)
 
-	for item in ActiveSaveData.found_blueprints_support:
+	for item in ActiveSaveData.party.found_blueprints_support:
 		blueprints_support.append(item)
 
-	for item in ActiveSaveData.found_blueprints_passive:
+	for item in ActiveSaveData.party.found_blueprints_passive:
 		blueprints_passive.append(item)
 	
 	$WindowBase.loadPartyMemberList(party_member_list)
@@ -99,7 +99,7 @@ func resetActiveCharacter() -> void:
 
 
 func save() -> void:
-	ActiveSaveData.party_members = party_member_list
+	ActiveSaveData.party.members = party_member_list
 	root.setActiveController("Battle")
 
 

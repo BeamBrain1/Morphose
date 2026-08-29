@@ -716,6 +716,15 @@ func sumOfBuffs() -> int:
 
 
 # Returns value of biggest debuff
+func biggestBuff() -> int:
+	var result: int = 0
+	for stacks in [regen_stacks, sharpened_stacks, hardened_stacks, keen_stacks, energized_stacks, focused_stacks]:
+		if stacks > result:
+			result = stacks
+	return result
+
+
+# Returns value of biggest debuff
 func biggestDebuff() -> int:
 	var result: int = 0
 	for stacks in [regen_stacks, sharpened_stacks, hardened_stacks, keen_stacks, energized_stacks, focused_stacks]:

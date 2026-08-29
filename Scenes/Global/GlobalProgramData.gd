@@ -8,3 +8,13 @@ const ADD_SCHOLAR_BEFORE_BATTLE = 17
 static var all_blueprints: Array = BlueprintLoader.blueprintList()
 
 enum COMBAT_STAT {HP, ATTACK, DEFENSE, SENSES, SPEED, TECH_POINTS}
+
+
+enum DIRECTION {UP, DOWN, LEFT, RIGHT}
+
+const direction_vector: Dictionary = {
+	DIRECTION.UP: Vector2.UP,
+	DIRECTION.RIGHT: Vector2.UP,
+	DIRECTION.DOWN: Vector2.UP,
+	DIRECTION.LEFT: Vector2.UP
+}

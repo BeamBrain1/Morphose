@@ -17,6 +17,7 @@ const PARTY_MEMBER_2_NAME: String = "Defector"
 const PARTY_MEMBER_3_NAME: String = "Scholar"
 
 var bio_energy: int = 0		# Unspent bio-energy
+const MAX_STORED_BIO_ENERGY: int = 99999
 
 var discounted_stats: Array[GlobalProgramData.COMBAT_STAT] = [] # Discounted stats are cheaper to upgrade than base cost
 
@@ -299,3 +300,7 @@ func removeBlueprintSlot() -> void:
 			uninstallBlueprint(allBlueprints().back())
 	else:
 		push_error("Tried to remove blueprint slot at min slots")
+
+
+func giveBioEnergy(muta: int) -> void:
+	bio_energy += muta

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://p02ppxjudw6n"]
+
+[ext_resource type="Script" uid="uid://2g70auh7m53a" path="res://Scenes/Global/party.gd" id="1_5etsk"]
+
+[node name="Party" type="Node2D" unique_id=1363736307]
+script = ExtResource("1_5etsk")

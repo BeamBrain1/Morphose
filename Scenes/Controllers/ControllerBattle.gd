@@ -65,7 +65,7 @@ func mainLoop():
 # Run this if player lost battle
 func battleLost() -> void:
 	$BattleMessageDisplay.pushBattleMessage("You lose! All party members have been given " + str(consolationMuta()) + " Muta. Build them up and try again!")
-	ActiveSaveData.awardMuta(consolationMuta())
+	ActiveSaveData.party.awardMuta(consolationMuta())
 	battle_won = false
 	await showBattleMessages(true)
 
@@ -73,7 +73,7 @@ func battleLost() -> void:
 # Run this if player won battle
 func battleWon() -> void:
 	$BattleMessageDisplay.pushBattleMessage("You win!\nReceived " + str(victoryMuta()) + " Muta. Build your party up for the next battle!")
-	ActiveSaveData.awardMuta(victoryMuta())
+	ActiveSaveData.party.awardMuta(victoryMuta())
 	battle_won = true
 	await showBattleMessages(true)
 
@@ -165,7 +165,7 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 	if blueprint.special.matchn("swarm"):
 		specialReinforce("Swarmer", 4)
 	elif blueprint.special.matchn("bud"):
-		specialReinforce("Z-Spawn", 3)
+		specialReinforce("Z-Spawn", 4)
 
 
 func specialReinforce(enemy_type: String, num_joiners: int) -> void:
@@ -290,14 +290,14 @@ func buildPlayerCharacters() -> void:
 	
 	var party_members: Array[PartyCombatant]
 	
-	for party_member in ActiveSaveData.party_members:
+	for party_member in ActiveSaveData.party.members:
 		party_members.append(PartyCombatant.new(party_member))
 
 	$PartyStatusDisplay.assignPartyMemberStatusDisplaysFromList(party_members)
 
 
 func buildEnemies() -> void:	
-	var encounter_enemy_list = EncounterTable.getEncounterAtIndex(ActiveSaveData.current_battle)	
+	var encounter_enemy_list = EncounterTable.getEncounterAtIndex(ActiveSaveData.current_battle)
 	$EnemyDisplayGrid.assignEnemyStatusDisplaysFromList(encounter_enemy_list)
 
 
