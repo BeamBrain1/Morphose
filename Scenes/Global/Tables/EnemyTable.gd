@@ -445,11 +445,11 @@ static func buildEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "King Crab"
-	current_enemy.hp = 600
+	current_enemy.hp = 900
 	current_enemy.tech_points = 800
 	current_enemy.attack = 170
 	current_enemy.defense = 170
-	current_enemy.senses = 100
+	current_enemy.senses = 110
 	current_enemy.speed = 80
 	current_enemy.installBlueprintByNameAndTier("Claw", 3)
 	current_enemy.installBlueprintByNameAndTier("Hammer", 2)

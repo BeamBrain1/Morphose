@@ -12,7 +12,9 @@ func _ready() -> void:
 	randomize()
 	loadStartingPartyMembers()
 	loadBlueprints()
-	setActiveController("BuildCharacter")
+	#setActiveController("BuildCharacter")
+	setActiveController("Overworld")
+	active_controller.assignOverworldMapAndPartyLocation("TestMap", Vector2(5, 2))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

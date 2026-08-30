@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b8urpap6yh44c"]
+
+[ext_resource type="Script" uid="uid://dr3r8aqh4nvr0" path="res://Scenes/Overworld/Maps/overworld_map.gd" id="1_spnbm"]
+[ext_resource type="PackedScene" uid="uid://bm5l7me1ug7k2" path="res://Scenes/Overworld/PartyToken.tscn" id="2_1yhsc"]
+
+[node name="OverworldMap" type="Node2D" unique_id=1987703735]
+script = ExtResource("1_spnbm")
+
+[node name="TileMapLayersLower" type="Node2D" parent="." unique_id=1840348333]
+
+[node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("2_1yhsc")]
+
+[node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]
+
+[connection signal="move" from="PartyToken" to="." method="attemptMovePartyToken"]

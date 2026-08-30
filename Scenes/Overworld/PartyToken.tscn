@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bm5l7me1ug7k2"]
+
+[ext_resource type="Texture2D" uid="uid://dnwovnv2te2wb" path="res://Graphics/OverworldObjects/party.png" id="1_choj3"]
+[ext_resource type="Script" uid="uid://bqa3lxc78xx6r" path="res://Scenes/Overworld/party_token.gd" id="2_jvact"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvact"]
+atlas = ExtResource("1_choj3")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_taq4c"]
+atlas = ExtResource("1_choj3")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21cph"]
+atlas = ExtResource("1_choj3")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxhm1"]
+atlas = ExtResource("1_choj3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vqo64"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jvact")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_taq4c")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21cph")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxhm1")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="PartyToken" type="AnimatedSprite2D" unique_id=809970201]
+sprite_frames = SubResource("SpriteFrames_vqo64")
+animation = &"down"
+centered = false
+script = ExtResource("2_jvact")

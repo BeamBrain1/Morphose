@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://mi56g4x7wi62"]
+
+[ext_resource type="Texture2D" uid="uid://oh4j2o7luaqc" path="res://Graphics/Tilemaps/test.png" id="1_76p65"]
+[ext_resource type="Script" uid="uid://druo7t446mkn8" path="res://Scenes/Overworld/TileMapLayers/tile_map_layer_morphose.gd" id="2_7p0ba"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xw3hi"]
+texture = ExtResource("1_76p65")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_xt0t7"]
+sources/0 = SubResource("TileSetAtlasSource_xw3hi")
+
+[node name="TileMapLayerMorphose" type="TileMapLayer" unique_id=341831536]
+tile_set = SubResource("TileSet_xt0t7")
+script = ExtResource("2_7p0ba")
+solid_tiles = [Vector2(1, 0)]

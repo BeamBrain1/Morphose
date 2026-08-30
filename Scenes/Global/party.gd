@@ -3,6 +3,7 @@ extends Node2D
 
 var members: Array[PartyMember] = []
 var location: OverworldPosition
+var facing_direction: GlobalProgramData.DIRECTION
 
 var found_blueprints_attack: Array[BlueprintAttack] = []
 var found_blueprints_support: Array[BlueprintSupport] = []
@@ -31,3 +32,8 @@ func addBlueprint(blueprint) -> void:
 func awardMuta(muta: int) -> void:
 	for member in members:
 		member.giveBioEnergy(muta)
+
+
+func setLocationAndDirection(location_in: OverworldPosition, direction: GlobalProgramData.DIRECTION = GlobalProgramData.DIRECTION.DOWN):
+	location = location_in
+	facing_direction = direction
