@@ -12,4 +12,4 @@ script = ExtResource("1_spnbm")
 
 [node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]
 
-[connection signal="move" from="PartyToken" to="." method="attemptMovePartyToken"]
+[node name="WarpPoints" type="Node2D" parent="." unique_id=1873494315]

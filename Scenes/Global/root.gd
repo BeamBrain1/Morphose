@@ -14,7 +14,7 @@ func _ready() -> void:
 	loadBlueprints()
 	#setActiveController("BuildCharacter")
 	setActiveController("Overworld")
-	active_controller.assignOverworldMapAndPartyLocation("TestMap", Vector2(5, 2))
+	active_controller.assignOverworldMapAndPartyLocation("TestMap1", Vector2(5, 2))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

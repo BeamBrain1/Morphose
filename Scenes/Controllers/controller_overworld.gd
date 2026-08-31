@@ -16,6 +16,7 @@ func assignOverworldMapAndPartyLocation(map_name: String, party_grid_position: V
 	current_map = load(MAP_DIRECTORY + map_name + ".tscn").instantiate()
 	add_child(current_map)
 	current_map.party_moved.connect(partyStep)
+	current_map.warp_point_hit.connect(warpPartyTo)
 	current_map.setPartyGridPosition(party_grid_position)
 	current_map.map_name = map_name
 	updateGlobalPartyPosition()
@@ -37,3 +38,7 @@ func updateGlobalPartyPosition() -> void:
 	var party_token: PartyToken = current_map.getPartyToken()
 	var overworld_position: OverworldPosition = OverworldPosition.new(current_map.map_name, OverworldMap.gridPosition(party_token))
 	ActiveSaveData.party.setLocationAndDirection(overworld_position, party_token.currentFacingDirection())
+
+
+func warpPartyTo(warp_point: WarpPoint) -> void:
+	assignOverworldMapAndPartyLocation(warp_point.destination_map, warp_point.destination_tile)
