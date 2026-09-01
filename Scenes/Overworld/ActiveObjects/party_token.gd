@@ -14,6 +14,8 @@ func _process(delta) -> void:
 		attemptMoveLeft()
 	elif Input.is_action_just_pressed("right"):
 		attemptMoveRight()
+	elif Input.is_action_just_pressed("overworld_interact"):
+		attemptInteract()
 
 
 func attemptMoveUp() -> void:
@@ -37,7 +39,12 @@ func attemptMoveRight() -> void:
 
 
 func attemptInteract() -> void:
-	emit_signal("interact", currentFacingDirection())
+	emit_signal("interact", getInteractingObjectPosition())
+
+
+# Get the position of the object the party is attempting to interact with based on position and direction
+func getInteractingObjectPosition() -> Vector2:
+	return OverworldMap.gridPosition(self) + GlobalProgramData.direction_vector[currentFacingDirection()]
 
 
 func currentFacingDirection() -> GlobalProgramData.DIRECTION:

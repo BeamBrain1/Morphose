@@ -5,12 +5,14 @@ const TILE_SIZE: int = 16
 
 signal party_moved
 signal warp_point_hit
+signal bp_collected
 
 var map_name: String
 
 
 func _ready() -> void:
 	get_node("PartyToken").move.connect(attemptMovePartyToken)
+	get_node("PartyToken").interact.connect(attemptInteract)
 
 
 func setPartyGridPosition(tile_grid_loc: Vector2) -> void:
@@ -26,6 +28,9 @@ func tileIsTraversable(tile_loc: Vector2) -> bool:
 			return false
 	for tile_map in get_node("TileMapLayersUpper").get_children():
 		if tile_map.isSolidTile(tile_loc):
+			return false
+	for container in get_node("BPContainers").get_children():
+		if gridCoordMatch(container, tile_loc):
 			return false
 	return true
 
@@ -71,3 +76,25 @@ func warpPointAt(grid_tile: Vector2) -> WarpPoint:
 
 func gridCoordMatch(object, coord: Vector2) -> bool:
 	return gridPosition(object).x == int(coord.x) and gridPosition(object).y == int(coord.y)
+
+
+# Party has just attempted to interact with object at supplied position
+func attemptInteract(grid_position: Vector2) -> void:
+	var container: BlueprintContainer = blueprintContainerAt(grid_position)
+	if container == null:
+		pass
+	elif not container.hasBeenOpened():
+		container.open()
+		emit_signal("bp_collected", container.blueprint)
+
+
+# Returns container at specified position or null if none
+func blueprintContainerAt(grid_position: Vector2) -> BlueprintContainer:
+	for container in get_node("BPContainers").get_children():
+		if gridCoordMatch(container, grid_position):
+			return container
+	return null
+
+
+func blueprintContainerOpened(blueprint) -> void:
+	emit_signal("bp_collected", blueprint)

@@ -17,6 +17,7 @@ func assignOverworldMapAndPartyLocation(map_name: String, party_grid_position: V
 	add_child(current_map)
 	current_map.party_moved.connect(partyStep)
 	current_map.warp_point_hit.connect(warpPartyTo)
+	current_map.bp_collected.connect(collectBlueprint)
 	current_map.setPartyGridPosition(party_grid_position)
 	current_map.map_name = map_name
 	updateGlobalPartyPosition()
@@ -42,3 +43,8 @@ func updateGlobalPartyPosition() -> void:
 
 func warpPartyTo(warp_point: WarpPoint) -> void:
 	assignOverworldMapAndPartyLocation(warp_point.destination_map, warp_point.destination_tile)
+
+
+func collectBlueprint(blueprint) -> void:
+	ActiveSaveData.collectBlueprint(blueprint)
+	print("Collected blueprint: " + blueprint.getDialogDisplayName())

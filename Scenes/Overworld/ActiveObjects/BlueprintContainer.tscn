@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://ln74oo8r32i1"]
+
+[ext_resource type="Script" uid="uid://bfqijdd48ywuf" path="res://Scenes/Overworld/ActiveObjects/blueprint_container.gd" id="1_h6egy"]
+[ext_resource type="Texture2D" uid="uid://dfyntpiaghlsx" path="res://Graphics/OverworldObjects/blueprint_container.png" id="1_v0aft"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cekrq"]
+atlas = ExtResource("1_v0aft")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82iew"]
+atlas = ExtResource("1_v0aft")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h6egy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cekrq")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82iew")
+}],
+"loop": true,
+"name": &"opened",
+"speed": 5.0
+}]
+
+[node name="BlueprintContainer" type="AnimatedSprite2D" unique_id=1786945268]
+sprite_frames = SubResource("SpriteFrames_h6egy")
+animation = &"closed"
+centered = false
+script = ExtResource("1_h6egy")

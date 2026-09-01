@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dbm7qaox2j8jm"]
 
 [ext_resource type="Texture2D" uid="uid://cnbg16critmie" path="res://Graphics/OverworldObjects/warp_point.png" id="1_yhnma"]
-[ext_resource type="Script" uid="uid://2ui35hmof5tp" path="res://Scenes/Overworld/warp_point.gd" id="2_b8yyb"]
+[ext_resource type="Script" uid="uid://2ui35hmof5tp" path="res://Scenes/Overworld/ActiveObjects/warp_point.gd" id="2_b8yyb"]
 
 [node name="WarpPoint" type="Sprite2D" unique_id=852875268]
 texture = ExtResource("1_yhnma")

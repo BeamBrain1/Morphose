@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bm5l7me1ug7k2"]
 
 [ext_resource type="Texture2D" uid="uid://dnwovnv2te2wb" path="res://Graphics/OverworldObjects/party.png" id="1_choj3"]
-[ext_resource type="Script" uid="uid://bqa3lxc78xx6r" path="res://Scenes/Overworld/party_token.gd" id="2_jvact"]
+[ext_resource type="Script" uid="uid://bqa3lxc78xx6r" path="res://Scenes/Overworld/ActiveObjects/party_token.gd" id="2_jvact"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jvact"]
 atlas = ExtResource("1_choj3")
