@@ -2,15 +2,13 @@ extends Node2D
 
 signal tab_selected_window
 signal tab_selected_character
-signal skip
-signal skip_to
 signal reset
 signal save
 signal cancel
 
 
 func _ready() -> void:
-	$DialogInfoPanel.displayText("NEXT: " + nextBattleEnemyList())
+	$DialogInfoPanel.displayText("PLACEHOLDER")
 
 
 func loadPartyMemberList(list: Array[PartyMember]) -> void:
@@ -40,20 +38,3 @@ func _on_button_save_pressed() -> void:
 
 func _on_button_cancel_pressed() -> void:
 	emit_signal("cancel")
-
-
-func _on_button_skip_pressed() -> void:
-	emit_signal("skip")
-
-
-func _on_button_skip_to_pressed() -> void:
-	emit_signal("skip_to")
-
-
-func nextBattleEnemyList() -> String:
-	var result: String = ""
-	for enemy in ActiveSaveData.getNextBattle():
-		if result != "":
-			result += ", "
-		result += enemy.name.to_upper()
-	return result

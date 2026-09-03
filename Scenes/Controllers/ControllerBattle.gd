@@ -12,10 +12,6 @@ var selected_target
 var party_ran: bool = false		# Party running results in immediate combat loss. Avoids softlocks
 var battle_won: bool = false
 
-func _ready() -> void:
-	initializeTestFight()
-	mainLoop()
-
 
 func mainLoop():
 
@@ -196,8 +192,7 @@ func applyAttack(user, blueprint: BlueprintAttack, target) -> void:
 				var raw_damage: int = user.rawAttackDamage(blueprint)
 				var crit = user.attackCrits(blueprint, target)
 				if crit:
-					raw_damage *= 3
-					raw_damage /= 2
+					raw_damage *= 2
 					$BattleMessageDisplay.pushBattleMessage("Critical hit!")
 				target.receiveAttack(blueprint, raw_damage, crit)
 				pushCombatantBattleMessages(target)
@@ -276,14 +271,15 @@ func battleBioEnergyReward() -> int:
 	return ceili(float(result) / $PartyStatusDisplay.getPlayerCombatants().size())
 
 
-func initializeTestFight() -> void:
+func initializeBattle(enemy_list: Array) -> void:
 	$PrepareForNextBattleButton.hide()
 	$BattleMessageDisplay.close()
 	buildPlayerCharacters()
-	buildEnemies()
+	buildEnemies(enemy_list)
 	setUpActionButtons()
 	updateCombatantStatusDisplays()
 	switchToActivePlayMode()
+	mainLoop()
 
 
 func buildPlayerCharacters() -> void:
@@ -296,9 +292,8 @@ func buildPlayerCharacters() -> void:
 	$PartyStatusDisplay.assignPartyMemberStatusDisplaysFromList(party_members)
 
 
-func buildEnemies() -> void:	
-	var encounter_enemy_list = EncounterTable.getEncounterAtIndex(ActiveSaveData.current_battle)
-	$EnemyDisplayGrid.assignEnemyStatusDisplaysFromList(encounter_enemy_list)
+func buildEnemies(enemy_list: Array) -> void:
+	$EnemyDisplayGrid.assignEnemyStatusDisplaysFromList(enemy_list)
 
 
 func updateCombatantStatusDisplays() -> void:
@@ -397,4 +392,4 @@ func consolationMuta() -> int:
 
 
 func _on_prepare_for_next_battle_button_pressed() -> void:
-	root.toCharacterBuildScreen(battle_won)
+	switchToOverworldController()

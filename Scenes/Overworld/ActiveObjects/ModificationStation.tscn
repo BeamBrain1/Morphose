@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dqwv0hu2bnrch"]
+
+[ext_resource type="Texture2D" uid="uid://dfpik8dkapf4" path="res://Graphics/OverworldObjects/modification_station.png" id="1_gnhpj"]
+[ext_resource type="Script" uid="uid://bd4jwaxhnjs6x" path="res://Scenes/Overworld/ActiveObjects/modification_station.gd" id="2_w74tb"]
+
+[node name="ModificationStation" type="Sprite2D" unique_id=1734361512]
+texture = ExtResource("1_gnhpj")
+centered = false
+script = ExtResource("2_w74tb")

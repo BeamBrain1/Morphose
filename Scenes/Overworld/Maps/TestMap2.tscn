@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ln74oo8r32i1" path="res://Scenes/Overworld/ActiveObjects/BlueprintContainer.tscn" id="3_decin"]
 [ext_resource type="PackedScene" uid="uid://bm5l7me1ug7k2" path="res://Scenes/Overworld/ActiveObjects/PartyToken.tscn" id="3_pjl7k"]
 [ext_resource type="PackedScene" uid="uid://dbm7qaox2j8jm" path="res://Scenes/Overworld/ActiveObjects/WarpPoint.tscn" id="4_oepq4"]
+[ext_resource type="PackedScene" uid="uid://dqwv0hu2bnrch" path="res://Scenes/Overworld/ActiveObjects/ModificationStation.tscn" id="4_pjl7k"]
 
 [node name="OverworldMap" type="Node2D" unique_id=1987703735]
 script = ExtResource("1_r66yy")
@@ -30,6 +31,11 @@ blueprint_tier = 2
 position = Vector2(16, 96)
 blueprint_name = "Missile"
 blueprint_tier = 1
+
+[node name="ModificationStations" type="Node2D" parent="." unique_id=1768469792]
+
+[node name="ModificationStation" parent="ModificationStations" unique_id=1734361512 instance=ExtResource("4_pjl7k")]
+position = Vector2(16, 16)
 
 [node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("3_pjl7k")]
 

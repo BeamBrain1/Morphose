@@ -38,7 +38,7 @@ static func buildEnemyList() -> void:
 	current_enemy.name = "Enforcer"
 	current_enemy.hp = 15
 	current_enemy.tech_points = 10
-	current_enemy.attack = 12
+	current_enemy.attack = 10
 	current_enemy.defense = 6
 	current_enemy.senses = 4
 	current_enemy.speed = 5
@@ -49,10 +49,10 @@ static func buildEnemyList() -> void:
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Boss"
 	current_enemy.hp = 120
-	current_enemy.tech_points = 70
-	current_enemy.attack = 10
+	current_enemy.tech_points = 100
+	current_enemy.attack = 6
 	current_enemy.defense = 6
-	current_enemy.senses = 10
+	current_enemy.senses = 12
 	current_enemy.speed = 8
 	current_enemy.never_crits = true
 	current_enemy.installBlueprintByNameAndTier("Hammer", 1)

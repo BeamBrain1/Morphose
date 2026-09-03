@@ -6,6 +6,7 @@ const TILE_SIZE: int = 16
 signal party_moved
 signal warp_point_hit
 signal bp_collected
+signal mod_station_activated
 
 var map_name: String
 
@@ -23,20 +24,37 @@ func setPartyGridPosition(tile_grid_loc: Vector2) -> void:
 
 
 func tileIsTraversable(tile_loc: Vector2) -> bool:
-	for tile_map in get_node("TileMapLayersLower").get_children():
+	for tile_map in getTileMaps():
 		if tile_map.isSolidTile(tile_loc):
 			return false
-	for tile_map in get_node("TileMapLayersUpper").get_children():
-		if tile_map.isSolidTile(tile_loc):
-			return false
-	for container in get_node("BPContainers").get_children():
+	for container in getBlueprintContainers():
 		if gridCoordMatch(container, tile_loc):
+			return false
+	for station in getModificationStations():
+		if gridCoordMatch(station, tile_loc):
 			return false
 	return true
 
 
 func getPartyToken() -> PartyToken:
 	return $PartyToken
+
+
+func getTileMaps() -> Array:
+	var result = []
+	for tile_map in get_node("TileMapLayersLower").get_children():
+		result.append(tile_map)
+	for tile_map in get_node("TileMapLayersUpper").get_children():
+		result.append(tile_map)
+	return result
+
+
+func getBlueprintContainers() -> Array:
+	return get_node("BPContainers").get_children()
+
+
+func getModificationStations() -> Array:
+	return get_node("ModificationStations").get_children()
 
 
 # Attempt to move the party token. Returns true if successful movement, false if location blocked
@@ -80,12 +98,20 @@ func gridCoordMatch(object, coord: Vector2) -> bool:
 
 # Party has just attempted to interact with object at supplied position
 func attemptInteract(grid_position: Vector2) -> void:
+	
 	var container: BlueprintContainer = blueprintContainerAt(grid_position)
 	if container == null:
 		pass
-	elif not container.hasBeenOpened():
-		container.open()
-		emit_signal("bp_collected", container.blueprint)
+	else:
+		if not container.hasBeenOpened():
+			container.open()
+			emit_signal("bp_collected", container.blueprint)
+			
+	var station: ModificationStation = modificationStationAt(grid_position)
+	if station == null:
+		pass
+	else:
+		emit_signal("mod_station_activated")
 
 
 # Returns container at specified position or null if none
@@ -98,3 +124,11 @@ func blueprintContainerAt(grid_position: Vector2) -> BlueprintContainer:
 
 func blueprintContainerOpened(blueprint) -> void:
 	emit_signal("bp_collected", blueprint)
+
+
+# Returns container at specified position or null if none
+func modificationStationAt(grid_position: Vector2) -> ModificationStation:
+	for station in get_node("ModificationStations").get_children():
+		if gridCoordMatch(station, grid_position):
+			return station
+	return null

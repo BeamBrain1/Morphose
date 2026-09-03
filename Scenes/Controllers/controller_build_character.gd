@@ -9,6 +9,8 @@ var active_party_member: PartyMember
 var active_blueprint_type: String
 var active_window: String
 
+var at_modification_station: bool = true
+
 
 func _ready() -> void:
 	loadDataFromGlobal()
@@ -100,17 +102,8 @@ func resetActiveCharacter() -> void:
 
 func save() -> void:
 	ActiveSaveData.party.members = party_member_list
-	root.setActiveController("Battle")
+	switchToOverworldController()
 
 
 func cancel() -> void:
-	root.setActiveController("Battle")
-
-
-# Skip upcoming battle
-func _on_window_base_skip() -> void:
-	root.skipBattle()
-
-
-func _on_window_base_skip_to() -> void:
-	root.skipToEncounter()
+	switchToOverworldController()

@@ -10,6 +10,8 @@ script = ExtResource("1_spnbm")
 
 [node name="BPContainers" type="Node2D" parent="." unique_id=1751327076]
 
+[node name="ModificationStations" type="Node2D" parent="." unique_id=188512586]
+
 [node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("2_1yhsc")]
 
 [node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]

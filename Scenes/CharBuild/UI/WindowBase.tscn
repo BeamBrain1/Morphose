@@ -39,7 +39,6 @@ offset_bottom = 152.0
 offset_right = 80.0
 offset_bottom = 24.0
 script = ExtResource("6_h8fae")
-metadata/_edit_group_ = true
 
 [node name="Header" type="Label" parent="DialogCharacterSelect" unique_id=1248787205]
 layout_mode = 0
@@ -131,48 +130,6 @@ offset_right = 80.0
 offset_bottom = 240.0
 expand_programmatically = false
 
-[node name="ButtonSkipTo" type="Button" parent="DialogExitScreen" unique_id=330645868]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 72.0
-offset_bottom = 16.0
-theme = SubResource("Theme_ba66s")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
-theme_override_fonts/font = ExtResource("6_0s7e1")
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxTexture_y1m00")
-theme_override_styles/pressed = ExtResource("8_f4qa5")
-theme_override_styles/hover = ExtResource("9_gkk13")
-theme_override_styles/disabled = ExtResource("10_jrur7")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
-text = " SKIP TO"
-alignment = 0
-
-[node name="ButtonSkip" type="Button" parent="DialogExitScreen" unique_id=1251604811]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 16.0
-offset_right = 72.0
-offset_bottom = 24.0
-theme = SubResource("Theme_ba66s")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
-theme_override_fonts/font = ExtResource("6_0s7e1")
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxTexture_y1m00")
-theme_override_styles/pressed = ExtResource("8_f4qa5")
-theme_override_styles/hover = ExtResource("9_gkk13")
-theme_override_styles/disabled = ExtResource("10_jrur7")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_5pkbu")
-text = " SKIP"
-alignment = 0
-
 [node name="ButtonSave" type="Button" parent="DialogExitScreen" unique_id=374946045]
 layout_mode = 0
 offset_left = 8.0
@@ -260,7 +217,7 @@ autowrap_mode = 2
 [node name="Separator2" type="ColorRect" parent="." unique_id=270115455]
 offset_top = 152.0
 offset_right = 80.0
-offset_bottom = 160.0
+offset_bottom = 184.0
 
 [node name="Separator3" type="ColorRect" parent="." unique_id=1426432161]
 offset_left = 80.0
@@ -299,8 +256,6 @@ autowrap_mode = 2
 
 [connection signal="tab_selected" from="DialogCharacterSelect/Body/TabHeaderList" to="." method="tabSelectedCharacter"]
 [connection signal="tab_selected" from="DialogBuildWindow/Body/TabHeaderList" to="." method="tabSelectedWindow"]
-[connection signal="pressed" from="DialogExitScreen/ButtonSkipTo" to="." method="_on_button_skip_to_pressed"]
-[connection signal="pressed" from="DialogExitScreen/ButtonSkip" to="." method="_on_button_skip_pressed"]
 [connection signal="pressed" from="DialogExitScreen/ButtonSave" to="." method="_on_button_save_pressed"]
 [connection signal="pressed" from="DialogExitScreen/ButtonCancel" to="." method="_on_button_cancel_pressed"]
 [connection signal="pressed" from="DialogExitScreen/ButtonReset" to="." method="_on_button_reset_pressed"]

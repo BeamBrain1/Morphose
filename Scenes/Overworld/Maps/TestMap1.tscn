@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ln74oo8r32i1" path="res://Scenes/Overworld/ActiveObjects/BlueprintContainer.tscn" id="3_fvegh"]
 [ext_resource type="PackedScene" uid="uid://bm5l7me1ug7k2" path="res://Scenes/Overworld/ActiveObjects/PartyToken.tscn" id="3_j5bwv"]
 [ext_resource type="PackedScene" uid="uid://dbm7qaox2j8jm" path="res://Scenes/Overworld/ActiveObjects/WarpPoint.tscn" id="4_72qr6"]
+[ext_resource type="PackedScene" uid="uid://dqwv0hu2bnrch" path="res://Scenes/Overworld/ActiveObjects/ModificationStation.tscn" id="4_fvegh"]
 
 [node name="OverworldMap" type="Node2D" unique_id=1987703735]
 script = ExtResource("1_pviaa")
@@ -30,6 +31,11 @@ blueprint_tier = 2
 position = Vector2(160, 96)
 blueprint_name = "Laser"
 blueprint_tier = 1
+
+[node name="ModificationStations" type="Node2D" parent="." unique_id=24983530]
+
+[node name="ModificationStation" parent="ModificationStations" unique_id=1734361512 instance=ExtResource("4_fvegh")]
+position = Vector2(208, 160)
 
 [node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("3_j5bwv")]
 

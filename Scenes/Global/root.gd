@@ -11,15 +11,8 @@ func _ready() -> void:
 	get_tree().root.content_scale_size = Vector2(960, 720)
 	randomize()
 	loadStartingPartyMembers()
-	loadBlueprints()
-	#setActiveController("BuildCharacter")
 	setActiveController("Overworld")
 	active_controller.assignOverworldMapAndPartyLocation("TestMap1", Vector2(5, 2))
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func setActiveController(controller: String) -> void:
@@ -28,30 +21,26 @@ func setActiveController(controller: String) -> void:
 	active_controller = load(CONTROLLER_DIRECTORY_AND_PREFIX + controller + ".tscn").instantiate()
 	active_controller.root = self
 	add_child(active_controller)
+	active_controller.switch_to_battle_controller.connect(toBattleController)
+	active_controller.switch_to_char_build_controller.connect(toCharacterBuildScreen)
+	active_controller.switch_to_overworld_controller.connect(toOverworld)
 
 
 # won_previous: Did we win a previous battle? Used to determine whether to add a new party member
 #	(a party member only gets added the first time we prep for a specific battle number
-func toCharacterBuildScreen(won_previous = false) -> void:
-	if won_previous:
-		ActiveSaveData.current_battle += 1
-		if ActiveSaveData.current_battle == GlobalProgramData.ADD_DEFECTOR_BEFORE_BATTLE:
-			addDefector()
-		if ActiveSaveData.current_battle == GlobalProgramData.ADD_SCHOLAR_BEFORE_BATTLE:
-			addScholar()
-
+func toCharacterBuildScreen(at_modification_station: bool = true) -> void:
 	setActiveController("BuildCharacter")
+	active_controller.at_modification_station = at_modification_station
 
 
-func skipBattle() -> void:
-	var base_muta_value : int = EncounterTable.getEncounterBioEnergyValue(ActiveSaveData.current_battle)
-	ActiveSaveData.party.awardMuta(ceili(float(base_muta_value) / ActiveSaveData.party.members.size()))
-	toCharacterBuildScreen(true)
+func toBattleController(enemy_list: Array) -> void:
+	setActiveController("Battle")
+	active_controller.initializeBattle(enemy_list)
 
 
-func skipToEncounter() -> void:
-	while not EncounterTable.encounterHasEnemy(EncounterTable.table[ActiveSaveData.current_battle], "Silo Lord"):
-		skipBattle()
+func toOverworld() -> void:
+	setActiveController("Overworld")
+	active_controller.loadSavedPartyLocation()
 
 
 func loadStartingPartyMembers() -> void:
@@ -63,10 +52,8 @@ func loadStartingPartyMembers() -> void:
 	c1.defense = PartyMember.STAT_MINIMUM
 	c1.senses = PartyMember.STAT_MINIMUM
 	c1.speed = PartyMember.STAT_MINIMUM
-	c1.bio_energy = STARTING_BIO_ENERGY
+	c1.bio_energy = 100#STARTING_BIO_ENERGY
 	c1.discounted_stats = [GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.SPEED, GlobalProgramData.COMBAT_STAT.SENSES]
-	
-	c1.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 	
 	ActiveSaveData.party.addPartyMember(c1)
 
@@ -107,11 +94,11 @@ func addScholar():
 	ActiveSaveData.party.addPartyMember(c3)
 
 
-func loadBlueprints() -> void:
+func giveAllBlueprints() -> void:
 	for blueprint in GlobalProgramData.all_blueprints:
 		if blueprint is BlueprintAttack:
-			ActiveSaveData.party.found_blueprints_attack.append(blueprint)
+			ActiveSaveData.party.collectBlueprint(blueprint)
 		elif blueprint is BlueprintSupport:
-			ActiveSaveData.party.found_blueprints_support.append(blueprint)
+			ActiveSaveData.party.collectBlueprint(blueprint)
 		elif blueprint is BlueprintPassive:
-			ActiveSaveData.party.found_blueprints_passive.append(blueprint)
+			ActiveSaveData.party.collectBlueprint(blueprint)
