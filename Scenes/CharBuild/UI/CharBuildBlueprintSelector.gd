@@ -17,6 +17,8 @@ var assigned_party_member: PartyMember
 @export var SelectBlueprintButton: PackedScene
 signal blueprint_selected
 
+var at_modification_station: bool = true
+
 
 func assignBuyableBlueprintList(blueprint_list_in: Array, party_member: PartyMember):
 	blueprint_list = []
@@ -38,6 +40,10 @@ func assignPartyMemberBlueprintList(party_member: PartyMember):
 	current_page = 0
 	assigned_party_member = party_member
 	populateButtonList()
+
+
+func assignAtModStationValue(at_mod_station_value_in: bool) -> void:
+	at_modification_station = at_mod_station_value_in
 
 
 func prevPage() -> void:
@@ -76,8 +82,17 @@ func populateButtonList() -> void:
 		select_blueprint_button.position = INITIAL_BLUEPRINT_BUTTON_POSITION + Vector2(0, NEXT_BLUEPRINT_Y_OFFSET * (i - BLUEPRINTS_PER_PAGE * current_page))
 		if checks_tp_cost:
 			select_blueprint_button.disabled = blueprint_list[i].getBioEnergyCost() > assigned_party_member.bio_energy or not assigned_party_member.hasAFreeBlueprintSlot()
+		else:
+			select_blueprint_button.disabled = blueprintOrPredecessorPresentInSavedCharacterData(select_blueprint_button.blueprint) and not at_modification_station
 		select_blueprint_button.choose_blueprint.connect(blueprintSelected)
 		select_blueprint_button.text = blueprintButtonText(blueprint_list[i])
+
+
+# Is the blueprint or a predecessor present in the assigned party member's active save data?
+# Used to detect previously installed blueprints that cannot be removed if not at a modification station
+func blueprintOrPredecessorPresentInSavedCharacterData(blueprint) -> bool:
+	var saved_party_member: PartyMember = ActiveSaveData.getPartyMemberByName(assigned_party_member.name)
+	return saved_party_member.hasBlueprintOrPredecessor(blueprint)
 
 
 func numPages() -> int:

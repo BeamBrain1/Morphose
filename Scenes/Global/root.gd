@@ -30,7 +30,7 @@ func setActiveController(controller: String) -> void:
 #	(a party member only gets added the first time we prep for a specific battle number
 func toCharacterBuildScreen(at_modification_station: bool = true) -> void:
 	setActiveController("BuildCharacter")
-	active_controller.at_modification_station = at_modification_station
+	active_controller.configureAtModificationStation(at_modification_station)
 
 
 func toBattleController(enemy_list: Array) -> void:

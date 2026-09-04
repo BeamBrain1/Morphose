@@ -68,15 +68,15 @@ func getMenuDisplayName() -> String:
 
 
 func equals(other: Blueprint) -> bool:
-	return base_display_name == other.base_display_name and tier == other.tier
+	return base_display_name.matchn(other.base_display_name) and tier == other.tier
 
 
 func isPredecessorOf(other) -> bool:
-	return base_display_name == other.base_display_name and tier < other.tier
+	return base_display_name.matchn(other.base_display_name) and tier < other.tier
 
 
 func isPredecessorOrSuccessorOf(other) -> bool:
-	return base_display_name == other.base_display_name and tier != other.tier
+	return base_display_name.matchn(other.base_display_name) and tier != other.tier
 
 
 func hasPredecessors() -> bool:
@@ -121,7 +121,7 @@ static func blueprintIsInList(blueprint_list: Array, name_in: String, tier_in: i
 
 func isInList(blueprint_list: Array):
 	for blueprint in blueprint_list:
-		if base_display_name.to_upper() == blueprint.base_display_name.to_upper() and tier == blueprint.tier:
+		if equals(blueprint):
 			return true
 	return false
 

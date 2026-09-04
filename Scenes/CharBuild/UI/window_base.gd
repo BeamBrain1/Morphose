@@ -6,9 +6,15 @@ signal reset
 signal save
 signal cancel
 
+var at_mod_station: bool = true
+
 
 func _ready() -> void:
 	$DialogInfoPanel.displayText("PLACEHOLDER")
+
+
+func assignAtModStationValue(at_mod_station_in: bool) -> void:
+	at_mod_station = at_mod_station_in
 
 
 func loadPartyMemberList(list: Array[PartyMember]) -> void:
@@ -29,7 +35,7 @@ func tabSelectedCharacter(button_name: String) -> void:
 
 
 func _on_button_reset_pressed() -> void:
-	emit_signal("reset")
+	emit_signal("reset", at_mod_station)
 
 
 func _on_button_save_pressed() -> void:

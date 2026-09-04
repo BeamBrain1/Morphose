@@ -27,8 +27,11 @@ func updateDisplay(party_member: PartyMember = active_party_member, blueprint_ty
 		$DialogBlueprintSlots.assignPartyMember(party_member)
 
 
-func updateAvailableBlueprints(attack: Array[BlueprintAttack], support: Array[BlueprintSupport], passive: Array[BlueprintPassive]) -> void:
+func assignAtModStationValue(at_mod_station_value: bool) -> void:
+	$DialogInstalledBlueprints/Selector.assignAtModStationValue(at_mod_station_value)
 
+
+func updateAvailableBlueprints(attack: Array[BlueprintAttack], support: Array[BlueprintSupport], passive: Array[BlueprintPassive]) -> void:
 	blueprints_attack = attack
 	blueprints_support = support
 	blueprints_passive = passive

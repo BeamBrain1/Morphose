@@ -106,3 +106,11 @@ func passiveBlueprintTier(bp_name: String) -> int:
 			return bp.tier
 	push_error(name + " passive blueprint not found: " + bp_name)
 	return -1
+
+
+# Returns true if Morphose has the supplied blueprint or a predecessor, false otherwise
+func hasBlueprintOrPredecessor(blueprint_in) -> bool:
+	for bp in allBlueprints():
+		if blueprint_in.equals(bp) or bp.isPredecessorOf(blueprint_in):
+			return true
+	return false

@@ -61,3 +61,11 @@ func getCurrentMap() -> String:
 
 func getCurrentGridPosition() -> Vector2:
 	return location.grid_position
+
+
+# Gets party member by name or null if not found
+func getPartyMemberByName(name_in: String) -> PartyMember:
+	for member in members:
+		if name_in.matchn(member.name):
+			return member
+	return null

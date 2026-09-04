@@ -12,3 +12,7 @@ static func collectBlueprint(blueprint) -> void:
 
 static func allCollectedBlueprints() -> Array:
 	return party.allCollectedBlueprints()
+
+
+static func getPartyMemberByName(name_in: String) -> PartyMember:
+	return party.getPartyMemberByName(name_in)

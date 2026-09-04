@@ -27,6 +27,26 @@ const MAX_BLUEPRINT_SLOTS: int = 12
 const BASE_ADD_BLUEPRINT_SLOT_MUTA_COST: int = 100
 const ADD_BLUEPRINT_COST_MULTIPLIER: int = 2
 
+
+# Does a deep copy of target party member
+static func deepCopy(original: PartyMember) -> PartyMember:
+	var copy: PartyMember = PartyMember.new()
+	copy.name = original.name
+	copy.hp = original.hp
+	copy.attack = original.attack
+	copy.defense = original.defense
+	copy.senses = original.senses
+	copy.speed = original.speed
+	copy.tech_points = original.tech_points
+	copy.blueprints_attack = original.blueprints_attack.duplicate_deep()
+	copy.blueprints_support = original.blueprints_support.duplicate_deep()
+	copy.blueprints_passive = original.blueprints_passive.duplicate_deep()
+	copy.bio_energy = original.bio_energy
+	copy.discounted_stats = original.discounted_stats.duplicate_deep()
+	copy.blueprint_slots = original.blueprint_slots
+	return copy
+
+
 # Cost in bio-energy to boost a stat were it a given value
 func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) -> int:
 	

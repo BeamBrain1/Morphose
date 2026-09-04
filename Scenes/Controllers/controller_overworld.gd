@@ -10,6 +10,11 @@ const ENCOUNTER_RATE: int = 10
 const ENCOUNTER_THRESHOLD: int = 100
 
 
+func _process(delta) -> void:
+	if Input.is_action_just_pressed("pause"):
+		switchToCharBuildController(false)
+
+
 func assignOverworldMapAndPartyLocation(map_name: String, party_grid_position: Vector2, party_direction: GlobalProgramData.DIRECTION = GlobalProgramData.DIRECTION.DOWN):
 	if current_map != null:
 		current_map.call_deferred("queue_free")
@@ -53,7 +58,3 @@ func warpPartyTo(warp_point: WarpPoint) -> void:
 func collectBlueprint(blueprint) -> void:
 	ActiveSaveData.collectBlueprint(blueprint)
 	print("Collected blueprint: " + blueprint.getDialogDisplayName())
-
-
-func modificationStationActivated():
-	pass

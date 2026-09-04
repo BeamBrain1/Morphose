@@ -9,8 +9,6 @@ var active_party_member: PartyMember
 var active_blueprint_type: String
 var active_window: String
 
-var at_modification_station: bool = true
-
 
 func _ready() -> void:
 	loadDataFromGlobal()
@@ -24,7 +22,7 @@ func loadDataFromGlobal() -> void:
 	blueprints_passive = []
 	
 	for item in ActiveSaveData.party.members:
-		party_member_list.append(item)
+		party_member_list.append(PartyMember.deepCopy(item))
 
 	for item in ActiveSaveData.party.found_blueprints_attack:
 		blueprints_attack.append(item)
@@ -37,6 +35,12 @@ func loadDataFromGlobal() -> void:
 	
 	$WindowBase.loadPartyMemberList(party_member_list)
 	$WindowBlueprintManager.updateAvailableBlueprints(blueprints_attack, blueprints_support, blueprints_passive)
+
+
+func configureAtModificationStation(at_mod_station_in: bool) -> void:
+	$WindowBase.assignAtModStationValue(at_mod_station_in)
+	$WindowStatsAdjust.assignAtModStationValue(at_mod_station_in)
+	$WindowBlueprintManager.assignAtModStationValue(at_mod_station_in)
 
 
 func buildWindowSelected(window: String) -> void:
@@ -92,9 +96,12 @@ func updateAllDisplays() -> void:
 	updateBlueprintManager()
 
 
-func resetActiveCharacter() -> void:
+func resetActiveCharacter(at_mod_station: bool) -> void:
 	if active_party_member != null:
-		active_party_member.liquidateBioEnergy()
+		if at_mod_station:	# If at mod station, reset all bio energy
+			active_party_member.liquidateBioEnergy()
+		else:				# Otherwise, reset to state when window was opened
+			active_party_member = ActiveSaveData.getPartyMemberByName(active_party_member.name)
 		updateAllDisplays()
 	else:
 		push_error("Tried to reset bio-energy when no party member selected.")
