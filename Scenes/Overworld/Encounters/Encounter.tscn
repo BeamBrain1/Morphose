@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bxlx52nrj1d2b"]
+
+[ext_resource type="Script" uid="uid://wlpc1u4pcw3l" path="res://Scenes/Overworld/Encounters/encounter.gd" id="1_oapfu"]
+
+[node name="Encounter" type="Node" unique_id=1742068254]
+script = ExtResource("1_oapfu")

@@ -74,6 +74,11 @@ static func gridPosition(object) -> Vector2:
 	return Vector2(floori(result.x), floori(result.y))
 
 
+static func vectorGridPosition(vector: Vector2) -> Vector2:
+	var result = vector / TILE_SIZE
+	return Vector2(floori(result.x), floori(result.y))
+
+
 static func gridPositionToCanvasPosition(grid_position: Vector2) -> Vector2:
 	return grid_position * TILE_SIZE
 
@@ -131,4 +136,12 @@ func modificationStationAt(grid_position: Vector2) -> ModificationStation:
 	for station in get_node("ModificationStations").get_children():
 		if gridCoordMatch(station, grid_position):
 			return station
+	return null
+
+
+# Returns encounter zone party token occupies, or null if none
+func partyEncounterZone() -> EncounterZone:
+	for zone in $EncounterZones.get_children():
+		if zone.tokenIsInside($PartyToken):
+			return zone
 	return null

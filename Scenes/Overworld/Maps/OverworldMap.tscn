@@ -8,6 +8,8 @@ script = ExtResource("1_spnbm")
 
 [node name="TileMapLayersLower" type="Node2D" parent="." unique_id=1840348333]
 
+[node name="EncounterZones" type="Node2D" parent="." unique_id=778140669]
+
 [node name="BPContainers" type="Node2D" parent="." unique_id=1751327076]
 
 [node name="ModificationStations" type="Node2D" parent="." unique_id=188512586]
