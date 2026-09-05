@@ -7,7 +7,7 @@ var current_map: OverworldMap
 
 var danger_level: int = 0
 const ENCOUNTER_RATE: int = 10
-const ENCOUNTER_THRESHOLD: int = 10
+const ENCOUNTER_THRESHOLD: int = 100
 
 
 func _process(delta) -> void:
@@ -44,9 +44,7 @@ func partyStep() -> void:
 func doEncounter() -> void:
 	danger_level = 0
 	var encounter = current_map.partyEncounterZone().getRandomEncounter()
-	for enemy in encounter:
-		print(enemy.name)
-	print("---")
+	switchToBattleController(encounter)
 
 
 func updateGlobalPartyPosition() -> void:

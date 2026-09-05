@@ -54,8 +54,7 @@ theme_override_styles/pressed = ExtResource("4_cxpmc")
 theme_override_styles/hover = ExtResource("5_c6nqd")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_ui1bq")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_o007y")
-text = " Prepare For Next Battle"
-alignment = 0
+text = "CONTINUE"
 
 [connection signal="select_as_support_target" from="PartyStatusDisplay" to="." method="selectSupportTarget"]
 [connection signal="combatant_selected" from="EnemyDisplayGrid" to="." method="selectEnemyAsAttackTarget"]

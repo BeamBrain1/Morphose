@@ -60,7 +60,7 @@ func mainLoop():
 
 # Run this if player lost battle
 func battleLost() -> void:
-	$BattleMessageDisplay.pushBattleMessage("You lose! All party members have been given " + str(consolationMuta()) + " Muta. Build them up and try again!")
+	$BattleMessageDisplay.pushBattleMessage("You lose! All party members have been given " + str(consolationMuta()) + " consolation Muta.")
 	ActiveSaveData.party.awardMuta(consolationMuta())
 	battle_won = false
 	await showBattleMessages(true)
@@ -68,7 +68,7 @@ func battleLost() -> void:
 
 # Run this if player won battle
 func battleWon() -> void:
-	$BattleMessageDisplay.pushBattleMessage("You win!\nReceived " + str(victoryMuta()) + " Muta. Build your party up for the next battle!")
+	$BattleMessageDisplay.pushBattleMessage("You win!\nReceived " + str(victoryMuta()) + " Muta.")
 	ActiveSaveData.party.awardMuta(victoryMuta())
 	battle_won = true
 	await showBattleMessages(true)
