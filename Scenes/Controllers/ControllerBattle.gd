@@ -9,7 +9,7 @@ var selected_action: Combatant.ACTION
 var selected_blueprint
 var selected_target
 
-var party_ran: bool = false		# Party running results in immediate combat loss. Avoids softlocks
+var party_ran: bool = false		# Party made a successful escape attempt
 var battle_won: bool = false
 
 
@@ -52,16 +52,23 @@ func mainLoop():
 			break
 
 	# Battle end routine
-	if isPartyDefeated():
+	if party_ran:
+		battleFled()
+	elif isPartyDefeated():
 		battleLost()
 	elif allEnemiesDefeated():
 		battleWon()
 
 
+func battleFled() -> void:
+	$BattleMessageDisplay.pushBattleMessage("Successfully escaped.")
+	battle_won = false
+	await showBattleMessages(true)
+
+
 # Run this if player lost battle
 func battleLost() -> void:
-	$BattleMessageDisplay.pushBattleMessage("You lose! All party members have been given " + str(consolationMuta()) + " consolation Muta.")
-	ActiveSaveData.party.awardMuta(consolationMuta())
+	$BattleMessageDisplay.pushBattleMessage("You lose!")
 	battle_won = false
 	await showBattleMessages(true)
 
@@ -103,8 +110,12 @@ func displayAndRunChosenAction(actor, action: Combatant.ACTION, blueprint = null
 		pushCombatantBattleMessages(actor)
 	elif finalized_action == Combatant.ACTION.RUN:
 		actor.run()
-		party_ran = true
 		pushCombatantBattleMessages(actor)
+		if attemptRun():
+			party_ran = true
+			$BattleMessageDisplay.pushBattleMessage("The party escaped!")
+		else:
+			$BattleMessageDisplay.pushBattleMessage("Failed to escape!")
 	elif finalized_action == Combatant.ACTION.BLUEPRINT:
 		if blueprint.multitarget:
 			executeMultitargetBlueprint(actor, blueprint, getTargetList(actor, blueprint))
@@ -207,8 +218,6 @@ func applySupport(user, blueprint: BlueprintSupport, target) -> void:
 
 # Party is defeated when all members dead
 func isPartyDefeated() -> bool:
-	if party_ran:
-		return true
 	for morphose in $PartyStatusDisplay.getPlayerCombatants():
 		if not morphose.isDefeated():
 			return false
@@ -386,10 +395,14 @@ func victoryMuta() -> int:
 	return ceili(float($EnemyDisplayGrid.getTotalBioEnergyReward()) / $PartyStatusDisplay.numberOfPartyMembers())
 
 
-# Muta player gets per party member even if they lose
-func consolationMuta() -> int:
-	return ceili(victoryMuta() / 4)
-
-
 func _on_prepare_for_next_battle_button_pressed() -> void:
 	switchToOverworldController()
+
+
+# Attempt to run from battle. Returns true if successful, false if failed. Auto-fails if boss fight
+func attemptRun() -> bool:
+	if $EnemyDisplayGrid.encounterHasBoss():
+		return false
+	var party_run_points = $PartyStatusDisplay.getPartyRunPoints()
+	var enemy_catch_points = $EnemyDisplayGrid.getEnemyCatchPoints()
+	return randi() % (party_run_points + enemy_catch_points) < party_run_points

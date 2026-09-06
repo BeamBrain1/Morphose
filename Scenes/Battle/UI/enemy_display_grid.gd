@@ -81,6 +81,20 @@ func getEnemyCombatants() -> Array[EnemyCombatant]:
 
 func getTotalBioEnergyReward() -> int:
 	var result: int = 0
-	for display in enemy_status_displays:
-		result += display.enemy.getBioEnergyReward()
+	for combatant in getEnemyCombatants():
+		result += combatant.getBioEnergyReward()
 	return result
+
+
+func getEnemyCatchPoints() -> int:
+	var result = 0
+	for combatant in getEnemyCombatants():
+		result += combatant.catchPoints()
+	return result
+
+
+func encounterHasBoss() -> bool:
+	for combatant in getEnemyCombatants():
+		if combatant.isBoss():
+			return true
+	return false

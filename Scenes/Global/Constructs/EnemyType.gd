@@ -6,6 +6,7 @@ const BASE_BIO_ENERGY_REWARD: int = 10
 var support_priority: int = 5		# Priority bracket when AI targets support actions. Lower numbers always take priority
 var never_crits: bool = false		# Some early enemy types could oneshot Primus with a lucky crit
 var gives_bio_energy: bool = true	# Does this enemy give bio-energy upon defeat?
+var is_boss: bool = false			# Bosses cannot be run from
 
 # Used when deciding which blueprint to use.
 #	Key: Blueprint

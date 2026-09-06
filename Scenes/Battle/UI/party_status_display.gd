@@ -55,3 +55,10 @@ func numberOfPartyMembers() -> int:
 func toggleTurnIndicators(current_actor: Combatant) -> void:
 	for display in party_member_status_displays:
 		display.toggleTurnIndicator(current_actor)
+
+
+func getPartyRunPoints() -> int:
+	var result = 0
+	for combatant in getPlayerCombatants():
+		result += combatant.escapePoints()
+	return result

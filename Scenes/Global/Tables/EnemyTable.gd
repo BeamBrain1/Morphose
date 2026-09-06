@@ -55,6 +55,7 @@ static func buildEnemyList() -> void:
 	current_enemy.senses = 12
 	current_enemy.speed = 8
 	current_enemy.never_crits = true
+	current_enemy.is_boss = true
 	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -128,6 +129,7 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 16
 	current_enemy.senses = 14
 	current_enemy.speed = 14
+	current_enemy.is_boss = true
 	current_enemy.installBlueprintByNameAndTier("Fracture", 1, 3)
 	current_enemy.installBlueprintByNameAndTier("Numb Gas", 1)
 	addEnemyToTable(current_enemy)
@@ -167,6 +169,7 @@ static func buildEnemyList() -> void:
 	current_enemy.defense = 14
 	current_enemy.senses = 1
 	current_enemy.speed = 20
+	current_enemy.is_boss = true
 	current_enemy.installBlueprintByNameAndTier("Swarm", 1)
 	current_enemy.installBlueprintByNameAndTier("Marshal", 1)
 	current_enemy.installBlueprintByNameAndTier("Molt", 1)
@@ -277,6 +280,7 @@ static func buildEnemyList() -> void:
 	current_enemy.speed = 45
 	current_enemy.installBlueprintByNameAndTier("Claw", 2)
 	current_enemy.installBlueprintByNameAndTier("Flamejet", 2)
+	current_enemy.is_boss = true
 	addEnemyToTable(current_enemy)
 	
 	### MISSILE SILO ###
@@ -317,6 +321,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("FragBomb", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
 	current_enemy.installBlueprintByNameAndTier("Molt", 1)
+	current_enemy.is_boss = true
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -376,6 +381,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Bullseye", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 1)
 	current_enemy.installBlueprintByNameAndTier("Molt", 1)
+	current_enemy.is_boss = true
 	addEnemyToTable(current_enemy)
 	
 	### MILITARY BASE ###
@@ -391,6 +397,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Microwave", 1, 2)
 	current_enemy.installBlueprintByNameAndTier("Grenade", 1)
 	current_enemy.gives_bio_energy = false
+	current_enemy.is_boss = true
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -404,6 +411,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("160MM Gun", 1)
 	current_enemy.installBlueprintByNameAndTier("8MM MG", 1)
 	current_enemy.gives_bio_energy = false
+	current_enemy.is_boss = true
 	addEnemyToTable(current_enemy)
 	
 	# Include a burn-focused boss for a real climax
@@ -457,6 +465,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Formation", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
 	current_enemy.installBlueprintByNameAndTier("Molt", 2)
+	current_enemy.is_boss = true
 	addEnemyToTable(current_enemy)
 	
 	### SEAFLOOR ###
@@ -510,6 +519,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
 	current_enemy.support_priority = 1
+	current_enemy.is_boss = true
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -557,6 +567,7 @@ static func buildEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Immunity", 2)
 	current_enemy.gives_bio_energy = false
 	current_enemy.support_priority = 1
+	current_enemy.is_boss = true
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()

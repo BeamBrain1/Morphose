@@ -232,3 +232,15 @@ func chooseBlueprintOrNullFromList(blueprint_list: Array) -> Blueprint:
 	if prioritized_list.is_empty():
 		return null
 	return prioritized_list[randi() % prioritized_list.size()]
+
+
+# Catch points make it more difficult for player characters to escape battle
+func catchPoints() -> int:
+	if isDefeated():
+		return 0
+	else:
+		return getStatusEffectAdjustedSpeed()
+
+
+func isBoss() -> bool:
+	return morphose.is_boss

@@ -703,7 +703,7 @@ func wait() -> void:
 
 
 func run() -> void:
-	pushBattleMessage("The party runs away.")
+	pushBattleMessage("The party attempts to flee.")
 
 
 func isValidSupportTarget(blueprint: BlueprintSupport) -> bool:
