@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bmd72gir6vcsv"]
+
+[ext_resource type="Texture2D" uid="uid://dv8tsumpndwro" path="res://Graphics/OverworldObjects/script_trigger.png" id="1_0wjoo"]
+[ext_resource type="Script" uid="uid://ph4swy0xxo05" path="res://Scenes/Overworld/ActiveObjects/script_trigger.gd" id="2_no5k0"]
+
+[node name="ScriptTrigger" type="Sprite2D" unique_id=1663425241]
+texture = ExtResource("1_0wjoo")
+centered = false
+script = ExtResource("2_no5k0")

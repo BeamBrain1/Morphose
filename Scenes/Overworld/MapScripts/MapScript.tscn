@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cj2sxfgrclqgq"]
+
+[ext_resource type="Script" uid="uid://1u3wv6hyith2" path="res://Scenes/Overworld/MapScripts/MapScript.gd" id="1_ky2mh"]
+
+[node name="MapScript" type="Node" unique_id=1038762891]
+script = ExtResource("1_ky2mh")

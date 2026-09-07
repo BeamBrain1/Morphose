@@ -4,6 +4,7 @@ static var party: Party = Party.new()
 static var found_blueprints_attack: Array[BlueprintAttack] = []
 static var found_blueprints_support: Array[BlueprintSupport] = []
 static var found_blueprints_passive: Array[BlueprintPassive] = []
+static var overworld_flags: OverworldFlags = OverworldFlags.new()
 
 
 static func collectBlueprint(blueprint) -> void:
