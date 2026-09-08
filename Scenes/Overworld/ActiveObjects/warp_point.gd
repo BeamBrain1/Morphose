@@ -1,5 +1,5 @@
 class_name WarpPoint
-extends Sprite2D
+extends ActiveMapObject
 
 
 @export var destination_map: String

@@ -30,8 +30,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="BlueprintContainer" type="AnimatedSprite2D" unique_id=1786945268]
+[node name="BlueprintContainer" type="AnimatedSprite2D" unique_id=1571225975]
 sprite_frames = SubResource("SpriteFrames_h6egy")
 animation = &"closed"
 centered = false
 script = ExtResource("1_h6egy")
+is_solid = true
+metadata/_custom_type_script = "uid://do112qioq75g8"

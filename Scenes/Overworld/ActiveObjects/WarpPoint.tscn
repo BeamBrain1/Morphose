@@ -3,7 +3,23 @@
 [ext_resource type="Texture2D" uid="uid://cnbg16critmie" path="res://Graphics/OverworldObjects/warp_point.png" id="1_yhnma"]
 [ext_resource type="Script" uid="uid://2ui35hmof5tp" path="res://Scenes/Overworld/ActiveObjects/warp_point.gd" id="2_b8yyb"]
 
-[node name="WarpPoint" type="Sprite2D" unique_id=852875268]
-texture = ExtResource("1_yhnma")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmecn"]
+atlas = ExtResource("1_yhnma")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_56h74"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmecn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="WarpPoint" type="AnimatedSprite2D" unique_id=1169441803]
+sprite_frames = SubResource("SpriteFrames_56h74")
 centered = false
 script = ExtResource("2_b8yyb")
+metadata/_custom_type_script = "uid://do112qioq75g8"

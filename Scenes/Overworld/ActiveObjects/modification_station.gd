@@ -1,2 +1,2 @@
 class_name ModificationStation
-extends Sprite2D
+extends ActiveMapObject

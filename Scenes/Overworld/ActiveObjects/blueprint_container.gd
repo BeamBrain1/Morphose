@@ -1,5 +1,5 @@
 class_name BlueprintContainer
-extends AnimatedSprite2D
+extends ActiveMapObject
 
 @export var blueprint_name: String
 @export var blueprint_tier: int

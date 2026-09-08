@@ -47,35 +47,31 @@ weight = 2
 enemy_list = ["Enforcer", "Enforcer"]
 weight = 1
 
-[node name="BPContainers" type="Node2D" parent="." unique_id=1942269046]
+[node name="ActiveObjects" type="Node2D" parent="." unique_id=1639528641]
 
-[node name="BlueprintContainer" parent="BPContainers" unique_id=1786945268 instance=ExtResource("3_fvegh")]
+[node name="BlueprintContainer" parent="ActiveObjects" unique_id=1786945268 instance=ExtResource("3_fvegh")]
 position = Vector2(80, 96)
 blueprint_name = "Claw"
 blueprint_tier = 1
 
-[node name="BlueprintContainer2" parent="BPContainers" unique_id=596404887 instance=ExtResource("3_fvegh")]
+[node name="BlueprintContainer2" parent="ActiveObjects" unique_id=596404887 instance=ExtResource("3_fvegh")]
 position = Vector2(112, 96)
 blueprint_name = "Claw"
 blueprint_tier = 2
 
-[node name="BlueprintContainer3" parent="BPContainers" unique_id=270748362 instance=ExtResource("3_fvegh")]
+[node name="BlueprintContainer3" parent="ActiveObjects" unique_id=270748362 instance=ExtResource("3_fvegh")]
 position = Vector2(160, 96)
 blueprint_name = "Laser"
 blueprint_tier = 1
 
-[node name="ModificationStations" type="Node2D" parent="." unique_id=24983530]
-
-[node name="ModificationStation" parent="ModificationStations" unique_id=1734361512 instance=ExtResource("4_fvegh")]
+[node name="ModificationStation" parent="ActiveObjects" unique_id=1734361512 instance=ExtResource("4_fvegh")]
 position = Vector2(208, 160)
+
+[node name="WarpPoint" parent="ActiveObjects" unique_id=852875268 instance=ExtResource("4_72qr6")]
+position = Vector2(0, 112)
+destination_map = "TestMap2"
+destination_tile = Vector2(8, 8)
 
 [node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("3_j5bwv")]
 
 [node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]
-
-[node name="WarpPoints" type="Node2D" parent="." unique_id=44040018]
-
-[node name="WarpPoint" parent="WarpPoints" unique_id=852875268 instance=ExtResource("4_72qr6")]
-position = Vector2(0, 112)
-destination_map = "TestMap2"
-destination_tile = Vector2(8, 8)

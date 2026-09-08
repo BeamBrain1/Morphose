@@ -27,11 +27,8 @@ func tileIsTraversable(tile_loc: Vector2) -> bool:
 	for tile_map in getTileMaps():
 		if tile_map.isSolidTile(tile_loc):
 			return false
-	for container in getBlueprintContainers():
-		if gridCoordMatch(container, tile_loc):
-			return false
-	for station in getModificationStations():
-		if gridCoordMatch(station, tile_loc):
+	for object in $ActiveObjects.get_children():
+		if object.is_solid and gridCoordMatch(object, tile_loc):
 			return false
 	return true
 
@@ -50,11 +47,19 @@ func getTileMaps() -> Array:
 
 
 func getBlueprintContainers() -> Array:
-	return get_node("BPContainers").get_children()
+	var results = []
+	for node in get_node("ActiveObjects").get_children():
+		if node is BlueprintContainer:
+			results.append(node)
+	return results
 
 
 func getModificationStations() -> Array:
-	return get_node("ModificationStations").get_children()
+	var results = []
+	for node in get_node("ActiveObjects").get_children():
+		if node is ModificationStation:
+			results.append(node)
+	return results
 
 
 # Attempt to move the party token. Returns true if successful movement, false if location blocked
@@ -90,10 +95,10 @@ static func centerTileOnScreenLocation() -> Vector2:
 
 
 # Returns warp point or null if none present
-func warpPointAt(grid_tile: Vector2) -> WarpPoint:
-	for warp_point in get_node("WarpPoints").get_children():
-		if gridCoordMatch(warp_point, grid_tile):
-			return warp_point
+func warpPointAt(grid_position: Vector2) -> WarpPoint:
+	for node in get_node("ActiveObjects").get_children():
+		if node is WarpPoint and gridCoordMatch(node, grid_position):
+			return node
 	return null
 
 
@@ -121,8 +126,8 @@ func attemptInteract(grid_position: Vector2) -> void:
 
 # Returns container at specified position or null if none
 func blueprintContainerAt(grid_position: Vector2) -> BlueprintContainer:
-	for container in get_node("BPContainers").get_children():
-		if gridCoordMatch(container, grid_position):
+	for container in getBlueprintContainers():
+		if container is BlueprintContainer and gridCoordMatch(container, grid_position):
 			return container
 	return null
 
@@ -133,8 +138,8 @@ func blueprintContainerOpened(blueprint) -> void:
 
 # Returns container at specified position or null if none
 func modificationStationAt(grid_position: Vector2) -> ModificationStation:
-	for station in get_node("ModificationStations").get_children():
-		if gridCoordMatch(station, grid_position):
+	for station in getModificationStations():
+		if station is ModificationStation and gridCoordMatch(station, grid_position):
 			return station
 	return null
 

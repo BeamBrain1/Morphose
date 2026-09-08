@@ -3,7 +3,24 @@
 [ext_resource type="Texture2D" uid="uid://dfpik8dkapf4" path="res://Graphics/OverworldObjects/modification_station.png" id="1_gnhpj"]
 [ext_resource type="Script" uid="uid://bd4jwaxhnjs6x" path="res://Scenes/Overworld/ActiveObjects/modification_station.gd" id="2_w74tb"]
 
-[node name="ModificationStation" type="Sprite2D" unique_id=1734361512]
-texture = ExtResource("1_gnhpj")
+[sub_resource type="AtlasTexture" id="AtlasTexture_w74tb"]
+atlas = ExtResource("1_gnhpj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lxthv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w74tb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ModificationStation" type="AnimatedSprite2D" unique_id=55406949]
+sprite_frames = SubResource("SpriteFrames_lxthv")
 centered = false
 script = ExtResource("2_w74tb")
+is_solid = true
+metadata/_custom_type_script = "uid://do112qioq75g8"

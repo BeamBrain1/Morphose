@@ -30,3 +30,19 @@ func setFlag(flag: String) -> void:
 
 func clearFlag(flag: String) -> void:
 	flags[flag.to_upper()] = FLAG_CLEARED_VALUE
+
+
+# Add int to flag. If flag not present, push an error
+func addToFlag(flag: String, value: int) -> void:
+	if flags.has(flag.to_upper()):
+		flags[flag.to_upper()] += value
+	else:
+		push_error("Flag not present: " + flag)
+
+
+# Sub int from flag. If flag not present, push an error
+func subFrom(flag: String, value: int) -> void:
+	if flags.has(flag.to_upper()):
+		flags[flag.to_upper()] -= value
+	else:
+		push_error("Flag not present: " + flag)

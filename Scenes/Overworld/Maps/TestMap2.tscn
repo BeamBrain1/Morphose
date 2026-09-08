@@ -17,35 +17,31 @@ tile_map_data = PackedByteArray("AAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAA
 
 [node name="EncounterZones" type="Node2D" parent="." unique_id=2145203746]
 
-[node name="BPContainers" type="Node2D" parent="." unique_id=816773934]
+[node name="ActiveObjects" type="Node2D" parent="." unique_id=1849786040]
 
-[node name="BlueprintContainer3" parent="BPContainers" unique_id=1786945268 instance=ExtResource("3_decin")]
+[node name="BlueprintContainer3" parent="ActiveObjects" unique_id=1786945268 instance=ExtResource("3_decin")]
 position = Vector2(16, 128)
 blueprint_name = "Laser"
 blueprint_tier = 1
 
-[node name="BlueprintContainer4" parent="BPContainers" unique_id=85296621 instance=ExtResource("3_decin")]
+[node name="BlueprintContainer4" parent="ActiveObjects" unique_id=85296621 instance=ExtResource("3_decin")]
 position = Vector2(16, 112)
 blueprint_name = "Laser"
 blueprint_tier = 2
 
-[node name="BlueprintContainer5" parent="BPContainers" unique_id=984561356 instance=ExtResource("3_decin")]
+[node name="BlueprintContainer5" parent="ActiveObjects" unique_id=984561356 instance=ExtResource("3_decin")]
 position = Vector2(16, 96)
 blueprint_name = "Missile"
 blueprint_tier = 1
 
-[node name="ModificationStations" type="Node2D" parent="." unique_id=1768469792]
-
-[node name="ModificationStation" parent="ModificationStations" unique_id=1734361512 instance=ExtResource("4_pjl7k")]
+[node name="ModificationStation" parent="ActiveObjects" unique_id=1734361512 instance=ExtResource("4_pjl7k")]
 position = Vector2(16, 16)
+
+[node name="WarpPoint" parent="ActiveObjects" unique_id=852875268 instance=ExtResource("4_oepq4")]
+position = Vector2(144, 128)
+destination_map = "TestMap1"
+destination_tile = Vector2(1, 7)
 
 [node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("3_pjl7k")]
 
 [node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]
-
-[node name="WarpPoints" type="Node2D" parent="." unique_id=1873494315]
-
-[node name="WarpPoint" parent="WarpPoints" unique_id=852875268 instance=ExtResource("4_oepq4")]
-position = Vector2(144, 128)
-destination_map = "TestMap1"
-destination_tile = Vector2(1, 7)
