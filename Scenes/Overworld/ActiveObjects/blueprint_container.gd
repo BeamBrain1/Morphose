@@ -5,6 +5,9 @@ extends ActiveMapObject
 @export var blueprint_tier: int
 
 var blueprint: Blueprint
+var overworld_ui: OverworldUI
+
+signal opened
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,8 +20,15 @@ func assignBlueprint() -> void:
 	blueprint = Blueprint.getBlueprintFromGlobalList(blueprint_name, blueprint_tier)
 
 
+func interact() -> void:
+	if not hasBeenOpened():
+		open()
+
+
 func open() -> void:
 	play("opened")
+	ActiveSaveData.collectBlueprint(blueprint)
+	emit_signal("opened", blueprint)
 
 
 func preopen() -> void:

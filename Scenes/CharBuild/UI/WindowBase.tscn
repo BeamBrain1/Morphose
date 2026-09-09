@@ -125,7 +125,7 @@ offset_bottom = 32.0
 text = "  STATS"
 
 [node name="DialogExitScreen" parent="." unique_id=1274019551 instance=ExtResource("1_q8est")]
-offset_top = 160.0
+offset_top = 184.0
 offset_right = 80.0
 offset_bottom = 240.0
 expand_programmatically = false
@@ -133,9 +133,9 @@ expand_programmatically = false
 [node name="ButtonSave" type="Button" parent="DialogExitScreen" unique_id=374946045]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 32.0
+offset_top = 8.0
 offset_right = 72.0
-offset_bottom = 40.0
+offset_bottom = 16.0
 theme = SubResource("Theme_ba66s")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -154,9 +154,9 @@ alignment = 0
 [node name="ButtonCancel" type="Button" parent="DialogExitScreen" unique_id=21503095]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 48.0
+offset_top = 24.0
 offset_right = 72.0
-offset_bottom = 56.0
+offset_bottom = 32.0
 theme = SubResource("Theme_ba66s")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -176,9 +176,9 @@ alignment = 0
 [node name="ButtonReset" type="Button" parent="DialogExitScreen" unique_id=341952657]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 64.0
+offset_top = 40.0
 offset_right = 72.0
-offset_bottom = 72.0
+offset_bottom = 48.0
 theme = SubResource("Theme_ba66s")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)

@@ -1,7 +1,19 @@
 [gd_scene format=3 uid="uid://bhyb70w2bbolu"]
 
 [ext_resource type="Script" uid="uid://bo3xlx1smhxx6" path="res://Scenes/Controllers/controller_overworld.gd" id="1_b4ioc"]
+[ext_resource type="PackedScene" uid="uid://sj31v1jusuab" path="res://Scenes/Overworld/UI/OverworldUI.tscn" id="2_gokxk"]
+[ext_resource type="PackedScene" uid="uid://bm6ar1srre2dh" path="res://Scenes/Overworld/UI/InputHandler.tscn" id="2_yt1py"]
+[ext_resource type="PackedScene" uid="uid://ctyux4ccg7bof" path="res://Scenes/Overworld/Encounters/EncounterHandler.tscn" id="3_6atlb"]
 
 [node name="ControllerOverworld" type="Node2D" unique_id=936877717]
 script = ExtResource("1_b4ioc")
 metadata/_custom_type_script = "uid://c6b3kksmaoyke"
+
+[node name="InputHandler" parent="." unique_id=857220114 instance=ExtResource("2_yt1py")]
+
+[node name="EncounterHandler" parent="." unique_id=1887501484 instance=ExtResource("3_6atlb")]
+
+[node name="OverworldUI" parent="." unique_id=56757953 instance=ExtResource("2_gokxk")]
+
+[connection signal="request_open_char_builder" from="InputHandler" to="." method="openCharBuilderOutsideModStation"]
+[connection signal="encounter_activated" from="EncounterHandler" to="." method="switchToBattleController"]

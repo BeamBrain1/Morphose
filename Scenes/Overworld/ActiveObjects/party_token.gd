@@ -1,45 +1,71 @@
 class_name PartyToken
 extends AnimatedSprite2D
 
-signal move
+var map: OverworldMap
+
+signal stepped
 signal interact
 
 
 func _process(delta) -> void:
-	if Input.is_action_just_pressed("up"):
-		attemptMoveUp()
-	elif Input.is_action_just_pressed("down"):
-		attemptMoveDown()
-	elif Input.is_action_just_pressed("left"):
-		attemptMoveLeft()
-	elif Input.is_action_just_pressed("right"):
-		attemptMoveRight()
-	elif Input.is_action_just_pressed("overworld_interact"):
-		attemptInteract()
+	pass
 
 
 func attemptMoveUp() -> void:
 	play("up")
-	emit_signal("move", GlobalProgramData.DIRECTION.UP)
+	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.UP
+	attemptMoveTo(move_destination)
 
 
 func attemptMoveDown() -> void:
 	play("down")
-	emit_signal("move", GlobalProgramData.DIRECTION.DOWN)
+	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.DOWN
+	attemptMoveTo(move_destination)
 
 
 func attemptMoveLeft() -> void:
 	play("left")
-	emit_signal("move", GlobalProgramData.DIRECTION.LEFT)
+	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.LEFT
+	attemptMoveTo(move_destination)
 
 
 func attemptMoveRight() -> void:
 	play("right")
-	emit_signal("move", GlobalProgramData.DIRECTION.RIGHT)
+	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.RIGHT
+	attemptMoveTo(move_destination)
+
+
+func attemptMoveTo(destination_tile: Vector2):
+	if map.tileIsTraversable(destination_tile):
+		step(destination_tile)
 
 
 func attemptInteract() -> void:
-	emit_signal("interact", getInteractingObjectPosition())
+	var interact_target = map.activeMapObjectAt(getInteractingObjectPosition())
+	if interact_target != null:
+		interact_target.interact()
+
+
+func updateGlobalPartyPosition() -> void:
+	var overworld_position: OverworldPosition = OverworldPosition.new(map.map_name, OverworldMap.gridPosition(self))
+	ActiveSaveData.party.setLocationAndDirection(overworld_position, currentFacingDirection())
+
+
+func step(tile_grid_loc: Vector2) -> void:
+	setGridPosition(tile_grid_loc)
+	emit_signal("stepped")
+	stepOnObjectAtCurrentPosition()
+
+
+func setGridPosition(tile_grid_loc: Vector2) -> void:
+	position = OverworldMap.gridPositionToCanvasPosition(tile_grid_loc)
+	updateGlobalPartyPosition()
+
+
+func stepOnObjectAtCurrentPosition() -> void:
+	var interact_target = map.activeMapObjectAt(OverworldMap.gridPosition(self))
+	if interact_target != null:
+		interact_target.steppedOn()
 
 
 # Get the position of the object the party is attempting to interact with based on position and direction

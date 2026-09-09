@@ -3,24 +3,54 @@ extends Node2D
 
 const TILE_SIZE: int = 16
 
-signal party_moved
+var map_name: String
+signal party_stepped
+
 signal warp_point_hit
-signal bp_collected
+signal blueprint_collected
 signal mod_station_activated
 
-var map_name: String
-
-
 func _ready() -> void:
-	get_node("PartyToken").move.connect(attemptMovePartyToken)
-	get_node("PartyToken").interact.connect(attemptInteract)
+	getPartyToken().map = self
+	getPartyToken().stepped.connect(partyStepped)
+	connectActiveObjectSignals()
 
 
-func setPartyGridPosition(tile_grid_loc: Vector2) -> void:
-	$PartyToken.position = gridPositionToCanvasPosition(tile_grid_loc)
+func initialize(name_in: String, party_grid_position: Vector2):
+	map_name = name_in
+	getPartyToken().setGridPosition(party_grid_position)
+	updateCamera()
+
+
+func connectActiveObjectSignals() -> void:
+	for object in getActiveMapObjects():
+		if object is WarpPoint:
+			object.warp.connect(warpPointHit)
+		elif object is ModificationStation:
+			object.used.connect(modificationStationActivated)
+		elif object is BlueprintContainer:
+			object.opened.connect(blueprintContainerOpened)
+
+
+func warpPointHit(destination: OverworldPosition) -> void:
+	emit_signal("warp_point_hit", destination)
+
+
+func modificationStationActivated() -> void:
+	emit_signal("mod_station_activated")
+
+
+func blueprintContainerOpened(blueprint) -> void:
+	emit_signal("blueprint_collected", blueprint)
+
+
+func partyStepped() -> void:
+	updateCamera()
+	emit_signal("party_stepped")
+
+
+func updateCamera() -> void:
 	position = centerTileOnScreenLocation() - $PartyToken.position
-	if warpPointAt(tile_grid_loc) != null:
-		emit_signal("warp_point_hit", warpPointAt(tile_grid_loc))
 
 
 func tileIsTraversable(tile_loc: Vector2) -> bool:
@@ -46,6 +76,18 @@ func getTileMaps() -> Array:
 	return result
 
 
+func getActiveMapObjects() -> Array:
+	return get_node("ActiveObjects").get_children()
+
+
+func getScriptTriggers() -> Array:
+	var results = []
+	for node in get_node("ActiveObjects").get_children():
+		if node is ScriptTrigger:
+			results.append(node)
+	return results
+
+
 func getBlueprintContainers() -> Array:
 	var results = []
 	for node in get_node("ActiveObjects").get_children():
@@ -60,18 +102,6 @@ func getModificationStations() -> Array:
 		if node is ModificationStation:
 			results.append(node)
 	return results
-
-
-# Attempt to move the party token. Returns true if successful movement, false if location blocked
-func attemptMovePartyToken(direction: GlobalProgramData.DIRECTION) -> bool:
-	
-	var destination_tile: Vector2 = gridPosition($PartyToken) + GlobalProgramData.direction_vector[direction]
-	
-	if tileIsTraversable(destination_tile):
-		setPartyGridPosition(destination_tile)
-		emit_signal("party_moved")
-		return true
-	return false
 
 
 static func gridPosition(object) -> Vector2:
@@ -94,6 +124,13 @@ static func centerTileOnScreenLocation() -> Vector2:
 	return gridPositionToCanvasPosition(result)
 
 
+func activeMapObjectAt(grid_position: Vector2) -> ActiveMapObject:
+	for object in getActiveMapObjects():
+		if gridCoordMatch(object, grid_position):
+			return object
+	return null
+
+
 # Returns warp point or null if none present
 func warpPointAt(grid_position: Vector2) -> WarpPoint:
 	for node in get_node("ActiveObjects").get_children():
@@ -104,44 +141,6 @@ func warpPointAt(grid_position: Vector2) -> WarpPoint:
 
 func gridCoordMatch(object, coord: Vector2) -> bool:
 	return gridPosition(object).x == int(coord.x) and gridPosition(object).y == int(coord.y)
-
-
-# Party has just attempted to interact with object at supplied position
-func attemptInteract(grid_position: Vector2) -> void:
-	
-	var container: BlueprintContainer = blueprintContainerAt(grid_position)
-	if container == null:
-		pass
-	else:
-		if not container.hasBeenOpened():
-			container.open()
-			emit_signal("bp_collected", container.blueprint)
-			
-	var station: ModificationStation = modificationStationAt(grid_position)
-	if station == null:
-		pass
-	else:
-		emit_signal("mod_station_activated")
-
-
-# Returns container at specified position or null if none
-func blueprintContainerAt(grid_position: Vector2) -> BlueprintContainer:
-	for container in getBlueprintContainers():
-		if container is BlueprintContainer and gridCoordMatch(container, grid_position):
-			return container
-	return null
-
-
-func blueprintContainerOpened(blueprint) -> void:
-	emit_signal("bp_collected", blueprint)
-
-
-# Returns container at specified position or null if none
-func modificationStationAt(grid_position: Vector2) -> ModificationStation:
-	for station in getModificationStations():
-		if station is ModificationStation and gridCoordMatch(station, grid_position):
-			return station
-	return null
 
 
 # Returns encounter zone party token occupies, or null if none

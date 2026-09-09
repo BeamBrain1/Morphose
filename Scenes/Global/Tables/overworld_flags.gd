@@ -12,6 +12,7 @@ var flags: Dictionary = {}	# Keys are strings, values are ints
 func getFlagIntValue(flag: String) -> int:
 	if flags.has(flag.to_upper()):
 		return flags[flag.to_upper()]
+	push_error("Flag not present: " + flag)
 	return DEFAULT_FLAG_VALUE
 
 
@@ -33,7 +34,7 @@ func clearFlag(flag: String) -> void:
 
 
 # Add int to flag. If flag not present, push an error
-func addToFlag(flag: String, value: int) -> void:
+func addTo(flag: String, value: int) -> void:
 	if flags.has(flag.to_upper()):
 		flags[flag.to_upper()] += value
 	else:
