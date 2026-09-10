@@ -1,15 +1,10 @@
 [gd_scene format=3 uid="uid://bf1khufx7scc"]
 
-[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="1_11rq7"]
 [ext_resource type="StyleBox" uid="uid://b8aqvyddpey1k" path="res://Graphics/UI/Styleboxes/dialog_box.tres" id="1_uwvpw"]
 [ext_resource type="Script" uid="uid://uub1h1pdlop6" path="res://Scenes/Global/UI/dialog_box.gd" id="2_uwvpw"]
-[ext_resource type="LabelSettings" uid="uid://btqhdajtvvrq1" path="res://Scenes/Global/UI/Configs/LabelDefault.tres" id="4_ld7s6"]
+[ext_resource type="LabelSettings" uid="uid://btdeeu7pj4c44" path="res://Scenes/Global/UI/Configs/LabelDefault8x8.tres" id="4_uwvpw"]
 
 [sub_resource type="Theme" id="Theme_a66gj"]
-
-[sub_resource type="Theme" id="Theme_c3fc1"]
-default_font = ExtResource("1_11rq7")
-default_font_size = 8
 
 [node name="DialogBox" type="Panel" unique_id=1943375761]
 offset_right = 320.0
@@ -24,6 +19,5 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 312.0
 offset_bottom = 16.0
-theme = SubResource("Theme_c3fc1")
-label_settings = ExtResource("4_ld7s6")
+label_settings = ExtResource("4_uwvpw")
 autowrap_mode = 2

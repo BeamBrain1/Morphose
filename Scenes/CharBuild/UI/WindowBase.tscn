@@ -13,6 +13,7 @@
 [ext_resource type="StyleBox" uid="uid://0bxe55yohsmb" path="res://Graphics/UI/Styleboxes/button_hover.tres" id="9_gkk13"]
 [ext_resource type="StyleBox" uid="uid://c17fwtplebg2s" path="res://Graphics/UI/Styleboxes/button_disabled.tres" id="10_jrur7"]
 [ext_resource type="Script" uid="uid://pxpmbnd450e" path="res://Scenes/Global/UI/dialog_muta_count.gd" id="11_ct2k1"]
+[ext_resource type="LabelSettings" uid="uid://btdeeu7pj4c44" path="res://Scenes/Global/UI/Configs/LabelDefault8x8.tres" id="14_an8fi"]
 
 [sub_resource type="Theme" id="Theme_ba66s"]
 default_font = ExtResource("2_h8fae")
@@ -21,11 +22,6 @@ default_font = ExtResource("2_h8fae")
 texture = ExtResource("7_jsunk")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5pkbu"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_2rrfw"]
-line_spacing = 0.0
-font = ExtResource("6_0s7e1")
-font_size = 8
 
 [node name="WindowBase" type="Node2D" unique_id=1312986081]
 script = ExtResource("1_vqe4v")
@@ -202,7 +198,6 @@ offset_bottom = 240.0
 expand_programmatically = false
 
 [node name="LabelHelpText" type="Label" parent="DialogInfoPanel" unique_id=972219502]
-visible = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -250,7 +245,7 @@ theme_override_fonts/font = ExtResource("2_h8fae")
 theme_override_font_sizes/font_size = 8
 text = "99999
 MUTA"
-label_settings = SubResource("LabelSettings_2rrfw")
+label_settings = ExtResource("14_an8fi")
 horizontal_alignment = 2
 autowrap_mode = 2
 

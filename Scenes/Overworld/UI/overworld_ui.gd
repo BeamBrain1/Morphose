@@ -1,6 +1,7 @@
 class_name OverworldUI
 extends Node2D
 
+signal closed_dialog
 
 func _ready() -> void:
 	closeDialog()
@@ -20,3 +21,4 @@ func displayDialog(speaker: String, dialog: String) -> void:
 
 func closeDialog() -> void:
 	$SpokenDialogBox.close()
+	emit_signal("closed_dialog")

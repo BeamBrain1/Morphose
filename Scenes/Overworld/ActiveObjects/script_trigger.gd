@@ -5,6 +5,7 @@ enum COMPARATOR_TYPE {CLEARED, SET, EQ, NE, GT, GTE, LT, LTE}
 enum CHECK_VALUE_TYPE {FLAG_NAME, CONSTANT}
 
 enum ACTIVATION_TYPE {STEP, INTERACT}
+
 @export var activation_type: ACTIVATION_TYPE
 @export var destroy_on_script_execution: bool = false
 @export var map_script: MapScript
@@ -15,6 +16,8 @@ enum ACTIVATION_TYPE {STEP, INTERACT}
 @export var dol_comparator_type: COMPARATOR_TYPE
 @export var dol_check_value_type: CHECK_VALUE_TYPE
 @export var dol_check_value: String
+
+signal request_script_execution
 
 func _ready() -> void:
 	if has_destroy_on_load_condition:
@@ -30,8 +33,13 @@ func _ready() -> void:
 		map_script = get_children()[0]
 
 
-func executeAttachedScript() -> void:
-	map_script.execute()
+func requestScriptExecution() -> void:
+	emit_signal("request_script_execution", self)
+
+
+func executeAttachedScript(controller: ControllerOverworld) -> void:
+	map_script.attachController(controller)
+	await map_script.execute()	# Don't destroy until script execution complete
 	if destroy_on_script_execution:
 		call_deferred("queue_free")
 
@@ -70,9 +78,9 @@ static func getConditionalCheckValue(type: CHECK_VALUE_TYPE, value: String) -> i
 
 func steppedOn() -> void:
 	if activation_type == ACTIVATION_TYPE.STEP:
-		executeAttachedScript()
+		requestScriptExecution()
 
 
 func interact() -> void:
 	if activation_type == ACTIVATION_TYPE.INTERACT:
-		executeAttachedScript()
+		requestScriptExecution()

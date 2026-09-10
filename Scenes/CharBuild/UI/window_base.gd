@@ -10,7 +10,7 @@ var at_mod_station: bool = true
 
 
 func _ready() -> void:
-	$DialogInfoPanel.displayText("PLACEHOLDER")
+	infoPanelDisplayText("PLACEHOLDER")
 
 
 func assignAtModStationValue(at_mod_station_in: bool) -> void:
@@ -44,3 +44,7 @@ func _on_button_save_pressed() -> void:
 
 func _on_button_cancel_pressed() -> void:
 	emit_signal("cancel")
+
+
+func infoPanelDisplayText(text: String) -> void:
+	$DialogInfoPanel/LabelHelpText.text = text

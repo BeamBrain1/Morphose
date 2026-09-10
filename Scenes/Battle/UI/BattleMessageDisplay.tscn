@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://mcycs12oui02" path="res://Scenes/Battle/UI/battle_message_display.gd" id="1_fk43i"]
 [ext_resource type="FontFile" uid="uid://d3eayc7bji2ar" path="res://Fonts/Morphont.ttf" id="2_07k05"]
+[ext_resource type="LabelSettings" uid="uid://btdeeu7pj4c44" path="res://Scenes/Global/UI/Configs/LabelDefault8x8.tres" id="3_fk43i"]
 
 [node name="BattleMessageDisplay" type="ColorRect" unique_id=1269281296]
 offset_top = 136.0
@@ -19,6 +20,7 @@ offset_bottom = 61.0
 theme_override_fonts/font = ExtResource("2_07k05")
 theme_override_font_sizes/font_size = 8
 text = "Battle messages"
+label_settings = ExtResource("3_fk43i")
 autowrap_mode = 2
 
 [node name="DisplayDurationTimer" type="Timer" parent="." unique_id=1061475066]

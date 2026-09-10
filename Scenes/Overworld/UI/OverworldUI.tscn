@@ -3,10 +3,7 @@
 [ext_resource type="Script" uid="uid://br4bwhskmhl6e" path="res://Scenes/Overworld/UI/overworld_ui.gd" id="1_2fpyc"]
 [ext_resource type="PackedScene" uid="uid://bf1khufx7scc" path="res://Scenes/Global/UI/DialogBox.tscn" id="1_uyuc3"]
 [ext_resource type="Script" uid="uid://comslylvhnj72" path="res://Scenes/Global/UI/spoken_dialog_box.gd" id="2_qo4x7"]
-[ext_resource type="FontFile" uid="uid://d3eayc7bji2ar" path="res://Fonts/Morphont.ttf" id="2_ted3h"]
-
-[sub_resource type="Theme" id="Theme_qo4x7"]
-default_font = ExtResource("2_ted3h")
+[ext_resource type="LabelSettings" uid="uid://btdeeu7pj4c44" path="res://Scenes/Global/UI/Configs/LabelDefault8x8.tres" id="4_2fpyc"]
 
 [node name="OverworldUI" type="Node2D" unique_id=56757953]
 script = ExtResource("1_2fpyc")
@@ -23,6 +20,6 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 312.0
 offset_bottom = 48.0
-theme = SubResource("Theme_qo4x7")
 theme_override_font_sizes/font_size = 8
+label_settings = ExtResource("4_2fpyc")
 autowrap_mode = 3

@@ -88,22 +88,6 @@ func getScriptTriggers() -> Array:
 	return results
 
 
-func getBlueprintContainers() -> Array:
-	var results = []
-	for node in get_node("ActiveObjects").get_children():
-		if node is BlueprintContainer:
-			results.append(node)
-	return results
-
-
-func getModificationStations() -> Array:
-	var results = []
-	for node in get_node("ActiveObjects").get_children():
-		if node is ModificationStation:
-			results.append(node)
-	return results
-
-
 static func gridPosition(object) -> Vector2:
 	var result = object.position / TILE_SIZE
 	return Vector2(floori(result.x), floori(result.y))

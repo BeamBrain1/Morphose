@@ -7,7 +7,7 @@ var current_map: OverworldMap
 
 
 func _ready() -> void:
-	$InputHandler.UI = $OverworldUI
+	$OverworldInputHandler.UI = $OverworldUI
 
 
 func openCharBuilderOutsideModStation() -> void:
@@ -20,7 +20,7 @@ func assignOverworldMapAndPartyLocation(map_name: String, party_grid_position: V
 	current_map = load(MAP_DIRECTORY + map_name + ".tscn").instantiate()
 	initializeCurrentMap(map_name, party_grid_position)
 	$OverworldUI.move_to_front()
-	$InputHandler.party_token = current_map.getPartyToken()
+	$OverworldInputHandler.party_token = current_map.getPartyToken()
 
 
 func initializeCurrentMap(map_name: String, party_grid_position: Vector2) -> void:
@@ -30,6 +30,8 @@ func initializeCurrentMap(map_name: String, party_grid_position: Vector2) -> voi
 	current_map.blueprint_collected.connect(blueprintCollected)
 	current_map.mod_station_activated.connect(switchToCharBuildController, true)
 	current_map.initialize(map_name, party_grid_position)
+	for trigger in current_map.getScriptTriggers():
+		trigger.request_script_execution.connect(executeScriptTrigger)
 
 
 func loadSavedPartyLocation() -> void:
@@ -42,3 +44,16 @@ func warpPartyTo(destination: OverworldPosition) -> void:
 
 func blueprintCollected(blueprint) -> void:
 	$OverworldUI.displayBlueprintCollectedDialog(blueprint)
+
+
+func inputHandler() -> OverworldInputHandler:
+	return $OverworldInputHandler
+
+
+func overworldUI() -> OverworldUI:
+	return $OverworldUI
+
+
+func executeScriptTrigger(trigger: ScriptTrigger):
+	
+	trigger.executeAttachedScript(self)

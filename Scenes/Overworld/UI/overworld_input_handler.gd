@@ -1,3 +1,4 @@
+class_name OverworldInputHandler
 extends Node
 
 var UI: OverworldUI
