@@ -54,8 +54,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="PartyToken" type="AnimatedSprite2D" unique_id=809970201]
+[node name="PartyToken" type="AnimatedSprite2D" unique_id=1208596000]
 sprite_frames = SubResource("SpriteFrames_vqo64")
 animation = &"down"
 centered = false
 script = ExtResource("2_jvact")
+metadata/_custom_type_script = "uid://do112qioq75g8"

@@ -81,6 +81,6 @@ func steppedOn() -> void:
 		requestScriptExecution()
 
 
-func interact() -> void:
+func interactedWith() -> void:
 	if activation_type == ACTIVATION_TYPE.INTERACT:
 		requestScriptExecution()

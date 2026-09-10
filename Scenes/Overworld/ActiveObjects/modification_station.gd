@@ -3,5 +3,5 @@ extends ActiveMapObject
 
 signal used
 
-func interact() -> void:
+func interactedWith() -> void:
 	emit_signal("used")

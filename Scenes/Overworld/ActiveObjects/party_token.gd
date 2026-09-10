@@ -1,5 +1,5 @@
 class_name PartyToken
-extends AnimatedSprite2D
+extends ActiveMapObject
 
 var map: OverworldMap
 
@@ -11,39 +11,53 @@ func _process(delta) -> void:
 	pass
 
 
-func attemptMoveUp() -> void:
+func attemptMoveUp(scripted: bool = false) -> void:
 	play("up")
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.UP
-	attemptMoveTo(move_destination)
+	attemptMoveTo(move_destination, scripted)
 
 
-func attemptMoveDown() -> void:
+func attemptMoveDown(scripted: bool = false) -> void:
 	play("down")
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.DOWN
-	attemptMoveTo(move_destination)
+	attemptMoveTo(move_destination, scripted)
 
 
-func attemptMoveLeft() -> void:
+func attemptMoveLeft(scripted: bool = false) -> void:
 	play("left")
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.LEFT
-	attemptMoveTo(move_destination)
+	attemptMoveTo(move_destination, scripted)
 
 
-func attemptMoveRight() -> void:
+func attemptMoveRight(scripted: bool = false) -> void:
 	play("right")
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.RIGHT
-	attemptMoveTo(move_destination)
+	attemptMoveTo(move_destination, scripted)
 
 
-func attemptMoveTo(destination_tile: Vector2):
+func push(direction: GlobalProgramData.DIRECTION) -> void:
+	match direction:
+		GlobalProgramData.DIRECTION.UP:
+			attemptMoveUp(true)
+		GlobalProgramData.DIRECTION.RIGHT:
+			attemptMoveRight(true)
+		GlobalProgramData.DIRECTION.DOWN:
+			attemptMoveDown(true)
+		GlobalProgramData.DIRECTION.LEFT:
+			attemptMoveLeft(true)
+		_:
+			push_error("Unrecognized direction: " + str(direction))
+
+
+func attemptMoveTo(destination_tile: Vector2, scripted: bool = false):
 	if map.tileIsTraversable(destination_tile):
-		step(destination_tile)
+		step(destination_tile, scripted)
 
 
 func attemptInteract() -> void:
 	var interact_target = map.activeMapObjectAt(getInteractingObjectPosition())
 	if interact_target != null:
-		interact_target.interact()
+		interact_target.interactedWith()
 
 
 func updateGlobalPartyPosition() -> void:
@@ -51,10 +65,11 @@ func updateGlobalPartyPosition() -> void:
 	ActiveSaveData.party.setLocationAndDirection(overworld_position, currentFacingDirection())
 
 
-func step(tile_grid_loc: Vector2) -> void:
+func step(tile_grid_loc: Vector2, scripted: bool = false) -> void:
 	setGridPosition(tile_grid_loc)
-	emit_signal("stepped")
-	stepOnObjectAtCurrentPosition()
+	emit_signal("stepped", scripted)
+	if not scripted:
+		stepOnObjectAtCurrentPosition()
 
 
 func setGridPosition(tile_grid_loc: Vector2) -> void:

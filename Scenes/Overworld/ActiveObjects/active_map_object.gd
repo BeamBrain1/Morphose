@@ -10,5 +10,9 @@ func steppedOn() -> void:
 
 
 # Override in children
-func interact() -> void:
+func interactedWith() -> void:
 	pass
+
+
+func push(direction: GlobalProgramData.DIRECTION) -> void:
+	position = OverworldMap.gridPositionToCanvasPosition(OverworldMap.gridPosition(self) + GlobalProgramData.direction_vector[direction])

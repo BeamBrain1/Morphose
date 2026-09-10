@@ -10,6 +10,10 @@ func _ready() -> void:
 	$OverworldInputHandler.UI = $OverworldUI
 
 
+func getCurrentMap() -> OverworldMap:
+	return current_map
+
+
 func openCharBuilderOutsideModStation() -> void:
 	switchToCharBuildController(false)
 
@@ -55,5 +59,4 @@ func overworldUI() -> OverworldUI:
 
 
 func executeScriptTrigger(trigger: ScriptTrigger):
-	
 	trigger.executeAttachedScript(self)

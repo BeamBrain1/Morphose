@@ -44,9 +44,9 @@ func blueprintContainerOpened(blueprint) -> void:
 	emit_signal("blueprint_collected", blueprint)
 
 
-func partyStepped() -> void:
+func partyStepped(scripted: bool = false) -> void:
 	updateCamera()
-	emit_signal("party_stepped")
+	emit_signal("party_stepped", scripted)
 
 
 func updateCamera() -> void:
@@ -112,6 +112,14 @@ func activeMapObjectAt(grid_position: Vector2) -> ActiveMapObject:
 	for object in getActiveMapObjects():
 		if gridCoordMatch(object, grid_position):
 			return object
+	return null
+
+
+func getActiveObjectByName(name_in: String) -> ActiveMapObject:
+	for object in getActiveMapObjects():
+		if name_in.matchn(object.name):
+			return object
+	push_error("Active object not found: " + name_in)
 	return null
 
 

@@ -20,7 +20,7 @@ func assignBlueprint() -> void:
 	blueprint = Blueprint.getBlueprintFromGlobalList(blueprint_name, blueprint_tier)
 
 
-func interact() -> void:
+func interactedWith() -> void:
 	if not hasBeenOpened():
 		open()
 
