@@ -41,3 +41,15 @@ func pushActor(actor: ActiveMapObject, num_tiles: int, direction: GlobalProgramD
 	for i in range(num_tiles):
 		actor.push(direction)
 		await delay(step_delay)
+
+
+func globalFlags() -> OverworldFlags:
+	return ActiveSaveData.overworld_flags
+
+
+func spawnActiveObject(scene_name: String, node_name: String, grid_position: Vector2) -> void:
+	controller.getCurrentMap().spawnActiveObject(scene_name, node_name, grid_position)
+
+
+func destroyActiveObject(node_name: String) -> void:
+	controller.getCurrentMap().destroyActiveObject(node_name)

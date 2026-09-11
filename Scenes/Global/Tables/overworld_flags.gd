@@ -10,10 +10,9 @@ var flags: Dictionary = {}	# Keys are strings, values are ints
 
 # Returns flag value for key, or default value if flag not present
 func getFlagIntValue(flag: String) -> int:
-	if flags.has(flag.to_upper()):
-		return flags[flag.to_upper()]
-	push_error("Flag not present: " + flag)
-	return DEFAULT_FLAG_VALUE
+	if not flags.has(flag.to_upper()):
+		flags[flag] = DEFAULT_FLAG_VALUE
+	return flags[flag.to_upper()]
 
 
 func setFlagIntValue(flag: String, value: int) -> void:

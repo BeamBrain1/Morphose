@@ -75,13 +75,13 @@ destination_map = "TestMap2"
 destination_tile = Vector2(8, 8)
 
 [node name="ScriptTrigger" parent="ActiveObjects" unique_id=975544378 instance=ExtResource("8_h4wh6")]
-position = Vector2(64, 144)
+position = Vector2(128, 128)
 destroy_on_script_execution = true
 
 [node name="TestScript" parent="ActiveObjects/ScriptTrigger" unique_id=1725623064 instance=ExtResource("9_buam8")]
 
 [node name="ScriptTrigger2" parent="ActiveObjects" unique_id=1703166419 instance=ExtResource("8_h4wh6")]
-position = Vector2(96, 144)
+position = Vector2(144, 144)
 activation_type = 1
 is_solid = true
 

@@ -2,6 +2,7 @@ class_name OverworldMap
 extends Node2D
 
 const TILE_SIZE: int = 16
+const ACTIVE_OBJECT_DIRECTORY = "res://Scenes/Overowrld/ActiveObjects/"
 
 var map_name: String
 signal party_stepped
@@ -13,7 +14,7 @@ signal mod_station_activated
 func _ready() -> void:
 	getPartyToken().map = self
 	getPartyToken().stepped.connect(partyStepped)
-	connectActiveObjectSignals()
+	connectAllActiveObjectSignals()
 
 
 func initialize(name_in: String, party_grid_position: Vector2):
@@ -22,14 +23,18 @@ func initialize(name_in: String, party_grid_position: Vector2):
 	updateCamera()
 
 
-func connectActiveObjectSignals() -> void:
+func connectAllActiveObjectSignals() -> void:
 	for object in getActiveMapObjects():
-		if object is WarpPoint:
-			object.warp.connect(warpPointHit)
-		elif object is ModificationStation:
-			object.used.connect(modificationStationActivated)
-		elif object is BlueprintContainer:
-			object.opened.connect(blueprintContainerOpened)
+		connectActiveObjectSignals(object)
+
+
+func connectActiveObjectSignals(object: ActiveMapObject) -> void:
+	if object is WarpPoint:
+		object.warp.connect(warpPointHit)
+	elif object is ModificationStation:
+		object.used.connect(modificationStationActivated)
+	elif object is BlueprintContainer:
+		object.opened.connect(blueprintContainerOpened)
 
 
 func warpPointHit(destination: OverworldPosition) -> void:
@@ -141,3 +146,19 @@ func partyEncounterZone() -> EncounterZone:
 		if zone.tokenIsInside($PartyToken):
 			return zone
 	return null
+
+
+func spawnActiveObject(scene_name: String, node_name: String, grid_position: Vector2) -> void:
+	var active_object = load(ACTIVE_OBJECT_DIRECTORY + scene_name + ".tscn").instantiate()
+	add_child(active_object)
+	connectActiveObjectSignals(active_object)
+	active_object.setGridPosition(grid_position)
+
+
+func destroyActiveObject(node_name: String) -> void:
+	var obj = getActiveObjectByName(node_name)
+	if obj == null:
+		push_error("Active Object not found: " + node_name)
+		await get_tree().process_frame		# Wait 1 frame for object to be destroyed before returning
+	else:
+		obj.call_deferred("queue_free")

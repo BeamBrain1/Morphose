@@ -15,4 +15,8 @@ func interactedWith() -> void:
 
 
 func push(direction: GlobalProgramData.DIRECTION) -> void:
-	position = OverworldMap.gridPositionToCanvasPosition(OverworldMap.gridPosition(self) + GlobalProgramData.direction_vector[direction])
+	setGridPosition(OverworldMap.gridPosition(self) + GlobalProgramData.direction_vector[direction])
+
+
+func setGridPosition(grid_position: Vector2) -> void:
+	position = OverworldMap.gridPositionToCanvasPosition(grid_position)
