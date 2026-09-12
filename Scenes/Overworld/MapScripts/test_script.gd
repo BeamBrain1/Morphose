@@ -2,7 +2,7 @@ extends MapScript
 
 
 func body() -> void:
-	if globalFlags().isFlagSet("test"):
+	if isFlagSet("test"):
 		await displayDialog("Scholar", "Wait, we've already done this routine!")
 	else:
 		await displayDialog("Primus", "Rar I am Primus food food eat Muta")
@@ -13,4 +13,4 @@ func body() -> void:
 		await pushActiveObject("ModificationStation", 3, GlobalProgramData.DIRECTION.DOWN, 0.5)
 		await delay(2)
 		await displayDialog("Scholar", "I am these idiots' babysitter, apparently.")
-		globalFlags().setFlag("test")
+		setFlag("test")

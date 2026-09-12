@@ -53,3 +53,35 @@ func spawnActiveObject(scene_name: String, node_name: String, grid_position: Vec
 
 func destroyActiveObject(node_name: String) -> void:
 	controller.getCurrentMap().destroyActiveObject(node_name)
+
+
+# Returns flag value for key, or default value if flag not present
+func getFlagIntValue(flag: String) -> int:
+	return globalFlags().getIntValue(flag)
+
+
+func setFlagIntValue(flag: String, value: int) -> void:
+	globalFlags().setFlagIntValue(flag, value)
+
+
+# A nonzero value is treated as set; 0 is not set
+func isFlagSet(flag: String) -> bool:
+	return globalFlags().isFlagSet(flag)
+
+
+func setFlag(flag: String) -> void:
+	globalFlags().setFlag(flag)
+
+
+func clearFlag(flag: String) -> void:
+	globalFlags().clearFlag(flag)
+
+
+# Add int to flag. If flag not present, push an error
+func addTo(flag: String, value: int) -> void:
+	globalFlags().addTo(flag, value)
+
+
+# Sub int from flag. If flag not present, push an error
+func subFrom(flag: String, value: int) -> void:
+	globalFlags().subFrom(flag, value)
