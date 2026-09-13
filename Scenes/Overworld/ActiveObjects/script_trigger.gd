@@ -7,7 +7,6 @@ enum CHECK_VALUE_TYPE {FLAG_NAME, CONSTANT}
 enum ACTIVATION_TYPE {STEP, INTERACT}
 
 @export var activation_type: ACTIVATION_TYPE
-@export var destroy_on_script_execution: bool = false
 @export var map_script: MapScript
 
 @export var has_destroy_on_load_condition: bool = false
@@ -34,14 +33,7 @@ func _ready() -> void:
 
 
 func requestScriptExecution() -> void:
-	emit_signal("request_script_execution", self)
-
-
-func executeAttachedScript(controller: ControllerOverworld) -> void:
-	map_script.attachController(controller)
-	await map_script.execute()	# Don't destroy until script execution complete
-	if destroy_on_script_execution:
-		call_deferred("queue_free")
+	emit_signal("request_script_execution", map_script)
 
 
 static func scriptConditionMet(flag: String, comparator_type: COMPARATOR_TYPE, check_value_type: CHECK_VALUE_TYPE = CHECK_VALUE_TYPE.CONSTANT, check_value: String = "0") -> bool:

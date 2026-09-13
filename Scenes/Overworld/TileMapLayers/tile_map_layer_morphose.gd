@@ -1,3 +1,4 @@
+class_name TileMapLayerMorphose
 extends TileMapLayer
 
 # Array of Vector2s. Solid tiles are those that the player cannot enter

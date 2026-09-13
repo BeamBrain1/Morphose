@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cgk6bb46nn3n5"]
+
+[ext_resource type="Script" uid="uid://ps5ews03n80r" path="res://Scenes/Overworld/MapScripts/test_script_warp.gd" id="1_annly"]
+
+[node name="TestScriptWarp" type="Node" unique_id=1725623064]
+script = ExtResource("1_annly")
+metadata/_custom_type_script = "uid://1u3wv6hyith2"

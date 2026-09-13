@@ -162,3 +162,18 @@ func destroyActiveObject(node_name: String) -> void:
 		await get_tree().process_frame		# Wait 1 frame for object to be destroyed before returning
 	else:
 		obj.call_deferred("queue_free")
+
+
+func getMapLayer(layer: String) -> TileMapLayerMorphose:
+	if $TileMapLayersLower.has_node(layer):
+		return $TileMapLayersLower.get_node(layer)
+	if $TileMapLayersUpper.has_node(layer):
+		return $TileMapLayersUpper.get_node(layer)
+	push_error("Map layer not found: " + layer)
+	return null
+
+
+# Changes map tile in specified layer and position to specified cell in tile atlas
+func setMapTile(layer: String, grid_position: Vector2, atlas_offset: Vector2) -> void:
+	var map_layer: TileMapLayerMorphose = getMapLayer(layer)
+	map_layer.set_cell(grid_position, 0, atlas_offset)

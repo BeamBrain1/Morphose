@@ -1,17 +1,32 @@
 class_name MapScript
 extends Node
 
-var controller: ControllerOverworld
+var handler: ScriptHandler
 
-
-func attachController(controller_in: ControllerOverworld) -> void:
-	controller = controller_in
+func attachHandler(handler_in: ScriptHandler) -> void:
+	handler = handler_in
 
 
 func execute() -> void:
-	controller.inputHandler().lockPlayerControls()
+	inputHandler().lockPlayerControls()
 	await body()
-	controller.inputHandler().unlockPlayerControls()
+	inputHandler().unlockPlayerControls()
+
+
+func controllerOverworld() -> ControllerOverworld:
+	return handler.controllerOverworld()
+
+
+func inputHandler() -> OverworldInputHandler:
+	return controllerOverworld().inputHandler()
+
+
+func overworldUI() -> OverworldUI:
+	return controllerOverworld().overworldUI()
+
+
+func activeMap() -> OverworldMap:
+	return controllerOverworld().current_map
 
 
 # Override in derived class
@@ -20,8 +35,8 @@ func body() -> void:
 
 
 func displayDialog(speaker: String, dialog: String) -> void:
-	controller.overworldUI().displayDialog(speaker, dialog)
-	await controller.overworldUI().closed_dialog
+	overworldUI().displayDialog(speaker, dialog)
+	await overworldUI().closed_dialog
 
 
 # Introduce a delay of the specified time into the script
@@ -30,11 +45,11 @@ func delay(seconds: float) -> void:
 
 
 func pushParty(num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1) -> void:
-	await pushActor(controller.current_map.getPartyToken(), num_tiles, direction, step_delay)
+	await pushActor(activeMap().getPartyToken(), num_tiles, direction, step_delay)
 
 
 func pushActiveObject(name_in: String, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1):
-	await pushActor(controller.getCurrentMap().getActiveObjectByName(name_in), num_tiles, direction, step_delay)
+	await pushActor(activeMap().getActiveObjectByName(name_in), num_tiles, direction, step_delay)
 
 
 func pushActor(actor: ActiveMapObject, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1) -> void:
@@ -48,11 +63,11 @@ func globalFlags() -> OverworldFlags:
 
 
 func spawnActiveObject(scene_name: String, node_name: String, grid_position: Vector2) -> void:
-	controller.getCurrentMap().spawnActiveObject(scene_name, node_name, grid_position)
+	activeMap().spawnActiveObject(scene_name, node_name, grid_position)
 
 
 func destroyActiveObject(node_name: String) -> void:
-	controller.getCurrentMap().destroyActiveObject(node_name)
+	activeMap().destroyActiveObject(node_name)
 
 
 # Returns flag value for key, or default value if flag not present
@@ -85,3 +100,12 @@ func addTo(flag: String, value: int) -> void:
 # Sub int from flag. If flag not present, push an error
 func subFrom(flag: String, value: int) -> void:
 	globalFlags().subFrom(flag, value)
+
+
+# Changes map tile in specified layer and position to specified cell in tile atlas
+func setMapTile(layer: String, grid_position: Vector2, atlas_offset: Vector2) -> void:
+	activeMap().setMapTile(layer, grid_position, atlas_offset)
+
+
+func warpTo(map_name: String, grid_position: Vector2) -> void:
+	await controllerOverworld().warpPartyTo(OverworldPosition.new(map_name, grid_position))

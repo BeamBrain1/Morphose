@@ -1,3 +1,4 @@
+class_name Root
 extends Node2D
 
 var active_controller
@@ -8,6 +9,7 @@ const STARTING_BIO_ENERGY: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$ScriptHandler.assignRoot(self)
 	get_tree().root.content_scale_size = Vector2(960, 720)
 	randomize()
 	loadStartingPartyMembers()
@@ -24,6 +26,8 @@ func setActiveController(controller: String) -> void:
 	active_controller.switch_to_battle_controller.connect(toBattleController)
 	active_controller.switch_to_char_build_controller.connect(toCharacterBuildScreen)
 	active_controller.switch_to_overworld_controller.connect(toOverworld)
+	if active_controller is ControllerOverworld:
+		active_controller.execute_script.connect($ScriptHandler.assignAndExecuteScript)
 
 
 # won_previous: Did we win a previous battle? Used to determine whether to add a new party member
@@ -102,3 +106,11 @@ func giveAllBlueprints() -> void:
 			ActiveSaveData.party.collectBlueprint(blueprint)
 		elif blueprint is BlueprintPassive:
 			ActiveSaveData.party.collectBlueprint(blueprint)
+
+
+# Returns the current active controller if it is a ControllerOverworld
+# Returns null otherwise
+func getControllerOverworldOrNull() -> ControllerOverworld:
+	if active_controller is ControllerOverworld:
+		return active_controller
+	return null

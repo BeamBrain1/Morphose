@@ -5,6 +5,9 @@ const MAP_DIRECTORY = "res://Scenes/Overworld/Maps/"
 
 var current_map: OverworldMap
 
+# Called to let a script paused (for warp or combat encounter) know that it can now resume execution
+signal execute_script
+
 
 func _ready() -> void:
 	$OverworldInputHandler.UI = $OverworldUI
@@ -58,5 +61,5 @@ func overworldUI() -> OverworldUI:
 	return $OverworldUI
 
 
-func executeScriptTrigger(trigger: ScriptTrigger):
-	trigger.executeAttachedScript(self)
+func executeScriptTrigger(script: MapScript) -> void:
+	emit_signal("execute_script", script)
