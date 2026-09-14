@@ -7,10 +7,12 @@ var current_map: OverworldMap
 
 # Called to let a script paused (for warp or combat encounter) know that it can now resume execution
 signal execute_script
+signal initialization_finished
 
 
 func _ready() -> void:
 	$OverworldInputHandler.UI = $OverworldUI
+	emit_signal("initialization_finished")
 
 
 func getCurrentMap() -> OverworldMap:

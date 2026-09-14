@@ -20,3 +20,17 @@ func assignAndExecuteScript(script: MapScript) -> void:
 
 func controllerOverworld() -> ControllerOverworld:
 	return root.getControllerOverworldOrNull()
+
+
+func clearScript() -> void:
+	current_script.call_deferred("queue_free")
+	current_script = null
+
+
+func resumeScriptExecution() -> void:
+	if hasScript():
+		current_script.resumeExecution()
+
+
+func hasScript() -> bool:
+	return current_script != null

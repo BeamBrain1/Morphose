@@ -3,6 +3,8 @@ extends Node
 
 var handler: ScriptHandler
 
+signal resume_execution
+
 func attachHandler(handler_in: ScriptHandler) -> void:
 	handler = handler_in
 
@@ -11,6 +13,7 @@ func execute() -> void:
 	inputHandler().lockPlayerControls()
 	await body()
 	inputHandler().unlockPlayerControls()
+	handler.clearScript()
 
 
 func controllerOverworld() -> ControllerOverworld:
@@ -109,3 +112,12 @@ func setMapTile(layer: String, grid_position: Vector2, atlas_offset: Vector2) ->
 
 func warpTo(map_name: String, grid_position: Vector2) -> void:
 	await controllerOverworld().warpPartyTo(OverworldPosition.new(map_name, grid_position))
+
+
+func doEncounter(enemy_list: Array[String]) -> void:
+	controllerOverworld().switchToBattleController(EnemyTable.buildEnemyList(enemy_list))
+	await resume_execution		# Encounters take us out of the overworld, so pause the script
+
+
+func resumeExecution() -> void:
+	emit_signal("resume_execution")

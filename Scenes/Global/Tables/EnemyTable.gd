@@ -4,10 +4,10 @@ static var table: Dictionary = {}
 
 
 func _init() -> void:
-	buildEnemyList()
+	buildGlobalEnemyList()
 
 
-static func buildEnemyList() -> void:
+static func buildGlobalEnemyList() -> void:
 	
 	table = {}
 	
@@ -598,3 +598,11 @@ static func getEnemyByName(name_in: String) -> EnemyType:
 
 static func addEnemyToTable(enemy: EnemyType):
 	table[enemy.name] = enemy
+
+
+# Given an array of enemy names, build an array of their corresponding enemy types
+static func buildEnemyList(enemy_names: Array[String]) -> Array[EnemyType]:
+	var result = []
+	for enemy_name in enemy_names:
+		result.append(getEnemyByName(enemy_name))
+	return result
