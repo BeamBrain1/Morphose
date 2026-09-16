@@ -15,10 +15,24 @@ func _init() -> void:
 	location = OverworldPosition.new()
 
 
-func addPartyMember(party_member: PartyMember) -> void:
+func buildStartingParty() -> void:
+	members = []
+	addPartyMember(PartyMember.PARTY_MEMBER_PRIMUS_NAME)
+
+
+func addPartyMember(member_name: String) -> void:
+	var party_member = PartyMemberTable.getPartyMember(member_name)
 	members.append(party_member)
 	for bp in party_member.getAllBlueprints():		# Add any blueprints party member is carrying to those collected
 		collectBlueprint(bp)
+
+
+func removePartyMember(member_name: String) -> void:
+	for member in members:
+		if member.name.matchn(member_name):
+			members.erase(member)
+			return
+	push_error("Party member not found: " + member_name)
 
 
 func collectBlueprint(blueprint) -> void:

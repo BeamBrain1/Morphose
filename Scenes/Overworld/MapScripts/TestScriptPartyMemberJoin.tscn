@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bdl4cymsi6lbr"]
+
+[ext_resource type="Script" uid="uid://dsp2hwmj48r3d" path="res://Scenes/Overworld/MapScripts/test_script_party_member_join.gd" id="1_l4m7s"]
+
+[node name="TestScriptPartyMemberJoin" type="Node" unique_id=1725623064]
+script = ExtResource("1_l4m7s")
+metadata/_custom_type_script = "uid://1u3wv6hyith2"

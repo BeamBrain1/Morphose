@@ -25,11 +25,12 @@ GlobalProgramData="*uid://ctlfd0j7pauh5"
 ActiveSaveData="*uid://njw3tv0tint8"
 EnemyTable="*uid://bt0pkeeoqkhoy"
 EncounterTable="*uid://dqpq4xqtbj1v5"
+PartyMemberTable="*uid://y8sma2eh4bwm"
 
 [display]
 
-window/size/viewport_width=320
-window/size/viewport_height=240
+window/size/viewport_width=960
+window/size/viewport_height=720
 window/stretch/mode="viewport"
 window/stretch/scale=3.0
 window/stretch/scale_mode="integer"

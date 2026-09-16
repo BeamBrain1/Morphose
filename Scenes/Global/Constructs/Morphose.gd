@@ -21,6 +21,9 @@ const BP_NAME_INDEX: int = 0
 const BP_TIER_INDEX: int = 1
 
 
+enum COMBAT_STAT {HP, ATTACK, DEFENSE, SENSES, SPEED, TECH_POINTS}
+
+
 func installBlueprint(blueprint) -> void:
 	if blueprint is BlueprintAttack:
 		blueprints_attack.append(blueprint)
@@ -39,7 +42,7 @@ func installBlueprintByNameAndTier(bp_name: String, bp_tier: int) -> void:
 	installBlueprint(Blueprint.getBlueprintFromGlobalList(bp_name, bp_tier))
 
 
-func getRawStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
+func getRawStatFromEnumType(stat: COMBAT_STAT) -> int:
 	if stat == GlobalProgramData.COMBAT_STAT.HP:
 		return hp
 	if stat == GlobalProgramData.COMBAT_STAT.ATTACK:
@@ -56,19 +59,19 @@ func getRawStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
 	return 0
 
 
-func getStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
+func getStatFromEnumType(stat: COMBAT_STAT) -> int:
 	var result = getRawStatFromEnumType(stat)
-	if stat == GlobalProgramData.COMBAT_STAT.HP and hasPassiveBlueprintWithSpecial("Boost-HP"):
+	if stat == Morphose.COMBAT_STAT.HP and hasPassiveBlueprintWithSpecial("Boost-HP"):
 		result += getBlueprint("Boost-HP").value
-	elif stat == GlobalProgramData.COMBAT_STAT.ATTACK and hasPassiveBlueprintWithSpecial("Boost-AT"):
+	elif stat == Morphose.COMBAT_STAT.ATTACK and hasPassiveBlueprintWithSpecial("Boost-AT"):
 		result += getBlueprint("Boost-AT").value
-	elif stat == GlobalProgramData.COMBAT_STAT.DEFENSE and hasPassiveBlueprintWithSpecial("Boost-DF"):
+	elif stat == Morphose.COMBAT_STAT.DEFENSE and hasPassiveBlueprintWithSpecial("Boost-DF"):
 		result += getBlueprint("Boost-DF").value
-	elif stat == GlobalProgramData.COMBAT_STAT.SENSES and hasPassiveBlueprintWithSpecial("Boost-SE"):
+	elif stat == Morphose.COMBAT_STAT.SENSES and hasPassiveBlueprintWithSpecial("Boost-SE"):
 		result += getBlueprint("Boost-SE").value
-	elif stat == GlobalProgramData.COMBAT_STAT.SPEED and hasPassiveBlueprintWithSpecial("Boost-SP"):
+	elif stat == Morphose.COMBAT_STAT.SPEED and hasPassiveBlueprintWithSpecial("Boost-SP"):
 		result += getBlueprint("Boost-SP").value
-	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS and hasPassiveBlueprintWithSpecial("Boost-TP"):
+	elif stat == Morphose.COMBAT_STAT.TECH_POINTS and hasPassiveBlueprintWithSpecial("Boost-TP"):
 		result += getBlueprint("Boost-TP").value
 	return result
 

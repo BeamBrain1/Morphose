@@ -1,7 +1,7 @@
 class_name StatModWindow
 extends Node2D
 
-@export var assigned_stat: GlobalProgramData.COMBAT_STAT
+@export var assigned_stat: Morphose.COMBAT_STAT
 
 var party_member: PartyMember
 var at_modification_station: bool = true
@@ -9,12 +9,12 @@ var at_modification_station: bool = true
 signal update_bio_energy
 
 var stat_name_map: Dictionary = {
-	GlobalProgramData.COMBAT_STAT.HP: "Hit Pts",
-	GlobalProgramData.COMBAT_STAT.TECH_POINTS: "Tech Pts",
-	GlobalProgramData.COMBAT_STAT.ATTACK: "Attack",
-	GlobalProgramData.COMBAT_STAT.DEFENSE: "Defense",
-	GlobalProgramData.COMBAT_STAT.SPEED: "Speed",
-	GlobalProgramData.COMBAT_STAT.SENSES: "Senses"
+	Morphose.COMBAT_STAT.HP: "Hit Pts",
+	Morphose.COMBAT_STAT.TECH_POINTS: "Tech Pts",
+	Morphose.COMBAT_STAT.ATTACK: "Attack",
+	Morphose.COMBAT_STAT.DEFENSE: "Defense",
+	Morphose.COMBAT_STAT.SPEED: "Speed",
+	Morphose.COMBAT_STAT.SENSES: "Senses"
 }
 
 

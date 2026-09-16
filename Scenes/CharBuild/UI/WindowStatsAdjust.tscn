@@ -19,10 +19,6 @@ expand_programmatically = false
 position = Vector2(88, 0)
 assigned_stat = 5
 
-[node name="StatModWindowTPRegen" parent="DialogCharacterStats" unique_id=700223683 instance=ExtResource("3_evw0g")]
-visible = false
-position = Vector2(0, 48)
-
 [node name="StatModWindowAttack" parent="DialogCharacterStats" unique_id=1633342755 instance=ExtResource("3_evw0g")]
 position = Vector2(0, 48)
 assigned_stat = 1

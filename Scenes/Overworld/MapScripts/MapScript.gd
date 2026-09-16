@@ -121,3 +121,11 @@ func doEncounter(enemy_list: Array[String]) -> void:
 
 func resumeExecution() -> void:
 	emit_signal("resume_execution")
+
+
+func addPartyMember(member_name: String) -> void:
+	ActiveSaveData.party.addPartyMember(member_name)
+
+
+func removePartyMember(member_name: String) -> void:
+	ActiveSaveData.party.removePartyMember(member_name)

@@ -1,0 +1,62 @@
+extends Node
+
+
+static var primus: PartyMember
+static var defector: PartyMember
+static var scholar: PartyMember
+
+
+func _init() -> void:
+	buildPartyMembers()
+
+
+# Builds starting stats and base data of party members
+static func buildPartyMembers() -> void:
+	primus = PartyMember.new()
+	primus.name = PartyMember.PARTY_MEMBER_PRIMUS_NAME
+	primus.hp = PartyMember.HP_MINIMUM
+	primus.tech_points = PartyMember.TP_MINIMUM
+	primus.attack = PartyMember.STAT_MINIMUM
+	primus.defense = PartyMember.STAT_MINIMUM
+	primus.senses = PartyMember.STAT_MINIMUM
+	primus.speed = PartyMember.STAT_MINIMUM
+	primus.bio_energy = 100#STARTING_BIO_ENERGY
+	primus.discounted_stats = [Morphose.COMBAT_STAT.ATTACK, Morphose.COMBAT_STAT.SPEED, Morphose.COMBAT_STAT.SENSES]
+
+	defector = PartyMember.new()
+	defector.name = PartyMember.PARTY_MEMBER_DEFECTOR_NAME
+	defector.hp = 25
+	defector.tech_points = 15
+	defector.attack = 5
+	defector.defense = 8
+	defector.senses = 6
+	defector.speed = 6
+	defector.bio_energy = 20
+	defector.discounted_stats = [Morphose.COMBAT_STAT.HP, Morphose.COMBAT_STAT.ATTACK, Morphose.COMBAT_STAT.DEFENSE]
+	defector.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
+	
+	scholar = PartyMember.new()
+	scholar.name = PartyMember.PARTY_MEMBER_SCHOLAR_NAME
+	scholar.hp = 50
+	scholar.tech_points = 40
+	scholar.attack = 5
+	scholar.defense = 12
+	scholar.senses = 16
+	scholar.speed = 12
+	scholar.bio_energy = 0
+	scholar.discounted_stats = [Morphose.COMBAT_STAT.HP, Morphose.COMBAT_STAT.TECH_POINTS, Morphose.COMBAT_STAT.SENSES]
+	scholar.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
+	scholar.installBlueprint(Blueprint.getBlueprintFromGlobalList("Acid Spit", 1), true)
+	scholar.installBlueprint(Blueprint.getBlueprintFromGlobalList("Honey", 1), true)
+	scholar.installBlueprint(Blueprint.getBlueprintFromGlobalList("Whet", 1), true)
+
+
+func getPartyMember(member_name: String) -> PartyMember:
+	if member_name.matchn(PartyMember.PARTY_MEMBER_PRIMUS_NAME):
+		return primus
+	elif member_name.matchn(PartyMember.PARTY_MEMBER_DEFECTOR_NAME):
+		return defector
+	elif member_name.matchn(PartyMember.PARTY_MEMBER_SCHOLAR_NAME):
+		return scholar
+	push_error("Party member not found: " + member_name)
+	return null

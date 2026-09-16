@@ -12,14 +12,15 @@ const STAT_FAVORED_DIMINISHING_RETURNS_START: int = 150
 const STAT_DIMINISHING_RETURNS_INTERVAL: int = 5
 const STAT_CAP: int = 250
 
-const PARTY_MEMBER_1_NAME: String = "Primus"
-const PARTY_MEMBER_2_NAME: String = "Defector"
-const PARTY_MEMBER_3_NAME: String = "Scholar"
+const PARTY_MEMBER_PRIMUS_NAME: String = "Primus"
+const PARTY_MEMBER_DEFECTOR_NAME: String = "Defector"
+const PARTY_MEMBER_SCHOLAR_NAME: String = "Scholar"
 
 var bio_energy: int = 0		# Unspent bio-energy
 const MAX_STORED_BIO_ENERGY: int = 99999
+const STARTING_BIO_ENERGY: int = 0
 
-var discounted_stats: Array[GlobalProgramData.COMBAT_STAT] = [] # Discounted stats are cheaper to upgrade than base cost
+var discounted_stats: Array[COMBAT_STAT] = [] # Discounted stats are cheaper to upgrade than base cost
 
 const STARTING_BLUEPRINT_SLOTS: int = 4
 var blueprint_slots: int = STARTING_BLUEPRINT_SLOTS
@@ -48,7 +49,7 @@ static func deepCopy(original: PartyMember) -> PartyMember:
 
 
 # Cost in bio-energy to boost a stat were it a given value
-func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) -> int:
+func costToBoostStatForValue(stat: COMBAT_STAT, value: int) -> int:
 	
 	var result: int = value
 	
@@ -56,25 +57,25 @@ func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) ->
 	
 	var diminishing_returns_start: int
 	
-	if stat == GlobalProgramData.COMBAT_STAT.HP:
+	if stat == Morphose.COMBAT_STAT.HP:
 		diminishing_returns_start = HP_DIMINISHING_RETURNS_START
-	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
+	elif stat == Morphose.COMBAT_STAT.TECH_POINTS:
 		diminishing_returns_start = TP_DIMINISHING_RETURNS_START
 	else:
 		diminishing_returns_start = STAT_DIMINISHING_RETURNS_START
 	
 	if stat in discounted_stats:
-		if stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
+		if stat in [Morphose.COMBAT_STAT.HP, Morphose.COMBAT_STAT.TECH_POINTS]:
 			diminishing_returns_start *= 5
 			diminishing_returns_start /= 4
 		else:
 			diminishing_returns_start = STAT_FAVORED_DIMINISHING_RETURNS_START
 	
-	if stat == GlobalProgramData.COMBAT_STAT.HP:
+	if stat == Morphose.COMBAT_STAT.HP:
 		result -= HP_MINIMUM
 		if result + HP_MINIMUM >= diminishing_returns_start:		# After hitting diminishing returns point, cost doubles regularly
 			result += result * (1 + ((result - diminishing_returns_start) / HP_DIMINISHING_RETURNS_INTERVAL))
-	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
+	elif stat == Morphose.COMBAT_STAT.TECH_POINTS:
 		result -= TP_MINIMUM
 		if result + TP_MINIMUM >= diminishing_returns_start:
 			result += result * (1 + ((result - diminishing_returns_start) / TP_DIMINISHING_RETURNS_INTERVAL))
@@ -91,35 +92,35 @@ func costToBoostStatForValue(stat: GlobalProgramData.COMBAT_STAT, value: int) ->
 		result = maxi(1, (result * 3) / 4)
 	
 	# HP/TP cost 25% to boost
-	if stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
+	if stat in [Morphose.COMBAT_STAT.HP, Morphose.COMBAT_STAT.TECH_POINTS]:
 		result = roundi(float(result) / 4)
 	
 	return maxi(1, result)	# All boosts cost at least 1 point
 
 
-func getRawStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
-	if stat == GlobalProgramData.COMBAT_STAT.HP:
+func getRawStatFromEnumType(stat: COMBAT_STAT) -> int:
+	if stat == Morphose.COMBAT_STAT.HP:
 		return mini(hp, HP_CAP)
-	if stat == GlobalProgramData.COMBAT_STAT.ATTACK:
+	if stat == Morphose.COMBAT_STAT.ATTACK:
 		return mini(attack, STAT_CAP)
-	if stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
+	if stat == Morphose.COMBAT_STAT.DEFENSE:
 		return mini(defense, STAT_CAP)
-	if stat == GlobalProgramData.COMBAT_STAT.SENSES:
+	if stat == Morphose.COMBAT_STAT.SENSES:
 		return mini(senses, STAT_CAP)
-	if stat == GlobalProgramData.COMBAT_STAT.SPEED:
+	if stat == Morphose.COMBAT_STAT.SPEED:
 		return mini(speed, STAT_CAP)
-	if stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
+	if stat == Morphose.COMBAT_STAT.TECH_POINTS:
 		return mini(tech_points, TP_CAP)
 	push_error("Unrecognized stat: " + str(stat))
 	return 0
 
 
 # Cost in bio-energy to boost a given stat by 1 point from its current value
-func costToBoostStatByOne(stat: GlobalProgramData.COMBAT_STAT) -> int:
+func costToBoostStatByOne(stat: COMBAT_STAT) -> int:
 	return costToBoostStatForValue(stat, getRawStatFromEnumType(stat))
 
 
-func costToBoostStatBy(stat: GlobalProgramData.COMBAT_STAT, amount: int) -> int:
+func costToBoostStatBy(stat: COMBAT_STAT, amount: int) -> int:
 	
 	var result: int = 0
 	
@@ -129,55 +130,55 @@ func costToBoostStatBy(stat: GlobalProgramData.COMBAT_STAT, amount: int) -> int:
 	return result
 
 
-func setStatFromEnumType(stat: GlobalProgramData.COMBAT_STAT, value: int) -> void:
-	if stat == GlobalProgramData.COMBAT_STAT.HP:
+func setStatFromEnumType(stat: COMBAT_STAT, value: int) -> void:
+	if stat == Morphose.COMBAT_STAT.HP:
 		hp = clampi(value, HP_MINIMUM, HP_CAP)
-	elif stat == GlobalProgramData.COMBAT_STAT.ATTACK:
+	elif stat == Morphose.COMBAT_STAT.ATTACK:
 		attack = clampi(value, STAT_MINIMUM, STAT_CAP)
-	elif stat == GlobalProgramData.COMBAT_STAT.DEFENSE:
+	elif stat == Morphose.COMBAT_STAT.DEFENSE:
 		defense = clampi(value, STAT_MINIMUM, STAT_CAP)
-	elif stat == GlobalProgramData.COMBAT_STAT.SENSES:
+	elif stat == Morphose.COMBAT_STAT.SENSES:
 		senses = clampi(value, STAT_MINIMUM, STAT_CAP)
-	elif stat == GlobalProgramData.COMBAT_STAT.SPEED:
+	elif stat == Morphose.COMBAT_STAT.SPEED:
 		speed = clampi(value, STAT_MINIMUM, STAT_CAP)
-	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
+	elif stat == Morphose.COMBAT_STAT.TECH_POINTS:
 		tech_points = clampi(value, TP_MINIMUM, TP_CAP)
 	else:
 		push_error("Unrecognized status type: " + str(stat))
 
 
-func getStatMinimumFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
-	if stat == GlobalProgramData.COMBAT_STAT.HP:
+func getStatMinimumFromEnumType(stat: COMBAT_STAT) -> int:
+	if stat == Morphose.COMBAT_STAT.HP:
 		return HP_MINIMUM
-	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
+	elif stat == Morphose.COMBAT_STAT.TECH_POINTS:
 		return TP_MINIMUM
 	else:
 		return STAT_MINIMUM
 
 
-func getStatMaximumFromEnumType(stat: GlobalProgramData.COMBAT_STAT) -> int:
-	if stat == GlobalProgramData.COMBAT_STAT.HP:
+func getStatMaximumFromEnumType(stat: COMBAT_STAT) -> int:
+	if stat == Morphose.COMBAT_STAT.HP:
 		return HP_CAP
-	elif stat == GlobalProgramData.COMBAT_STAT.TECH_POINTS:
+	elif stat == Morphose.COMBAT_STAT.TECH_POINTS:
 		return TP_CAP
 	else:
 		return STAT_CAP
 
 
-func canIncreaseStat(stat: GlobalProgramData.COMBAT_STAT) -> bool:
+func canIncreaseStat(stat: COMBAT_STAT) -> bool:
 	return bio_energy >= costToBoostStatByOne(stat) and getStatFromEnumType(stat) < getStatMaximumFromEnumType(stat)
 
 
-func canDecreaseStat(stat: GlobalProgramData.COMBAT_STAT) -> bool:
+func canDecreaseStat(stat: COMBAT_STAT) -> bool:
 	return getRawStatFromEnumType(stat) > getStatMinimumFromEnumType(stat)
 
 
-func statPlusOne(stat: GlobalProgramData.COMBAT_STAT) -> void:
+func statPlusOne(stat: COMBAT_STAT) -> void:
 	bio_energy -= costToBoostStatByOne(stat)
 	setStatFromEnumType(stat, getRawStatFromEnumType(stat) + 1)
 
 
-func statMinusOne(stat: GlobalProgramData.COMBAT_STAT) -> void:
+func statMinusOne(stat: COMBAT_STAT) -> void:
 	setStatFromEnumType(stat, getRawStatFromEnumType(stat) - 1)
 	bio_energy += costToBoostStatByOne(stat)
 
@@ -186,7 +187,7 @@ func statMinusOne(stat: GlobalProgramData.COMBAT_STAT) -> void:
 func liquidateBioEnergy() -> void:
 	
 	# Set stats to minimum values
-	for stat in [GlobalProgramData.COMBAT_STAT.HP, GlobalProgramData.COMBAT_STAT.ATTACK, GlobalProgramData.COMBAT_STAT.DEFENSE, GlobalProgramData.COMBAT_STAT.SENSES, GlobalProgramData.COMBAT_STAT.SPEED, GlobalProgramData.COMBAT_STAT.TECH_POINTS]:
+	for stat in [Morphose.COMBAT_STAT.HP, Morphose.COMBAT_STAT.ATTACK, Morphose.COMBAT_STAT.DEFENSE, Morphose.COMBAT_STAT.SENSES, Morphose.COMBAT_STAT.SPEED, Morphose.COMBAT_STAT.TECH_POINTS]:
 		while getRawStatFromEnumType(stat) > getStatMinimumFromEnumType(stat):
 			statMinusOne(stat)
 
@@ -277,11 +278,11 @@ func getAllBlueprints() -> Array:
 
 
 func blueprintIsCompatible(blueprint_in) -> bool:
-	if name == PARTY_MEMBER_1_NAME:
+	if name == PARTY_MEMBER_PRIMUS_NAME:
 		return blueprint_in.primus_compatible
-	elif name == PARTY_MEMBER_2_NAME:
+	elif name == PARTY_MEMBER_DEFECTOR_NAME:
 		return blueprint_in.defector_compatible
-	elif name == PARTY_MEMBER_3_NAME:
+	elif name == PARTY_MEMBER_SCHOLAR_NAME:
 		return blueprint_in.scholar_compatible
 	
 	push_error("Blueprint compatibility check failed for party member " + name)

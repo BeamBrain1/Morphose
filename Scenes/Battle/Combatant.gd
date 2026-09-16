@@ -76,11 +76,11 @@ func initializeTP() -> void:
 
 
 func getMaxHP() -> int:
-	return morphose.getStatFromEnumType(GlobalProgramData.COMBAT_STAT.HP)
+	return morphose.getStatFromEnumType(Morphose.COMBAT_STAT.HP)
 
 
 func getMaxTP() -> int:
-	return morphose.getStatFromEnumType(GlobalProgramData.COMBAT_STAT.TECH_POINTS)
+	return morphose.getStatFromEnumType(Morphose.COMBAT_STAT.TECH_POINTS)
 
 
 func isDefeated() -> bool:
@@ -167,20 +167,20 @@ func setStatusEffectFromEnumType(effect: STATUS_EFFECT, value: int, self_applied
 
 
 func getStatusEffectAdjustedAttack() -> int:
-	return floori(morphose.getStatFromEnumType(GlobalProgramData.COMBAT_STAT.ATTACK) * (1 + sharpened_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
+	return floori(morphose.getStatFromEnumType(Morphose.COMBAT_STAT.ATTACK) * (1 + sharpened_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
 
 
 func getStatusEffectAdjustedDefense() -> int:
-	return floori(morphose.getStatFromEnumType(GlobalProgramData.COMBAT_STAT.DEFENSE) * (1 + hardened_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
+	return floori(morphose.getStatFromEnumType(Morphose.COMBAT_STAT.DEFENSE) * (1 + hardened_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
 
 
 func getStatusEffectAdjustedSenses() -> int:
-	return floori(morphose.getStatFromEnumType(GlobalProgramData.COMBAT_STAT.SENSES) * (1 + keen_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
+	return floori(morphose.getStatFromEnumType(Morphose.COMBAT_STAT.SENSES) * (1 + keen_stacks * STATUS_STACK_DEFAULT_MULTIPLIER))
 
 
 # Speed stacks are less potent to mitigate action economy (dis)advantage
 func getStatusEffectAdjustedSpeed() -> int:
-	return floori(morphose.getStatFromEnumType(GlobalProgramData.COMBAT_STAT.SPEED) * (1 + energized_stacks * SPEED_STACK_MULTIPLIER))
+	return floori(morphose.getStatFromEnumType(Morphose.COMBAT_STAT.SPEED) * (1 + energized_stacks * SPEED_STACK_MULTIPLIER))
 
 
 func getStatusEffectAdjustedTPRegen() -> int:
@@ -188,7 +188,7 @@ func getStatusEffectAdjustedTPRegen() -> int:
 
 
 func getBaseTPRegen() -> int:
-	return ceili(float(morphose.getStatFromEnumType(GlobalProgramData.COMBAT_STAT.TECH_POINTS)) / 4)
+	return ceili(float(morphose.getStatFromEnumType(Morphose.COMBAT_STAT.TECH_POINTS)) / 4)
 
 
 # self_applied_via_action: Was this Morphose's applied to themself by an action taken on their current turn?

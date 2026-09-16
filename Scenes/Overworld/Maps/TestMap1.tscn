@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bxlx52nrj1d2b" path="res://Scenes/Overworld/Encounters/Encounter.tscn" id="4_ewcfi"]
 [ext_resource type="PackedScene" uid="uid://dqwv0hu2bnrch" path="res://Scenes/Overworld/ActiveObjects/ModificationStation.tscn" id="4_fvegh"]
 [ext_resource type="PackedScene" uid="uid://bmd72gir6vcsv" path="res://Scenes/Overworld/ActiveObjects/ScriptTrigger.tscn" id="8_h4wh6"]
-[ext_resource type="PackedScene" uid="uid://c1lxhdw0hwf3j" path="res://Scenes/Overworld/MapScripts/TestScriptBattle.tscn" id="9_6rkqr"]
-[ext_resource type="PackedScene" uid="uid://b0lj7xke3vyi5" path="res://Scenes/Overworld/MapScripts/TestScript.tscn" id="9_buam8"]
+[ext_resource type="PackedScene" uid="uid://bdl4cymsi6lbr" path="res://Scenes/Overworld/MapScripts/TestScriptPartyMemberJoin.tscn" id="9_6rkqr"]
+[ext_resource type="PackedScene" uid="uid://bleoleub70n6r" path="res://Scenes/Overworld/MapScripts/TestScriptPartyMemberLeave.tscn" id="10_i16bk"]
 
 [node name="OverworldMap" type="Node2D" unique_id=1987703735]
 script = ExtResource("1_pviaa")
@@ -78,14 +78,14 @@ destination_tile = Vector2(8, 8)
 [node name="ScriptTrigger" parent="ActiveObjects" unique_id=975544378 instance=ExtResource("8_h4wh6")]
 position = Vector2(128, 128)
 
-[node name="TestScriptBattle" parent="ActiveObjects/ScriptTrigger" unique_id=1725623064 instance=ExtResource("9_6rkqr")]
+[node name="TestScriptPartyMemberJoin" parent="ActiveObjects/ScriptTrigger" unique_id=1725623064 instance=ExtResource("9_6rkqr")]
 
 [node name="ScriptTrigger2" parent="ActiveObjects" unique_id=1703166419 instance=ExtResource("8_h4wh6")]
 position = Vector2(144, 144)
 activation_type = 1
 is_solid = true
 
-[node name="TestScript" parent="ActiveObjects/ScriptTrigger2" unique_id=1347291365 instance=ExtResource("9_buam8")]
+[node name="TestScriptPartyMemberLeave" parent="ActiveObjects/ScriptTrigger2" unique_id=1230903464 instance=ExtResource("10_i16bk")]
 
 [node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("3_j5bwv")]
 position = Vector2(-16, -16)

@@ -27,6 +27,7 @@ texture = ExtResource("4_7iinr")
 
 [node name="StatModWindow" type="Node2D" unique_id=578653506]
 script = ExtResource("1_giepi")
+assigned_stat = null
 
 [node name="BG1" type="ColorRect" parent="." unique_id=659261889]
 offset_left = 1.0
