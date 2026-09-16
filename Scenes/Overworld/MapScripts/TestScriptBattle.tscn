@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c1lxhdw0hwf3j"]
+
+[ext_resource type="Script" uid="uid://dhq1j6s0ifwrt" path="res://Scenes/Overworld/MapScripts/test_script_battle.gd" id="1_jgygs"]
+
+[node name="TestScriptBattle" type="Node" unique_id=1725623064]
+script = ExtResource("1_jgygs")
+metadata/_custom_type_script = "uid://1u3wv6hyith2"

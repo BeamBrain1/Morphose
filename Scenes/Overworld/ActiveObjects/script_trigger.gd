@@ -7,7 +7,7 @@ enum CHECK_VALUE_TYPE {FLAG_NAME, CONSTANT}
 enum ACTIVATION_TYPE {STEP, INTERACT}
 
 @export var activation_type: ACTIVATION_TYPE
-@export var map_script: MapScript
+var map_script: MapScript
 
 @export var has_destroy_on_load_condition: bool = false
 

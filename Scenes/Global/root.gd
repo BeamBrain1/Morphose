@@ -29,7 +29,7 @@ func setActiveController(controller: String) -> void:
 	if active_controller is ControllerOverworld:
 		active_controller.execute_script.connect($ScriptHandler.assignAndExecuteScript)
 		if $ScriptHandler.hasScript():
-			active_controller.initialization_finished.connect($ScriptHandler.resumeScript)
+			$ScriptHandler.resumeScriptExecution()
 
 
 # won_previous: Did we win a previous battle? Used to determine whether to add a new party member

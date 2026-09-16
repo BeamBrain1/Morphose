@@ -602,7 +602,7 @@ static func addEnemyToTable(enemy: EnemyType):
 
 # Given an array of enemy names, build an array of their corresponding enemy types
 static func buildEnemyList(enemy_names: Array[String]) -> Array[EnemyType]:
-	var result = []
+	var result: Array[EnemyType] = []
 	for enemy_name in enemy_names:
 		result.append(getEnemyByName(enemy_name))
 	return result
