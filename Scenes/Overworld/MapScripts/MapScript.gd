@@ -129,3 +129,12 @@ func addPartyMember(member_name: String) -> void:
 
 func removePartyMember(member_name: String) -> void:
 	ActiveSaveData.party.removePartyMember(member_name)
+
+
+func giveBlueprint(bp_name: String, tier: int = 1) -> void:
+	ActiveSaveData.party.collectBlueprint(Blueprint.getBlueprintFromGlobalList(bp_name, tier))
+
+
+func openCharBuildScreen(at_mod_station: bool) -> void:
+	controllerOverworld().switchToCharBuildController(at_mod_station)
+	await resume_execution		# Takes us out of the overworld, so pause the script

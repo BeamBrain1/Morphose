@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://8nanp43qd0oo"]
+
+[ext_resource type="Script" uid="uid://b0t5ribn7q3k8" path="res://Scenes/Overworld/MapScripts/test_script_blueprints_and_mod_station.gd" id="1_m5hvh"]
+
+[node name="TestScriptBlueprintsAndModStation" type="Node" unique_id=1725623064]
+script = ExtResource("1_m5hvh")
+metadata/_custom_type_script = "uid://1u3wv6hyith2"
