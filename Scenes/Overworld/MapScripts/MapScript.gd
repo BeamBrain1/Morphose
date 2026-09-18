@@ -3,6 +3,11 @@ extends Node
 
 var handler: ScriptHandler
 
+var battle_won: bool
+# Indicates whether a battle triggered by this script was won.
+# If null, no battle triggered.
+# False usually indicates party ran away, as combat losses generally end in defeat
+
 signal resume_execution
 
 func attachHandler(handler_in: ScriptHandler) -> void:
@@ -73,6 +78,13 @@ func destroyActiveObject(node_name: String) -> void:
 	activeMap().destroyActiveObject(node_name)
 
 
+func turnNPC(npc_name: String, direction: GlobalProgramData.DIRECTION) -> void:
+	if activeMap().getNPC(npc_name) == null:
+		push_error("NPC not found: " + npc_name)
+	else:
+		activeMap().getNPC(npc_name).faceDirection(direction)
+
+
 # Returns flag value for key, or default value if flag not present
 func getFlagIntValue(flag: String) -> int:
 	return globalFlags().getIntValue(flag)
@@ -138,3 +150,7 @@ func giveBlueprint(bp_name: String, tier: int = 1) -> void:
 func openCharBuildScreen(at_mod_station: bool) -> void:
 	controllerOverworld().switchToCharBuildController(at_mod_station)
 	await resume_execution		# Takes us out of the overworld, so pause the script
+
+
+func setBattleResult(won: bool):
+	battle_won = won

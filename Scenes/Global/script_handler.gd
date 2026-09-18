@@ -27,6 +27,11 @@ func clearScript() -> void:
 	current_script = null
 
 
+func setBattleResult(won: bool) -> void:
+	if current_script != null:
+		current_script.setBattleResult(won)
+
+
 func resumeScriptExecution() -> void:
 	if hasScript():
 		current_script.resumeExecution()

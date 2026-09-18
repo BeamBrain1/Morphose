@@ -12,25 +12,25 @@ func _process(delta) -> void:
 
 
 func attemptMoveUp(scripted: bool = false) -> void:
-	play("up")
+	play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.UP])
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.UP
 	attemptMoveTo(move_destination, scripted)
 
 
 func attemptMoveDown(scripted: bool = false) -> void:
-	play("down")
+	play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.DOWN])
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.DOWN
 	attemptMoveTo(move_destination, scripted)
 
 
 func attemptMoveLeft(scripted: bool = false) -> void:
-	play("left")
+	play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.LEFT])
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.LEFT
 	attemptMoveTo(move_destination, scripted)
 
 
 func attemptMoveRight(scripted: bool = false) -> void:
-	play("right")
+	play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.RIGHT])
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.RIGHT
 	attemptMoveTo(move_destination, scripted)
 
@@ -100,3 +100,7 @@ func currentFacingDirection() -> GlobalProgramData.DIRECTION:
 
 	push_error("Unable to convert animation to direction: " + animation)
 	return GlobalProgramData.DIRECTION.UP
+
+
+func faceDirection(direction: GlobalProgramData.DIRECTION) -> void:
+	play(GlobalProgramData.direction_string[direction])

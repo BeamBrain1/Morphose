@@ -20,6 +20,7 @@ func _ready() -> void:
 func initialize(name_in: String, party_grid_position: Vector2):
 	map_name = name_in
 	getPartyToken().setGridPosition(party_grid_position)
+	assignSelfToNPCs()
 	updateCamera()
 
 
@@ -58,6 +59,11 @@ func updateCamera() -> void:
 	position = centerTileOnScreenLocation() - $PartyToken.position
 
 
+func assignSelfToNPCs() -> void:
+	for npc in getNPCs():
+		npc.assignMap(self)
+
+
 func tileIsTraversable(tile_loc: Vector2) -> bool:
 	for tile_map in getTileMaps():
 		if tile_map.isSolidTile(tile_loc):
@@ -85,10 +91,18 @@ func getActiveMapObjects() -> Array:
 	return get_node("ActiveObjects").get_children()
 
 
-func getScriptTriggers() -> Array:
+func getScriptTriggers() -> Array[ScriptTrigger]:
 	var results = []
-	for node in get_node("ActiveObjects").get_children():
+	for node in getActiveMapObjects():
 		if node is ScriptTrigger:
+			results.append(node)
+	return results
+
+
+func getNPCs() -> Array[NPC]:
+	var results = []
+	for node in getActiveMapObjects():
+		if node is NPC:
 			results.append(node)
 	return results
 
@@ -177,3 +191,11 @@ func getMapLayer(layer: String) -> TileMapLayerMorphose:
 func setMapTile(layer: String, grid_position: Vector2, atlas_offset: Vector2) -> void:
 	var map_layer: TileMapLayerMorphose = getMapLayer(layer)
 	map_layer.set_cell(grid_position, 0, atlas_offset)
+
+
+func getNPC(npc_name: String) -> NPC:
+	var active_object = getActiveObjectByName(npc_name)
+	if active_object != null and active_object.name == npc_name:
+		return active_object
+	push_error("NPC not found: " + npc_name)
+	return null

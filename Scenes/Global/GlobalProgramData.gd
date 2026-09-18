@@ -15,3 +15,10 @@ const direction_vector: Dictionary = {
 	DIRECTION.DOWN: Vector2.DOWN,
 	DIRECTION.LEFT: Vector2.LEFT
 }
+
+const direction_string: Dictionary = {
+	DIRECTION.UP: "up",
+	DIRECTION.RIGHT: "right",
+	DIRECTION.DOWN: "down",
+	DIRECTION.LEFT: "left"
+}

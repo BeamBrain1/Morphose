@@ -7,7 +7,6 @@ enum CHECK_VALUE_TYPE {FLAG_NAME, CONSTANT}
 enum ACTIVATION_TYPE {STEP, INTERACT}
 
 @export var activation_type: ACTIVATION_TYPE
-var map_script: MapScript
 
 @export var has_destroy_on_load_condition: bool = false
 
@@ -16,12 +15,18 @@ var map_script: MapScript
 @export var dol_check_value_type: CHECK_VALUE_TYPE
 @export var dol_check_value: String
 
+var map_script: MapScript
+
 signal request_script_execution
 
 func _ready() -> void:
 	if has_destroy_on_load_condition:
 		if scriptConditionMet(dol_flag, dol_comparator_type, dol_check_value_type, dol_check_value):
 			call_deferred("queue_free")
+	linkScript()
+
+
+func linkScript() -> void:
 	if get_children().size() == 0:
 		push_error("Script trigger " + name + " has no attached script")
 	elif get_children().size() > 1:
