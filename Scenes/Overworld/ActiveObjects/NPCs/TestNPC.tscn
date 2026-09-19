@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://bnp7m82xp5ar1"]
+
+[ext_resource type="Script" uid="uid://cxkg2pu25exa4" path="res://Scenes/Overworld/ActiveObjects/npc.gd" id="1_a6wij"]
+[ext_resource type="Texture2D" uid="uid://dr3i1brp2w7py" path="res://Graphics/OverworldObjects/npc1.png" id="1_mm4ro"]
+[ext_resource type="PackedScene" uid="uid://b0lj7xke3vyi5" path="res://Scenes/Overworld/MapScripts/TestScript.tscn" id="2_5cpc1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6et7"]
+atlas = ExtResource("1_mm4ro")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybdb2"]
+atlas = ExtResource("1_mm4ro")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gijbx"]
+atlas = ExtResource("1_mm4ro")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4x7c"]
+atlas = ExtResource("1_mm4ro")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5cpc1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6et7")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybdb2")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gijbx")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4x7c")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="TestNPC" type="AnimatedSprite2D" unique_id=102129676]
+sprite_frames = SubResource("SpriteFrames_5cpc1")
+animation = &"down"
+centered = false
+script = ExtResource("1_a6wij")
+initial_direction = 0
+is_solid = true
+metadata/_custom_type_script = "uid://cxkg2pu25exa4"
+
+[node name="InteractScript" parent="." unique_id=1725623064 instance=ExtResource("2_5cpc1")]

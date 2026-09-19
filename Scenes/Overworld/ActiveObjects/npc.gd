@@ -3,36 +3,24 @@ extends ActiveMapObject
 
 var interact_script: MapScript
 var map: OverworldMap
+@export var initial_direction: GlobalProgramData.DIRECTION = GlobalProgramData.DIRECTION.DOWN
 signal request_script_execution
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	faceDirection(initial_direction)
 	if hasInteractScript():
 		interact_script = get_node("InteractScript")
 
 
-func attemptMoveUp(scripted: bool = false) -> void:
-	play("up")
-	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.UP
+func attemptMove(direction: GlobalProgramData.DIRECTION) -> void:
+	play(GlobalProgramData.direction_string[direction])
+	var move_destination: Vector2 = OverworldMap.gridPosition(self) + GlobalProgramData.direction_vector[direction]
 	attemptMoveTo(move_destination)
 
 
-func attemptMoveDown(scripted: bool = false) -> void:
-	play("down")
-	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.DOWN
-	attemptMoveTo(move_destination)
-
-
-func attemptMoveLeft(scripted: bool = false) -> void:
-	play("left")
-	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.LEFT
-	attemptMoveTo(move_destination)
-
-
-func attemptMoveRight(scripted: bool = false) -> void:
-	play("right")
-	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.RIGHT
-	attemptMoveTo(move_destination)
+func push(direction: GlobalProgramData.DIRECTION) -> void:
+	attemptMove(direction)
 
 
 func attemptMoveTo(destination_tile: Vector2):
@@ -42,10 +30,6 @@ func attemptMoveTo(destination_tile: Vector2):
 
 func step(tile_grid_loc: Vector2) -> void:
 	setGridPosition(tile_grid_loc)
-
-
-func hasIdleScript() -> bool:
-	return has_node("IdleScript") and get_node("IdleScript") is MapScript
 
 
 func hasInteractScript() -> bool:

@@ -91,7 +91,7 @@ func getActiveMapObjects() -> Array:
 	return get_node("ActiveObjects").get_children()
 
 
-func getScriptTriggers() -> Array[ScriptTrigger]:
+func getScriptTriggers() -> Array:
 	var results = []
 	for node in getActiveMapObjects():
 		if node is ScriptTrigger:
@@ -99,7 +99,7 @@ func getScriptTriggers() -> Array[ScriptTrigger]:
 	return results
 
 
-func getNPCs() -> Array[NPC]:
+func getNPCs() -> Array:
 	var results = []
 	for node in getActiveMapObjects():
 		if node is NPC:

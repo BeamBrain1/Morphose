@@ -39,6 +39,8 @@ func initializeCurrentMap(map_name: String, party_grid_position: Vector2) -> voi
 	current_map.initialize(map_name, party_grid_position)
 	for trigger in current_map.getScriptTriggers():
 		trigger.request_script_execution.connect(executeScriptTrigger)
+	for npcs in current_map.getNPCs():
+		npcs.request_script_execution.connect(executeScriptTrigger)
 
 
 func loadSavedPartyLocation() -> void:

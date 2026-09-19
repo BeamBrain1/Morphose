@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cxkg2pu25exa4" path="res://Scenes/Overworld/ActiveObjects/npc.gd" id="1_hd661"]
 
 [node name="NPC" type="AnimatedSprite2D" unique_id=277077586]
+centered = false
 script = ExtResource("1_hd661")
 is_solid = true
 metadata/_custom_type_script = "uid://do112qioq75g8"
