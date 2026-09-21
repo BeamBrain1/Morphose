@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cnbg16critmie" path="res://Graphics/OverworldObjects/warp_point.png" id="1_yhnma"]
 [ext_resource type="Script" uid="uid://2ui35hmof5tp" path="res://Scenes/Overworld/ActiveObjects/warp_point.gd" id="2_b8yyb"]
+[ext_resource type="PackedScene" uid="uid://hcdsnl1k2ls4" path="res://Scenes/Overworld/MapScripts/warp_script.tscn" id="3_56h74"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kmecn"]
 atlas = ExtResource("1_yhnma")
@@ -23,3 +24,5 @@ sprite_frames = SubResource("SpriteFrames_56h74")
 centered = false
 script = ExtResource("2_b8yyb")
 metadata/_custom_type_script = "uid://do112qioq75g8"
+
+[node name="WarpScript" parent="." unique_id=1038762891 instance=ExtResource("3_56h74")]

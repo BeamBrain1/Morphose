@@ -5,49 +5,42 @@ const TILE_SIZE: int = 16
 const ACTIVE_OBJECT_DIRECTORY = "res://Scenes/Overowrld/ActiveObjects/"
 
 var map_name: String
-signal party_stepped
 
-signal warp_point_hit
-signal blueprint_collected
-signal mod_station_activated
+signal party_stepped
+signal request_script_execution
+
 
 func _ready() -> void:
 	getPartyToken().map = self
 	getPartyToken().stepped.connect(partyStepped)
-	connectAllActiveObjectSignals()
 
 
 func initialize(name_in: String, party_grid_position: Vector2):
 	map_name = name_in
 	getPartyToken().setGridPosition(party_grid_position)
 	assignSelfToNPCs()
+	connectActiveObjectScripts()
 	updateCamera()
+	await runOnLoadScript()
 
 
-func connectAllActiveObjectSignals() -> void:
-	for object in getActiveMapObjects():
-		connectActiveObjectSignals(object)
+# The onLoadScript is the first MapScript that is a direct child of the map
+# This script will be run as the last step of the map's initialization
+func runOnLoadScript() -> void:
+	if getOnLoadScript() != null:
+		emit_signal("request_script_execution", getOnLoadScript())
 
 
-func connectActiveObjectSignals(object: ActiveMapObject) -> void:
-	if object is WarpPoint:
-		object.warp.connect(warpPointHit)
-	elif object is ModificationStation:
-		object.used.connect(modificationStationActivated)
-	elif object is BlueprintContainer:
-		object.opened.connect(blueprintContainerOpened)
+func connectActiveObjectScripts() -> void:
+	for obj in getActiveMapObjects():
+		obj.request_script_execution.connect(requestScriptExecution)
 
 
-func warpPointHit(destination: OverworldPosition) -> void:
-	emit_signal("warp_point_hit", destination)
-
-
-func modificationStationActivated() -> void:
-	emit_signal("mod_station_activated")
-
-
-func blueprintContainerOpened(blueprint) -> void:
-	emit_signal("blueprint_collected", blueprint)
+func getOnLoadScript() -> MapScript:
+	for node in get_children():
+		if node is MapScript:
+			return node
+	return null
 
 
 func partyStepped(scripted: bool = false) -> void:
@@ -165,8 +158,8 @@ func partyEncounterZone() -> EncounterZone:
 func spawnActiveObject(scene_name: String, node_name: String, grid_position: Vector2) -> void:
 	var active_object = load(ACTIVE_OBJECT_DIRECTORY + scene_name + ".tscn").instantiate()
 	add_child(active_object)
-	connectActiveObjectSignals(active_object)
 	active_object.setGridPosition(grid_position)
+	active_object.request_script_execution.connect(requestScriptExecution)
 
 
 func destroyActiveObject(node_name: String) -> void:
@@ -199,3 +192,7 @@ func getNPC(npc_name: String) -> NPC:
 		return active_object
 	push_error("NPC not found: " + npc_name)
 	return null
+
+
+func requestScriptExecution(map_script: MapScript) -> void:
+	emit_signal("request_script_execution", map_script)

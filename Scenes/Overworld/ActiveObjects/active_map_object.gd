@@ -3,15 +3,31 @@ extends AnimatedSprite2D
 
 @export var is_solid: bool = false
 
+const INTERACT_SCRIPT_NAME: String = "InteractScript"
+const STEP_ON_SCRIPT_NAME: String = "StepOnScript"
 
-# Override in children
+var map_script: MapScript
+
+signal request_script_execution
+
+enum ACTIVATION_TYPE {STEP, INTERACT}
+@export var activation_type: ACTIVATION_TYPE
+
+func _ready() -> void:
+	for node in get_children():
+		if node is MapScript:
+			map_script = node
+			break
+
+
 func steppedOn() -> void:
-	pass
+	if activation_type == ACTIVATION_TYPE.STEP and map_script != null:
+		emit_signal("request_script_execution", map_script)
 
 
-# Override in children
 func interactedWith() -> void:
-	pass
+	if activation_type == ACTIVATION_TYPE.INTERACT and map_script != null:
+		emit_signal("request_script_execution", map_script)
 
 
 func push(direction: GlobalProgramData.DIRECTION) -> void:

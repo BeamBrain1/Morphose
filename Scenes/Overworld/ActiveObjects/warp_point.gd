@@ -7,12 +7,12 @@ extends ActiveMapObject
 
 var destination: OverworldPosition
 
-signal warp
-
 func _ready() -> void:
+	super()
 	hide()
 	destination = OverworldPosition.new(destination_map, destination_tile)
+	initializeWarpScript()
 
 
-func steppedOn() -> void:
-	emit_signal("warp", destination)
+func initializeWarpScript() -> void:
+	map_script.initialize(destination_map, destination_tile)

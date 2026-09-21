@@ -4,44 +4,32 @@ extends ActiveMapObject
 @export var blueprint_name: String
 @export var blueprint_tier: int
 
-var blueprint: Blueprint
 var overworld_ui: OverworldUI
 
 signal opened
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	assignBlueprint()
+	super()
+	map_script.initialize(blueprint_name, blueprint_tier)
 	if hasBeenOpened():
 		preopen()
 
 
-func assignBlueprint() -> void:
-	blueprint = Blueprint.getBlueprintFromGlobalList(blueprint_name, blueprint_tier)
-
-
 func interactedWith() -> void:
 	if not hasBeenOpened():
-		open()
-
-
-func open() -> void:
-	play("opened")
-	ActiveSaveData.collectBlueprint(blueprint)
-	emit_signal("opened", blueprint)
+		play("opened")
+		super()					# Only execute the attached script if we haven't already opened this container
 
 
 func preopen() -> void:
 	play("opened")
 
 
-func getBlueprint() -> Blueprint:
-	return blueprint
-
-
 # A container is marked as opened if the party already has its blueprint
 func hasBeenOpened() -> bool:
+	var check_blueprint = Blueprint.getBlueprintFromGlobalList(blueprint_name, blueprint_tier)
 	for bp in ActiveSaveData.allCollectedBlueprints():
-		if bp.equals(blueprint):
+		if bp.equals(check_blueprint):
 			return true
 	return false

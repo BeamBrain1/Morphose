@@ -33,14 +33,8 @@ func assignOverworldMapAndPartyLocation(map_name: String, party_grid_position: V
 func initializeCurrentMap(map_name: String, party_grid_position: Vector2) -> void:
 	add_child(current_map)
 	$EncounterHandler.assignMap(current_map)
-	current_map.warp_point_hit.connect(warpPartyTo)
-	current_map.blueprint_collected.connect(blueprintCollected)
-	current_map.mod_station_activated.connect(switchToCharBuildController, true)
+	current_map.request_script_execution.connect(executeMapScript)
 	current_map.initialize(map_name, party_grid_position)
-	for trigger in current_map.getScriptTriggers():
-		trigger.request_script_execution.connect(executeScriptTrigger)
-	for npcs in current_map.getNPCs():
-		npcs.request_script_execution.connect(executeScriptTrigger)
 
 
 func loadSavedPartyLocation() -> void:
@@ -63,5 +57,5 @@ func overworldUI() -> OverworldUI:
 	return $OverworldUI
 
 
-func executeScriptTrigger(script: MapScript) -> void:
+func executeMapScript(script: MapScript) -> void:	
 	emit_signal("execute_script", script)
