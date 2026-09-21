@@ -3,6 +3,8 @@ class_name Blueprint
 const NUM_NAME_CHARS: int = 10			# Pad name to this size, including generation
 
 var base_display_name: String = "[NO DATA]"
+var override_display_name: String = ""
+
 var tier: int = 1						# Higher tiers are stronger versions of same abilities
 										# Higher tiers of attack/passive abilities also give access
 										#	to their lower-tier versions
@@ -56,12 +58,16 @@ const TP_COST_TRACKS: Dictionary = {
 }
 
 func getDialogDisplayName() -> String:
+	if override_display_name != "":
+		return override_display_name
 	if tier == 1:
 		return base_display_name
 	return base_display_name + " " + str(tier)
 
 
 func getMenuDisplayName() -> String:
+	if override_display_name != "":
+		return " " + override_display_name.rpad(NUM_NAME_CHARS)
 	if tier == 1:
 		return " " + base_display_name.rpad(NUM_NAME_CHARS)
 	return " " + base_display_name.rpad(NUM_NAME_CHARS - 1) + str(tier)
@@ -126,17 +132,19 @@ func isInList(blueprint_list: Array):
 	return false
 
 
-static func getBlueprintFromGlobalList(name_in: String, tier_in: int):
+static func getBlueprintFromGlobalList(name_in: String, tier_in: int) -> Blueprint:
 	return getBlueprintFromList(GlobalProgramData.all_blueprints, name_in, tier_in)
 
 
 static func getDialogDisplayNameFromParameters(name_in: String, tier_in: int) -> String:
-	if tier_in == 1:
-		return name_in
-	return name_in + " " + str(tier_in)
+	return getBlueprintFromGlobalList(name_in, tier_in).getDialogDisplayName()
 
 
-static func sortBlueprintsAscending(a, b):
+static func sortBlueprintsAscendingBattle(a: Blueprint, b: Blueprint):
+	return sortBlueprintsAscendingCharBuild(a, b)
+
+
+static func sortBlueprintsAscendingCharBuild(a: Blueprint, b: Blueprint):
 	if a.base_display_name < b.base_display_name:
 		return true
 	elif a.base_display_name == b.base_display_name:
@@ -144,7 +152,7 @@ static func sortBlueprintsAscending(a, b):
 	return false
 
 
-static func sortBlueprintsDescending(a, b):
+static func sortBlueprintsDescending(a: Blueprint, b: Blueprint):
 	if a.base_display_name > b.base_display_name:
 		return true
 	elif a.base_display_name == b.base_display_name:

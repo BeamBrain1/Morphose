@@ -224,7 +224,6 @@ func installBlueprint(blueprint, free: bool = false) -> void:
 		blueprint_list = blueprints_passive
 	
 	blueprint_list.append(blueprint)
-	blueprint_list.sort_custom(Blueprint.sortBlueprintsAscending)
 	
 	if not free:
 		bio_energy -= blueprint.getBioEnergyCost()

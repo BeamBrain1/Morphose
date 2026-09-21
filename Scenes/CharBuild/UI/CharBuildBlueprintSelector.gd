@@ -25,7 +25,7 @@ func assignBuyableBlueprintList(blueprint_list_in: Array, party_member: PartyMem
 	for blueprint in blueprint_list_in:
 		if not blueprint.isInList(blueprint_list) and not blueprint.isInList(party_member.getAllBlueprints()) and party_member.blueprintIsCompatible(blueprint):
 			blueprint_list.append(blueprint)
-	blueprint_list.sort_custom(Blueprint.sortBlueprintsAscending)
+	blueprint_list.sort_custom(Blueprint.sortBlueprintsAscendingCharBuild)
 	current_page = 0
 	assigned_party_member = party_member
 	populateButtonList()
@@ -36,7 +36,7 @@ func assignPartyMemberBlueprintList(party_member: PartyMember):
 	for blueprint in party_member.getAllBlueprints():
 		if not blueprint.isInList(blueprint_list):
 			blueprint_list.append(blueprint)
-	blueprint_list.sort_custom(Blueprint.sortBlueprintsAscending)
+	blueprint_list.sort_custom(Blueprint.sortBlueprintsAscendingCharBuild)
 	current_page = 0
 	assigned_party_member = party_member
 	populateButtonList()

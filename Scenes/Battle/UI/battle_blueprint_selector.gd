@@ -20,6 +20,7 @@ func assignBlueprintList(blueprints: Array, available_tp_in: int) -> void:
 	num_rows = ceili(blueprints.size()/BLUEPRINTS_PER_LINE) + 3		# Add 3 for cancel button
 	setSizeAndPosition()
 	$ButtonCancel.position.y = size.y - (ROW_HEIGHT_PX * 2)
+	blueprints.sort_custom(Blueprint.sortBlueprintsAscendingBattle)
 	for i in range(blueprints.size()):
 		var blueprint_button = BlueprintActionButton.instantiate()
 		add_child(blueprint_button)
