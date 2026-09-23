@@ -56,7 +56,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.speed = 8
 	current_enemy.never_crits = true
 	current_enemy.is_boss = true
-	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
+	current_enemy.installBlueprintByNameAndTier("Horn", 1)
 	addEnemyToTable(current_enemy)
 	
 	### EARLY OVERWORLD ###
@@ -68,7 +68,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.defense = 3
 	current_enemy.senses = 6
 	current_enemy.speed = 22
-	current_enemy.installBlueprintByNameAndTier("Chaingun", 1)
+	current_enemy.installBlueprintByNameAndTier("Auto Rifle", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -80,7 +80,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 4
 	current_enemy.speed = 4
 	current_enemy.installBlueprintByNameAndTier("Claw", 1, 2)
-	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
+	current_enemy.installBlueprintByNameAndTier("Horn", 1)
 	current_enemy.installBlueprintByNameAndTier("Mucus", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -118,7 +118,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 10
 	current_enemy.speed = 10
 	current_enemy.installBlueprintByNameAndTier("Claw", 1, 2)
-	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
+	current_enemy.installBlueprintByNameAndTier("Horn", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -146,7 +146,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 14
 	current_enemy.speed = 16
 	current_enemy.installBlueprintByNameAndTier("Claw", 1, 2)
-	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
+	current_enemy.installBlueprintByNameAndTier("Horn", 1)
 	current_enemy.installBlueprintByNameAndTier("Blitz", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -186,7 +186,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.defense = 10
 	current_enemy.senses = 30
 	current_enemy.speed = 20
-	current_enemy.installBlueprintByNameAndTier("Psypulse", 1, 2)
+	current_enemy.installBlueprintByNameAndTier("Psy pulse", 1, 2)
 	current_enemy.installBlueprintByNameAndTier("Enrage", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -199,7 +199,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 18
 	current_enemy.speed = 20
 	current_enemy.installBlueprintByNameAndTier("Claw", 1, 2)
-	current_enemy.installBlueprintByNameAndTier("Hammer", 1)
+	current_enemy.installBlueprintByNameAndTier("Horn", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -210,7 +210,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.defense = 14
 	current_enemy.senses = 18
 	current_enemy.speed = 22
-	current_enemy.installBlueprintByNameAndTier("Chaingun", 1, 2)
+	current_enemy.installBlueprintByNameAndTier("Auto Rifle", 1, 2)
 	current_enemy.installBlueprintByNameAndTier("Overclock", 1)
 	addEnemyToTable(current_enemy)
 	
@@ -240,8 +240,8 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 30
 	current_enemy.speed = 40
 	current_enemy.installBlueprintByNameAndTier("Claw", 2, 2)
-	current_enemy.installBlueprintByNameAndTier("FragBomb", 1)
-	current_enemy.installBlueprintByNameAndTier("ChemBomb", 1)
+	current_enemy.installBlueprintByNameAndTier("Frag Bomb", 1)
+	current_enemy.installBlueprintByNameAndTier("Acid Mist", 1)
 	addEnemyToTable(current_enemy)
 	
 	### MOUNTAIN ###
@@ -267,7 +267,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.defense = 40
 	current_enemy.senses = 30
 	current_enemy.speed = 10
-	current_enemy.installBlueprintByNameAndTier("Hammer", 2)
+	current_enemy.installBlueprintByNameAndTier("Horn", 2)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -318,7 +318,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.speed = 25
 	current_enemy.support_priority = 1
 	current_enemy.installBlueprintByNameAndTier("Missile", 2)
-	current_enemy.installBlueprintByNameAndTier("FragBomb", 2)
+	current_enemy.installBlueprintByNameAndTier("Frag Bomb", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
 	current_enemy.installBlueprintByNameAndTier("Molt", 1)
 	current_enemy.is_boss = true
@@ -332,7 +332,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.defense = 30
 	current_enemy.senses = 40
 	current_enemy.speed = 40
-	current_enemy.installBlueprintByNameAndTier("ChemBomb", 2)
+	current_enemy.installBlueprintByNameAndTier("Acid Mist", 2)
 	current_enemy.installBlueprintByNameAndTier("Turbo", 2, 0)
 	current_enemy.installBlueprintByNameAndTier("Honey", 2, 4)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 1)
@@ -365,8 +365,8 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 80
 	current_enemy.speed = 100
 	current_enemy.installBlueprintByNameAndTier("Claw", 2, 5)
-	current_enemy.installBlueprintByNameAndTier("ChemBomb", 2, 2)
-	current_enemy.installBlueprintByNameAndTier("FragBomb", 2)
+	current_enemy.installBlueprintByNameAndTier("Acid Mist", 2, 2)
+	current_enemy.installBlueprintByNameAndTier("Frag Bomb", 2)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -427,7 +427,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 80
 	current_enemy.speed = 60
 	current_enemy.installBlueprintByNameAndTier("Claw", 2, 2)
-	current_enemy.installBlueprintByNameAndTier("Hammer", 2)
+	current_enemy.installBlueprintByNameAndTier("Horn", 2)
 	current_enemy.installBlueprintByNameAndTier("Mucus", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
 	current_enemy.installBlueprintByNameAndTier("Molt", 1)
@@ -444,7 +444,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 100
 	current_enemy.speed = 60
 	current_enemy.installBlueprintByNameAndTier("Claw", 2, 2)
-	current_enemy.installBlueprintByNameAndTier("Hammer", 2)
+	current_enemy.installBlueprintByNameAndTier("Horn", 2)
 	current_enemy.installBlueprintByNameAndTier("Mucus", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
 	current_enemy.installBlueprintByNameAndTier("Immunity", 1)
@@ -460,7 +460,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 110
 	current_enemy.speed = 80
 	current_enemy.installBlueprintByNameAndTier("Claw", 3)
-	current_enemy.installBlueprintByNameAndTier("Hammer", 2)
+	current_enemy.installBlueprintByNameAndTier("Horn", 2)
 	current_enemy.installBlueprintByNameAndTier("Marshal", 3)
 	current_enemy.installBlueprintByNameAndTier("Formation", 3)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
@@ -479,7 +479,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 130
 	current_enemy.speed = 140
 	current_enemy.installBlueprintByNameAndTier("Claw", 3, 4)
-	current_enemy.installBlueprintByNameAndTier("Chaingun", 3)
+	current_enemy.installBlueprintByNameAndTier("Auto Rifle", 3)
 	current_enemy.installBlueprintByNameAndTier("Web", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 2)
 	current_enemy.installBlueprintByNameAndTier("Molt", 1)
@@ -495,7 +495,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.defense = 80
 	current_enemy.senses = 140
 	current_enemy.speed = 120
-	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
+	current_enemy.installBlueprintByNameAndTier("Psy pulse", 3)
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Molt", 2)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 1)
@@ -512,8 +512,8 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 160
 	current_enemy.speed = 160
 	current_enemy.installBlueprintByNameAndTier("Laser", 3, 2)
-	current_enemy.installBlueprintByNameAndTier("Hammer", 3, 2)
-	current_enemy.installBlueprintByNameAndTier("Psypulse", 3, 1)
+	current_enemy.installBlueprintByNameAndTier("Horn", 3, 2)
+	current_enemy.installBlueprintByNameAndTier("Psy pulse", 3, 1)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3, 1)
 	current_enemy.installBlueprintByNameAndTier("Recombine", 1, 0)
 	current_enemy.installBlueprintByNameAndTier("Molt", 3)
@@ -532,7 +532,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.speed = 130
 	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
 	current_enemy.installBlueprintByNameAndTier("Numb Gas", 3)
-	current_enemy.installBlueprintByNameAndTier("ChemBomb", 3)
+	current_enemy.installBlueprintByNameAndTier("Acid Mist", 3)
 	current_enemy.installBlueprintByNameAndTier("Tear Gas", 3)
 	current_enemy.installBlueprintByNameAndTier("Web", 3)
 	current_enemy.installBlueprintByNameAndTier("Rage Gas", 3)
@@ -553,9 +553,9 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.speed = 200
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3)
-	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
+	current_enemy.installBlueprintByNameAndTier("Psy pulse", 3)
 	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
-	current_enemy.installBlueprintByNameAndTier("Chembomb", 3)
+	current_enemy.installBlueprintByNameAndTier("Acid Mist", 3)
 	current_enemy.installBlueprintByNameAndTier("FusionBomb", 1)
 	current_enemy.installBlueprintByNameAndTier("Mind Rip", 1)
 	current_enemy.installBlueprintByNameAndTier("Crush", 1)
@@ -580,7 +580,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.speed = 120
 	current_enemy.installBlueprintByNameAndTier("Claw", 3)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3)
-	current_enemy.installBlueprintByNameAndTier("Psypulse", 3)
+	current_enemy.installBlueprintByNameAndTier("Psy pulse", 3)
 	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
 	current_enemy.installBlueprintByNameAndTier("Molt", 1)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 1)
