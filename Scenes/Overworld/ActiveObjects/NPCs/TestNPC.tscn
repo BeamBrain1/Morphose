@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cxkg2pu25exa4" path="res://Scenes/Overworld/ActiveObjects/npc.gd" id="1_a6wij"]
 [ext_resource type="Texture2D" uid="uid://dr3i1brp2w7py" path="res://Graphics/OverworldObjects/npc1.png" id="1_mm4ro"]
-[ext_resource type="PackedScene" uid="uid://b0lj7xke3vyi5" path="res://Scenes/Overworld/MapScripts/TestScript.tscn" id="2_5cpc1"]
+[ext_resource type="PackedScene" uid="uid://c1lxhdw0hwf3j" path="res://Scenes/Overworld/MapScripts/TestScriptBattle.tscn" id="3_mm4ro"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w6et7"]
 atlas = ExtResource("1_mm4ro")
@@ -62,6 +62,7 @@ centered = false
 script = ExtResource("1_a6wij")
 initial_direction = 0
 is_solid = true
+activation_type = 1
 metadata/_custom_type_script = "uid://cxkg2pu25exa4"
 
-[node name="InteractScript" parent="." unique_id=1725623064 instance=ExtResource("2_5cpc1")]
+[node name="TestScriptBattle" parent="." unique_id=1725623064 instance=ExtResource("3_mm4ro")]

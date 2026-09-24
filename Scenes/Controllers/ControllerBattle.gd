@@ -12,6 +12,8 @@ var selected_target
 var party_ran: bool = false		# Party made a successful escape attempt
 var battle_won: bool = false
 
+signal battle_result
+
 
 func mainLoop():
 
@@ -64,6 +66,7 @@ func battleFled() -> void:
 	$BattleMessageDisplay.pushBattleMessage("Successfully escaped.")
 	battle_won = false
 	await showBattleMessages(true)
+	emit_signal("battle_result", battle_won)
 
 
 # Run this if player lost battle
@@ -71,6 +74,7 @@ func battleLost() -> void:
 	$BattleMessageDisplay.pushBattleMessage("You lose!")
 	battle_won = false
 	await showBattleMessages(true)
+	emit_signal("battle_result", battle_won)
 
 
 # Run this if player won battle
@@ -79,6 +83,7 @@ func battleWon() -> void:
 	ActiveSaveData.party.awardMuta(victoryMuta())
 	battle_won = true
 	await showBattleMessages(true)
+	emit_signal("battle_result", battle_won)
 
 
 # Current actor chooses action; parameters assigned for execution

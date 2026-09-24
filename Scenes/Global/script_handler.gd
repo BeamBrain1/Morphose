@@ -4,7 +4,8 @@ extends Node
 
 var root: Root
 var current_script: MapScript
-
+var persistent_script: MapScript	# Temporary storage for scripts that persist between controllers
+signal execution_finished
 
 
 func assignRoot(root_in: Root) -> void:
@@ -22,9 +23,10 @@ func controllerOverworld() -> ControllerOverworld:
 	return root.getControllerOverworldOrNull()
 
 
-func clearScript() -> void:
+func scriptExecutionFinished() -> void:
 	current_script.call_deferred("queue_free")
 	current_script = null
+	emit_signal("execution_finished")
 
 
 func setBattleResult(won: bool) -> void:
@@ -32,10 +34,28 @@ func setBattleResult(won: bool) -> void:
 		current_script.setBattleResult(won)
 
 
-func resumeScriptExecution() -> void:
-	if hasScript():
-		current_script.resumeExecution()
-
-
-func hasScript() -> bool:
+func hasCurrentScript() -> bool:
 	return current_script != null
+
+
+func hasPersistentScript() -> bool:
+	return persistent_script != null
+
+
+func storeCurrentScriptAsPersistent() -> void:
+	persistent_script = current_script
+	current_script = null
+
+
+func resumeStoredPersistentScript() -> void:
+	current_script = persistent_script
+	persistent_script = null
+	current_script.resumeExecution()
+
+
+func onMapLoad(on_load_script: MapScript = null) -> void:
+	if on_load_script != null:
+		assignAndExecuteScript(on_load_script)
+		await execution_finished
+	if hasPersistentScript():
+		resumeStoredPersistentScript()

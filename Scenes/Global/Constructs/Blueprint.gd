@@ -114,7 +114,7 @@ static func getBlueprintFromList(blueprint_list: Array, name_in: String, tier_in
 		elif blueprint.base_display_name.matchn(name_in) and tier_in == 0:
 			return blueprint
 	
-	push_error("Blueprint not found: " + getDialogDisplayNameFromParameters(name_in, tier_in))
+	push_error("Blueprint not found: " + name_in + " " + str(tier_in))
 	return null
 
 

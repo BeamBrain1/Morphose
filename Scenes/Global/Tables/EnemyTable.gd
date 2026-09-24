@@ -130,7 +130,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 14
 	current_enemy.speed = 14
 	current_enemy.is_boss = true
-	current_enemy.installBlueprintByNameAndTier("Fracture", 1, 3)
+	current_enemy.installBlueprintByNameAndTier("Vise", 1, 3)
 	current_enemy.installBlueprintByNameAndTier("Numb Gas", 1)
 	addEnemyToTable(current_enemy)
 	

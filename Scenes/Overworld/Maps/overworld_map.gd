@@ -8,6 +8,7 @@ var map_name: String
 
 signal party_stepped
 signal request_script_execution
+signal on_map_load
 
 
 func _ready() -> void:
@@ -21,14 +22,7 @@ func initialize(name_in: String, party_grid_position: Vector2):
 	assignSelfToNPCs()
 	connectActiveObjectScripts()
 	updateCamera()
-	await runOnLoadScript()
-
-
-# The onLoadScript is the first MapScript that is a direct child of the map
-# This script will be run as the last step of the map's initialization
-func runOnLoadScript() -> void:
-	if getOnLoadScript() != null:
-		emit_signal("request_script_execution", getOnLoadScript())
+	emit_signal("on_map_load", getOnLoadScript())
 
 
 func connectActiveObjectScripts() -> void:

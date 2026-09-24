@@ -7,6 +7,7 @@ var current_map: OverworldMap
 
 # Called to let a script paused (for warp or combat encounter) know that it can now resume execution
 signal execute_script
+signal on_map_load
 
 
 func _ready() -> void:
@@ -34,6 +35,7 @@ func initializeCurrentMap(map_name: String, party_grid_position: Vector2) -> voi
 	add_child(current_map)
 	$EncounterHandler.assignMap(current_map)
 	current_map.request_script_execution.connect(executeMapScript)
+	current_map.on_map_load.connect(onMapLoad)
 	current_map.initialize(map_name, party_grid_position)
 
 
@@ -57,5 +59,9 @@ func overworldUI() -> OverworldUI:
 	return $OverworldUI
 
 
-func executeMapScript(script: MapScript) -> void:	
+func executeMapScript(script: MapScript) -> void:
 	emit_signal("execute_script", script)
+
+
+func onMapLoad(on_load_script: MapScript) -> void:
+	emit_signal("on_map_load", on_load_script)

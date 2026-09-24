@@ -8,9 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dbm7qaox2j8jm" path="res://Scenes/Overworld/ActiveObjects/WarpPoint.tscn" id="4_72qr6"]
 [ext_resource type="PackedScene" uid="uid://bxlx52nrj1d2b" path="res://Scenes/Overworld/Encounters/Encounter.tscn" id="4_ewcfi"]
 [ext_resource type="PackedScene" uid="uid://dqwv0hu2bnrch" path="res://Scenes/Overworld/ActiveObjects/ModificationStation.tscn" id="4_fvegh"]
-[ext_resource type="PackedScene" uid="uid://bmd72gir6vcsv" path="res://Scenes/Overworld/ActiveObjects/ScriptTrigger.tscn" id="8_h4wh6"]
-[ext_resource type="PackedScene" uid="uid://8nanp43qd0oo" path="res://Scenes/Overworld/MapScripts/TestScriptBlueprintsAndModStation.tscn" id="9_buam8"]
 [ext_resource type="PackedScene" uid="uid://bnp7m82xp5ar1" path="res://Scenes/Overworld/ActiveObjects/NPCs/TestNPC.tscn" id="10_6rkqr"]
+[ext_resource type="PackedScene" uid="uid://dcdxnsmeiebwk" path="res://Scenes/Overworld/MapScripts/TestScriptOnMapLoad.tscn" id="10_buam8"]
 
 [node name="OverworldMap" type="Node2D" unique_id=1987703735]
 script = ExtResource("1_pviaa")
@@ -90,11 +89,6 @@ position = Vector2(0, 112)
 destination_map = "TestMap2"
 destination_tile = Vector2(8, 8)
 
-[node name="ScriptTrigger" parent="ActiveObjects" unique_id=975544378 instance=ExtResource("8_h4wh6")]
-position = Vector2(128, 128)
-
-[node name="TestScriptBlueprintsAndModStation" parent="ActiveObjects/ScriptTrigger" unique_id=1725623064 instance=ExtResource("9_buam8")]
-
 [node name="TestNPC" parent="ActiveObjects" unique_id=102129676 instance=ExtResource("10_6rkqr")]
 position = Vector2(176, 32)
 
@@ -102,3 +96,5 @@ position = Vector2(176, 32)
 position = Vector2(-16, -16)
 
 [node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]
+
+[node name="TestScriptOnMapLoad" parent="." unique_id=1725623064 instance=ExtResource("10_buam8")]

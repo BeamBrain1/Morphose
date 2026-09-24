@@ -6,4 +6,5 @@
 centered = false
 script = ExtResource("1_hd661")
 is_solid = true
+activation_type = 1
 metadata/_custom_type_script = "uid://do112qioq75g8"

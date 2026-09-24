@@ -22,3 +22,7 @@ const direction_string: Dictionary = {
 	DIRECTION.DOWN: "down",
 	DIRECTION.LEFT: "left"
 }
+
+func getRandomDirection() -> DIRECTION:
+	var direction_array = [DIRECTION.UP, DIRECTION.RIGHT, DIRECTION.DOWN, DIRECTION.LEFT]
+	return direction_array[randi() % direction_array.size()]

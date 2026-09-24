@@ -11,8 +11,8 @@ func _ready() -> void:
 	#get_tree().root.content_scale_size = Vector2(960, 720)
 	randomize()
 	loadStartingPartyMembers()
-	setActiveController("Overworld")
-	active_controller.assignOverworldMapAndPartyLocation("TestMap1", Vector2(5, 2))
+	ActiveSaveData.party.setLocationAndDirection(OverworldPosition.new("TestMap1", Vector2(5, 2)))
+	toOverworld()
 
 
 func setActiveController(controller: String) -> void:
@@ -24,10 +24,8 @@ func setActiveController(controller: String) -> void:
 	active_controller.switch_to_battle_controller.connect(toBattleController)
 	active_controller.switch_to_char_build_controller.connect(toCharacterBuildScreen)
 	active_controller.switch_to_overworld_controller.connect(toOverworld)
-	if active_controller is ControllerOverworld:
-		active_controller.execute_script.connect($ScriptHandler.assignAndExecuteScript)
-		if $ScriptHandler.hasScript():
-			$ScriptHandler.resumeScriptExecution()
+	if $ScriptHandler.hasCurrentScript():	# If actively running a script, save it between scenes
+		$ScriptHandler.storeCurrentScriptAsPersistent()
 
 
 # won_previous: Did we win a previous battle? Used to determine whether to add a new party member
@@ -39,11 +37,15 @@ func toCharacterBuildScreen(at_modification_station: bool = true) -> void:
 
 func toBattleController(enemy_list: Array) -> void:
 	setActiveController("Battle")
+	if $ScriptHandler.hasCurrentScript():
+		$ScriptHandler.battle_result.connect($ScriptHandler.setBattleResult)
 	active_controller.initializeBattle(enemy_list)
 
 
 func toOverworld() -> void:
 	setActiveController("Overworld")
+	active_controller.execute_script.connect($ScriptHandler.assignAndExecuteScript)
+	active_controller.on_map_load.connect($ScriptHandler.onMapLoad)
 	active_controller.loadSavedPartyLocation()
 
 

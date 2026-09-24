@@ -18,7 +18,7 @@ func execute() -> void:
 	inputHandler().lockPlayerControls()
 	await body()
 	inputHandler().unlockPlayerControls()
-	handler.clearScript()
+	handler.scriptExecutionFinished()
 
 
 func controllerOverworld() -> ControllerOverworld:
@@ -52,6 +52,10 @@ func delay(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
 
 
+func delayRandom(min_seconds: float, max_seconds: float) -> void:
+	await delay(min_seconds + randf() * (max_seconds - min_seconds))
+
+
 func pushParty(num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1) -> void:
 	await pushActor(activeMap().getPartyToken(), num_tiles, direction, step_delay)
 
@@ -83,6 +87,10 @@ func turnNPC(npc_name: String, direction: GlobalProgramData.DIRECTION) -> void:
 		push_error("NPC not found: " + npc_name)
 	else:
 		activeMap().getNPC(npc_name).faceDirection(direction)
+
+
+func turnNPCRandomly(npc_name: String) -> void:
+	turnNPC(npc_name, GlobalProgramData.getRandomDirection())
 
 
 # Returns flag value for key, or default value if flag not present
