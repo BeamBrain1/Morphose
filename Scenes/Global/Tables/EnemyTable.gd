@@ -106,7 +106,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 10
 	current_enemy.speed = 12
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
-	current_enemy.installBlueprintByNameAndTier("Flamejet", 1)
+	current_enemy.installBlueprintByNameAndTier("Flame Spit", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
@@ -279,7 +279,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.senses = 45
 	current_enemy.speed = 45
 	current_enemy.installBlueprintByNameAndTier("Claw", 2)
-	current_enemy.installBlueprintByNameAndTier("Flamejet", 2)
+	current_enemy.installBlueprintByNameAndTier("Flame Spit", 2)
 	current_enemy.is_boss = true
 	addEnemyToTable(current_enemy)
 	
@@ -530,7 +530,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.defense = 130
 	current_enemy.senses = 130
 	current_enemy.speed = 130
-	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
+	current_enemy.installBlueprintByNameAndTier("Fire Sweep", 3)
 	current_enemy.installBlueprintByNameAndTier("Numb Gas", 3)
 	current_enemy.installBlueprintByNameAndTier("Acid Mist", 3)
 	current_enemy.installBlueprintByNameAndTier("Tear Gas", 3)
@@ -554,7 +554,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Laser", 3)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3)
 	current_enemy.installBlueprintByNameAndTier("Psy pulse", 3)
-	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
+	current_enemy.installBlueprintByNameAndTier("Fire Sweep", 3)
 	current_enemy.installBlueprintByNameAndTier("Acid Mist", 3)
 	current_enemy.installBlueprintByNameAndTier("FusionBomb", 1)
 	current_enemy.installBlueprintByNameAndTier("Mind Rip", 1)
@@ -581,7 +581,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.installBlueprintByNameAndTier("Claw", 3)
 	current_enemy.installBlueprintByNameAndTier("Missile", 3)
 	current_enemy.installBlueprintByNameAndTier("Psy pulse", 3)
-	current_enemy.installBlueprintByNameAndTier("Napalm", 3)
+	current_enemy.installBlueprintByNameAndTier("Fire Sweep", 3)
 	current_enemy.installBlueprintByNameAndTier("Molt", 1)
 	current_enemy.installBlueprintByNameAndTier("Hydrocoat", 1)
 	current_enemy.installBlueprintByNameAndTier("Immunity", 1)
