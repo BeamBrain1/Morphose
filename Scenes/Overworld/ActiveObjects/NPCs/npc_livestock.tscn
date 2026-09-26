@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ua0oaqqqlny3"]
+
+[ext_resource type="PackedScene" uid="uid://doyikojm6miw2" path="res://Scenes/Overworld/ActiveObjects/NPCs/NPC.tscn" id="1_og6fb"]
+[ext_resource type="PackedScene" uid="uid://bv3avwmfrxlqt" path="res://Scenes/Overworld/MapScripts/map_script_livestock.tscn" id="2_qv8wn"]
+
+[node name="NPCLivestock" unique_id=277077586 instance=ExtResource("1_og6fb")]
+
+[node name="MapScriptLivestock" parent="." index="0" unique_id=1038762891 instance=ExtResource("2_qv8wn")]

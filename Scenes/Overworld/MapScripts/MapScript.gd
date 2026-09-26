@@ -2,6 +2,7 @@ class_name MapScript
 extends Node
 
 var handler: ScriptHandler
+var holder: String		# Name of object holding the script. Null if script is map-global.
 
 var battle_won: bool
 # Indicates whether a battle triggered by this script was won.
@@ -9,6 +10,12 @@ var battle_won: bool
 # False usually indicates party ran away, as combat losses generally end in defeat
 
 signal resume_execution
+
+
+func _ready() -> void:
+	if get_parent() is ActiveMapObject:
+		holder = get_parent().name
+
 
 func attachHandler(handler_in: ScriptHandler) -> void:
 	handler = handler_in

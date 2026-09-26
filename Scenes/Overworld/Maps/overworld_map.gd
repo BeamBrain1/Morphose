@@ -30,6 +30,7 @@ func connectActiveObjectScripts() -> void:
 		obj.request_script_execution.connect(requestScriptExecution)
 
 
+# On-load script is executed when map is loaded. First child node that is a MapScript (additional MapScript children do nothing)
 func getOnLoadScript() -> MapScript:
 	for node in get_children():
 		if node is MapScript:
@@ -55,9 +56,11 @@ func tileIsTraversable(tile_loc: Vector2) -> bool:
 	for tile_map in getTileMaps():
 		if tile_map.isSolidTile(tile_loc):
 			return false
-	for object in $ActiveObjects.get_children():
+	for object in getActiveMapObjects():
 		if object.is_solid and gridCoordMatch(object, tile_loc):
 			return false
+	if gridCoordMatch($PartyToken, tile_loc):
+		return false
 	return true
 
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://doyikojm6miw2"]
 
-[ext_resource type="Script" uid="uid://cxkg2pu25exa4" path="res://Scenes/Overworld/ActiveObjects/npc.gd" id="1_hd661"]
+[ext_resource type="Script" uid="uid://cxkg2pu25exa4" path="res://Scenes/Overworld/ActiveObjects/NPCs/npc.gd" id="1_hd661"]
 
 [node name="NPC" type="AnimatedSprite2D" unique_id=277077586]
 centered = false
