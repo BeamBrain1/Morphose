@@ -20,6 +20,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.defense = 1
 	current_enemy.senses = 1
 	current_enemy.speed = 1
+	current_enemy.run_from_attempts_always_succeed = true
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()

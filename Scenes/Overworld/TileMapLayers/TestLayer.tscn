@@ -11,7 +11,7 @@ texture = ExtResource("1_76p65")
 [sub_resource type="TileSet" id="TileSet_xt0t7"]
 sources/0 = SubResource("TileSetAtlasSource_xw3hi")
 
-[node name="TileMapLayerMorphose" type="TileMapLayer" unique_id=341831536]
+[node name="TileMapLayerTest" type="TileMapLayer" unique_id=341831536]
 tile_set = SubResource("TileSet_xt0t7")
 script = ExtResource("2_7p0ba")
 solid_tiles = [Vector2(1, 0)]

@@ -408,6 +408,8 @@ func _on_prepare_for_next_battle_button_pressed() -> void:
 func attemptRun() -> bool:
 	if $EnemyDisplayGrid.encounterHasBoss():
 		return false
+	if $EnemyDisplayGrid.canAlwaysRunFromEncounter():
+		return true
 	var party_run_points = $PartyStatusDisplay.getPartyRunPoints()
 	var enemy_catch_points = $EnemyDisplayGrid.getEnemyCatchPoints()
 	return randi() % (party_run_points + enemy_catch_points) < party_run_points

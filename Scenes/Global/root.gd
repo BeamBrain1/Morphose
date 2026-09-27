@@ -11,7 +11,7 @@ func _ready() -> void:
 	#get_tree().root.content_scale_size = Vector2(960, 720)
 	randomize()
 	loadStartingPartyMembers()
-	ActiveSaveData.party.setLocationAndDirection(OverworldPosition.new("TestMap1", Vector2(5, 2)))
+	ActiveSaveData.party.setLocationAndDirection(OverworldPosition.new("FactoryPens", Vector2(0, 0)))
 	toOverworld()
 
 

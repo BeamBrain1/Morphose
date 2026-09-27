@@ -20,7 +20,7 @@ static func buildPartyMembers() -> void:
 	primus.defense = PartyMember.STAT_MINIMUM
 	primus.senses = PartyMember.STAT_MINIMUM
 	primus.speed = PartyMember.STAT_MINIMUM
-	primus.bio_energy = 100#STARTING_BIO_ENERGY
+	primus.bio_energy = 0
 	primus.discounted_stats = [Morphose.COMBAT_STAT.ATTACK, Morphose.COMBAT_STAT.SPEED, Morphose.COMBAT_STAT.SENSES]
 
 	defector = PartyMember.new()

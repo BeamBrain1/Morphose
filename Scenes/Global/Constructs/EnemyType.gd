@@ -7,6 +7,7 @@ var support_priority: int = 5		# Priority bracket when AI targets support action
 var never_crits: bool = false		# Some early enemy types could oneshot Primus with a lucky crit
 var gives_bio_energy: bool = true	# Does this enemy give bio-energy upon defeat?
 var is_boss: bool = false			# Bosses cannot be run from
+var run_from_attempts_always_succeed: bool = false
 
 # Used when deciding which blueprint to use.
 #	Key: Blueprint

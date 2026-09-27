@@ -3,9 +3,10 @@ extends MapScript
 
 func body() -> void:
 	await doEncounter(["Livestock"])
-	if isFlagSet("FarmPanelLoosened"):
-		await displayDialog(SpokenDialogBox.SYSTEM_DIALOG, "The fighting knocked the loose wall panel off its hinges.")
+	if not isFlagSet("FarmPanelLoosened"):
+		await displayDialog(SpokenDialogBox.SYSTEM_DIALOG, "The fighting knocked the loose wall panel out of its frame.")
 		await setFlag("FarmPanelLoosened")
+		await destroyActiveObject("LoosePanel")
 	if battle_won:
 		await setFlag(holder + "Killed")
 		await destroyActiveObject(holder)

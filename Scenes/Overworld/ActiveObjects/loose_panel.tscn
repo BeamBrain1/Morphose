@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://br3l8b6ttm0ca"]
+
+[ext_resource type="PackedScene" uid="uid://hy3c50emnlg3" path="res://Scenes/Overworld/ActiveObjects/ActiveMapObject.tscn" id="1_k10p4"]
+[ext_resource type="Texture2D" uid="uid://c67plsrtrr5he" path="res://Graphics/OverworldObjects/loose_panel.png" id="2_2q3t4"]
+[ext_resource type="PackedScene" uid="uid://cdu0c8u42o85g" path="res://Scenes/Overworld/MapScripts/loose_panel_script.tscn" id="3_2q3t4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghsqg"]
+atlas = ExtResource("2_2q3t4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kvi3l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghsqg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LoosePanel" unique_id=266201076 instance=ExtResource("1_k10p4")]
+sprite_frames = SubResource("SpriteFrames_kvi3l")
+is_solid = true
+activation_type = 1
+
+[node name="LoosePanelScript" parent="." index="0" unique_id=1038762891 instance=ExtResource("3_2q3t4")]

@@ -98,3 +98,14 @@ func encounterHasBoss() -> bool:
 		if combatant.isBoss():
 			return true
 	return false
+
+
+# Player can always run from an encounter if only living enemies are flagged as run always succeeding
+# encounterHasBoss() prevents running and takes priority over this
+func canAlwaysRunFromEncounter() -> bool:
+	if encounterHasBoss():
+		return false
+	for combatant: EnemyCombatant in getEnemyCombatants():
+		if not (combatant.isDefeated() or combatant.morphose.run_from_attempts_always_succeed):
+			return false
+	return true

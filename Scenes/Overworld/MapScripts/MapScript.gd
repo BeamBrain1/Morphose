@@ -169,3 +169,11 @@ func openCharBuildScreen(at_mod_station: bool) -> void:
 
 func setBattleResult(won: bool):
 	battle_won = won
+
+
+# Give Muta to specified party member, or leave name blank to give muta to all
+func giveMuta(amount: int, party_member: String = "") -> void:
+	if party_member == "":
+		ActiveSaveData.party.awardMuta(amount)
+	else:
+		ActiveSaveData.getPartyMemberByName(party_member).giveBioEnergy(amount)
