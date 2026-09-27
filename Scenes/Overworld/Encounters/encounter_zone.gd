@@ -1,6 +1,10 @@
 class_name EncounterZone
 extends ColorRect
 
+var active: bool = true		# Zone only triggers encounters if flagged as active
+var active_debug_color: Color = Color(1, 0, 0, 0.5)
+var inactive_debug_color: Color = Color(0.5, 0.5, 0.5, 0.5)
+
 func tokenIsInside(token: PartyToken) -> bool:
 	var token_grid_position = OverworldMap.gridPosition(token)
 	return upperLeftCornerGridPosition().x <= token_grid_position.x and token_grid_position.x <= lowerRightCornerGridPosition().x and upperLeftCornerGridPosition().y <= token_grid_position.y and token_grid_position.y <= lowerRightCornerGridPosition().y
@@ -32,3 +36,13 @@ func getRandomEncounter() -> Array:
 			return encounter.getEnemies()
 	push_error("Error retrieving random encounter")
 	return []
+
+
+func activate() -> void:
+	active = true
+	color = active_debug_color
+
+
+func deactivate() -> void:
+	active = false
+	color = inactive_debug_color

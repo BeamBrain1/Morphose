@@ -146,10 +146,22 @@ func gridCoordMatch(object, coord: Vector2) -> bool:
 
 # Returns encounter zone party token occupies, or null if none
 func partyEncounterZone() -> EncounterZone:
-	for zone in $EncounterZones.get_children():
-		if zone.tokenIsInside($PartyToken):
+	for zone in getEncounterZones():
+		if zone.tokenIsInside($PartyToken) and zone.active:
 			return zone
 	return null
+
+
+func getEncounterZones() -> Array:
+	return $EncounterZones.get_children()
+
+
+func activateEncounterZone(zone_name: String) -> void:
+	$EncounterZones.get_node(zone_name).active = true
+
+
+func daactivateEncounterZone(zone_name: String) -> void:
+	$EncounterZones.get_node(zone_name).active = false
 
 
 func spawnActiveObject(scene_name: String, node_name: String, grid_position: Vector2) -> void:

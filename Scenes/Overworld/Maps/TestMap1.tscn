@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dr3r8aqh4nvr0" path="res://Scenes/Overworld/Maps/overworld_map.gd" id="1_pviaa"]
 [ext_resource type="PackedScene" uid="uid://cehs7twg2s8au" path="res://Scenes/Overworld/TileMapLayers/TileMapLayerMorphose.tscn" id="2_72qr6"]
-[ext_resource type="PackedScene" uid="uid://d3s8pao8k5u7s" path="res://Scenes/Overworld/ActiveObjects/EncounterZone.tscn" id="3_d5a36"]
+[ext_resource type="PackedScene" uid="uid://d3s8pao8k5u7s" path="res://Scenes/Overworld/Encounters/EncounterZone.tscn" id="3_d5a36"]
 [ext_resource type="PackedScene" uid="uid://ln74oo8r32i1" path="res://Scenes/Overworld/ActiveObjects/BlueprintContainer.tscn" id="3_fvegh"]
 [ext_resource type="PackedScene" uid="uid://bm5l7me1ug7k2" path="res://Scenes/Overworld/ActiveObjects/PartyToken.tscn" id="3_j5bwv"]
 [ext_resource type="PackedScene" uid="uid://dbm7qaox2j8jm" path="res://Scenes/Overworld/ActiveObjects/WarpPoint.tscn" id="4_72qr6"]

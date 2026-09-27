@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3s8pao8k5u7s"]
 
-[ext_resource type="Script" uid="uid://b3rd4ydtyido3" path="res://Scenes/Overworld/ActiveObjects/encounter_zone.gd" id="1_oruen"]
+[ext_resource type="Script" uid="uid://b3rd4ydtyido3" path="res://Scenes/Overworld/Encounters/encounter_zone.gd" id="1_oruen"]
 
 [node name="EncounterZone" type="ColorRect" unique_id=1566120481]
 offset_right = 16.0

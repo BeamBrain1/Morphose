@@ -177,3 +177,11 @@ func giveMuta(amount: int, party_member: String = "") -> void:
 		ActiveSaveData.party.awardMuta(amount)
 	else:
 		ActiveSaveData.getPartyMemberByName(party_member).giveBioEnergy(amount)
+
+
+func activateEncounterZone(zone_name: String) -> void:
+	activeMap().activateEncounterZone(zone_name)
+
+
+func deactivateEncounterZone(zone_name: String) -> void:
+	activeMap().deactivateEncounterZone(zone_name)
