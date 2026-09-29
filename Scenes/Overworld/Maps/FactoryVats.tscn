@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cfk36522iao3p"]
+
+[ext_resource type="PackedScene" uid="uid://b8urpap6yh44c" path="res://Scenes/Overworld/Maps/OverworldMap.tscn" id="1_gsm2u"]
+[ext_resource type="PackedScene" uid="uid://mi56g4x7wi62" path="res://Scenes/Overworld/TileMapLayers/TestLayer.tscn" id="2_vy68h"]
+
+[node name="OverworldMap" unique_id=1987703735 instance=ExtResource("1_gsm2u")]
+
+[node name="Layer1" parent="TileMapLayersLower" parent_id_path=PackedInt32Array(1840348333) index="0" unique_id=341831536 instance=ExtResource("2_vy68h")]

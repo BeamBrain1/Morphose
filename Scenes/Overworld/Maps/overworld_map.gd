@@ -124,6 +124,17 @@ func activeMapObjectAt(grid_position: Vector2) -> ActiveMapObject:
 	return null
 
 
+func nonPartyActiveMapObjectAt(grid_position: Vector2) -> ActiveMapObject:
+	for object in getActiveMapObjects():
+		if gridCoordMatch(object, grid_position) and object != getPartyToken():
+			return object
+	return null
+
+
+func partyLocationHasNonPartyActiveObject() -> bool:
+	return nonPartyActiveMapObjectAt(gridPosition(getPartyToken())) != null
+
+
 func getActiveObjectByName(name_in: String) -> ActiveMapObject:
 	for object in getActiveMapObjects():
 		if name_in.matchn(object.name):
