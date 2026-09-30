@@ -1,8 +1,9 @@
+class_name WarpScript
 extends MapScript
 
 
-var destination_map: String
-var destination_tile: Vector2
+@export var destination_map: String
+@export var destination_tile: Vector2
 
 
 func body() -> void:

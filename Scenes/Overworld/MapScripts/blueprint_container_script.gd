@@ -1,8 +1,9 @@
+class_name BlueprintContainerScript
 extends MapScript
 
 
-var blueprint_name: String
-var tier: int = 1
+@export var blueprint_name: String
+@export var tier: int = 1
 
 
 func initialize(blueprint_name_in: String, tier_in: int = tier) -> void:
@@ -12,4 +13,4 @@ func initialize(blueprint_name_in: String, tier_in: int = tier) -> void:
 
 func body() -> void:
 	await giveBlueprint(blueprint_name, tier)
-	await displayDialog(SpokenDialogBox.SYSTEM_DIALOG, "Found and installed " + Blueprint.getDialogDisplayNameFromParameters(blueprint_name, tier) + ".")
+	await displayDialog(SpokenDialogBox.SYSTEM_DIALOG, "Copied genetic blueprint for " + Blueprint.getDialogDisplayNameFromParameters(blueprint_name, tier) + ".")

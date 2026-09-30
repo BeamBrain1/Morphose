@@ -26,3 +26,5 @@ script = ExtResource("2_b8yyb")
 metadata/_custom_type_script = "uid://do112qioq75g8"
 
 [node name="WarpScript" parent="." unique_id=1038762891 instance=ExtResource("3_56h74")]
+destination_map = ""
+destination_tile = Vector2(0, 0)

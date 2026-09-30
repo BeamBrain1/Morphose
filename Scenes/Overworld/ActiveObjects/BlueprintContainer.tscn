@@ -41,3 +41,5 @@ activation_type = 1
 metadata/_custom_type_script = "uid://do112qioq75g8"
 
 [node name="BlueprintContainerScript" parent="." unique_id=1038762891 instance=ExtResource("3_cekrq")]
+blueprint_name = ""
+tier = 1

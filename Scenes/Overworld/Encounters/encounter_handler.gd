@@ -14,7 +14,6 @@ func assignMap(map_in: OverworldMap) -> void:
 
 
 func partyStepped(scripted_step: bool = false) -> void:
-	# Don't trigger encounters at locations where there are warps, script triggers, etc.
 	if not scripted_step and current_map.partyEncounterZone() != null and not current_map.partyLocationHasNonPartyActiveObject():
 		ActiveSaveData.overworld_danger_level += 1 + randi() % ENCOUNTER_RATE
 		if ActiveSaveData.overworld_danger_level >= ENCOUNTER_THRESHOLD:

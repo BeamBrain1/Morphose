@@ -1,7 +1,7 @@
 class_name EnemyType
 extends Morphose
 
-const BASE_BIO_ENERGY_REWARD: int = 10
+const BASE_BIO_ENERGY_REWARD: int = 5
 
 var support_priority: int = 5		# Priority bracket when AI targets support actions. Lower numbers always take priority
 var never_crits: bool = false		# Some early enemy types could oneshot Primus with a lucky crit
