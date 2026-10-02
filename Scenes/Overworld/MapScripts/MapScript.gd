@@ -2,7 +2,7 @@ class_name MapScript
 extends Node
 
 var handler: ScriptHandler
-var holder: String		# Name of object holding the script. Null if script is map-global.
+@export var holder: String		# Name of object holding the script. Null if script is map-global.
 
 var battle_won: bool
 # Indicates whether a battle triggered by this script was won.

@@ -36,3 +36,18 @@ func push(direction: GlobalProgramData.DIRECTION) -> void:
 
 func setGridPosition(grid_position: Vector2) -> void:
 	position = OverworldMap.gridPositionToCanvasPosition(grid_position)
+
+
+func hasScript() -> bool:
+	for node in get_children():
+		if node is MapScript:
+			return true
+	return false
+
+
+func getScript() -> MapScript:
+	for node in get_children():
+		if node is MapScript:
+			return node
+	push_error("ActiveMapObject tried to get script but has none: " + name)
+	return null

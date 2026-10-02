@@ -25,7 +25,7 @@ static func buildGlobalEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Worker"
-	current_enemy.hp = 8
+	current_enemy.hp = 6
 	current_enemy.tech_points = 10
 	current_enemy.attack = 1
 	current_enemy.defense = 6
@@ -36,7 +36,7 @@ static func buildGlobalEnemyList() -> void:
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
-	current_enemy.name = "Enforcer"
+	current_enemy.name = "Security"
 	current_enemy.hp = 15
 	current_enemy.tech_points = 10
 	current_enemy.attack = 10

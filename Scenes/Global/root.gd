@@ -37,8 +37,8 @@ func toCharacterBuildScreen(at_modification_station: bool = true) -> void:
 
 func toBattleController(enemy_list: Array) -> void:
 	setActiveController("Battle")
-	if $ScriptHandler.hasCurrentScript():
-		$ScriptHandler.battle_result.connect($ScriptHandler.setBattleResult)
+	if $ScriptHandler.hasPersistentScript():
+		active_controller.battle_result.connect($ScriptHandler.setBattleResult)
 	active_controller.initializeBattle(enemy_list)
 
 

@@ -31,8 +31,8 @@ func scriptExecutionFinished() -> void:
 
 
 func setBattleResult(won: bool) -> void:
-	if current_script != null:
-		current_script.setBattleResult(won)
+	if persistent_script != null:
+		persistent_script.setBattleResult(won)
 
 
 func hasCurrentScript() -> bool:
