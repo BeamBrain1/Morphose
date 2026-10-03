@@ -36,7 +36,7 @@ func body() -> void:
 		await displayDialog(SpokenDialogBox.SYSTEM_DIALOG, "Defector joined.\nGained genetic blueprint for Honey.")
 		await setFlag("DefectorJoining")
 		await openCharBuildScreen(false)
-		await displayDialog("Worker", "All set? Good. Let's get out of here!")
+		await displayDialog("Defector", "All set? Good. Let's get out of here!")
 		await destroyActiveObject("DefectorNPC")
 		await setFlag("DefectorJoined")
 		await clearFlag("DefectorJoining")

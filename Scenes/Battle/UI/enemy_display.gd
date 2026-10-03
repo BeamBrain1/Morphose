@@ -13,7 +13,7 @@ func _ready() -> void:
 func assignCombatant(enemy_in: EnemyCombatant) -> void:
 	enemy = enemy_in
 	show()
-	$LabelName.text = enemy.getName()
+	$LabelName.text = enemy.getName().to_upper()
 	if $LabelName.text.length() % 2 == 1:
 		$LabelName.text += " "	# Since label centered, even number of characters necessary to align text to grid
 	updateDisplay()
