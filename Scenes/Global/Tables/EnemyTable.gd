@@ -48,7 +48,7 @@ static func buildGlobalEnemyList() -> void:
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
-	current_enemy.name = "Boss"
+	current_enemy.name = "Overseer"
 	current_enemy.hp = 120
 	current_enemy.tech_points = 100
 	current_enemy.attack = 6

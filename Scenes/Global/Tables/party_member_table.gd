@@ -22,6 +22,7 @@ static func buildPartyMembers() -> void:
 	primus.speed = PartyMember.STAT_MINIMUM
 	primus.bio_energy = 0
 	primus.discounted_stats = [Morphose.COMBAT_STAT.ATTACK, Morphose.COMBAT_STAT.SPEED, Morphose.COMBAT_STAT.SENSES]
+	primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("MegaCrush", 1), true)
 
 	defector = PartyMember.new()
 	defector.name = PartyMember.PARTY_MEMBER_DEFECTOR_NAME

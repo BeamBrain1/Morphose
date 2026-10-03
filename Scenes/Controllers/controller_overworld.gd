@@ -64,4 +64,4 @@ func executeMapScript(script: MapScript) -> void:
 
 
 func onMapLoad(on_load_script: MapScript) -> void:
-	emit_signal("on_map_load", on_load_script)
+	call_deferred("emit_signal", "on_map_load", on_load_script)

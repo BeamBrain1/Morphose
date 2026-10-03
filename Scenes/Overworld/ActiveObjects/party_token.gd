@@ -104,3 +104,8 @@ func currentFacingDirection() -> GlobalProgramData.DIRECTION:
 
 func faceDirection(direction: GlobalProgramData.DIRECTION) -> void:
 	play(GlobalProgramData.direction_string[direction])
+
+
+# Overrides parent. Party token "steps on" itself all the time but should do nothing
+func steppedOn() -> void:
+	pass
