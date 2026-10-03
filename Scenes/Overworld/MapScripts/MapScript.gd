@@ -64,14 +64,15 @@ func delayRandom(min_seconds: float, max_seconds: float) -> void:
 
 
 func pushParty(num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1) -> void:
-	await pushActor(activeMap().getPartyToken(), num_tiles, direction, step_delay)
+	await pushActor(activeMap().getPartyToken().name, num_tiles, direction, step_delay)
 
 
 func pushActiveObject(name_in: String, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1):
-	await pushActor(activeMap().getActiveObjectByName(name_in), num_tiles, direction, step_delay)
+	await pushActor(name_in, num_tiles, direction, step_delay)
 
 
-func pushActor(actor: ActiveMapObject, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1) -> void:
+func pushActor(actor_name: String, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1) -> void:
+	var actor = activeMap().getActiveObjectByName(actor_name)
 	for i in range(num_tiles):
 		actor.push(direction)
 		await delay(step_delay)

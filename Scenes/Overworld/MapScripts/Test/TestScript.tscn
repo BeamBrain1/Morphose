@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b0lj7xke3vyi5"]
 
-[ext_resource type="Script" uid="uid://hca13lg1o8g3" path="res://Scenes/Overworld/MapScripts/test_script.gd" id="1_3o8iy"]
+[ext_resource type="Script" uid="uid://hca13lg1o8g3" path="res://Scenes/Overworld/MapScripts/Test/test_script.gd" id="1_3o8iy"]
 
 [node name="TestScript" type="Node" unique_id=1725623064]
 script = ExtResource("1_3o8iy")

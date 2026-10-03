@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bri7cbfvbkd7u"]
+
+[ext_resource type="PackedScene" uid="uid://doyikojm6miw2" path="res://Scenes/Overworld/ActiveObjects/NPCs/NPC.tscn" id="1_7hxrr"]
+[ext_resource type="Texture2D" uid="uid://dr3i1brp2w7py" path="res://Graphics/OverworldObjects/npc1.png" id="2_ly70x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ey5t"]
+atlas = ExtResource("2_ly70x")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcxvk"]
+atlas = ExtResource("2_ly70x")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugtrl"]
+atlas = ExtResource("2_ly70x")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2neic"]
+atlas = ExtResource("2_ly70x")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lk6xm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ey5t")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcxvk")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugtrl")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2neic")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="DefectorNPC" unique_id=277077586 instance=ExtResource("1_7hxrr")]
+sprite_frames = SubResource("SpriteFrames_lk6xm")
+animation = &"down"
+initial_direction = 3

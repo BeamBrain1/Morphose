@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bfqijdd48ywuf" path="res://Scenes/Overworld/ActiveObjects/blueprint_container.gd" id="1_h6egy"]
 [ext_resource type="Texture2D" uid="uid://dfyntpiaghlsx" path="res://Graphics/OverworldObjects/blueprint_container.png" id="1_v0aft"]
-[ext_resource type="PackedScene" uid="uid://0m05xxoppyth" path="res://Scenes/Overworld/MapScripts/blueprint_container_script.tscn" id="3_cekrq"]
+[ext_resource type="PackedScene" uid="uid://0m05xxoppyth" path="res://Scenes/Overworld/MapScripts/General/blueprint_container_script.tscn" id="3_cekrq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cekrq"]
 atlas = ExtResource("1_v0aft")

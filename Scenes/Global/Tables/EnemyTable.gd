@@ -39,7 +39,7 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.name = "Security"
 	current_enemy.hp = 15
 	current_enemy.tech_points = 10
-	current_enemy.attack = 10
+	current_enemy.attack = 7
 	current_enemy.defense = 6
 	current_enemy.senses = 4
 	current_enemy.speed = 5

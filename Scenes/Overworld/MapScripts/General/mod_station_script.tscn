@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c5ig7u4vdma5i"]
 
 [ext_resource type="PackedScene" uid="uid://cj2sxfgrclqgq" path="res://Scenes/Overworld/MapScripts/MapScript.tscn" id="1_0c0r2"]
-[ext_resource type="Script" uid="uid://dc5c3ywswwyyh" path="res://Scenes/Overworld/MapScripts/mod_station_script.gd" id="2_rydnq"]
+[ext_resource type="Script" uid="uid://dc5c3ywswwyyh" path="res://Scenes/Overworld/MapScripts/General/mod_station_script.gd" id="2_rydnq"]
 
 [node name="ModStationScript" unique_id=1038762891 instance=ExtResource("1_0c0r2")]
 script = ExtResource("2_rydnq")

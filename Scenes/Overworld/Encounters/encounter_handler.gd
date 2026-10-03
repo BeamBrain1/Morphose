@@ -21,4 +21,5 @@ func partyStepped(scripted_step: bool = false) -> void:
 
 
 func doEncounter(zone: EncounterZone) -> void:
+	ActiveSaveData.overworld_danger_level = 0
 	emit_signal("encounter_activated", zone.getRandomEncounter())

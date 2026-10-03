@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dfpik8dkapf4" path="res://Graphics/OverworldObjects/modification_station.png" id="1_gnhpj"]
 [ext_resource type="Script" uid="uid://bd4jwaxhnjs6x" path="res://Scenes/Overworld/ActiveObjects/modification_station.gd" id="2_w74tb"]
-[ext_resource type="PackedScene" uid="uid://c5ig7u4vdma5i" path="res://Scenes/Overworld/MapScripts/mod_station_script.tscn" id="3_lxthv"]
+[ext_resource type="PackedScene" uid="uid://c5ig7u4vdma5i" path="res://Scenes/Overworld/MapScripts/General/mod_station_script.tscn" id="3_lxthv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w74tb"]
 atlas = ExtResource("1_gnhpj")

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bxlx52nrj1d2b" path="res://Scenes/Overworld/Encounters/Encounter.tscn" id="4_ewcfi"]
 [ext_resource type="PackedScene" uid="uid://dqwv0hu2bnrch" path="res://Scenes/Overworld/ActiveObjects/ModificationStation.tscn" id="4_fvegh"]
 [ext_resource type="PackedScene" uid="uid://bnp7m82xp5ar1" path="res://Scenes/Overworld/ActiveObjects/NPCs/TestNPC.tscn" id="10_6rkqr"]
-[ext_resource type="PackedScene" uid="uid://dcdxnsmeiebwk" path="res://Scenes/Overworld/MapScripts/TestScriptOnMapLoad.tscn" id="10_buam8"]
+[ext_resource type="PackedScene" uid="uid://dcdxnsmeiebwk" path="res://Scenes/Overworld/MapScripts/Test/TestScriptOnMapLoad.tscn" id="10_buam8"]
 
 [node name="OverworldMap" type="Node2D" unique_id=1987703735]
 script = ExtResource("1_pviaa")

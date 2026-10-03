@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cx6ru1vaingdr"]
+
+[ext_resource type="PackedScene" uid="uid://cj2sxfgrclqgq" path="res://Scenes/Overworld/MapScripts/MapScript.tscn" id="1_u44xk"]
+[ext_resource type="Script" uid="uid://cargdtcyyscbl" path="res://Scenes/Overworld/MapScripts/Factory/factory_exit_script.gd" id="2_vbhn0"]
+
+[node name="FactoryExitScript" unique_id=1038762891 instance=ExtResource("1_u44xk")]
+script = ExtResource("2_vbhn0")

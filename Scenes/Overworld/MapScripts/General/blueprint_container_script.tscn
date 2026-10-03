@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://0m05xxoppyth"]
 
 [ext_resource type="PackedScene" uid="uid://cj2sxfgrclqgq" path="res://Scenes/Overworld/MapScripts/MapScript.tscn" id="1_fo4d1"]
-[ext_resource type="Script" uid="uid://kqq27tvw27ot" path="res://Scenes/Overworld/MapScripts/blueprint_container_script.gd" id="2_01ehh"]
+[ext_resource type="Script" uid="uid://kqq27tvw27ot" path="res://Scenes/Overworld/MapScripts/General/blueprint_container_script.gd" id="2_01ehh"]
 
 [node name="BlueprintContainerScript" unique_id=1038762891 instance=ExtResource("1_fo4d1")]
 script = ExtResource("2_01ehh")

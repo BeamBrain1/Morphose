@@ -78,7 +78,9 @@ func getTileMaps() -> Array:
 
 
 func getActiveMapObjects() -> Array:
-	return get_node("ActiveObjects").get_children()
+	var result = get_node("ActiveObjects").get_children()
+	result.append($PartyToken)
+	return result
 
 
 func getScriptTriggers() -> Array:

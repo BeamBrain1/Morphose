@@ -5,7 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://d3s8pao8k5u7s" path="res://Scenes/Overworld/Encounters/EncounterZone.tscn" id="3_8uuib"]
 [ext_resource type="PackedScene" uid="uid://bxlx52nrj1d2b" path="res://Scenes/Overworld/Encounters/Encounter.tscn" id="4_12pb8"]
 [ext_resource type="PackedScene" uid="uid://dbm7qaox2j8jm" path="res://Scenes/Overworld/ActiveObjects/WarpPoint.tscn" id="5_0j063"]
+[ext_resource type="PackedScene" uid="uid://bmd72gir6vcsv" path="res://Scenes/Overworld/ActiveObjects/ScriptTrigger.tscn" id="6_12pb8"]
 [ext_resource type="PackedScene" uid="uid://bm5l7me1ug7k2" path="res://Scenes/Overworld/ActiveObjects/PartyToken.tscn" id="6_e5tcj"]
+[ext_resource type="PackedScene" uid="uid://xmdv7k0blm0a" path="res://Scenes/Overworld/MapScripts/Factory/factory_worker_quarters_east_exit_script.tscn" id="7_rimcf"]
+[ext_resource type="PackedScene" uid="uid://df3wsjmtm0mhh" path="res://Scenes/Overworld/MapScripts/Factory/factory_worker_quarters_south_exit_script.tscn" id="8_slkml"]
 
 [node name="OverworldMap" type="Node2D" unique_id=1987703735]
 script = ExtResource("1_12pb8")
@@ -41,6 +44,16 @@ destination_tile = Vector2(18, 8)
 position = Vector2(256, 112)
 destination_map = "FactoryHalls1"
 destination_tile = Vector2(22, 6)
+
+[node name="ScriptTriggerEastQuarterExit" parent="ActiveObjects" unique_id=975544378 instance=ExtResource("6_12pb8")]
+position = Vector2(240, 112)
+
+[node name="FactoryWorkerQuartersEastExitScript" parent="ActiveObjects/ScriptTriggerEastQuarterExit" unique_id=1038762891 instance=ExtResource("7_rimcf")]
+
+[node name="ScriptTriggerSouthQuarterExit" parent="ActiveObjects" unique_id=1143685305 instance=ExtResource("6_12pb8")]
+position = Vector2(16, 144)
+
+[node name="MapScript" parent="ActiveObjects/ScriptTriggerSouthQuarterExit" unique_id=1700273784 instance=ExtResource("8_slkml")]
 
 [node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("6_e5tcj")]
 
