@@ -2,7 +2,7 @@ class_name OverworldMap
 extends Node2D
 
 const TILE_SIZE: int = 16
-const ACTIVE_OBJECT_DIRECTORY = "res://Scenes/Overowrld/ActiveObjects/"
+const ACTIVE_OBJECT_DIRECTORY = "res://Scenes/Overworld/ActiveObjects/"
 
 var map_name: String
 
@@ -173,14 +173,17 @@ func activateEncounterZone(zone_name: String) -> void:
 	$EncounterZones.get_node(zone_name).active = true
 
 
-func daactivateEncounterZone(zone_name: String) -> void:
+func ddactivateEncounterZone(zone_name: String) -> void:
 	$EncounterZones.get_node(zone_name).active = false
 
 
 func spawnActiveObject(scene_name: String, node_name: String, grid_position: Vector2) -> void:
 	var active_object = load(ACTIVE_OBJECT_DIRECTORY + scene_name + ".tscn").instantiate()
-	add_child(active_object)
+	$ActiveObjects.add_child(active_object)
+	active_object.name = node_name
 	active_object.setGridPosition(grid_position)
+	if active_object is NPC:
+		active_object.assignMap(self)
 	active_object.request_script_execution.connect(requestScriptExecution)
 
 

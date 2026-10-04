@@ -7,6 +7,8 @@ const ADD_SCHOLAR_BEFORE_BATTLE = 17
 
 static var all_blueprints: Array = BlueprintLoader.blueprintList()
 
+const DEBUG_MODE: bool = true
+
 enum DIRECTION {UP, DOWN, LEFT, RIGHT}
 
 const direction_vector: Dictionary = {

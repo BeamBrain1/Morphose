@@ -11,7 +11,10 @@ func _ready() -> void:
 	#get_tree().root.content_scale_size = Vector2(960, 720)
 	randomize()
 	loadStartingPartyMembers()
-	ActiveSaveData.party.setLocationAndDirection(OverworldPosition.new("FactoryPens", Vector2(0, 0)))
+	if GlobalProgramData.DEBUG_MODE:
+		ActiveSaveData.party.setLocationAndDirection(OverworldPosition.new("FactoryWorkerQuarters", Vector2(15, 8)))
+	else:
+		ActiveSaveData.party.setLocationAndDirection(OverworldPosition.new("FactoryPens", Vector2(0, 0)))
 	toOverworld()
 
 

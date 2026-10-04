@@ -11,40 +11,44 @@ func _process(delta) -> void:
 	pass
 
 
-func attemptMoveUp(scripted: bool = false) -> void:
-	play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.UP])
+func attemptMoveUp(scripted: bool = false, change_direction: bool = true) -> void:
+	if change_direction:
+		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.UP])
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.UP
 	attemptMoveTo(move_destination, scripted)
 
 
-func attemptMoveDown(scripted: bool = false) -> void:
-	play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.DOWN])
+func attemptMoveDown(scripted: bool = false, change_direction: bool = true) -> void:
+	if change_direction:
+		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.DOWN])
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.DOWN
 	attemptMoveTo(move_destination, scripted)
 
 
-func attemptMoveLeft(scripted: bool = false) -> void:
-	play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.LEFT])
+func attemptMoveLeft(scripted: bool = false, change_direction: bool = true) -> void:
+	if change_direction:
+		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.LEFT])
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.LEFT
 	attemptMoveTo(move_destination, scripted)
 
 
-func attemptMoveRight(scripted: bool = false) -> void:
-	play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.RIGHT])
+func attemptMoveRight(scripted: bool = false, change_direction: bool = true) -> void:
+	if change_direction:
+		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.RIGHT])
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.RIGHT
 	attemptMoveTo(move_destination, scripted)
 
 
-func push(direction: GlobalProgramData.DIRECTION) -> void:
+func push(direction: GlobalProgramData.DIRECTION, change_direction: bool = true) -> void:
 	match direction:
 		GlobalProgramData.DIRECTION.UP:
-			attemptMoveUp(true)
+			attemptMoveUp(true, change_direction)
 		GlobalProgramData.DIRECTION.RIGHT:
-			attemptMoveRight(true)
+			attemptMoveRight(true, change_direction)
 		GlobalProgramData.DIRECTION.DOWN:
-			attemptMoveDown(true)
+			attemptMoveDown(true, change_direction)
 		GlobalProgramData.DIRECTION.LEFT:
-			attemptMoveLeft(true)
+			attemptMoveLeft(true, change_direction)
 		_:
 			push_error("Unrecognized direction: " + str(direction))
 

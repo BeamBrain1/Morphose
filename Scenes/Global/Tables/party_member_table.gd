@@ -22,16 +22,23 @@ static func buildPartyMembers() -> void:
 	primus.speed = PartyMember.STAT_MINIMUM
 	primus.bio_energy = 0
 	primus.discounted_stats = [Morphose.COMBAT_STAT.ATTACK, Morphose.COMBAT_STAT.SPEED, Morphose.COMBAT_STAT.SENSES]
-	primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("MegaCrush", 1), true)
+	if GlobalProgramData.DEBUG_MODE:
+		primus.hp = PartyMember.HP_CAP
+		primus.tech_points = PartyMember.TP_CAP
+		primus.attack = PartyMember.STAT_CAP
+		primus.defense = PartyMember.STAT_CAP
+		primus.senses = PartyMember.STAT_CAP
+		primus.speed = PartyMember.STAT_CAP
+		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("MegaCrush", 1), true)
 
 	defector = PartyMember.new()
 	defector.name = PartyMember.PARTY_MEMBER_DEFECTOR_NAME
 	defector.hp = 25
 	defector.tech_points = 15
-	defector.attack = 5
+	defector.attack = 6
 	defector.defense = 8
-	defector.senses = 6
-	defector.speed = 6
+	defector.senses = 5
+	defector.speed = 5
 	defector.bio_energy = 20
 	defector.discounted_stats = [Morphose.COMBAT_STAT.HP, Morphose.COMBAT_STAT.ATTACK, Morphose.COMBAT_STAT.DEFENSE]
 	defector.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)

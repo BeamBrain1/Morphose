@@ -4,6 +4,8 @@ extends Node
 var handler: ScriptHandler
 @export var holder: String		# Name of object holding the script. Null if script is map-global.
 
+const DEFAULT_STEP_DELAY: float = 0.1
+
 var battle_won: bool
 # Indicates whether a battle triggered by this script was won.
 # If null, no battle triggered.
@@ -63,18 +65,18 @@ func delayRandom(min_seconds: float, max_seconds: float) -> void:
 	await delay(min_seconds + randf() * (max_seconds - min_seconds))
 
 
-func pushParty(num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1) -> void:
-	await pushActor(activeMap().getPartyToken().name, num_tiles, direction, step_delay)
+func pushParty(num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = DEFAULT_STEP_DELAY, change_direction: bool = true) -> void:
+	await pushActor(activeMap().getPartyToken().name, num_tiles, direction, step_delay, change_direction)
 
 
-func pushActiveObject(name_in: String, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1):
-	await pushActor(name_in, num_tiles, direction, step_delay)
+func pushActiveObject(name_in: String, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = DEFAULT_STEP_DELAY, change_direction: bool = true):
+	await pushActor(name_in, num_tiles, direction, step_delay, change_direction)
 
 
-func pushActor(actor_name: String, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0.1) -> void:
+func pushActor(actor_name: String, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = DEFAULT_STEP_DELAY, change_direction: bool = true) -> void:
 	var actor = activeMap().getActiveObjectByName(actor_name)
 	for i in range(num_tiles):
-		actor.push(direction)
+		actor.push(direction, change_direction)
 		await delay(step_delay)
 
 
@@ -88,6 +90,10 @@ func spawnActiveObject(scene_name: String, node_name: String, grid_position: Vec
 
 func destroyActiveObject(node_name: String) -> void:
 	activeMap().destroyActiveObject(node_name)
+
+
+func turnParty(direction: GlobalProgramData.DIRECTION) -> void:
+	activeMap().getPartyToken().faceDirection(direction)
 
 
 func turnNPC(npc_name: String, direction: GlobalProgramData.DIRECTION) -> void:

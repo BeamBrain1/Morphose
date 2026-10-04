@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://k6m4wunobdhx"]
+
+[ext_resource type="PackedScene" uid="uid://cj2sxfgrclqgq" path="res://Scenes/Overworld/MapScripts/MapScript.tscn" id="1_6axcf"]
+[ext_resource type="Script" uid="uid://f4jsk2bodmxl" path="res://defector_join_script.gd" id="2_x1roh"]
+
+[node name="DefectorJoinScript" unique_id=1038762891 instance=ExtResource("1_6axcf")]
+script = ExtResource("2_x1roh")

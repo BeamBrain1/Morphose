@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bxlx52nrj1d2b" path="res://Scenes/Overworld/Encounters/Encounter.tscn" id="4_xfsxh"]
 [ext_resource type="PackedScene" uid="uid://dixtfb7hjfp63" path="res://Scenes/Overworld/ActiveObjects/NPCs/Factory/gatekeeper_worker_npc.tscn" id="6_gb5ik"]
 [ext_resource type="PackedScene" uid="uid://d3dlncwngtt3l" path="res://Scenes/Overworld/MapScripts/Factory/factory_halls_1_script.tscn" id="6_xfsxh"]
-[ext_resource type="PackedScene" uid="uid://bri7cbfvbkd7u" path="res://Scenes/Overworld/ActiveObjects/NPCs/Factory/defector_npc.tscn" id="7_6t03b"]
+[ext_resource type="PackedScene" uid="uid://bmd72gir6vcsv" path="res://Scenes/Overworld/ActiveObjects/ScriptTrigger.tscn" id="7_6t03b"]
+[ext_resource type="PackedScene" uid="uid://k6m4wunobdhx" path="res://Scenes/Overworld/MapScripts/Factory/defector_join_script.tscn" id="8_wtojk"]
 
 [node name="OverworldMap" unique_id=1987703735 instance=ExtResource("1_vmuxm")]
 
@@ -76,11 +77,17 @@ destination_tile = Vector2(15, 7)
 [node name="GatekeeperWorkerNPC" parent="ActiveObjects" parent_id_path=PackedInt32Array(664758579) index="7" unique_id=277077586 instance=ExtResource("6_gb5ik")]
 position = Vector2(0, 80)
 
-[node name="DefectorNPC" parent="ActiveObjects" parent_id_path=PackedInt32Array(664758579) index="8" unique_id=1372198419 instance=ExtResource("7_6t03b")]
+[node name="ScriptTrigger" parent="ActiveObjects" parent_id_path=PackedInt32Array(664758579) index="8" unique_id=975544378 instance=ExtResource("7_6t03b")]
 position = Vector2(352, 80)
-initial_direction = 1
+
+[node name="DefectorJoinScript" parent="ActiveObjects/ScriptTrigger" index="0" unique_id=1038762891 instance=ExtResource("8_wtojk")]
+
+[node name="ScriptTrigger2" parent="ActiveObjects" parent_id_path=PackedInt32Array(664758579) index="9" unique_id=1372804074 instance=ExtResource("7_6t03b")]
+position = Vector2(368, 80)
+
+[node name="DefectorJoinScript" parent="ActiveObjects/ScriptTrigger2" index="0" unique_id=1547776963 instance=ExtResource("8_wtojk")]
 
 [node name="PartyToken" parent="." index="3" unique_id=809970201]
 position = Vector2(48, -56)
 
-[node name="FactoryHalls1Script" parent="." index="5" unique_id=1038762891 instance=ExtResource("6_xfsxh")]
+[node name="FactoryHalls1Script" parent="." index="5" unique_id=491540715 instance=ExtResource("6_xfsxh")]

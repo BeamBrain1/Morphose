@@ -30,7 +30,7 @@ func interactedWith() -> void:
 		emit_signal("request_script_execution", map_script)
 
 
-func push(direction: GlobalProgramData.DIRECTION) -> void:
+func push(direction: GlobalProgramData.DIRECTION, change_direction: bool = true) -> void:
 	setGridPosition(OverworldMap.gridPosition(self) + GlobalProgramData.direction_vector[direction])
 
 

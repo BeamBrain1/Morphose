@@ -10,14 +10,15 @@ func _ready() -> void:
 	faceDirection(initial_direction)
 
 
-func attemptMove(direction: GlobalProgramData.DIRECTION) -> void:
-	play(GlobalProgramData.direction_string[direction])
+func push(direction: GlobalProgramData.DIRECTION, change_direction: bool = true) -> void:
+	attemptMove(direction, change_direction)
+
+
+func attemptMove(direction: GlobalProgramData.DIRECTION, change_direction) -> void:
+	if change_direction:
+		play(GlobalProgramData.direction_string[direction])
 	var move_destination: Vector2 = OverworldMap.gridPosition(self) + GlobalProgramData.direction_vector[direction]
 	attemptMoveTo(move_destination)
-
-
-func push(direction: GlobalProgramData.DIRECTION) -> void:
-	attemptMove(direction)
 
 
 func attemptMoveTo(destination_tile: Vector2):
