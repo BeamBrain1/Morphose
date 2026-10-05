@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bxlx52nrj1d2b" path="res://Scenes/Overworld/Encounters/Encounter.tscn" id="4_12pb8"]
 [ext_resource type="PackedScene" uid="uid://dbm7qaox2j8jm" path="res://Scenes/Overworld/ActiveObjects/WarpPoint.tscn" id="5_0j063"]
 [ext_resource type="PackedScene" uid="uid://bm5l7me1ug7k2" path="res://Scenes/Overworld/ActiveObjects/PartyToken.tscn" id="6_e5tcj"]
+[ext_resource type="PackedScene" uid="uid://wvfrxhnn3w7r" path="res://Scenes/Overworld/MapScripts/Factory/worker_quarters_script.tscn" id="7_12pb8"]
 
 [node name="OverworldMap" type="Node2D" unique_id=1987703735]
 script = ExtResource("1_12pb8")
@@ -45,3 +46,5 @@ destination_tile = Vector2(22, 6)
 [node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("6_e5tcj")]
 
 [node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]
+
+[node name="WorkerQuartersScript" parent="." unique_id=1038762891 instance=ExtResource("7_12pb8")]

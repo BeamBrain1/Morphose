@@ -19,6 +19,8 @@ func body() -> void:
 		await doEncounter(["Worker"])
 		if battle_won:
 			await destroyActiveObject(gatekeeper_npc)
+			await displayDialog(SpokenDialogBox.SYSTEM_DIALOG, "\"Escape! A livestock escaped, and it has a weapon blueprint!\"")
+			await displayDialog(SpokenDialogBox.SYSTEM_DIALOG, "\"Vacate your stations and tell the security caste!\"")
 		else:
 			await clearFlag("GateKeeperWorkerKilled")
 			await warpTo("FactoryPens", Vector2(0, 0))

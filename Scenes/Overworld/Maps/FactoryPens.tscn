@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d3s8pao8k5u7s" path="res://Scenes/Overworld/Encounters/EncounterZone.tscn" id="3_b0ot7"]
 [ext_resource type="PackedScene" uid="uid://br3l8b6ttm0ca" path="res://Scenes/Overworld/ActiveObjects/loose_panel.tscn" id="3_v8782"]
 [ext_resource type="PackedScene" uid="uid://bxlx52nrj1d2b" path="res://Scenes/Overworld/Encounters/Encounter.tscn" id="4_55xn3"]
-[ext_resource type="PackedScene" uid="uid://ua0oaqqqlny3" path="res://Scenes/Overworld/ActiveObjects/NPCs/Factory/npc_livestock.tscn" id="4_tneag"]
+[ext_resource type="PackedScene" uid="uid://ua0oaqqqlny3" path="res://Scenes/Overworld/ActiveObjects/NPCs/Factory/livestock.tscn" id="4_tneag"]
 [ext_resource type="PackedScene" uid="uid://dbm7qaox2j8jm" path="res://Scenes/Overworld/ActiveObjects/WarpPoint.tscn" id="5_7whlk"]
 [ext_resource type="PackedScene" uid="uid://v3rgv8ljrtqq" path="res://Scenes/Overworld/MapScripts/Factory/map_script_pens.tscn" id="6_ajufu"]
 

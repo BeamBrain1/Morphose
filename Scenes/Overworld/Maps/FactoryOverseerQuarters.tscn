@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://mi56g4x7wi62" path="res://Scenes/Overworld/TileMapLayers/TestLayer.tscn" id="2_8sjvf"]
 [ext_resource type="PackedScene" uid="uid://dqwv0hu2bnrch" path="res://Scenes/Overworld/ActiveObjects/ModificationStation.tscn" id="3_lgah2"]
 [ext_resource type="PackedScene" uid="uid://dbm7qaox2j8jm" path="res://Scenes/Overworld/ActiveObjects/WarpPoint.tscn" id="3_yplub"]
+[ext_resource type="PackedScene" uid="uid://5cy06hby5j75" path="res://Scenes/Overworld/MapScripts/Factory/overseer_quarters_script.tscn" id="5_8sjvf"]
 
 [node name="OverworldMap" unique_id=1987703735 instance=ExtResource("1_cooj7")]
 
@@ -22,3 +23,5 @@ destination_tile = Vector2(-2, 4)
 position = Vector2(-256, 64)
 destination_map = "FactoryHalls2"
 destination_tile = Vector2(0, 4)
+
+[node name="OverseerQuartersScript" parent="." index="5" unique_id=1038762891 instance=ExtResource("5_8sjvf")]

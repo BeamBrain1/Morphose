@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dbm7qaox2j8jm" path="res://Scenes/Overworld/ActiveObjects/WarpPoint.tscn" id="3_50een"]
 [ext_resource type="PackedScene" uid="uid://d3s8pao8k5u7s" path="res://Scenes/Overworld/Encounters/EncounterZone.tscn" id="3_po7eb"]
 [ext_resource type="PackedScene" uid="uid://bxlx52nrj1d2b" path="res://Scenes/Overworld/Encounters/Encounter.tscn" id="4_xfsxh"]
-[ext_resource type="PackedScene" uid="uid://dixtfb7hjfp63" path="res://Scenes/Overworld/ActiveObjects/NPCs/Factory/gatekeeper_worker_npc.tscn" id="6_gb5ik"]
+[ext_resource type="PackedScene" uid="uid://dixtfb7hjfp63" path="res://Scenes/Overworld/ActiveObjects/NPCs/Factory/gatekeeper_worker.tscn" id="6_gb5ik"]
 [ext_resource type="PackedScene" uid="uid://d3dlncwngtt3l" path="res://Scenes/Overworld/MapScripts/Factory/factory_halls_1_script.tscn" id="6_xfsxh"]
 [ext_resource type="PackedScene" uid="uid://bmd72gir6vcsv" path="res://Scenes/Overworld/ActiveObjects/ScriptTrigger.tscn" id="7_6t03b"]
 [ext_resource type="PackedScene" uid="uid://k6m4wunobdhx" path="res://Scenes/Overworld/MapScripts/Factory/defector_join_script.tscn" id="8_wtojk"]
@@ -86,8 +86,5 @@ position = Vector2(352, 80)
 position = Vector2(368, 80)
 
 [node name="DefectorJoinScript" parent="ActiveObjects/ScriptTrigger2" index="0" unique_id=1547776963 instance=ExtResource("8_wtojk")]
-
-[node name="PartyToken" parent="." index="3" unique_id=809970201]
-position = Vector2(48, -56)
 
 [node name="FactoryHalls1Script" parent="." index="5" unique_id=491540715 instance=ExtResource("6_xfsxh")]

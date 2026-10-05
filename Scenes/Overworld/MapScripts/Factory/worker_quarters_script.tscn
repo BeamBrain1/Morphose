@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://wvfrxhnn3w7r"]
+
+[ext_resource type="PackedScene" uid="uid://cj2sxfgrclqgq" path="res://Scenes/Overworld/MapScripts/MapScript.tscn" id="1_3tdy7"]
+[ext_resource type="Script" uid="uid://doghrcc5cocoy" path="res://Scenes/Overworld/MapScripts/Factory/worker_quarters_script.gd" id="2_iylqw"]
+
+[node name="WorkerQuartersScript" unique_id=1038762891 instance=ExtResource("1_3tdy7")]
+script = ExtResource("2_iylqw")

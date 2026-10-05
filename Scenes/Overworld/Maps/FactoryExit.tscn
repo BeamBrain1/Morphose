@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b8urpap6yh44c" path="res://Scenes/Overworld/Maps/OverworldMap.tscn" id="1_qsnnn"]
 [ext_resource type="PackedScene" uid="uid://mi56g4x7wi62" path="res://Scenes/Overworld/TileMapLayers/TestLayer.tscn" id="2_26121"]
 [ext_resource type="PackedScene" uid="uid://dbm7qaox2j8jm" path="res://Scenes/Overworld/ActiveObjects/WarpPoint.tscn" id="3_i84hm"]
-[ext_resource type="PackedScene" uid="uid://dsdw12fbkus56" path="res://Scenes/Overworld/ActiveObjects/NPCs/Factory/npc_overseer.tscn" id="4_3tec0"]
+[ext_resource type="PackedScene" uid="uid://dsdw12fbkus56" path="res://Scenes/Overworld/ActiveObjects/NPCs/Factory/overseer.tscn" id="4_3tec0"]
 [ext_resource type="PackedScene" uid="uid://cx6ru1vaingdr" path="res://Scenes/Overworld/MapScripts/Factory/factory_exit_script.tscn" id="5_k1wyh"]
 
 [node name="OverworldMap" unique_id=1987703735 instance=ExtResource("1_qsnnn")]

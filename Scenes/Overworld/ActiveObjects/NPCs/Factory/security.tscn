@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bawj68k5d0vov"]
+
+[ext_resource type="PackedScene" uid="uid://doyikojm6miw2" path="res://Scenes/Overworld/ActiveObjects/NPCs/NPC.tscn" id="1_ectow"]
+[ext_resource type="Texture2D" uid="uid://dr3i1brp2w7py" path="res://Graphics/OverworldObjects/npc1.png" id="2_hkidh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xipng"]
+atlas = ExtResource("2_hkidh")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydq2c"]
+atlas = ExtResource("2_hkidh")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0utk"]
+atlas = ExtResource("2_hkidh")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lq1af"]
+atlas = ExtResource("2_hkidh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ectow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xipng")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydq2c")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0utk")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lq1af")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="SecurityNPC" unique_id=277077586 instance=ExtResource("1_ectow")]
+sprite_frames = SubResource("SpriteFrames_ectow")
+animation = &"up"
+initial_direction = 0

@@ -4,12 +4,13 @@ extends MapScript
 func body() -> void:
 	if not isFlagSet("DefectorJoined"):
 		var defector_npc: String = "DefectorNPC"
-		await spawnActiveObject("NPCs/Factory/Defector_NPC", defector_npc, Vector2(22, 1))
+		await spawnActiveObject("NPCs/Factory/Defector", defector_npc, Vector2(22, 1))
 		await turnNPC(defector_npc, GlobalProgramData.DIRECTION.RIGHT)
 		await delay(1)
 		if activeMap().gridPosition(activeMap().getPartyToken()).x == 23:
 			await pushParty(1, GlobalProgramData.DIRECTION.LEFT)
 			await turnParty(GlobalProgramData.DIRECTION.UP)
+		await displayDialog("Primus", "!")
 		await pushParty(1, GlobalProgramData.DIRECTION.UP)
 		await delay(0.25)
 		await turnNPC(defector_npc, GlobalProgramData.DIRECTION.DOWN)
@@ -20,6 +21,7 @@ func body() -> void:
 		await pushActor(defector_npc, 1, GlobalProgramData.DIRECTION.UP, DEFAULT_STEP_DELAY, false)
 		await displayDialog("Worker", "Listen to me, you brute! I want to HELP you! You can't escape this facility without me!")
 		await delay(1)
+		await displayDialog("Primus", "...?")
 		await displayDialog("Worker", "Good. Pay attention. This place's Overseer is tough. He's harvested Muta from guys like you for years.")
 		await displayDialog("Worker", "You can't beat him alone. But I've wanted to escape this place for a while too. Together, we have a chance.")
 		await displayDialog("Worker", "They were going to eat me, too - that's what they do to chronic underpeformers.")

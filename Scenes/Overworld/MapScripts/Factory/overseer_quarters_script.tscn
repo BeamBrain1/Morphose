@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://5cy06hby5j75"]
+
+[ext_resource type="PackedScene" uid="uid://cj2sxfgrclqgq" path="res://Scenes/Overworld/MapScripts/MapScript.tscn" id="1_cuc4t"]
+[ext_resource type="Script" uid="uid://dh8hynm0n6fvv" path="res://Scenes/Overworld/MapScripts/Factory/overseer_quarters_script.gd" id="2_01e5v"]
+
+[node name="OverseerQuartersScript" unique_id=1038762891 instance=ExtResource("1_cuc4t")]
+script = ExtResource("2_01e5v")
