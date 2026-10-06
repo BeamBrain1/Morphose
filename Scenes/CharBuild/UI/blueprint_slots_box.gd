@@ -4,10 +4,6 @@ signal slots_changed
 
 var assigned_party_member: PartyMember
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
 
 func assignPartyMember(party_member: PartyMember) -> void:
 	assigned_party_member = party_member

@@ -2,6 +2,8 @@ class_name Blueprint
 
 const NUM_NAME_CHARS: int = 10			# Pad name to this size, including generation
 
+const ATTACK_ANIMATION_DIRECTORY = "res://Scenes/Battle/AttackAnimations/"
+
 var base_display_name: String = "[NO DATA]"
 var override_display_name: String = ""
 
@@ -200,11 +202,22 @@ func isZenithBlueprint() -> bool:
 	return bio_cost_track.matchn("Z")
 
 
-# Override in children
+# Override in children as needed
 func isStatusEffectBlueprint() -> bool:
 	return false
 
 
-# Override in children
+# Override in children as needed
 func isSupportStatusEffectBlueprint() -> bool:
 	return false
+
+
+func getUseAnimation() -> AttackAnimation:
+	var animation_path: String = ATTACK_ANIMATION_DIRECTORY + animationFileName() + ".tscn"
+	if ResourceLoader.exists(animation_path):
+		return load(animation_path).instantiate()
+	return null
+
+
+func animationFileName() -> String:
+	return base_display_name + str(tier)

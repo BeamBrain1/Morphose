@@ -3,8 +3,6 @@ extends MapScript
 
 func body() -> void:
 	
-	return
-	
 	var gatekeeper_npc: String = "GatekeeperWorkerNPC"
 	
 	if isFlagSet("GatekeeperWorkerKilled"):

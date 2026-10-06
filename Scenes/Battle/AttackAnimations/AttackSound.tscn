@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b1temncsapi63"]
+
+[ext_resource type="Script" uid="uid://ile0dw2uvh7n" path="res://Scenes/Battle/AttackAnimations/attack_sound.gd" id="1_5k5x3"]
+
+[node name="AttackSound" type="AudioStreamPlayer" unique_id=582887907]
+bus = &"SFX"
+script = ExtResource("1_5k5x3")

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bxlx52nrj1d2b" path="res://Scenes/Overworld/Encounters/Encounter.tscn" id="4_qa7qs"]
 [ext_resource type="PackedScene" uid="uid://bm5l7me1ug7k2" path="res://Scenes/Overworld/ActiveObjects/PartyToken.tscn" id="5_03tcu"]
 [ext_resource type="PackedScene" uid="uid://bawj68k5d0vov" path="res://Scenes/Overworld/ActiveObjects/NPCs/Factory/security.tscn" id="6_qa7qs"]
+[ext_resource type="PackedScene" uid="uid://ntecug3wc8de" path="res://Scenes/Overworld/MapScripts/Factory/security_quarters_script.tscn" id="8_843yj"]
 
 [node name="OverworldMap" type="Node2D" unique_id=1987703735]
 script = ExtResource("1_b7k86")
@@ -57,3 +58,5 @@ position = Vector2(240, 64)
 [node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("5_03tcu")]
 
 [node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]
+
+[node name="SecurityQuartersScript" parent="." unique_id=1038762891 instance=ExtResource("8_843yj")]

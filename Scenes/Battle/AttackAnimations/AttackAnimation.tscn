@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cdvdc1i8f3ugi"]
+
+[ext_resource type="Script" uid="uid://12ujredmtjuv" path="res://Scenes/Battle/AttackAnimations/attack_animation.gd" id="1_sv7hb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qj3hc"]
+
+[node name="AttackAnimation" type="AnimatedSprite2D" unique_id=678900228]
+sprite_frames = SubResource("SpriteFrames_qj3hc")
+script = ExtResource("1_sv7hb")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="frame_changed" from="." to="." method="_on_frame_changed"]
