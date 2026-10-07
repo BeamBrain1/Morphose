@@ -24,7 +24,7 @@ label_settings = ExtResource("3_fk43i")
 autowrap_mode = 2
 
 [node name="DisplayDurationTimer" type="Timer" parent="." unique_id=1061475066]
-wait_time = 10.0
+wait_time = 5.0
 one_shot = true
 
 [connection signal="timeout" from="DisplayDurationTimer" to="." method="endMessageDisplay"]

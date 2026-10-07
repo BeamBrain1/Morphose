@@ -1,3 +1,4 @@
+class_name EnemyDisplay
 extends Button
 
 var enemy: EnemyCombatant

@@ -15,8 +15,9 @@ func pushBattleMessage(message: String) -> void:
 	battle_messages.append(message)
 
 
-func displayMessages(remain_until_cleared: bool = false) -> void:
-	$Text.text = ""
+func displayMessages(remain_until_cleared: bool = false, append: bool = false) -> void:
+	if not append:
+		$Text.text = ""
 	while not battle_messages.is_empty():
 		$Text.text += battle_messages.pop_front() + "\n"
 	show()

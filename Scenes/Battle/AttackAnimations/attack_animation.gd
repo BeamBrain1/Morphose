@@ -11,6 +11,19 @@ func _ready() -> void:
 	for node in get_children():
 		if node is AttackSound:
 			sound_array.append(node)
+			node.finished.connect(onSoundFinished)
+
+
+# Don't show visuals for enemy attacks - hide the animation
+func start(enemy_attack: bool) -> void:
+	play()
+	if enemy_attack:
+		hide()
+	for sound in sound_array:
+		if sound.play_frame == 0:
+			sound.play()
+			active_sound = sound
+			return
 
 
 func _on_animation_finished() -> void:
@@ -38,8 +51,6 @@ func soundPlaying() -> bool:
 
 func onSoundFinished() -> void:
 	active_sound = null
-	if not visualPlaying():
-		endAnimation()
 
 
 func endAnimation() -> void:

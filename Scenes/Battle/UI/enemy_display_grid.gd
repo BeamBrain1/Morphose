@@ -109,3 +109,11 @@ func canAlwaysRunFromEncounter() -> bool:
 		if not (combatant.isDefeated() or combatant.morphose.run_from_attempts_always_succeed):
 			return false
 	return true
+
+
+func getCombatantDisplay(enemy) -> EnemyDisplay:
+	for display in enemy_status_displays:
+		if display.enemy == enemy:
+			return display
+	push_error("Enemy display not found: " + str(enemy))
+	return null

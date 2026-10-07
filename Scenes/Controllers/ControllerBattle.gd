@@ -108,8 +108,7 @@ func displayAndRunChosenAction(actor, action: Combatant.ACTION, blueprint = null
 	# Failsafe: if blueprint chosen but no available blueprints, wait
 	var finalized_action: Combatant.ACTION = action
 	if blueprint == null and action == Combatant.ACTION.BLUEPRINT:
-		finalized_action = Combatant.ACTION.WAIT
-	
+		finalized_action = Combatant.ACTION.WAIT	
 	if finalized_action == Combatant.ACTION.WAIT:
 		actor.wait()
 		pushCombatantBattleMessages(actor)
@@ -125,9 +124,9 @@ func displayAndRunChosenAction(actor, action: Combatant.ACTION, blueprint = null
 		if blueprint.multitarget:
 			executeMultitargetBlueprint(actor, blueprint, getTargetList(actor, blueprint))
 		elif blueprint is BlueprintSupport and blueprint.self_only:
-			executeBlueprint(actor, blueprint, actor)
+			await executeBlueprint(actor, blueprint, actor)
 		else:
-			executeBlueprint(actor, blueprint, target)
+			await executeBlueprint(actor, blueprint, target)
 	else:
 		push_error("Unprocessed action: " + str(action))
 
@@ -167,6 +166,15 @@ func activeCombatantsInGroup(combatant_list: Array) -> Array:
 func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 	user.spendTP(blueprint.getTechPointCost())
 	pushCombatantBattleMessages(user)
+	showBattleMessages()
+	
+	if blueprint.hasAnimation():
+		var attack_anim: AttackAnimation = blueprint.getUseAnimation()
+		add_child(attack_anim)
+		if target is EnemyCombatant:
+			attack_anim.global_position = $EnemyDisplayGrid.getCombatantDisplay(target).global_position
+		attack_anim.start(user is EnemyCombatant)
+		await attack_anim.finished_playing
 	
 	if blueprint is BlueprintAttack:
 		applyAttack(user, blueprint, target)
@@ -178,6 +186,8 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 		specialReinforce("Swarmer", 4)
 	elif blueprint.special.matchn("bud"):
 		specialReinforce("Z-Spawn", 4)
+	showBattleMessages(false, true)
+	await $BattleMessageDisplay.display_timeout
 
 
 func specialReinforce(enemy_type: String, num_joiners: int) -> void:
@@ -214,6 +224,8 @@ func applyAttack(user, blueprint: BlueprintAttack, target) -> void:
 				pushCombatantBattleMessages(target)
 			else:
 				$BattleMessageDisplay.pushBattleMessage("Missed!")
+	if blueprint.hasAnimation():
+		pass
 
 
 func applySupport(user, blueprint: BlueprintSupport, target) -> void:
@@ -320,9 +332,9 @@ func pushCombatantBattleMessages(combatant) -> void:
 		$BattleMessageDisplay.pushBattleMessage(message)
 
 
-func showBattleMessages(remain_until_cleared: bool = false):
+func showBattleMessages(remain_until_cleared: bool = false, append: bool = false):
 	if $BattleMessageDisplay.hasMessagesWaiting():
-		$BattleMessageDisplay.displayMessages(remain_until_cleared)
+		$BattleMessageDisplay.displayMessages(remain_until_cleared, append)
 		if not remain_until_cleared:
 			await $BattleMessageDisplay.display_timeout
 

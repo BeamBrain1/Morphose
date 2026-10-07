@@ -30,6 +30,7 @@ static func buildPartyMembers() -> void:
 		primus.senses = PartyMember.STAT_CAP
 		primus.speed = PartyMember.STAT_CAP
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("MegaCrush", 1), true)
+		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 
 	defector = PartyMember.new()
 	defector.name = PartyMember.PARTY_MEMBER_DEFECTOR_NAME

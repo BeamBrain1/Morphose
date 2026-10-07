@@ -213,11 +213,14 @@ func isSupportStatusEffectBlueprint() -> bool:
 
 
 func getUseAnimation() -> AttackAnimation:
-	var animation_path: String = ATTACK_ANIMATION_DIRECTORY + animationFileName() + ".tscn"
-	if ResourceLoader.exists(animation_path):
-		return load(animation_path).instantiate()
+	if ResourceLoader.exists(animationPath()):
+		return load(animationPath()).instantiate()
 	return null
 
 
-func animationFileName() -> String:
-	return base_display_name + str(tier)
+func hasAnimation() -> bool:
+	return ResourceLoader.exists(animationPath())
+
+
+func animationPath() -> String:
+	return ATTACK_ANIMATION_DIRECTORY + base_display_name + str(tier) + ".tscn"
