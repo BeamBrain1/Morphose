@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://xpcog4m77ij0" path="res://Scenes/Battle/UI/enemy_display.gd" id="5_q0v1e"]
 [ext_resource type="Texture2D" uid="uid://clxv1naq4i2m1" path="res://Graphics/Enemies/default.png" id="7_tvkjj"]
 [ext_resource type="PackedScene" uid="uid://dkw5tagt7a2vj" path="res://Scenes/Battle/UI/StatusEffectDisplay.tscn" id="7_xojdu"]
+[ext_resource type="AudioStream" uid="uid://kvj0532jwiwi" path="res://Audio/SFX/Battle/AttackHit.wav" id="8_xojdu"]
+[ext_resource type="AudioStream" uid="uid://bjr0sj6inxmba" path="res://Audio/SFX/Battle/NoDamageHit.wav" id="9_xb08x"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tvkjj"]
 content_margin_left = 1.0
@@ -86,6 +88,13 @@ display_effect = 3
 [node name="Energized" parent="StatusEffectDisplays" unique_id=1584433194 instance=ExtResource("7_xojdu")]
 position = Vector2(32, 16)
 display_effect = 4
+
+[node name="AudioAttackHit" type="AudioStreamPlayer" parent="." unique_id=1845975392]
+stream = ExtResource("8_xojdu")
+
+[node name="AudioNoDamage" type="AudioStreamPlayer" parent="." unique_id=1174641105]
+stream = ExtResource("9_xb08x")
+bus = &"SFX"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

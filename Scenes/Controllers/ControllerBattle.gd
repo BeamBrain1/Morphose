@@ -12,6 +12,12 @@ var selected_target
 var party_ran: bool = false		# Party made a successful escape attempt
 var battle_won: bool = false
 
+const ATTACK_ANIM_TO_HIT_ANIM_DELAY: float = 0.25
+const PARTY_MEMBER_HIT_SCREEN_SHAKE_SMALLEST_OFFSET: int = 8
+const PARTY_MEMBER_HIT_SCREEN_SHAKE_NUMBER: int = 2
+const PARTY_MEMBER_HIT_SCREEN_SHAKE_INTERVAL: float = 0.125
+const PARTY_MEMBER_HIT_SCREEN_SHAKE_INITIAL_DIRECTION: Vector2 = Vector2.DOWN
+
 signal battle_result
 
 
@@ -168,20 +174,10 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 	pushCombatantBattleMessages(user)
 	showBattleMessages()
 	
-	if blueprint.hasAnimation():
-		var attack_anim: AttackAnimation = blueprint.getUseAnimation()
-		add_child(attack_anim)
-		if target is EnemyCombatant:
-			attack_anim.global_position = $EnemyDisplayGrid.getCombatantDisplay(target).global_position
-		else:
-			attack_anim.hide()
-		attack_anim.start(user is EnemyCombatant)
-		await attack_anim.finished_playing
-	
 	if blueprint is BlueprintAttack:
-		applyAttack(user, blueprint, target)
+		await applyAttack(user, blueprint, target)
 	elif blueprint is BlueprintSupport:
-		applySupport(user, blueprint, target)
+		await applySupport(user, blueprint, target)
 	else:
 		push_error("Unknown blueprint type for " + blueprint.getDialogDisplayName())
 	if blueprint.special.matchn("swarm"):
@@ -205,33 +201,68 @@ func executeMultitargetBlueprint(user, blueprint: Blueprint, target_list: Array)
 	
 	if blueprint is BlueprintAttack:
 		for target in target_list:
-			applyAttack(user, blueprint, target)
+			if not target.isDefeated():
+				applyAttack(user, blueprint, target, true)
 	elif blueprint is BlueprintSupport:
 		for target in target_list:
-			applySupport(user, blueprint, target)
+			applySupport(user, blueprint, target, true)
 	else:
 		push_error("Unknown blueprint type for " + blueprint.getDialogDisplayName())
 
 
-func applyAttack(user, blueprint: BlueprintAttack, target) -> void:
+# multitarget: is the target being hit by a multitarget blueprint?
+func applyAttack(user, blueprint: BlueprintAttack, target, multitarget: bool = false) -> void:
+	
+	var successful_hits: int = 0
+	var critical_hits: int = 0
+	var damage: int = 0
+	
 	for hit in range(blueprint.num_hits):
-		if not target.isDefeated():
-			if user.attackHits(blueprint, target):
-				var raw_damage: int = user.rawAttackDamage(blueprint)
-				var crit = user.attackCrits(blueprint, target)
-				if crit:
-					raw_damage *= 2
-					$BattleMessageDisplay.pushBattleMessage("Critical hit!")
-				target.receiveAttack(blueprint, raw_damage, crit)
-				pushCombatantBattleMessages(target)
+		if user.attackHits(blueprint, target):
+			successful_hits += 1
+			var raw_damage: int = user.rawAttackDamage(blueprint)
+			var crit = user.attackCrits(blueprint, target)
+			if crit:
+				critical_hits += 1
+				raw_damage *= 2
+			target.receiveHit(blueprint, raw_damage, crit)
+
+	damage = target.finishReceivingAttack(blueprint.damageless)
+
+	# Don't play the animation if multitarget; animation plays in multitarget function call
+	if blueprint.hasAnimation() and not multitarget:
+		var attack_anim: AttackAnimation = blueprint.getUseAnimation()
+		add_child(attack_anim)
+		if target is EnemyCombatant:
+			attack_anim.global_position = $EnemyDisplayGrid.getCombatantDisplay(target).global_position
+		else:
+			attack_anim.hide()
+		attack_anim.start(user is EnemyCombatant)
+		await attack_anim.finished_playing
+
+	if successful_hits > 0:
+		await get_tree().create_timer(ATTACK_ANIM_TO_HIT_ANIM_DELAY).timeout
+		if target is EnemyCombatant:
+			if blueprint.damageless or damage > 0:
+				await $EnemyDisplayGrid.getCombatantDisplay(target).hitFlash()
 			else:
-				$BattleMessageDisplay.pushBattleMessage("Missed!")
-	if blueprint.hasAnimation():
-		pass
+				await $EnemyDisplayGrid.getCombatantDisplay(target).hitNoDamage()
+		else:
+			if blueprint.damageless or damage > 0:
+				await partyMemberHitScreenShake()
+			else:
+				await partyMemberHitNoDamage()
+	pushCombatantBattleMessages(target)
 
 
-func applySupport(user, blueprint: BlueprintSupport, target) -> void:
+# Don't play the animation if multitarget; animation plays in multitarget function call
+func applySupport(user, blueprint: BlueprintSupport, target, multitarget: bool = false) -> void:
 	target.receiveSupport(blueprint, user == target)
+	if blueprint.hasAnimation() and not multitarget:
+		var attack_anim: AttackAnimation = blueprint.getUseAnimation()
+		attack_anim.hide()	# Support abilities have only sounds - no visible animations
+		attack_anim.start(user is EnemyCombatant)
+		await attack_anim.finished_playing
 	pushCombatantBattleMessages(target)
 
 
@@ -427,3 +458,22 @@ func attemptRun() -> bool:
 	var party_run_points = $PartyStatusDisplay.getPartyRunPoints()
 	var enemy_catch_points = $EnemyDisplayGrid.getEnemyCatchPoints()
 	return randi() % (party_run_points + enemy_catch_points) < party_run_points
+
+
+func partyMemberHitScreenShake() -> void:
+	$AudioPartyMemberHit.play()
+	var initial_position: Vector2 = position
+	for i in range(PARTY_MEMBER_HIT_SCREEN_SHAKE_NUMBER):
+		# Start with large shake, then draw down to normal position
+		var position_change: Vector2 = PARTY_MEMBER_HIT_SCREEN_SHAKE_INITIAL_DIRECTION * (PARTY_MEMBER_HIT_SCREEN_SHAKE_SMALLEST_OFFSET * (PARTY_MEMBER_HIT_SCREEN_SHAKE_NUMBER - i))
+		# Alternate directions
+		if i % 2 == 1:
+			position_change *= -1
+		position = initial_position + position_change
+		await get_tree().create_timer(PARTY_MEMBER_HIT_SCREEN_SHAKE_INTERVAL).timeout
+	position = initial_position
+
+
+func partyMemberHitNoDamage() -> void:
+	$AudioPartyMemberHitNoDamage.play()
+	await $AudioPartyMemberHitNoDamage.finished

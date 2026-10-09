@@ -4,6 +4,8 @@ extends Button
 var enemy: EnemyCombatant
 
 signal select_combatant
+const HIT_FLASH_TIME: float = 0.125
+const NUM_HIT_FLASHES: int = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -57,3 +59,17 @@ func updateStatusDisplays():
 	$StatusEffectDisplays/Hardened.updateDisplay(enemy.hardened_stacks)
 	$StatusEffectDisplays/Keen.updateDisplay(enemy.keen_stacks)
 	$StatusEffectDisplays/Energized.updateDisplay(enemy.energized_stacks)
+
+
+func hitFlash():
+	$AudioAttackHit.play()
+	for i in range(NUM_HIT_FLASHES):
+		$EnemySprite.hide()
+		await get_tree().create_timer(HIT_FLASH_TIME).timeout
+		$EnemySprite.show()
+		await get_tree().create_timer(HIT_FLASH_TIME).timeout
+
+
+func hitNoDamage():
+	$AudioNoDamage.play()
+	await $AudioNoDamage.finished

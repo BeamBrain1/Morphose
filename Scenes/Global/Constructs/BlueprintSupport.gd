@@ -3,7 +3,7 @@ class_name BlueprintSupport extends Blueprint
 var base_healing: int = 0		# How much ability heals
 var can_revive: bool = false	# If true, can revive downed party members
 var self_only: bool = false	# If true, can only target self
-	
+
 var regen: int = 0			# num Healing stacks ability gives per hit
 var sharpened: int = 0			# num Sharpened stacks ability gives per hit
 var hardened: int = 0			# num Hardened stacks ability gives per hit

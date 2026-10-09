@@ -56,6 +56,17 @@ var morphose	# The base Morphose from which this combatant draws its unmodified 
 
 const RECOMBINE_STACKS: int = 6
 
+# Variables below are for accumulated hits/crits/etc. from single attacks
+var accumulated_hits: int = 0
+var accumulated_crits: int = 0
+var accumulated_damage: int = 0
+var accumulated_burn_stacks: int = 0
+var accumulated_tranqed_stacks: int = 0
+var accumulated_acid_stacks: int = 0
+var accumulated_blind_stacks: int = 0
+var accumulated_slimed_stacks: int = 0
+var accumulated_rage_stacks: int = 0
+
 
 func _init(morphose_in):
 	morphose = morphose_in
@@ -90,27 +101,36 @@ func isDefeated() -> bool:
 func changeHP(amount: int) -> void:
 	hp += amount
 	hp = clamp(hp, 0, getMaxHP())
-	if isDefeated() and not marked_defeated:
-		markDefeated()
 
 
 func setHP(amount: int) -> void:
 	hp = clamp(amount, 0, getMaxHP())
-	if isDefeated() and not marked_defeated:
-		markDefeated()
 
 
 func damage(amount: int) -> void:
 	var final_amount: int = maxi(amount, 0)
-	if final_amount == 0:
-		pushBattleMessage("Couldn't pierce " + getName() + "'s armor.")
-	else:
-		pushBattleMessage(getName() + " takes " + str(final_amount) + " damage.")
 	changeHP(-1 * final_amount)
-	if isDefeated():
-		markDefeated()
-	if morphose.name.matchn("Dispenser") or morphose.name.matchn("Prometheus"):
-		print(hp)
+
+
+func pushDamageMessage(amount: int) -> void:
+	if amount == 0:
+		pushBattleMessage("Couldn't pierce their armor.")
+	else:
+		pushBattleMessage(str(amount) + " damage.")
+
+
+func pushBurningMessage(amount: int) -> void:
+	pushBattleMessage(getName() + " burns for " + str(amount) + " damage.")
+
+
+func pushHealMessage(amount: int) -> void:
+	var final_amount: int = maxi(amount, 0)
+	if marked_defeated:
+		pushBattleMessage(getName() + " revives with " + str(final_amount) + " HP.")
+	else:
+		pushBattleMessage(getName() + " recovers " + str(final_amount) + " HP.")
+	changeHP(final_amount)
+	marked_defeated = false
 
 
 func heal(amount: int) -> void:
@@ -249,18 +269,10 @@ func adjustStatusEffectFromEnumType(effect: STATUS_EFFECT, change: int, self_app
 	
 	if true_change > 0:
 		var bad_stacks_shed: int = mini(0, new_stacks) - mini(0, old_stacks)
-		var good_stacks_gained: int = maxi(0, new_stacks) - maxi(0, old_stacks)
-		if bad_stacks_shed > 0:
-			pushBattleMessage(getName() + " sheds " + str(bad_stacks_shed) + " " + getNegativeStatusEffectString(effect) + ".")
-		if good_stacks_gained > 0:
-			pushBattleMessage(getName() + " gains " + str(good_stacks_gained) + " " + getPositiveStatusEffectString(effect) + ".")
+		var good_stacks_gained: int = maxi(0, new_stacks) - maxi(0, old_stacks)		
 	elif true_change < 0:
 		var good_stacks_lost: int = maxi(0, old_stacks) - maxi(0, new_stacks)
 		var bad_stacks_afflicted: int = mini(0, old_stacks) - mini(0, new_stacks)
-		if good_stacks_lost > 0:
-			pushBattleMessage(getName() + " loses " + str(good_stacks_lost) + " " + getPositiveStatusEffectString(effect) + ".")
-		if bad_stacks_afflicted > 0:
-			pushBattleMessage(getName() + " suffers " + str(bad_stacks_afflicted) + " " + getNegativeStatusEffectString(effect) + ".")
 
 
 # Only upwardly adjusts (heals) existing status effects
@@ -271,24 +283,28 @@ func healStatusEffectFromEnumType(effect: STATUS_EFFECT, heal_amount: int) -> vo
 	if effect == STATUS_EFFECT.REGEN and regen_stacks < 0 and heal_amount != 0:
 		true_heal_amount = mini(regen_stacks * -1, heal_amount)
 		regen_stacks += true_heal_amount
+		pushBattleMessage(getName() + " shed " + str(true_heal_amount) + " " + getNegativeStatusEffectString(STATUS_EFFECT.REGEN))
 	elif effect == STATUS_EFFECT.SHARPENED and sharpened_stacks < 0 and heal_amount != 0:
 		true_heal_amount = mini(sharpened_stacks * -1, heal_amount)
 		sharpened_stacks += true_heal_amount
+		pushBattleMessage(getName() + " shed " + str(true_heal_amount) + " " + getNegativeStatusEffectString(STATUS_EFFECT.SHARPENED))
 	elif effect == STATUS_EFFECT.HARDENED and hardened_stacks < 0 and heal_amount != 0:
 		true_heal_amount = mini(hardened_stacks * -1, heal_amount)
 		hardened_stacks += true_heal_amount
+		pushBattleMessage(getName() + " shed " + str(true_heal_amount) + " " + getNegativeStatusEffectString(STATUS_EFFECT.HARDENED))
 	elif effect == STATUS_EFFECT.KEEN and keen_stacks < 0 and heal_amount != 0:
 		true_heal_amount = mini(keen_stacks * -1, heal_amount)
 		keen_stacks += true_heal_amount
+		pushBattleMessage(getName() + " shed " + str(true_heal_amount) + " " + getNegativeStatusEffectString(STATUS_EFFECT.KEEN))
 	elif effect == STATUS_EFFECT.ENERGIZED and energized_stacks < 0 and heal_amount != 0:
 		true_heal_amount = mini(energized_stacks * -1, heal_amount)
 		energized_stacks += true_heal_amount
+		pushBattleMessage(getName() + " shed " + str(true_heal_amount) + " " + getNegativeStatusEffectString(STATUS_EFFECT.ENERGIZED))
 	elif effect == STATUS_EFFECT.FOCUSED and focused_stacks < 0 and heal_amount != 0:
 		true_heal_amount = mini(focused_stacks * -1, heal_amount)
 		focused_stacks += true_heal_amount
+		pushBattleMessage(getName() + " shed " + str(true_heal_amount) + " " + getNegativeStatusEffectString(STATUS_EFFECT.FOCUSED))
 	
-	if true_heal_amount > 0:
-		pushBattleMessage(getName() + " sheds " + str(true_heal_amount) + " " + getNegativeStatusEffectString(effect) + ".")
 
 func beginTurn() -> void:
 	accumulated_speed = 0
@@ -326,6 +342,7 @@ func applyHealingBurning() -> void:
 		if healing:
 			change_amount = maxi(floori(change_amount/HEALING_STACK_DIVISION), 1)
 			heal(change_amount)
+			pushHealMessage(change_amount)
 		else:
 			change_amount = maxi(floori(change_amount/BURNING_STACK_DIVISION), 1)
 			if morphose.hasPassiveBlueprintWithSpecial("HydroCoat"):
@@ -333,6 +350,9 @@ func applyHealingBurning() -> void:
 				change_amount /= 4
 				change_amount = maxi(change_amount, 1)
 			damage(change_amount)
+			pushBurningMessage(change_amount)
+			if isDefeated() and not marked_defeated:
+				markDefeated()
 
 
 func regenTP() -> void:
@@ -348,6 +368,7 @@ func shedPositiveStatusEffects() -> void:
 		if randi() % 2 == 0:
 			if getStatusEffectFromEnumType(status_effect) > 0:
 				shedBuffIfNotSelfAppliedThisTurn(status_effect)
+				pushBattleMessage(getName() + " lost 1 " + getPositiveStatusEffectString(status_effect) + ".")
 
 
 func shedNegativeStatusEffects() -> void:
@@ -358,10 +379,14 @@ func shedNegativeStatusEffects() -> void:
 		num_sheds += morphose.passiveBlueprintTier("Molt")
 	
 	for i in range(num_sheds):
+		var successful_sheds: int = 0
 		for status_effect in [STATUS_EFFECT.REGEN, STATUS_EFFECT.SHARPENED, STATUS_EFFECT.HARDENED, STATUS_EFFECT.KEEN, STATUS_EFFECT.ENERGIZED, STATUS_EFFECT.FOCUSED]:
 			if randi() % 2 == 0:
 				if getStatusEffectFromEnumType(status_effect) < 0:
+					successful_sheds += 1
 					shedDebuff(status_effect)
+			if successful_sheds != 0:
+				pushBattleMessage(getName() + " shed " + str(successful_sheds) + " " + getNegativeStatusEffectString(status_effect) + ".")
 
 
 # A character can only shed a buff at the end of turn if they did not self-apply stacks of it
@@ -506,7 +531,15 @@ func rawAttackDamage(blueprint: BlueprintAttack) -> int:
 	return base_damage + random_damage
 
 
-func receiveAttack(blueprint: BlueprintAttack, raw_damage: int, crit: bool = false) -> void:
+# blueprint: Blueprint of attack
+# raw_damage: damage before defense applied
+# crit: Whether attack was a critical hit
+# final_hit: Whether attack was a final hit (if false, attack is non-final hit in multi-hit attack
+func receiveHit(blueprint: BlueprintAttack, raw_damage: int, crit: bool = false) -> void:
+
+	accumulated_hits += 1
+	if crit:
+		accumulated_crits += 1
 
 	if blueprint.special.matchn("instakill"):
 		setHP(0)
@@ -515,15 +548,106 @@ func receiveAttack(blueprint: BlueprintAttack, raw_damage: int, crit: bool = fal
 		var damage_amt: int = raw_damage
 		if not blueprint.fixed_damage:
 			damage_amt -= getStatusEffectAdjustedDefense()
+		damage_amt = max(damage_amt, 0)
 		damage(damage_amt)
+		accumulated_damage += damage_amt
 	
 	if not isDefeated():
 		adjustStatusEffectFromEnumType(STATUS_EFFECT.REGEN, -1 * adjustedDebuffStacksInflicted(blueprint.burning, crit))
+		accumulated_burn_stacks += adjustedDebuffStacksInflicted(blueprint.burning, crit)
 		adjustStatusEffectFromEnumType(STATUS_EFFECT.SHARPENED, -1 * adjustedDebuffStacksInflicted(blueprint.tranqed, crit))
+		accumulated_tranqed_stacks += adjustedDebuffStacksInflicted(blueprint.tranqed, crit)
 		adjustStatusEffectFromEnumType(STATUS_EFFECT.HARDENED, -1 * adjustedDebuffStacksInflicted(blueprint.acid, crit))
+		accumulated_acid_stacks += adjustedDebuffStacksInflicted(blueprint.acid, crit)
 		adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * adjustedDebuffStacksInflicted(blueprint.blind, crit))
+		accumulated_blind_stacks += adjustedDebuffStacksInflicted(blueprint.blind, crit)
 		adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * adjustedDebuffStacksInflicted(blueprint.slimed, crit))
+		accumulated_slimed_stacks += adjustedDebuffStacksInflicted(blueprint.slimed, crit)
 		adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * adjustedDebuffStacksInflicted(blueprint.rage, crit))
+		accumulated_rage_stacks += adjustedDebuffStacksInflicted(blueprint.rage, crit)
+
+
+# Returns amount of damage received.
+func finishReceivingAttack(damageless: bool) -> int:
+	if accumulated_hits == 0:
+		pushBattleMessage("Missed!")
+	else:
+		var hit_and_crit_string: String = ""
+		hit_and_crit_string += str(accumulated_hits) + " "
+		if accumulated_hits == 1:
+			hit_and_crit_string += "hit"
+		else:
+			hit_and_crit_string += "hits"
+		if accumulated_crits > 0:
+			hit_and_crit_string += ", " + str(accumulated_crits) + " "
+			hit_and_crit_string += "critical"
+			
+		hit_and_crit_string += "."
+		pushBattleMessage(hit_and_crit_string)
+		if not damageless:
+			pushDamageMessage(accumulated_damage)
+		if isDefeated() and not marked_defeated:
+			markDefeated()
+		
+		pushStatusChangesBattleMessages(accumulated_burn_stacks * -1, accumulated_tranqed_stacks * -1, accumulated_acid_stacks * -1, accumulated_blind_stacks * -1, accumulated_slimed_stacks * -1, accumulated_rage_stacks * -1)
+		
+		if accumulated_burn_stacks != 0:
+			pushBattleMessage("Suffers " + str(accumulated_burn_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.REGEN) + ".")
+		if accumulated_tranqed_stacks != 0:
+			pushBattleMessage("Suffers " + str(accumulated_tranqed_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.SHARPENED) + ".")
+		if accumulated_acid_stacks != 0:
+			pushBattleMessage("Suffers " + str(accumulated_acid_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.HARDENED) + ".")
+		if accumulated_blind_stacks != 0:
+			pushBattleMessage("Suffers " + str(accumulated_blind_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.KEEN) + ".")
+		if accumulated_slimed_stacks != 0:
+			pushBattleMessage("Suffers " + str(accumulated_slimed_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.ENERGIZED) + ".")
+		if accumulated_rage_stacks != 0:
+			pushBattleMessage("Suffers " + str(accumulated_rage_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.FOCUSED) + ".")
+	
+	# Reset accumulated received attack stats
+	var damage_received = accumulated_damage
+	accumulated_hits = 0
+	accumulated_crits = 0
+	accumulated_damage = 0
+	accumulated_burn_stacks = 0
+	accumulated_tranqed_stacks = 0
+	accumulated_acid_stacks = 0
+	accumulated_blind_stacks = 0
+	accumulated_slimed_stacks = 0
+	accumulated_rage_stacks = 0
+	return damage_received
+
+
+func pushStatusChangesBattleMessages(regen_stacks: int, sharpened_stacks: int, hardened_stacks: int, keen_stacks: int, energized_stacks: int, focused_stacks: int) -> void:
+	if regen_stacks > 0:
+		pushBattleMessage("Gains " + str(regen_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.REGEN) + ".")
+	elif regen_stacks < 0:
+		pushBattleMessage("Suffers " + str(regen_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.REGEN) + ".")
+	
+	if sharpened_stacks > 0:
+		pushBattleMessage("Gains " + str(sharpened_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.SHARPENED) + ".")
+	elif sharpened_stacks < 0:
+		pushBattleMessage("Suffers " + str(sharpened_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.SHARPENED) + ".")
+	
+	if hardened_stacks > 0:
+		pushBattleMessage("Gains " + str(hardened_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.HARDENED) + ".")
+	elif hardened_stacks < 0:
+		pushBattleMessage("Suffers " + str(hardened_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.HARDENED) + ".")
+	
+	if keen_stacks > 0:
+		pushBattleMessage("Gains " + str(keen_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.KEEN) + ".")
+	elif keen_stacks < 0:
+		pushBattleMessage("Suffers " + str(keen_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.KEEN) + ".")
+	
+	if energized_stacks > 0:
+		pushBattleMessage("Gains " + str(energized_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.ENERGIZED) + ".")
+	elif energized_stacks < 0:
+		pushBattleMessage("Suffers " + str(energized_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.ENERGIZED) + ".")
+	
+	if focused_stacks > 0:
+		pushBattleMessage("Gains " + str(focused_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.FOCUSED) + ".")
+	elif focused_stacks < 0:
+		pushBattleMessage("Suffers " + str(focused_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.FOCUSED) + ".")
 
 
 # Final amount of debuff stacks applied after factoring in Immunity blueprint (if present) and crit
@@ -574,6 +698,9 @@ func receiveSupport(blueprint: BlueprintSupport, self_applied: bool = false) -> 
 		adjustStatusEffectFromEnumType(STATUS_EFFECT.KEEN, -1 * adjustedDebuffStacksInflicted(blueprint.blind), self_applied)
 		adjustStatusEffectFromEnumType(STATUS_EFFECT.ENERGIZED, -1 * adjustedDebuffStacksInflicted(blueprint.slimed), self_applied)
 		adjustStatusEffectFromEnumType(STATUS_EFFECT.FOCUSED, -1 * adjustedDebuffStacksInflicted(blueprint.rage), self_applied)
+
+		pushStatusChangesBattleMessages(blueprint.regen - adjustedDebuffStacksInflicted(blueprint.burning), blueprint.sharpened - adjustedDebuffStacksInflicted(blueprint.tranqed), blueprint.hardened - adjustedDebuffStacksInflicted(blueprint.acid), blueprint.keen - adjustedDebuffStacksInflicted(blueprint.blind), blueprint.energized - adjustedDebuffStacksInflicted(blueprint.slimed), blueprint.focused - adjustedDebuffStacksInflicted(blueprint.rage))
+
 
 
 func receiveRecombination(self_applied: bool) -> void:

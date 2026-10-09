@@ -27,7 +27,7 @@ func setSizeAndPosition() -> void:
 
 # Returns true if the dialog box extends down past the bottom of the screen
 func extendsPastScreenBottom() -> bool:
-	return global_position.y + size.y > GlobalProgramData.VIEWPORT_RESOLUTION.y
+	return global_position.y + size.y > GlobalProgramData.NATIVE_RESOLUTION.y
 
 
 func setLabelSize() -> void:
