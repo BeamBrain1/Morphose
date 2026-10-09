@@ -173,6 +173,8 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 		add_child(attack_anim)
 		if target is EnemyCombatant:
 			attack_anim.global_position = $EnemyDisplayGrid.getCombatantDisplay(target).global_position
+		else:
+			attack_anim.hide()
 		attack_anim.start(user is EnemyCombatant)
 		await attack_anim.finished_playing
 	
