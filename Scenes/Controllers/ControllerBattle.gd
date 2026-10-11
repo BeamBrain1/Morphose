@@ -34,7 +34,6 @@ func mainLoop():
 		updateCombatantStatusDisplays()
 
 		if isBattleOver():	# Character may have died from poison, so check here
-			switchToPlayAgainMode()
 			break
 		else:
 			if current_actor is PartyCombatant:
@@ -51,21 +50,20 @@ func mainLoop():
 		current_actor.endTurn()
 		if not isBattleOver():
 			pushCombatantBattleMessages(current_actor)
-		updateCombatantStatusDisplays()
 		await showBattleMessages()
 
 		# Check if battle is over after each action
 		if isBattleOver():	# Character may have died from poison
-			switchToPlayAgainMode()
 			break
 
 	# Battle end routine
 	if party_ran:
-		battleFled()
+		await battleFled()
 	elif isPartyDefeated():
-		battleLost()
+		await battleLost()
 	elif allEnemiesDefeated():
-		battleWon()
+		await battleWon()
+	switchToOverworldController()
 
 
 func battleFled() -> void:
@@ -85,10 +83,13 @@ func battleLost() -> void:
 
 # Run this if player won battle
 func battleWon() -> void:
-	$BattleMessageDisplay.pushBattleMessage("You win!\nReceived " + str(victoryMuta()) + " Muta.")
+	$BattleMessageDisplay.pushBattleMessage("You win!")
+	await showBattleMessages(true, false, true)
+	await $EnemyDisplayGrid.eatEnemies()
+	$BattleMessageDisplay.pushBattleMessage("Harvested " + str(victoryMuta()) + " Muta.")
 	ActiveSaveData.party.awardMuta(victoryMuta())
 	battle_won = true
-	await showBattleMessages(true)
+	await showBattleMessages(true, true)
 	emit_signal("battle_result", battle_won)
 
 
@@ -114,7 +115,7 @@ func displayAndRunChosenAction(actor, action: Combatant.ACTION, blueprint = null
 	# Failsafe: if blueprint chosen but no available blueprints, wait
 	var finalized_action: Combatant.ACTION = action
 	if blueprint == null and action == Combatant.ACTION.BLUEPRINT:
-		finalized_action = Combatant.ACTION.WAIT	
+		finalized_action = Combatant.ACTION.WAIT
 	if finalized_action == Combatant.ACTION.WAIT:
 		actor.wait()
 		pushCombatantBattleMessages(actor)
@@ -172,7 +173,7 @@ func activeCombatantsInGroup(combatant_list: Array) -> Array:
 func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 	user.spendTP(blueprint.getTechPointCost())
 	pushCombatantBattleMessages(user)
-	showBattleMessages()
+	showBattleMessages(false, false, true)
 	
 	if blueprint is BlueprintAttack:
 		await applyAttack(user, blueprint, target)
@@ -184,8 +185,8 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 		specialReinforce("Swarmer", 4)
 	elif blueprint.special.matchn("bud"):
 		specialReinforce("Z-Spawn", 4)
+	updateCombatantStatusDisplays()
 	showBattleMessages(false, true)
-	await $BattleMessageDisplay.display_timeout
 
 
 func specialReinforce(enemy_type: String, num_joiners: int) -> void:
@@ -253,6 +254,7 @@ func applyAttack(user, blueprint: BlueprintAttack, target, multitarget: bool = f
 			else:
 				await partyMemberHitNoDamage()
 	pushCombatantBattleMessages(target)
+	await showBattleMessages(false, true)
 
 
 # Don't play the animation if multitarget; animation plays in multitarget function call
@@ -331,13 +333,11 @@ func battleBioEnergyReward() -> int:
 
 
 func initializeBattle(enemy_list: Array) -> void:
-	$PrepareForNextBattleButton.hide()
 	$BattleMessageDisplay.close()
 	buildPlayerCharacters()
 	buildEnemies(enemy_list)
 	setUpActionButtons()
 	updateCombatantStatusDisplays()
-	switchToActivePlayMode()
 	mainLoop()
 
 
@@ -365,11 +365,10 @@ func pushCombatantBattleMessages(combatant) -> void:
 		$BattleMessageDisplay.pushBattleMessage(message)
 
 
-func showBattleMessages(remain_until_cleared: bool = false, append: bool = false):
+func showBattleMessages(manual_clear_only: bool = false, append: bool = false, persist: bool = false):
 	if $BattleMessageDisplay.hasMessagesWaiting():
-		$BattleMessageDisplay.displayMessages(remain_until_cleared, append)
-		if not remain_until_cleared:
-			await $BattleMessageDisplay.display_timeout
+		$BattleMessageDisplay.displayMessages(manual_clear_only, append, persist)
+		await $BattleMessageDisplay.end_display
 
 
 func setUpActionButtons() -> void:
@@ -420,14 +419,6 @@ func runPressed() -> void:
 	emit_signal("player_action_finalized")
 
 
-func switchToPlayAgainMode():
-	$PrepareForNextBattleButton.show()
-
-
-func switchToActivePlayMode():
-	$PrepareForNextBattleButton.hide()
-
-
 func selectEnemyAsAttackTarget(combatant) -> void:
 	selected_target = combatant
 	$BattleMessageDisplay.pushBattleMessage(current_actor.getName() + " uses " + selected_blueprint.getDialogDisplayName() + ".")
@@ -443,10 +434,6 @@ func selectSupportTarget(combatant) -> void:
 # Muta awarded per party member for defeating enemies
 func victoryMuta() -> int:
 	return ceili(float($EnemyDisplayGrid.getTotalBioEnergyReward()) / $PartyStatusDisplay.numberOfPartyMembers())
-
-
-func _on_prepare_for_next_battle_button_pressed() -> void:
-	switchToOverworldController()
 
 
 # Attempt to run from battle. Returns true if successful, false if failed. Auto-fails if boss fight

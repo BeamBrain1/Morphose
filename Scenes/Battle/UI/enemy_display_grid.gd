@@ -117,3 +117,8 @@ func getCombatantDisplay(enemy) -> EnemyDisplay:
 			return display
 	push_error("Enemy display not found: " + str(enemy))
 	return null
+
+
+func eatEnemies():
+	for enemy in enemy_status_displays:
+		await enemy.getEaten()

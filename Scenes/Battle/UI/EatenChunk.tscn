@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bsfa8ac13xhm4"]
+
+[node name="EatenChunk" type="ColorRect" unique_id=549571087]
+anchors_preset = -1
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0, 0, 0, 1)

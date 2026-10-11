@@ -1,23 +1,12 @@
 [gd_scene format=3 uid="uid://clas87yp6648t"]
 
 [ext_resource type="Script" uid="uid://c81e8g24jglxj" path="res://Scenes/Controllers/ControllerBattle.gd" id="1_xpctl"]
-[ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="2_78gec"]
-[ext_resource type="StyleBox" uid="uid://d38l8e77lf4dm" path="res://Graphics/UI/Styleboxes/button_pressed.tres" id="4_cxpmc"]
-[ext_resource type="StyleBox" uid="uid://bjwyl6qvpokso" path="res://Graphics/UI/Styleboxes/button_default.tres" id="5_c6nqd"]
 [ext_resource type="PackedScene" uid="uid://dflf7vsvxe5wq" path="res://Scenes/Battle/UI/PartyStatusDisplay.tscn" id="6_gpcgo"]
 [ext_resource type="PackedScene" uid="uid://dx01ss867apo1" path="res://Scenes/Battle/UI/BattleActionMenu.tscn" id="7_e57gr"]
 [ext_resource type="PackedScene" uid="uid://babhdsnfnirth" path="res://Scenes/Battle/UI/EnemyDisplayGrid.tscn" id="8_78gec"]
 [ext_resource type="PackedScene" uid="uid://cuxhos122qym0" path="res://Scenes/Battle/UI/BattleMessageDisplay.tscn" id="8_spact"]
 [ext_resource type="AudioStream" uid="uid://kvj0532jwiwi" path="res://Audio/SFX/Battle/AttackHit.wav" id="9_78gec"]
 [ext_resource type="AudioStream" uid="uid://bjr0sj6inxmba" path="res://Audio/SFX/Battle/NoDamageHit.wav" id="10_3vpp8"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdqo5"]
-bg_color = Color(0, 0, 0.6666667, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ui1bq"]
-bg_color = Color(0.6666667, 0, 0, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o007y"]
 
 [node name="ControllerBattle" type="Node2D" unique_id=1891342347]
 script = ExtResource("1_xpctl")
@@ -40,25 +29,6 @@ position = Vector2(0, 136)
 [node name="BattleMessageDisplay" parent="." unique_id=1269281296 instance=ExtResource("8_spact")]
 visible = false
 
-[node name="PrepareForNextBattleButton" type="Button" parent="." unique_id=1103267266]
-offset_left = 104.0
-offset_top = 64.0
-offset_right = 216.0
-offset_bottom = 89.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_78gec")
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_pdqo5")
-theme_override_styles/pressed = ExtResource("4_cxpmc")
-theme_override_styles/hover = ExtResource("5_c6nqd")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ui1bq")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_o007y")
-text = "CONTINUE"
-
 [node name="AudioPartyMemberHit" type="AudioStreamPlayer" parent="." unique_id=82364201]
 stream = ExtResource("9_78gec")
 
@@ -73,4 +43,3 @@ bus = &"SFX"
 [connection signal="run" from="BattleActionMenu" to="." method="runPressed"]
 [connection signal="support" from="BattleActionMenu" to="." method="supportPressed"]
 [connection signal="wait" from="BattleActionMenu" to="." method="waitPressed"]
-[connection signal="pressed" from="PrepareForNextBattleButton" to="." method="_on_prepare_for_next_battle_button_pressed"]

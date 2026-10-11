@@ -6,6 +6,11 @@ var enemy: EnemyCombatant
 signal select_combatant
 const HIT_FLASH_TIME: float = 0.125
 const NUM_HIT_FLASHES: int = 2
+const SIMULTANEOUS_EATEN_CHUNKS = 4
+const EAT_STEP_INTERVAL: float = 0.125
+const EAT_FINAL_DELAY: float = 0.125
+
+@export var EatenChunk: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,7 +38,8 @@ func disableTargeting():
 
 func updateDisplay():
 	if enemy.isDefeated():
-		hide()
+		$StatusEffectDisplays.hide()
+		$EnemySprite.material.set_shader_parameter("defeated", true)
 		disableTargeting()
 	else:
 		updateStatusDisplays()
@@ -73,3 +79,22 @@ func hitFlash():
 func hitNoDamage():
 	$AudioNoDamage.play()
 	await $AudioNoDamage.finished
+
+
+func getEaten() -> void:
+	var eaten_chunk: ColorRect = EatenChunk.instantiate()
+	var chunk_positions: Array[Vector2]		# Figure out all positions we'll need chunks to completely cover enemy sprite
+	for y in range(0, $EnemySprite.texture.get_height(), int(eaten_chunk.size.y)):
+		for x in range(0, $EnemySprite.texture.get_width(), int(eaten_chunk.size.x)):
+			chunk_positions.append(Vector2(x, y))
+	chunk_positions.shuffle()	# Randomize order in which chunks are placed
+	while not chunk_positions.is_empty():
+		for i in SIMULTANEOUS_EATEN_CHUNKS:		# Place simultaneous chunks, then delay
+			if not chunk_positions.is_empty():	# We shouldn't run out of chunks mid-loop, but better safe than sorry
+				var next_position = chunk_positions.pop_back()
+				eaten_chunk = EatenChunk.instantiate()		# Place chunk at randomly selected location
+				$EatenChunks.add_child(eaten_chunk)
+				eaten_chunk.position = next_position
+		$AudioEatStep.play()	# After eating simultaneous chunks, play audio and wait
+		await get_tree().create_timer(EAT_STEP_INTERVAL).timeout
+	await get_tree().create_timer(EAT_FINAL_DELAY).timeout
