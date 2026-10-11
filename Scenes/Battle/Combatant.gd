@@ -367,8 +367,8 @@ func shedPositiveStatusEffects() -> void:
 	for status_effect in [STATUS_EFFECT.REGEN, STATUS_EFFECT.SHARPENED, STATUS_EFFECT.HARDENED, STATUS_EFFECT.KEEN, STATUS_EFFECT.ENERGIZED, STATUS_EFFECT.FOCUSED]:
 		if randi() % 2 == 0:
 			if getStatusEffectFromEnumType(status_effect) > 0:
-				shedBuffIfNotSelfAppliedThisTurn(status_effect)
-				pushBattleMessage(getName() + " lost 1 " + getPositiveStatusEffectString(status_effect) + ".")
+				if shedBuffIfNotSelfAppliedThisTurn(status_effect):
+					pushBattleMessage(getName() + " loses 1 " + getPositiveStatusEffectString(status_effect) + ".")
 
 
 func shedNegativeStatusEffects() -> void:
@@ -386,23 +386,32 @@ func shedNegativeStatusEffects() -> void:
 					successful_sheds += 1
 					shedDebuff(status_effect)
 			if successful_sheds != 0:
-				pushBattleMessage(getName() + " shed " + str(successful_sheds) + " " + getNegativeStatusEffectString(status_effect) + ".")
+				pushBattleMessage(getName() + " sheds " + str(successful_sheds) + " " + getNegativeStatusEffectString(status_effect) + ".")
 
 
 # A character can only shed a buff at the end of turn if they did not self-apply stacks of it
-func shedBuffIfNotSelfAppliedThisTurn(status_effect: STATUS_EFFECT) -> void:
-	if status_effect == STATUS_EFFECT.REGEN and not buffed_regen_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.SHARPENED and not buffed_sharpened_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.HARDENED and not buffed_hardened_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.KEEN and not buffed_keen_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.ENERGIZED and not buffed_energized_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, -1)
-	elif status_effect == STATUS_EFFECT.FOCUSED and not buffed_focused_on_own_turn:
-		adjustStatusEffectFromEnumType(status_effect, -1)
+# Returns true if the buff is shed
+func shedBuffIfNotSelfAppliedThisTurn(status_effect: STATUS_EFFECT) -> bool:
+	if getStatusEffectFromEnumType(status_effect) > 0:
+		if status_effect == STATUS_EFFECT.REGEN and not buffed_regen_on_own_turn:
+			adjustStatusEffectFromEnumType(status_effect, -1)
+			return true
+		elif status_effect == STATUS_EFFECT.SHARPENED and not buffed_sharpened_on_own_turn:
+			adjustStatusEffectFromEnumType(status_effect, -1)
+			return true
+		elif status_effect == STATUS_EFFECT.HARDENED and not buffed_hardened_on_own_turn:
+			adjustStatusEffectFromEnumType(status_effect, -1)
+			return true
+		elif status_effect == STATUS_EFFECT.KEEN and not buffed_keen_on_own_turn:
+			adjustStatusEffectFromEnumType(status_effect, -1)
+			return true
+		elif status_effect == STATUS_EFFECT.ENERGIZED and not buffed_energized_on_own_turn:
+			adjustStatusEffectFromEnumType(status_effect, -1)
+			return true
+		elif status_effect == STATUS_EFFECT.FOCUSED and not buffed_focused_on_own_turn:
+			adjustStatusEffectFromEnumType(status_effect, -1)
+			return true
+	return false
 
 
 # A character can only shed a debuff at the end of turn if they did not self-apply stacks of it
@@ -592,17 +601,17 @@ func finishReceivingAttack(damageless: bool) -> int:
 		pushStatusChangesBattleMessages(accumulated_burn_stacks * -1, accumulated_tranqed_stacks * -1, accumulated_acid_stacks * -1, accumulated_blind_stacks * -1, accumulated_slimed_stacks * -1, accumulated_rage_stacks * -1)
 		
 		if accumulated_burn_stacks != 0:
-			pushBattleMessage("Suffers " + str(accumulated_burn_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.REGEN) + ".")
+			pushBattleMessage("Suffers " + str(accumulated_burn_stacks) + " " + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.REGEN) + ".")
 		if accumulated_tranqed_stacks != 0:
-			pushBattleMessage("Suffers " + str(accumulated_tranqed_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.SHARPENED) + ".")
+			pushBattleMessage("Suffers " + str(accumulated_tranqed_stacks) + " " + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.SHARPENED) + ".")
 		if accumulated_acid_stacks != 0:
-			pushBattleMessage("Suffers " + str(accumulated_acid_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.HARDENED) + ".")
+			pushBattleMessage("Suffers " + str(accumulated_acid_stacks) + " " + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.HARDENED) + ".")
 		if accumulated_blind_stacks != 0:
-			pushBattleMessage("Suffers " + str(accumulated_blind_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.KEEN) + ".")
+			pushBattleMessage("Suffers " + str(accumulated_blind_stacks) + " " + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.KEEN) + ".")
 		if accumulated_slimed_stacks != 0:
-			pushBattleMessage("Suffers " + str(accumulated_slimed_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.ENERGIZED) + ".")
+			pushBattleMessage("Suffers " + str(accumulated_slimed_stacks) + " " + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.ENERGIZED) + ".")
 		if accumulated_rage_stacks != 0:
-			pushBattleMessage("Suffers " + str(accumulated_rage_stacks) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.FOCUSED) + ".")
+			pushBattleMessage("Suffers " + str(accumulated_rage_stacks) + " " + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.FOCUSED) + ".")
 	
 	# Reset accumulated received attack stats
 	var damage_received = accumulated_damage
@@ -620,34 +629,34 @@ func finishReceivingAttack(damageless: bool) -> int:
 
 func pushStatusChangesBattleMessages(regen_stacks: int, sharpened_stacks: int, hardened_stacks: int, keen_stacks: int, energized_stacks: int, focused_stacks: int) -> void:
 	if regen_stacks > 0:
-		pushBattleMessage("Gains " + str(regen_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.REGEN) + ".")
+		pushBattleMessage("Gains " + str(regen_stacks) + " " + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.REGEN) + ".")
 	elif regen_stacks < 0:
-		pushBattleMessage("Suffers " + str(regen_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.REGEN) + ".")
+		pushBattleMessage("Suffers " + str(regen_stacks * -1) + " " +getNegativeStatusEffectString(Combatant.STATUS_EFFECT.REGEN) + ".")
 	
 	if sharpened_stacks > 0:
-		pushBattleMessage("Gains " + str(sharpened_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.SHARPENED) + ".")
+		pushBattleMessage("Gains " + str(sharpened_stacks) + " " +getPositiveStatusEffectString(Combatant.STATUS_EFFECT.SHARPENED) + ".")
 	elif sharpened_stacks < 0:
-		pushBattleMessage("Suffers " + str(sharpened_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.SHARPENED) + ".")
+		pushBattleMessage("Suffers " + str(sharpened_stacks * -1) + " " +getNegativeStatusEffectString(Combatant.STATUS_EFFECT.SHARPENED) + ".")
 	
 	if hardened_stacks > 0:
-		pushBattleMessage("Gains " + str(hardened_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.HARDENED) + ".")
+		pushBattleMessage("Gains " + str(hardened_stacks) + " " +getPositiveStatusEffectString(Combatant.STATUS_EFFECT.HARDENED) + ".")
 	elif hardened_stacks < 0:
-		pushBattleMessage("Suffers " + str(hardened_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.HARDENED) + ".")
+		pushBattleMessage("Suffers " + str(hardened_stacks * -1) + " " +getNegativeStatusEffectString(Combatant.STATUS_EFFECT.HARDENED) + ".")
 	
 	if keen_stacks > 0:
-		pushBattleMessage("Gains " + str(keen_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.KEEN) + ".")
+		pushBattleMessage("Gains " + str(keen_stacks) + " " +getPositiveStatusEffectString(Combatant.STATUS_EFFECT.KEEN) + ".")
 	elif keen_stacks < 0:
-		pushBattleMessage("Suffers " + str(keen_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.KEEN) + ".")
+		pushBattleMessage("Suffers " + str(keen_stacks * -1) + " " +getNegativeStatusEffectString(Combatant.STATUS_EFFECT.KEEN) + ".")
 	
 	if energized_stacks > 0:
-		pushBattleMessage("Gains " + str(energized_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.ENERGIZED) + ".")
+		pushBattleMessage("Gains " + str(energized_stacks) + " " +getPositiveStatusEffectString(Combatant.STATUS_EFFECT.ENERGIZED) + ".")
 	elif energized_stacks < 0:
-		pushBattleMessage("Suffers " + str(energized_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.ENERGIZED) + ".")
+		pushBattleMessage("Suffers " + str(energized_stacks * -1) + " " +getNegativeStatusEffectString(Combatant.STATUS_EFFECT.ENERGIZED) + ".")
 	
 	if focused_stacks > 0:
-		pushBattleMessage("Gains " + str(focused_stacks) + getPositiveStatusEffectString(Combatant.STATUS_EFFECT.FOCUSED) + ".")
+		pushBattleMessage("Gains " + str(focused_stacks) + " " +getPositiveStatusEffectString(Combatant.STATUS_EFFECT.FOCUSED) + ".")
 	elif focused_stacks < 0:
-		pushBattleMessage("Suffers " + str(focused_stacks * -1) + getNegativeStatusEffectString(Combatant.STATUS_EFFECT.FOCUSED) + ".")
+		pushBattleMessage("Suffers " + str(focused_stacks * -1) + " " +getNegativeStatusEffectString(Combatant.STATUS_EFFECT.FOCUSED) + ".")
 
 
 # Final amount of debuff stacks applied after factoring in Immunity blueprint (if present) and crit
