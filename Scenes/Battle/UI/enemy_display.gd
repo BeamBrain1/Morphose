@@ -82,6 +82,8 @@ func hitNoDamage():
 
 
 func getEaten() -> void:
+	if not enemy.morphose.gives_bio_energy:	# Don't eat inedible enemies
+		return
 	var eaten_chunk: ColorRect = EatenChunk.instantiate()
 	var chunk_positions: Array[Vector2]		# Figure out all positions we'll need chunks to completely cover enemy sprite
 	for y in range(0, $EnemySprite.texture.get_height(), int(eaten_chunk.size.y)):

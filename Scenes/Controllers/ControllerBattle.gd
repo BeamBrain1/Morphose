@@ -129,7 +129,7 @@ func displayAndRunChosenAction(actor, action: Combatant.ACTION, blueprint = null
 			$BattleMessageDisplay.pushBattleMessage("Failed to escape!")
 	elif finalized_action == Combatant.ACTION.BLUEPRINT:
 		if blueprint.multitarget:
-			executeMultitargetBlueprint(actor, blueprint, getTargetList(actor, blueprint))
+			await executeMultitargetBlueprint(actor, blueprint, getTargetList(actor, blueprint))
 		elif blueprint is BlueprintSupport and blueprint.self_only:
 			await executeBlueprint(actor, blueprint, actor)
 		else:
@@ -175,6 +175,8 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 	pushCombatantBattleMessages(user)
 	showBattleMessages(false, false, true)
 	
+	await playBlueprintUseAnimation(user, blueprint, target)
+	
 	if blueprint is BlueprintAttack:
 		await applyAttack(user, blueprint, target)
 	elif blueprint is BlueprintSupport:
@@ -186,7 +188,6 @@ func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 	elif blueprint.special.matchn("bud"):
 		specialReinforce("Z-Spawn", 4)
 	updateCombatantStatusDisplays()
-	showBattleMessages(false, true)
 
 
 func specialReinforce(enemy_type: String, num_joiners: int) -> void:
@@ -199,20 +200,37 @@ func specialReinforce(enemy_type: String, num_joiners: int) -> void:
 func executeMultitargetBlueprint(user, blueprint: Blueprint, target_list: Array) -> void:
 	user.spendTP(blueprint.getTechPointCost())
 	pushCombatantBattleMessages(user)
+	showBattleMessages(false, false, true)
+	
+	await playBlueprintUseAnimation(user, blueprint)
 	
 	if blueprint is BlueprintAttack:
 		for target in target_list:
 			if not target.isDefeated():
-				applyAttack(user, blueprint, target, true)
+				await applyAttack(user, blueprint, target, target == target_list.back())
 	elif blueprint is BlueprintSupport:
 		for target in target_list:
-			applySupport(user, blueprint, target, true)
+			await applySupport(user, blueprint, target, target == target_list.back())
 	else:
 		push_error("Unknown blueprint type for " + blueprint.getDialogDisplayName())
 
 
-# multitarget: is the target being hit by a multitarget blueprint?
-func applyAttack(user, blueprint: BlueprintAttack, target, multitarget: bool = false) -> void:
+func playBlueprintUseAnimation(user, blueprint, target = null):
+	if blueprint.hasAnimation():
+		var attack_anim: AttackAnimation = blueprint.getUseAnimation()
+		add_child(attack_anim)
+		if target is EnemyCombatant:	# Center single-target player attacks on enemy sprite
+			attack_anim.global_position = $EnemyDisplayGrid.getCombatantDisplay(target).global_position
+		elif user is PartyCombatant and blueprint is BlueprintAttack and blueprint.multitarget:
+			pass	# For multitarget attacks launched by party, show but do not change position
+		else:	# Visible animations don't play for enemy attacks or any support abilities
+			attack_anim.hide()
+		attack_anim.start(user is EnemyCombatant)
+		await attack_anim.finished_playing
+
+
+# last_target: is this combatant the last target of the blueprint (always true for single-target blueprints)?
+func applyAttack(user, blueprint: BlueprintAttack, target, last_target: bool = true) -> void:
 	
 	var successful_hits: int = 0
 	var critical_hits: int = 0
@@ -230,17 +248,6 @@ func applyAttack(user, blueprint: BlueprintAttack, target, multitarget: bool = f
 
 	damage = target.finishReceivingAttack(blueprint.damageless)
 
-	# Don't play the animation if multitarget; animation plays in multitarget function call
-	if blueprint.hasAnimation() and not multitarget:
-		var attack_anim: AttackAnimation = blueprint.getUseAnimation()
-		add_child(attack_anim)
-		if target is EnemyCombatant:
-			attack_anim.global_position = $EnemyDisplayGrid.getCombatantDisplay(target).global_position
-		else:
-			attack_anim.hide()
-		attack_anim.start(user is EnemyCombatant)
-		await attack_anim.finished_playing
-
 	if successful_hits > 0:
 		await get_tree().create_timer(ATTACK_ANIM_TO_HIT_ANIM_DELAY).timeout
 		if target is EnemyCombatant:
@@ -248,24 +255,22 @@ func applyAttack(user, blueprint: BlueprintAttack, target, multitarget: bool = f
 				await $EnemyDisplayGrid.getCombatantDisplay(target).hitFlash()
 			else:
 				await $EnemyDisplayGrid.getCombatantDisplay(target).hitNoDamage()
+			$EnemyDisplayGrid.getCombatantDisplay(target).updateDisplay()
 		else:
 			if blueprint.damageless or damage > 0:
 				await partyMemberHitScreenShake()
 			else:
 				await partyMemberHitNoDamage()
 	pushCombatantBattleMessages(target)
-	await showBattleMessages(false, true)
+	await showBattleMessages(false, true, not last_target)
 
 
-# Don't play the animation if multitarget; animation plays in multitarget function call
-func applySupport(user, blueprint: BlueprintSupport, target, multitarget: bool = false) -> void:
+# last_target: is this combatant the last target of the blueprint (always true for single-target blueprints)?
+func applySupport(user, blueprint: BlueprintSupport, target, last_target: bool = true) -> void:
 	target.receiveSupport(blueprint, user == target)
-	if blueprint.hasAnimation() and not multitarget:
-		var attack_anim: AttackAnimation = blueprint.getUseAnimation()
-		attack_anim.hide()	# Support abilities have only sounds - no visible animations
-		attack_anim.start(user is EnemyCombatant)
-		await attack_anim.finished_playing
+	await get_tree().create_timer(ATTACK_ANIM_TO_HIT_ANIM_DELAY).timeout
 	pushCombatantBattleMessages(target)
+	await showBattleMessages(false, true, not last_target)
 
 
 # Party is defeated when all members dead
@@ -365,8 +370,8 @@ func pushCombatantBattleMessages(combatant) -> void:
 		$BattleMessageDisplay.pushBattleMessage(message)
 
 
-func showBattleMessages(manual_clear_only: bool = false, append: bool = false, persist: bool = false):
-	if $BattleMessageDisplay.hasMessagesWaiting():
+func showBattleMessages(manual_clear_only: bool = false, append: bool = false, persist: bool = false, force_show: bool = false):
+	if $BattleMessageDisplay.hasMessagesWaiting() or force_show:
 		$BattleMessageDisplay.displayMessages(manual_clear_only, append, persist)
 		await $BattleMessageDisplay.end_display
 

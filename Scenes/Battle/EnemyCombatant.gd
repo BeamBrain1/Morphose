@@ -12,9 +12,9 @@ func _init(morphose_in):
 
 func getName() -> String:
 	if number_in_battle == 1:
-		return morphose.name
+		return morphose.name.to_upper()
 	else:
-		return morphose.name + " " + str(number_in_battle)
+		return morphose.name.to_upper() + " " + str(number_in_battle)
 
 # Determines how much bio-energy this combatant awards upon defeat
 # Determined by combined stats and value of installed blueprints

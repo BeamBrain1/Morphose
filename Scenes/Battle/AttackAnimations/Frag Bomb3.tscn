@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://clfvqfqr5jyxm"]
+
+[ext_resource type="PackedScene" uid="uid://cdvdc1i8f3ugi" path="res://Scenes/Battle/AttackAnimations/AttackAnimation.tscn" id="1_q0gkj"]
+[ext_resource type="Texture2D" uid="uid://cahmhgkp6kqy5" path="res://Graphics/Attack/Claw1.png" id="2_ahrlg"]
+[ext_resource type="PackedScene" uid="uid://b1temncsapi63" path="res://Scenes/Battle/AttackAnimations/AttackSound.tscn" id="3_yfanr"]
+[ext_resource type="AudioStream" uid="uid://dxccceqf6uiv3" path="res://Audio/SFX/Attack/Claw.wav" id="4_4qt2r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmho3"]
+atlas = ExtResource("2_ahrlg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2s5t"]
+atlas = ExtResource("2_ahrlg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kwl7"]
+atlas = ExtResource("2_ahrlg")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36s5x"]
+atlas = ExtResource("2_ahrlg")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oqwil"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmho3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2s5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6kwl7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36s5x")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Claw1" unique_id=678900228 instance=ExtResource("1_q0gkj")]
+sprite_frames = SubResource("SpriteFrames_oqwil")
+centered = false
+
+[node name="AttackSound" parent="." index="0" unique_id=582887907 instance=ExtResource("3_yfanr")]
+stream = ExtResource("4_4qt2r")

@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://ssie3f4v1ma1"]
 
-[ext_resource type="Shader" uid="uid://lgia7c74eldg" path="res://Scenes/Battle/UI/EnemyDisplay.gdshader" id="1_ktykr"]
 [ext_resource type="FontFile" uid="uid://cuewupmjgt640" path="res://Fonts/Morphont Thin.ttf" id="1_q0v1e"]
 [ext_resource type="Texture2D" uid="uid://ddu5402kbif1o" path="res://Graphics/UI/Battle/enemy_select.png" id="2_q0v1e"]
 [ext_resource type="StyleBox" uid="uid://d38l8e77lf4dm" path="res://Graphics/UI/Styleboxes/button_pressed.tres" id="3_xojdu"]
@@ -29,8 +28,22 @@ bg_color = Color(0, 0, 0.6666667, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q0v1e"]
 
+[sub_resource type="Shader" id="Shader_ktykr"]
+code = "shader_type canvas_item;
+
+uniform bool defeated;
+
+const vec4 defeated_subtractor = vec4(0.3333, 0.3333, 0.3333, 0.0);
+
+void fragment() {
+	if (defeated)
+		COLOR -= defeated_subtractor;
+}
+"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ktykr"]
-shader = ExtResource("1_ktykr")
+resource_local_to_scene = true
+shader = SubResource("Shader_ktykr")
 shader_parameter/defeated = false
 
 [sub_resource type="LabelSettings" id="LabelSettings_q0v1e"]

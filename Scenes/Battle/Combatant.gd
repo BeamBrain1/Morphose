@@ -75,7 +75,7 @@ func _init(morphose_in):
 
 
 func getName() -> String:
-	return morphose.name
+	return morphose.name.to_upper()
 
 
 func initializeHP() -> void:
@@ -114,9 +114,9 @@ func damage(amount: int) -> void:
 
 func pushDamageMessage(amount: int) -> void:
 	if amount == 0:
-		pushBattleMessage("Couldn't pierce their armor.")
+		pushBattleMessage("Couldn't pierce " + getName() + " armor.")
 	else:
-		pushBattleMessage(str(amount) + " damage.")
+		pushBattleMessage(getName() + " takes " + str(amount) + " damage.")
 
 
 func pushBurningMessage(amount: int) -> void:

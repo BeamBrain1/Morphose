@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c81e8g24jglxj" path="res://Scenes/Controllers/ControllerBattle.gd" id="1_xpctl"]
 [ext_resource type="PackedScene" uid="uid://dflf7vsvxe5wq" path="res://Scenes/Battle/UI/PartyStatusDisplay.tscn" id="6_gpcgo"]
+[ext_resource type="AudioStream" uid="uid://bqc7r8af2gnbo" path="res://Audio/SFX/Battle/PartyMemberHit.wav" id="6_ivt5q"]
 [ext_resource type="PackedScene" uid="uid://dx01ss867apo1" path="res://Scenes/Battle/UI/BattleActionMenu.tscn" id="7_e57gr"]
 [ext_resource type="PackedScene" uid="uid://babhdsnfnirth" path="res://Scenes/Battle/UI/EnemyDisplayGrid.tscn" id="8_78gec"]
 [ext_resource type="PackedScene" uid="uid://cuxhos122qym0" path="res://Scenes/Battle/UI/BattleMessageDisplay.tscn" id="8_spact"]
-[ext_resource type="AudioStream" uid="uid://kvj0532jwiwi" path="res://Audio/SFX/Battle/AttackHit.wav" id="9_78gec"]
 [ext_resource type="AudioStream" uid="uid://bjr0sj6inxmba" path="res://Audio/SFX/Battle/NoDamageHit.wav" id="10_3vpp8"]
 
 [node name="ControllerBattle" type="Node2D" unique_id=1891342347]
@@ -30,7 +30,7 @@ position = Vector2(0, 136)
 visible = false
 
 [node name="AudioPartyMemberHit" type="AudioStreamPlayer" parent="." unique_id=82364201]
-stream = ExtResource("9_78gec")
+stream = ExtResource("6_ivt5q")
 
 [node name="AudioPartyMemberHitNoDamage" type="AudioStreamPlayer" parent="." unique_id=1145957916]
 stream = ExtResource("10_3vpp8")
