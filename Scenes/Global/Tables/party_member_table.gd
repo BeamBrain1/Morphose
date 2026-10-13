@@ -32,7 +32,7 @@ static func buildPartyMembers() -> void:
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("MegaCrush", 1), true)
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Honey", 1), true)
-		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Light", 1), true)
+		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Frag Bomb", 3), true)
 
 	defector = PartyMember.new()
 	defector.name = PartyMember.PARTY_MEMBER_DEFECTOR_NAME

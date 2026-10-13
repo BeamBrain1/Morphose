@@ -1,30 +1,28 @@
-[gd_scene format=3 uid="uid://cuxhos122qym0"]
+[gd_scene format=3 uid="uid://cglakmijdgk4f"]
 
-[ext_resource type="Script" uid="uid://mcycs12oui02" path="res://Scenes/Battle/UI/battle_message_display.gd" id="1_fk43i"]
-[ext_resource type="FontFile" uid="uid://d3eayc7bji2ar" path="res://Fonts/Morphont.ttf" id="2_07k05"]
-[ext_resource type="LabelSettings" uid="uid://btdeeu7pj4c44" path="res://Scenes/Global/UI/Configs/LabelDefault8x8.tres" id="3_fk43i"]
+[ext_resource type="StyleBox" uid="uid://b8aqvyddpey1k" path="res://Graphics/UI/Styleboxes/dialog_box.tres" id="1_ptah4"]
+[ext_resource type="Script" uid="uid://mcycs12oui02" path="res://Scenes/Battle/UI/battle_message_display.gd" id="2_sf0rb"]
+[ext_resource type="FontFile" uid="uid://d3eayc7bji2ar" path="res://Fonts/Morphont.ttf" id="3_sf0rb"]
+[ext_resource type="LabelSettings" uid="uid://btdeeu7pj4c44" path="res://Scenes/Global/UI/Configs/LabelDefault8x8.tres" id="3_weugh"]
 
-[node name="BattleMessageDisplay" type="ColorRect" unique_id=1269281296]
-offset_top = 136.0
+[sub_resource type="Theme" id="Theme_a66gj"]
+
+[node name="BattleMessageDisplay" type="Panel" unique_id=1943375761]
 offset_right = 320.0
-offset_bottom = 240.0
-color = Color(0, 0, 0.52156866, 1)
-script = ExtResource("1_fk43i")
+offset_bottom = 104.0
+theme = SubResource("Theme_a66gj")
+theme_override_styles/panel = ExtResource("1_ptah4")
+script = ExtResource("2_sf0rb")
+expand_programmatically = false
 
-[node name="Text" type="Label" parent="." unique_id=51218243]
+[node name="Text" type="Label" parent="." unique_id=97744451]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 312.0
-offset_bottom = 61.0
-theme_override_fonts/font = ExtResource("2_07k05")
+offset_bottom = 96.0
+theme_override_fonts/font = ExtResource("3_sf0rb")
 theme_override_font_sizes/font_size = 8
 text = "Battle messages"
-label_settings = ExtResource("3_fk43i")
+label_settings = ExtResource("3_weugh")
 autowrap_mode = 2
-
-[node name="DisplayDurationTimer" type="Timer" parent="." unique_id=1061475066]
-wait_time = 5.0
-one_shot = true
-
-[connection signal="timeout" from="DisplayDurationTimer" to="." method="endMessageDisplay"]

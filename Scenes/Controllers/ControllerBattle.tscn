@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://clas87yp6648t"]
 
 [ext_resource type="Script" uid="uid://c81e8g24jglxj" path="res://Scenes/Controllers/ControllerBattle.gd" id="1_xpctl"]
+[ext_resource type="PackedScene" uid="uid://cglakmijdgk4f" path="res://Scenes/Battle/UI/BattleMessageDisplay.tscn" id="5_ivt5q"]
 [ext_resource type="PackedScene" uid="uid://dflf7vsvxe5wq" path="res://Scenes/Battle/UI/PartyStatusDisplay.tscn" id="6_gpcgo"]
 [ext_resource type="AudioStream" uid="uid://bqc7r8af2gnbo" path="res://Audio/SFX/Battle/PartyMemberHit.wav" id="6_ivt5q"]
 [ext_resource type="PackedScene" uid="uid://dx01ss867apo1" path="res://Scenes/Battle/UI/BattleActionMenu.tscn" id="7_e57gr"]
 [ext_resource type="PackedScene" uid="uid://babhdsnfnirth" path="res://Scenes/Battle/UI/EnemyDisplayGrid.tscn" id="8_78gec"]
-[ext_resource type="PackedScene" uid="uid://cuxhos122qym0" path="res://Scenes/Battle/UI/BattleMessageDisplay.tscn" id="8_spact"]
 [ext_resource type="AudioStream" uid="uid://bjr0sj6inxmba" path="res://Audio/SFX/Battle/NoDamageHit.wav" id="10_3vpp8"]
 
 [node name="ControllerBattle" type="Node2D" unique_id=1891342347]
@@ -26,8 +26,9 @@ position = Vector2(0, 160)
 [node name="BattleActionMenu" parent="." unique_id=1542124744 instance=ExtResource("7_e57gr")]
 position = Vector2(0, 136)
 
-[node name="BattleMessageDisplay" parent="." unique_id=1269281296 instance=ExtResource("8_spact")]
-visible = false
+[node name="BattleMessageDisplay" parent="." unique_id=1943375761 instance=ExtResource("5_ivt5q")]
+offset_top = 136.0
+offset_bottom = 240.0
 
 [node name="AudioPartyMemberHit" type="AudioStreamPlayer" parent="." unique_id=82364201]
 stream = ExtResource("6_ivt5q")

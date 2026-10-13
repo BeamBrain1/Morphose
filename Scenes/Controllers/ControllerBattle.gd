@@ -173,7 +173,7 @@ func activeCombatantsInGroup(combatant_list: Array) -> Array:
 func executeBlueprint(user, blueprint: Blueprint, target) -> void:
 	user.spendTP(blueprint.getTechPointCost())
 	pushCombatantBattleMessages(user)
-	showBattleMessages(false, false, true)
+	await showBattleMessages(false, false, true)
 	
 	await playBlueprintUseAnimation(user, blueprint, target)
 	
@@ -200,7 +200,7 @@ func specialReinforce(enemy_type: String, num_joiners: int) -> void:
 func executeMultitargetBlueprint(user, blueprint: Blueprint, target_list: Array) -> void:
 	user.spendTP(blueprint.getTechPointCost())
 	pushCombatantBattleMessages(user)
-	showBattleMessages(false, false, true)
+	await showBattleMessages(false, false, true)
 	
 	await playBlueprintUseAnimation(user, blueprint)
 	
@@ -255,14 +255,14 @@ func applyAttack(user, blueprint: BlueprintAttack, target, last_target: bool = t
 				await $EnemyDisplayGrid.getCombatantDisplay(target).hitFlash()
 			else:
 				await $EnemyDisplayGrid.getCombatantDisplay(target).hitNoDamage()
-			$EnemyDisplayGrid.getCombatantDisplay(target).updateDisplay()
 		else:
 			if blueprint.damageless or damage > 0:
 				await partyMemberHitScreenShake()
 			else:
 				await partyMemberHitNoDamage()
 	pushCombatantBattleMessages(target)
-	await showBattleMessages(false, true, not last_target)
+	await showBattleMessages(last_target, true, not last_target)
+	$EnemyDisplayGrid.getCombatantDisplay(target).updateDisplay()
 
 
 # last_target: is this combatant the last target of the blueprint (always true for single-target blueprints)?
@@ -270,7 +270,7 @@ func applySupport(user, blueprint: BlueprintSupport, target, last_target: bool =
 	target.receiveSupport(blueprint, user == target)
 	await get_tree().create_timer(ATTACK_ANIM_TO_HIT_ANIM_DELAY).timeout
 	pushCombatantBattleMessages(target)
-	await showBattleMessages(false, true, not last_target)
+	await showBattleMessages(last_target, true, not last_target)
 
 
 # Party is defeated when all members dead
