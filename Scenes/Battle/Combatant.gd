@@ -5,8 +5,8 @@ enum STATUS_EFFECT {REGEN, SHARPENED, HARDENED, KEEN, ENERGIZED, FOCUSED}
 enum ACTION {NULL, BLUEPRINT, WAIT, RUN, PROMPT_PLAYER}
 
 const MAX_STATUS_EFFECT_STACKS: int = 6
-const DEFAULT_ACCURACY = 80					# Odds to hit if attacker accuracy = defender evasion
-const DEFAULT_CRIT_RATE = 10				# Odds to crit if attacker accuracy = defender evasion
+const DEFAULT_ACCURACY = 80						# Odds to hit if attacker accuracy = defender evasion
+const DEFAULT_CRIT_RATE = 10					# Odds to crit if attacker accuracy = defender evasion
 const BASE_ACCURACY_AND_EVADE = 10				# Base accuracy/evasion score before applying stats
 												# 	Stops Senses/Speed from completely dominating early game
 const BASE_CRIT_RATE_AND_CRIT_EVADE = 10		# Ditto for crit rate/evade
@@ -14,7 +14,7 @@ const BASE_CRIT_RATE_AND_CRIT_EVADE = 10		# Ditto for crit rate/evade
 const MIN_ACCURACY: int = 1
 const MAX_ACCURACY: int = 99
 const MIN_CRIT: int = 1
-const MAX_CRIT: int = 50
+const MAX_CRIT: int = 90
 
 const BASE_ACCUM_SPEED_GAIN = 10	# Per-turn base accumulated speed, onto which stat-derived speed is added
 									# 	Stops speed from completely dominating early game

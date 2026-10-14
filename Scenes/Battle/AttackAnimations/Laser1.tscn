@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://ckpibud4mv23k"]
+
+[ext_resource type="PackedScene" uid="uid://cdvdc1i8f3ugi" path="res://Scenes/Battle/AttackAnimations/AttackAnimation.tscn" id="1_r6uqs"]
+[ext_resource type="Texture2D" uid="uid://b376sgdofewxh" path="res://Graphics/Attack/Laser1.png" id="2_r6uqs"]
+[ext_resource type="PackedScene" uid="uid://b1temncsapi63" path="res://Scenes/Battle/AttackAnimations/AttackSound.tscn" id="3_jg5b7"]
+[ext_resource type="AudioStream" uid="uid://kkaoh4jigmv5" path="res://Audio/SFX/Attack/Laser.wav" id="4_dx46h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6uqs"]
+atlas = ExtResource("2_r6uqs")
+region = Rect2(0, 0, 32, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx46h"]
+atlas = ExtResource("2_r6uqs")
+region = Rect2(32, 0, 32, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg5b7"]
+atlas = ExtResource("2_r6uqs")
+region = Rect2(64, 0, 32, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cm4f"]
+atlas = ExtResource("2_r6uqs")
+region = Rect2(96, 0, 32, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oqwil"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6uqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx46h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jg5b7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cm4f")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="Laser1" unique_id=678900228 instance=ExtResource("1_r6uqs")]
+sprite_frames = SubResource("SpriteFrames_oqwil")
+centered = false
+
+[node name="AttackSound" parent="." index="0" unique_id=582887907 instance=ExtResource("3_jg5b7")]
+stream = ExtResource("4_dx46h")

@@ -218,7 +218,7 @@ func executeMultitargetBlueprint(user, blueprint: Blueprint, target_list: Array)
 func playBlueprintUseAnimation(user, blueprint, target = null):
 	if blueprint.hasAnimation():
 		var attack_anim: AttackAnimation = blueprint.getUseAnimation()
-		add_child(attack_anim)
+		$EnemyDisplayGrid.add_child(attack_anim)	# We put it here so it doesn't draw over battle action menu or message display
 		if target is EnemyCombatant:	# Center single-target player attacks on enemy sprite
 			attack_anim.global_position = $EnemyDisplayGrid.getCombatantDisplay(target).global_position
 		elif user is PartyCombatant and blueprint is BlueprintAttack and blueprint.multitarget:
