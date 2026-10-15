@@ -47,3 +47,4 @@ centered = false
 
 [node name="AttackSound" parent="." index="0" unique_id=582887907 instance=ExtResource("3_b2s5t")]
 stream = ExtResource("4_6kwl7")
+play_frames = Array[int]([0])

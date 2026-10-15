@@ -20,7 +20,7 @@ func start(enemy_attack: bool) -> void:
 	if enemy_attack:
 		hide()
 	for sound in sound_array:
-		if sound.play_frame == 0:
+		if 0 in sound.play_frames:
 			sound.play()
 			active_sound = sound
 			return
@@ -35,7 +35,7 @@ func _on_animation_finished() -> void:
 
 func _on_frame_changed() -> void:
 	for sound in sound_array:
-		if sound.play_frame == frame:
+		if frame in sound.play_frames:
 			sound.play()
 			active_sound = sound
 			return

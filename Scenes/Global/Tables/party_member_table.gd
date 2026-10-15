@@ -29,10 +29,13 @@ static func buildPartyMembers() -> void:
 		primus.defense = PartyMember.STAT_CAP
 		primus.senses = PartyMember.STAT_CAP
 		primus.speed = PartyMember.STAT_CAP
+		primus.blueprint_slots = PartyMember.MAX_BLUEPRINT_SLOTS
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("MegaCrush", 1), true)
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Horn", 1), true)
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Laser", 1), true)
+		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Auto Rifle", 1), true)
+		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Honey", 1), true)
 
 	defector = PartyMember.new()
 	defector.name = PartyMember.PARTY_MEMBER_DEFECTOR_NAME

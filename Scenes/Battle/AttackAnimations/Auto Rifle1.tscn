@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://b0k3bw17ahsrn"]
+
+[ext_resource type="PackedScene" uid="uid://cdvdc1i8f3ugi" path="res://Scenes/Battle/AttackAnimations/AttackAnimation.tscn" id="1_seol2"]
+[ext_resource type="Texture2D" uid="uid://c3eq4yfhkkfeg" path="res://Graphics/Attack/AutoRifle1.png" id="2_seol2"]
+[ext_resource type="PackedScene" uid="uid://b1temncsapi63" path="res://Scenes/Battle/AttackAnimations/AttackSound.tscn" id="3_eu81e"]
+[ext_resource type="AudioStream" uid="uid://d2da0p584gegc" path="res://Audio/SFX/Attack/AutoRifle.wav" id="4_seol2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjih7"]
+atlas = ExtResource("2_seol2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eu81e"]
+atlas = ExtResource("2_seol2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_270jm"]
+atlas = ExtResource("2_seol2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oqwil"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjih7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eu81e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_270jm")
+}],
+"loop": false,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="Auto Rifle1" unique_id=678900228 instance=ExtResource("1_seol2")]
+sprite_frames = SubResource("SpriteFrames_oqwil")
+centered = false
+
+[node name="AttackSound" parent="." index="0" unique_id=582887907 instance=ExtResource("3_eu81e")]
+stream = ExtResource("4_seol2")
+play_frames = Array[int]([0, 2])

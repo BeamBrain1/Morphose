@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dbbo0a3fqf1v"]
+
+[ext_resource type="PackedScene" uid="uid://cdvdc1i8f3ugi" path="res://Scenes/Battle/AttackAnimations/AttackAnimation.tscn" id="1_ybb38"]
+[ext_resource type="AudioStream" uid="uid://msm8uki1335w" path="res://Audio/SFX/Attack/Heal.wav" id="3_hwhwj"]
+[ext_resource type="PackedScene" uid="uid://b1temncsapi63" path="res://Scenes/Battle/AttackAnimations/AttackSound.tscn" id="3_or3td"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h5r37"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Honey1" unique_id=678900228 instance=ExtResource("1_ybb38")]
+sprite_frames = SubResource("SpriteFrames_h5r37")
+centered = false
+
+[node name="AttackSound" parent="." index="0" unique_id=582887907 instance=ExtResource("3_or3td")]
+stream = ExtResource("3_hwhwj")
+play_frames = Array[int]([0])
