@@ -835,7 +835,8 @@ func hasSupportBlueprints() -> bool:
 
 func wait() -> void:
 	regenTP()
-	pushBattleMessage(getName() + " focuses (regains Tech Points).")
+	pushBattleMessage(getName() + " focuses.")
+	pushBattleMessage("Regained " + str(getStatusEffectAdjustedTPRegen()) + " Tech Points.")
 
 
 func run() -> void:

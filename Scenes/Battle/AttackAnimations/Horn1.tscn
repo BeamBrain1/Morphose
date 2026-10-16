@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cdvdc1i8f3ugi" path="res://Scenes/Battle/AttackAnimations/AttackAnimation.tscn" id="1_tg68j"]
 [ext_resource type="Texture2D" uid="uid://b0fs6kyflrl17" path="res://Graphics/Attack/Horn1.png" id="2_tg68j"]
 [ext_resource type="PackedScene" uid="uid://b1temncsapi63" path="res://Scenes/Battle/AttackAnimations/AttackSound.tscn" id="3_mix6j"]
-[ext_resource type="AudioStream" uid="uid://dxccceqf6uiv3" path="res://Audio/SFX/Attack/Claw.wav" id="4_kafy7"]
 [ext_resource type="AudioStream" uid="uid://dqpvn1whbsmus" path="res://Audio/SFX/Attack/Horn_b.wav" id="5_gkwkn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gkwkn"]
@@ -40,7 +39,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mix6j")
 }, {
-"duration": 2.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_tx54a")
 }, {
 "duration": 2.0,
@@ -55,10 +54,6 @@ animations = [{
 sprite_frames = SubResource("SpriteFrames_oqwil")
 centered = false
 
-[node name="SoundA" parent="." index="0" unique_id=582887907 instance=ExtResource("3_mix6j")]
-stream = ExtResource("4_kafy7")
-play_frames = Array[int]([0])
-
-[node name="SoundB" parent="." index="1" unique_id=1356117362 instance=ExtResource("3_mix6j")]
+[node name="SoundB" parent="." index="0" unique_id=1356117362 instance=ExtResource("3_mix6j")]
 stream = ExtResource("5_gkwkn")
 play_frames = Array[int]([4])

@@ -50,7 +50,7 @@ func mainLoop():
 		current_actor.endTurn()
 		if not isBattleOver():
 			pushCombatantBattleMessages(current_actor)
-		await showBattleMessages()
+		await showBattleMessages(true)
 
 		# Check if battle is over after each action
 		if isBattleOver():	# Character may have died from poison
@@ -262,7 +262,8 @@ func applyAttack(user, blueprint: BlueprintAttack, target, last_target: bool = t
 				await partyMemberHitNoDamage()
 	pushCombatantBattleMessages(target)
 	await showBattleMessages(last_target, true, not last_target)
-	$EnemyDisplayGrid.getCombatantDisplay(target).updateDisplay()
+	if target is EnemyCombatant:
+		$EnemyDisplayGrid.getCombatantDisplay(target).updateDisplay()
 
 
 # last_target: is this combatant the last target of the blueprint (always true for single-target blueprints)?
@@ -271,6 +272,8 @@ func applySupport(user, blueprint: BlueprintSupport, target, last_target: bool =
 	await get_tree().create_timer(ATTACK_ANIM_TO_HIT_ANIM_DELAY).timeout
 	pushCombatantBattleMessages(target)
 	await showBattleMessages(last_target, true, not last_target)
+	if target is EnemyCombatant:
+		$EnemyDisplayGrid.getCombatantDisplay(target).updateDisplay()
 
 
 # Party is defeated when all members dead
