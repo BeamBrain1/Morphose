@@ -12,6 +12,9 @@ const EAT_FINAL_DELAY: float = 0.125
 
 @export var EatenChunk: PackedScene
 
+const ENEMY_IMAGE_DIRECTORY = "res://Graphics/Enemies/"
+const ENEMY_IMAGE_EXT = ".png"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	disabled = true
@@ -20,6 +23,8 @@ func _ready() -> void:
 
 func assignCombatant(enemy_in: EnemyCombatant) -> void:
 	enemy = enemy_in
+	if hasImage():
+		assignImage()
 	show()
 	$LabelName.text = enemy.getName().to_upper()
 	if $LabelName.text.length() % 2 == 1:
@@ -100,3 +105,15 @@ func getEaten() -> void:
 		$AudioEatStep.play()	# After eating simultaneous chunks, play audio and wait
 		await get_tree().create_timer(EAT_STEP_INTERVAL).timeout
 	await get_tree().create_timer(EAT_FINAL_DELAY).timeout
+
+
+func getEnemyImageLocation(enemy_name: String) -> String:
+	return ENEMY_IMAGE_DIRECTORY + enemy_name + ENEMY_IMAGE_EXT
+
+
+func hasImage() -> bool:
+	return ResourceLoader.exists(getEnemyImageLocation(enemy.getName()))
+
+
+func assignImage() -> void:
+	$EnemySprite.texture = load(getEnemyImageLocation(enemy.getName()))
