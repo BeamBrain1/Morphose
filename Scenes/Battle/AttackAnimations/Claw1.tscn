@@ -38,7 +38,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 12.0
+"speed": 16.0
 }]
 
 [node name="Claw1" unique_id=678900228 instance=ExtResource("1_gq7tp")]

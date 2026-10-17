@@ -96,6 +96,8 @@ func numberOfDisplayableTextRows() -> int:
 # Trim the text to the number of displayable rows, cutting off the oldest first
 # Ending newline characters create an empty row, so if there is one, subtract 1 from line count
 func trimTextToDisplayableRows() -> void:
+	# Ensure num. characters to display does not exceed string size
+	$Text.visible_characters = mini($Text.visible_characters, $Text.text.length())
 	if $Text.visible_characters > 0 and $Text.text[$Text.visible_characters-1] == "\n":
 		$Text.lines_skipped = maxi(0, ($Text.get_line_count() - 1) - numberOfDisplayableTextRows())
 	else:

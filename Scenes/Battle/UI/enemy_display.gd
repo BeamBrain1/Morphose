@@ -112,8 +112,8 @@ func getEnemyImageLocation(enemy_name: String) -> String:
 
 
 func hasImage() -> bool:
-	return ResourceLoader.exists(getEnemyImageLocation(enemy.getName()))
+	return ResourceLoader.exists(getEnemyImageLocation(enemy.getBaseName()))
 
 
 func assignImage() -> void:
-	$EnemySprite.texture = load(getEnemyImageLocation(enemy.getName()))
+	$EnemySprite.texture = load(getEnemyImageLocation(enemy.getBaseName()))

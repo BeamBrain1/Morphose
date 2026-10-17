@@ -16,6 +16,11 @@ func getName() -> String:
 	else:
 		return morphose.name.to_upper() + " " + str(number_in_battle)
 
+
+func getBaseName() -> String:
+	return morphose.name.to_upper()
+
+
 # Determines how much bio-energy this combatant awards upon defeat
 # Determined by combined stats and value of installed blueprints
 func getBioEnergyReward() -> int:

@@ -753,20 +753,6 @@ func allCombatActionBlueprints() -> Array:
 	return result
 
 
-# Returns a line-separated list of Morphose's stats
-#func statDump() -> String:
-#	var result = name
-#	result += "\n" + "HP: " + str(hp) + "/" + str(max_hp) +  " > " + str(regen_stacks)
-#	result += "\n" + "TP: " + str(tech_points) + "/" + str(max_tp)
-#	result += "\n" + "  Rcv: " + str(getStatusEffectAdjustedTPRegen()) + " (" + str(getBaseTPRegen()) + ") > " + str(focused_stacks)
-#	result += "\n" + "Attack: " + str(getStatusEffectAdjustedAttack()) + " (" + str(attack) + ") > " + str(sharpened_stacks)
-#	result += "\n" + "Defense: " + str(getStatusEffectAdjustedDefense()) + " (" + str(defense) + ") > " + str(hardened_stacks)
-#	result += "\n" + "Senses: " + str(getStatusEffectAdjustedSenses()) + " (" + str(senses) + ") > " + str(keen_stacks)
-#	result += "\n" + "Speed: " + str(getStatusEffectAdjustedSpeed()) + " (" + str(speed) + ") > " + str(energized_stacks)
-#	result += "\n" + "AccumSpeed: " + str(accumulated_speed)
-#	return result
-
-
 # Possible actions are any it has the TP for
 func getPossibleBlueprintActions() -> Array:
 
@@ -835,8 +821,7 @@ func hasSupportBlueprints() -> bool:
 
 func wait() -> void:
 	regenTP()
-	pushBattleMessage(getName() + " focuses.")
-	pushBattleMessage("Regained " + str(getStatusEffectAdjustedTPRegen()) + " Tech Points.")
+	pushBattleMessage(getName() + " focuses - regains " + str(getStatusEffectAdjustedTPRegen()) + " Tech Points.")
 
 
 func run() -> void:
