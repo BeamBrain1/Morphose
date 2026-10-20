@@ -3,7 +3,7 @@ extends MapScript
 
 func body() -> void:
 	if GlobalProgramData.DEBUG_MODE:
-		await doEncounter(["Livestock", "Livestock", "Livestock", "Livestock", "Livestock", "Livestock", "Livestock", "Livestock"])
+		await doEncounter(["Security"])
 	else:
 		await doEncounter(["Livestock"])
 	if not isFlagSet("FarmPanelLoosened"):
