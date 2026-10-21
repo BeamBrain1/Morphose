@@ -15,6 +15,12 @@ const EAT_FINAL_DELAY: float = 0.125
 const ENEMY_IMAGE_DIRECTORY = "res://Graphics/Enemies/"
 const ENEMY_IMAGE_EXT = ".png"
 
+const DEFAULT_SPRITE_SIZE: Vector2 = Vector2(32, 32)	# Default sprite size - attacks are centered based on this
+const LARGE_SPRITE_SIZE: Vector2 = Vector2(108, 80)
+
+# Slot taken by the enemy display in the DisplayGrid
+var slot: int
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	disabled = true
@@ -64,12 +70,12 @@ func _on_mouse_exited() -> void:
 
 
 func updateStatusDisplays():
-	$StatusEffectDisplays/Regen.updateDisplay(enemy.regen_stacks)
-	$StatusEffectDisplays/Focused.updateDisplay(enemy.focused_stacks)
-	$StatusEffectDisplays/Sharpened.updateDisplay(enemy.sharpened_stacks)
-	$StatusEffectDisplays/Hardened.updateDisplay(enemy.hardened_stacks)
-	$StatusEffectDisplays/Keen.updateDisplay(enemy.keen_stacks)
-	$StatusEffectDisplays/Energized.updateDisplay(enemy.energized_stacks)
+	$StatusEffectDisplays/Left/Regen.updateDisplay(enemy.regen_stacks)
+	$StatusEffectDisplays/Left/Sharpened.updateDisplay(enemy.focused_stacks)
+	$StatusEffectDisplays/Left/Hardened.updateDisplay(enemy.sharpened_stacks)
+	$StatusEffectDisplays/Right/Focused.updateDisplay(enemy.hardened_stacks)
+	$StatusEffectDisplays/Right/Keen.updateDisplay(enemy.keen_stacks)
+	$StatusEffectDisplays/Right/Energized.updateDisplay(enemy.energized_stacks)
 
 
 func hitFlash():
@@ -117,3 +123,19 @@ func hasImage() -> bool:
 
 func assignImage() -> void:
 	$EnemySprite.texture = load(getEnemyImageLocation(enemy.getBaseName()))
+	$StatusEffectDisplays/Right.position.x = spriteSize().x
+	size = spriteSize()
+	$LabelName.position += Vector2((spriteSize().x - DEFAULT_SPRITE_SIZE.x) / 2, spriteSize().y - DEFAULT_SPRITE_SIZE.y)
+
+
+func spriteSize() -> Vector2:
+	return $EnemySprite.texture.get_size()
+
+
+func centerAttackAnimationOnSprite(attack_in: AttackAnimation) -> void:
+	var attack_offset: Vector2 = (spriteSize() - DEFAULT_SPRITE_SIZE) / 2
+	attack_in.global_position = global_position + attack_offset
+
+
+func isLargeSprite() -> bool:
+	return spriteSize().x > DEFAULT_SPRITE_SIZE.x

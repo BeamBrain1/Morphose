@@ -88,27 +88,33 @@ horizontal_alignment = 1
 
 [node name="StatusEffectDisplays" type="Node2D" parent="." unique_id=1523918879]
 
-[node name="Regen" parent="StatusEffectDisplays" unique_id=35012509 instance=ExtResource("7_xojdu")]
+[node name="Left" type="Node2D" parent="StatusEffectDisplays" unique_id=1187781370]
+metadata/_edit_group_ = true
+
+[node name="Regen" parent="StatusEffectDisplays/Left" unique_id=35012509 instance=ExtResource("7_xojdu")]
 position = Vector2(-16, 0)
 
-[node name="Focused" parent="StatusEffectDisplays" unique_id=650762522 instance=ExtResource("7_xojdu")]
-position = Vector2(32, 0)
-display_effect = 5
-
-[node name="Sharpened" parent="StatusEffectDisplays" unique_id=366100398 instance=ExtResource("7_xojdu")]
+[node name="Sharpened" parent="StatusEffectDisplays/Left" unique_id=366100398 instance=ExtResource("7_xojdu")]
 position = Vector2(-16, 8)
 display_effect = 1
 
-[node name="Hardened" parent="StatusEffectDisplays" unique_id=432177084 instance=ExtResource("7_xojdu")]
+[node name="Hardened" parent="StatusEffectDisplays/Left" unique_id=432177084 instance=ExtResource("7_xojdu")]
 position = Vector2(-16, 16)
 display_effect = 2
 
-[node name="Keen" parent="StatusEffectDisplays" unique_id=1645104563 instance=ExtResource("7_xojdu")]
-position = Vector2(32, 8)
+[node name="Right" type="Node2D" parent="StatusEffectDisplays" unique_id=1121902857]
+position = Vector2(32, 0)
+metadata/_edit_group_ = true
+
+[node name="Focused" parent="StatusEffectDisplays/Right" unique_id=650762522 instance=ExtResource("7_xojdu")]
+display_effect = 5
+
+[node name="Keen" parent="StatusEffectDisplays/Right" unique_id=1645104563 instance=ExtResource("7_xojdu")]
+position = Vector2(0, 8)
 display_effect = 3
 
-[node name="Energized" parent="StatusEffectDisplays" unique_id=1584433194 instance=ExtResource("7_xojdu")]
-position = Vector2(32, 16)
+[node name="Energized" parent="StatusEffectDisplays/Right" unique_id=1584433194 instance=ExtResource("7_xojdu")]
+position = Vector2(0, 16)
 display_effect = 4
 
 [node name="EatenChunks" type="Node2D" parent="." unique_id=1035969463]

@@ -13,6 +13,15 @@ signal combatant_selected
 
 var max_enemy_with_base_name: Dictionary = {}
 
+# Indicates the order in which to fill enemy display slots
+# Slots are oriented on the screen as follows:
+#	0 1 2 3
+#	4 5 6 7
+# This order prioritizes slots closer to the center
+const DISPLAY_SLOT_PRIORITY_DEFAULT_SIZE: Array[int] = [1, 2, 5, 6, 0, 4, 3, 7]
+# Large enemies can only be displayed in the top row, and not on the furthest right edge
+const DISPLAY_SLOT_PRIORITY_LARGE_SIZE: Array[int] = [1, 0, 2]
+
 func selectCombatantAsTarget(combatant: EnemyCombatant) -> void:
 	emit_signal("combatant_selected", combatant)
 
@@ -43,7 +52,7 @@ func addEnemy(type: EnemyType) -> void:
 		var enemy_status_display = EnemyStatusDisplay.instantiate()
 		enemy_status_display.assignCombatant(combatant)
 		add_child(enemy_status_display)
-		enemy_status_display.position = FIRST_ENEMY_DISPLAY_POSITION + Vector2((enemy_status_displays.size() % 4) * NEXT_ENEMY_DISPLAY_OFFSET_X, floor(enemy_status_displays.size() / 4) * NEXT_ENEMY_DISPLAY_OFFSET_Y)
+		assignSlot(enemy_status_display)
 		enemy_status_displays.append(enemy_status_display)
 		enemy_status_display.select_combatant.connect(selectCombatantAsTarget)
 	else:
@@ -53,8 +62,38 @@ func addEnemy(type: EnemyType) -> void:
 				break
 
 
+# Assign an enemy a slot and update its display display position based on the slot
+func assignSlot(display: EnemyDisplay) -> void:
+	display.slot = nextFreeSlot()
+	display.position = FIRST_ENEMY_DISPLAY_POSITION + Vector2((display.slot % 4) * NEXT_ENEMY_DISPLAY_OFFSET_X, floor(display.slot / 4) * NEXT_ENEMY_DISPLAY_OFFSET_Y)
+
+
+# Returns the next free slot in descending order of priority or -1 if none available
+func nextFreeSlot() -> int:	
+	for slot in DISPLAY_SLOT_PRIORITY_DEFAULT_SIZE:		# Iterate through slots in decreasing priority
+		if not slot in takenSlots():					# Free slot found
+			return slot
+	return -1	# No free slot found
+
+
+# Returns a list of slots that have already been taken by other enemies
+func takenSlots() -> Array[int]:
+	var result: Array[int] = []
+	for display in enemy_status_displays:
+		result += singleDisplayTakenSlots(display)
+	return result
+
+
+# Returns the slot(s) taken by an enemy status display
+# A normal-sized enemy will take only its slot number; a large enemy takes additional slots (a 2x2 grid starting at its own position
+func singleDisplayTakenSlots(display: EnemyDisplay) -> Array[int]:
+	if display.isLargeSprite():
+		return [display.slot, display.slot+1, display.slot+ENEMIES_PER_ROW, display.slot+1+ENEMIES_PER_ROW]
+	return [display.slot]
+
+
 func battleGridIsFull() -> bool:
-	return enemy_status_displays.size() == MAX_ENEMIES
+	return nextFreeSlot() == -1
 
 
 func updateEnemyStatusDisplays() -> void:

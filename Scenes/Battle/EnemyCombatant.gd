@@ -4,6 +4,8 @@ extends Combatant
 var number_in_battle: int = 1	# Number of instance of this enemy in battle, used to determine display name
 var ai_sequence: int = 0		# Used in cyclic AI decisions. Every action advances by 1 step
 
+const MAX_NAME_NUM_CHARS: int = 10
+
 func _init(morphose_in):
 	morphose = morphose_in
 	initializeHP()
@@ -14,7 +16,10 @@ func getName() -> String:
 	if number_in_battle == 1:
 		return morphose.name.to_upper()
 	else:
-		return morphose.name.to_upper() + " " + str(number_in_battle)
+		if morphose.name.length() == MAX_NAME_NUM_CHARS - 1:
+			return morphose.name.to_upper() + str(number_in_battle)
+		else:
+			return morphose.name.to_upper() + " " + str(number_in_battle)
 
 
 func getBaseName() -> String:

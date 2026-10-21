@@ -219,12 +219,14 @@ func playBlueprintUseAnimation(user, blueprint, target = null):
 	if blueprint.hasAnimation():
 		var attack_anim: AttackAnimation = blueprint.getUseAnimation()
 		$EnemyDisplayGrid.add_child(attack_anim)	# We put it here so it doesn't draw over battle action menu or message display
-		if target is EnemyCombatant:	# Center single-target player attacks on enemy sprite
-			attack_anim.global_position = $EnemyDisplayGrid.getCombatantDisplay(target).global_position
-		elif user is PartyCombatant and blueprint is BlueprintAttack and blueprint.multitarget:
-			pass	# For multitarget attacks launched by party, show but do not change position
-		else:	# Visible animations don't play for enemy attacks or any support abilities
-			attack_anim.hide()
+		if user is EnemyCombatant or blueprint is BlueprintSupport:
+			attack_anim.hide()	# Visible animations don't play for enemy attacks or any support abilities
+		else:
+			if not blueprint.multitarget:	# Center single-target player attacks on enemy sprite
+				$EnemyDisplayGrid.getCombatantDisplay(target).centerAttackAnimationOnSprite(attack_anim)
+			else:	# For multitarget attacks launched by party, show but do not change position - default behavior
+				pass
+
 		attack_anim.start(user is EnemyCombatant)
 		await attack_anim.finished_playing
 
