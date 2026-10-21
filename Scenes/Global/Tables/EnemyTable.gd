@@ -25,7 +25,7 @@ static func buildGlobalEnemyList() -> void:
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Worker"
-	current_enemy.hp = 6
+	current_enemy.hp = 8
 	current_enemy.tech_points = 10
 	current_enemy.attack = 1
 	current_enemy.defense = 6
@@ -39,17 +39,17 @@ static func buildGlobalEnemyList() -> void:
 	current_enemy.name = "Security"
 	current_enemy.hp = 15
 	current_enemy.tech_points = 10
-	current_enemy.attack = 7
+	current_enemy.attack = 8
 	current_enemy.defense = 6
-	current_enemy.senses = 4
-	current_enemy.speed = 5
+	current_enemy.senses = 7
+	current_enemy.speed = 6
 	current_enemy.never_crits = true
 	current_enemy.installBlueprintByNameAndTier("Claw", 1)
 	addEnemyToTable(current_enemy)
 	
 	current_enemy = EnemyType.new()
 	current_enemy.name = "Overseer"
-	current_enemy.hp = 120
+	current_enemy.hp = 100
 	current_enemy.tech_points = 100
 	current_enemy.attack = 6
 	current_enemy.defense = 6

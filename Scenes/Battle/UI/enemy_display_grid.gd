@@ -48,14 +48,22 @@ func addEnemy(type: EnemyType) -> void:
 
 	combatant.number_in_battle = max_enemy_with_base_name[combatant.getName()]
 	
-	if not battleGridIsFull():
-		var enemy_status_display = EnemyStatusDisplay.instantiate()
-		enemy_status_display.assignCombatant(combatant)
+	var enemy_status_display = EnemyStatusDisplay.instantiate()
+	enemy_status_display.assignCombatant(combatant)
+	
+	# This is a special condition: by default, a large enemy takes up a "middle" slot, leaving no room for a second.
+	# If this condition is detected, the large enemy is first shunted to slot 0, which opens room for the second enemy
+	if enemy_status_display.isLargeSprite() and enemy_status_displays.size() == 1 and enemy_status_displays[0].isLargeSprite():
+		assignSlot(enemy_status_displays[0], 0)
+	
+	
+	if slotAvailable(enemy_status_display):
 		add_child(enemy_status_display)
 		assignSlot(enemy_status_display)
 		enemy_status_displays.append(enemy_status_display)
 		enemy_status_display.select_combatant.connect(selectCombatantAsTarget)
-	else:
+	else:	# We can't add this as a new enemy, so un-instantiate the display and attempt to write over an existing display
+		enemy_status_display.call_deferred("queue_free")
 		for display in enemy_status_displays:
 			if display.enemy.isDefeated():
 				display.assignCombatant(combatant)
@@ -63,37 +71,62 @@ func addEnemy(type: EnemyType) -> void:
 
 
 # Assign an enemy a slot and update its display display position based on the slot
-func assignSlot(display: EnemyDisplay) -> void:
-	display.slot = nextFreeSlot()
+# force_slot: Optional parameter to force an enemy into a specific slot
+func assignSlot(display: EnemyDisplay, force_slot: int = -1) -> void:
+	if force_slot != -1:
+		display.slot = force_slot
+	else:
+		display.slot = nextFreeSlot(display)
 	display.position = FIRST_ENEMY_DISPLAY_POSITION + Vector2((display.slot % 4) * NEXT_ENEMY_DISPLAY_OFFSET_X, floor(display.slot / 4) * NEXT_ENEMY_DISPLAY_OFFSET_Y)
 
 
-# Returns the next free slot in descending order of priority or -1 if none available
-func nextFreeSlot() -> int:	
-	for slot in DISPLAY_SLOT_PRIORITY_DEFAULT_SIZE:		# Iterate through slots in decreasing priority
-		if not slot in takenSlots():					# Free slot found
-			return slot
+# Returns the next free slot for this display in descending order of priority or -1 if none available
+func nextFreeSlot(display: EnemyDisplay) -> int:
+	var check_slot_array: Array[int]
+	if display.isLargeSprite():
+		check_slot_array = DISPLAY_SLOT_PRIORITY_LARGE_SIZE
+	else:
+		check_slot_array = DISPLAY_SLOT_PRIORITY_DEFAULT_SIZE
+		
+	for check_slot in check_slot_array:		# Iterate through slots in decreasing priority
+		var required_slots = occupiedSlots(display, check_slot)	# How many slots does this display need?
+		var all_slots_available: bool = true
+		for occupied_slot in allOccupiedSlots():
+			if occupied_slot in required_slots:
+				all_slots_available = false
+				break
+		if all_slots_available:
+			return check_slot
 	return -1	# No free slot found
 
 
 # Returns a list of slots that have already been taken by other enemies
-func takenSlots() -> Array[int]:
+func allOccupiedSlots() -> Array[int]:
 	var result: Array[int] = []
 	for display in enemy_status_displays:
-		result += singleDisplayTakenSlots(display)
+		result += occupiedSlots(display)
 	return result
 
 
-# Returns the slot(s) taken by an enemy status display
-# A normal-sized enemy will take only its slot number; a large enemy takes additional slots (a 2x2 grid starting at its own position
-func singleDisplayTakenSlots(display: EnemyDisplay) -> Array[int]:
+# Indicates whether there is a lot available for the supplied enemy status display
+func slotAvailable(display: EnemyDisplay) -> bool:
+	return nextFreeSlot(display) != -1
+
+
+# List the slots an enemy display occupies or would occupy on the battle grid
+# display: The display to check
+# slot: The slot to check. By default it is -1, which checks the enemy's currently assigned slot
+# A normal-sized enemy will take only its slot number; a large enemy takes additional slots (a 2x2 grid starting at its own position)
+func occupiedSlots(display: EnemyDisplay, slot: int = -1) -> Array[int]:
+	var slot_to_check: int
+	if slot == -1:
+		slot_to_check = display.slot
+	else:
+		slot_to_check = slot
 	if display.isLargeSprite():
-		return [display.slot, display.slot+1, display.slot+ENEMIES_PER_ROW, display.slot+1+ENEMIES_PER_ROW]
-	return [display.slot]
-
-
-func battleGridIsFull() -> bool:
-	return nextFreeSlot() == -1
+		return [slot_to_check, slot_to_check+1, slot_to_check+ENEMIES_PER_ROW, slot_to_check+1+ENEMIES_PER_ROW]
+	else:
+		return [slot_to_check]
 
 
 func updateEnemyStatusDisplays() -> void:
