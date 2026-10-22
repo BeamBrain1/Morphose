@@ -16,7 +16,9 @@ const ENEMY_IMAGE_DIRECTORY = "res://Graphics/Enemies/"
 const ENEMY_IMAGE_EXT = ".png"
 
 const DEFAULT_SPRITE_SIZE: Vector2 = Vector2(32, 32)	# Default sprite size - attacks are centered based on this
-const LARGE_SPRITE_SIZE: Vector2 = Vector2(108, 80)
+const LARGE_SPRITE_SIZE: Vector2 = DEFAULT_SPRITE_SIZE * 2
+const ZENITH_SPRITE_SIZE: Vector2 = Vector2(108, 80)
+const LARGE_SPRITE_OFFSET = Vector2(16, 8)
 
 # Slot taken by the enemy display in the DisplayGrid
 var slot: int
@@ -125,6 +127,8 @@ func assignImage() -> void:
 	$EnemySprite.texture = load(getEnemyImageLocation(enemy.getBaseName()))
 	$StatusEffectDisplays/Right.position.x = spriteSize().x
 	size = spriteSize()
+	if isLargeSprite():
+		pass
 	$LabelName.position += Vector2((spriteSize().x - DEFAULT_SPRITE_SIZE.x) / 2, spriteSize().y - DEFAULT_SPRITE_SIZE.y)
 
 
@@ -138,4 +142,8 @@ func centerAttackAnimationOnSprite(attack_in: AttackAnimation) -> void:
 
 
 func isLargeSprite() -> bool:
-	return spriteSize().x > DEFAULT_SPRITE_SIZE.x
+	return spriteSize() == LARGE_SPRITE_SIZE
+
+
+func isZenithSprite() -> bool:
+	return spriteSize() == ZENITH_SPRITE_SIZE

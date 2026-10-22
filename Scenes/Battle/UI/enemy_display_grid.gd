@@ -55,8 +55,7 @@ func addEnemy(type: EnemyType) -> void:
 	# If this condition is detected, the large enemy is first shunted to slot 0, which opens room for the second enemy
 	if enemy_status_display.isLargeSprite() and enemy_status_displays.size() == 1 and enemy_status_displays[0].isLargeSprite():
 		assignSlot(enemy_status_displays[0], 0)
-	
-	
+
 	if slotAvailable(enemy_status_display):
 		add_child(enemy_status_display)
 		assignSlot(enemy_status_display)
@@ -78,6 +77,8 @@ func assignSlot(display: EnemyDisplay, force_slot: int = -1) -> void:
 	else:
 		display.slot = nextFreeSlot(display)
 	display.position = FIRST_ENEMY_DISPLAY_POSITION + Vector2((display.slot % 4) * NEXT_ENEMY_DISPLAY_OFFSET_X, floor(display.slot / 4) * NEXT_ENEMY_DISPLAY_OFFSET_Y)
+	if display.isLargeSprite():
+		display.position += display.LARGE_SPRITE_OFFSET
 
 
 # Returns the next free slot for this display in descending order of priority or -1 if none available
