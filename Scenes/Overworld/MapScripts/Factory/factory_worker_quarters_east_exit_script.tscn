@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://xmdv7k0blm0a"]
 
 [ext_resource type="PackedScene" uid="uid://cj2sxfgrclqgq" path="res://Scenes/Overworld/MapScripts/MapScript.tscn" id="1_oiwml"]
-[ext_resource type="Script" uid="uid://dr1vadhyxhvgc" path="res://factory_worker_quarters_east_exit_script.gd" id="2_qpj25"]
+[ext_resource type="Script" uid="uid://dr1vadhyxhvgc" path="res://Scenes/Overworld/MapScripts/Factory/factory_worker_quarters_east_exit_script.gd" id="2_qpj25"]
 
 [node name="FactoryWorkerQuartersEastExitScript" unique_id=1038762891 instance=ExtResource("1_oiwml")]
 script = ExtResource("2_qpj25")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d3dlncwngtt3l"]
 
 [ext_resource type="PackedScene" uid="uid://cj2sxfgrclqgq" path="res://Scenes/Overworld/MapScripts/MapScript.tscn" id="1_dtglf"]
-[ext_resource type="Script" uid="uid://caijvm7llqxld" path="res://factory_halls_1_script.gd" id="2_rl7ks"]
+[ext_resource type="Script" uid="uid://caijvm7llqxld" path="res://Scenes/Overworld/MapScripts/Factory/factory_halls_1_script.gd" id="2_rl7ks"]
 
 [node name="FactoryHalls1Script" unique_id=1038762891 instance=ExtResource("1_dtglf")]
 script = ExtResource("2_rl7ks")

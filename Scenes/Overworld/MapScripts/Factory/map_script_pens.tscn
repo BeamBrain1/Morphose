@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://v3rgv8ljrtqq"]
 
 [ext_resource type="PackedScene" uid="uid://cj2sxfgrclqgq" path="res://Scenes/Overworld/MapScripts/MapScript.tscn" id="1_dhdqx"]
-[ext_resource type="Script" uid="uid://c5qqy3fhi2xcm" path="res://map_script_pens.gd" id="2_w2vmi"]
+[ext_resource type="Script" uid="uid://c5qqy3fhi2xcm" path="res://Scenes/Overworld/MapScripts/Factory/map_script_pens.gd" id="2_w2vmi"]
 
 [node name="MapScriptPens" unique_id=1038762891 instance=ExtResource("1_dhdqx")]
 script = ExtResource("2_w2vmi")

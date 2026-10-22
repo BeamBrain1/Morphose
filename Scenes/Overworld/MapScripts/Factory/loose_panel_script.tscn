@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cdu0c8u42o85g"]
 
 [ext_resource type="PackedScene" uid="uid://cj2sxfgrclqgq" path="res://Scenes/Overworld/MapScripts/MapScript.tscn" id="1_ao5m3"]
-[ext_resource type="Script" uid="uid://cat26l38wbfw0" path="res://loose_panel_script.gd" id="2_b2vcw"]
+[ext_resource type="Script" uid="uid://cat26l38wbfw0" path="res://Scenes/Overworld/MapScripts/Factory/loose_panel_script.gd" id="2_b2vcw"]
 
 [node name="LoosePanelScript" unique_id=1038762891 instance=ExtResource("1_ao5m3")]
 script = ExtResource("2_b2vcw")
