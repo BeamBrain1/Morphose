@@ -41,7 +41,7 @@ destination_tile = Vector2(18, 8)
 [node name="WarpPoint2" parent="ActiveObjects" unique_id=871344843 instance=ExtResource("5_0j063")]
 position = Vector2(256, 112)
 destination_map = "FactoryHalls1"
-destination_tile = Vector2(22, 6)
+destination_tile = Vector2(22, 4)
 
 [node name="PartyToken" parent="." unique_id=809970201 instance=ExtResource("6_e5tcj")]
 
