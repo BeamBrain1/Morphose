@@ -22,6 +22,6 @@ destination_tile = Vector2(-2, 4)
 [node name="WarpPoint2" parent="ActiveObjects" parent_id_path=PackedInt32Array(664758579) index="2" unique_id=611493602 instance=ExtResource("3_yplub")]
 position = Vector2(-256, 64)
 destination_map = "FactoryHalls2"
-destination_tile = Vector2(0, 4)
+destination_tile = Vector2(0, 5)
 
 [node name="OverseerQuartersScript" parent="." index="5" unique_id=1038762891 instance=ExtResource("5_8sjvf")]
