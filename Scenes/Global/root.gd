@@ -12,7 +12,7 @@ func _ready() -> void:
 	randomize()
 	loadStartingPartyMembers()
 	if GlobalProgramData.DEBUG_MODE:
-		ActiveSaveData.party.setLocationAndDirection(OverworldPosition.new("FactoryPens", Vector2(0, 0)))
+		ActiveSaveData.party.setLocationAndDirection(OverworldPosition.new("FactoryBootstrapRoom", Vector2(0, 0)))
 	else:
 		ActiveSaveData.party.setLocationAndDirection(OverworldPosition.new("FactoryPens", Vector2(0, 0)))
 	toOverworld()

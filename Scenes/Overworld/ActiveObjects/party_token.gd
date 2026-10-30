@@ -14,28 +14,28 @@ func _process(delta) -> void:
 func attemptMoveUp(scripted: bool = false, change_direction: bool = true) -> void:
 	if change_direction:
 		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.UP])
-	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.UP
+	var move_destination: Vector2i = OverworldMap.gridPosition(self) + Vector2i.UP
 	attemptMoveTo(move_destination, scripted)
 
 
 func attemptMoveDown(scripted: bool = false, change_direction: bool = true) -> void:
 	if change_direction:
 		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.DOWN])
-	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.DOWN
+	var move_destination: Vector2i = OverworldMap.gridPosition(self) + Vector2i.DOWN
 	attemptMoveTo(move_destination, scripted)
 
 
 func attemptMoveLeft(scripted: bool = false, change_direction: bool = true) -> void:
 	if change_direction:
 		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.LEFT])
-	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.LEFT
+	var move_destination: Vector2i = OverworldMap.gridPosition(self) + Vector2i.LEFT
 	attemptMoveTo(move_destination, scripted)
 
 
 func attemptMoveRight(scripted: bool = false, change_direction: bool = true) -> void:
 	if change_direction:
 		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.RIGHT])
-	var move_destination: Vector2 = OverworldMap.gridPosition(self) + Vector2.RIGHT
+	var move_destination: Vector2i = OverworldMap.gridPosition(self) + Vector2i.RIGHT
 	attemptMoveTo(move_destination, scripted)
 
 

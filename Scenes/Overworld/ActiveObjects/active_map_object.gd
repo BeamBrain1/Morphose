@@ -13,6 +13,9 @@ signal request_script_execution
 enum ACTIVATION_TYPE {STEP, INTERACT}
 @export var activation_type: ACTIVATION_TYPE
 
+# Additional tiles the map object occupies other than itself, relative to its own position
+@export var ADDITIONAL_OCCUPIED_TILES: Array[Vector2i]
+
 func _ready() -> void:
 	for node in get_children():
 		if node is MapScript:
@@ -51,3 +54,12 @@ func getScript() -> MapScript:
 			return node
 	push_error("ActiveMapObject tried to get script but has none: " + name)
 	return null
+
+
+# Tiles this map object occupies, including its origin
+# grid_position: The object's current position in its occupied grid
+func occupiedTiles(grid_position: Vector2i) -> Array:
+	var result = [grid_position]
+	for tile_offset in ADDITIONAL_OCCUPIED_TILES:
+		result.append(grid_position + tile_offset)
+	return result

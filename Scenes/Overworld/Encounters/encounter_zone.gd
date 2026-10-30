@@ -10,12 +10,12 @@ func tokenIsInside(token: PartyToken) -> bool:
 	return upperLeftCornerGridPosition().x <= token_grid_position.x and token_grid_position.x <= lowerRightCornerGridPosition().x and upperLeftCornerGridPosition().y <= token_grid_position.y and token_grid_position.y <= lowerRightCornerGridPosition().y
 
 
-func upperLeftCornerGridPosition() -> Vector2:
+func upperLeftCornerGridPosition() -> Vector2i:
 	return OverworldMap.gridPosition(self)
 
 
-func lowerRightCornerGridPosition() -> Vector2:
-	return OverworldMap.vectorGridPosition(position + size) - Vector2(1, 1)		# Lower right grid position extends 1 past visible area
+func lowerRightCornerGridPosition() -> Vector2i:
+	return OverworldMap.vectorGridPosition(position + size) - Vector2i(1, 1)		# Lower right grid position extends 1 past visible area
 
 
 func getEncounters() -> Array:

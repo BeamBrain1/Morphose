@@ -12,10 +12,10 @@ const DEBUG_MODE: bool = true
 enum DIRECTION {UP, DOWN, LEFT, RIGHT}
 
 const direction_vector: Dictionary = {
-	DIRECTION.UP: Vector2.UP,
-	DIRECTION.RIGHT: Vector2.RIGHT,
-	DIRECTION.DOWN: Vector2.DOWN,
-	DIRECTION.LEFT: Vector2.LEFT
+	DIRECTION.UP: Vector2i.UP,
+	DIRECTION.RIGHT: Vector2i.RIGHT,
+	DIRECTION.DOWN: Vector2i.DOWN,
+	DIRECTION.LEFT: Vector2i.LEFT
 }
 
 const direction_string: Dictionary = {

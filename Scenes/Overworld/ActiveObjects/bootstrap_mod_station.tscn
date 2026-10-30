@@ -2,26 +2,37 @@
 
 [ext_resource type="PackedScene" uid="uid://hy3c50emnlg3" path="res://Scenes/Overworld/ActiveObjects/ActiveMapObject.tscn" id="1_oyvwk"]
 [ext_resource type="Texture2D" uid="uid://dfpik8dkapf4" path="res://Graphics/OverworldObjects/modification_station.png" id="2_3f8io"]
+[ext_resource type="Script" uid="uid://bd4jwaxhnjs6x" path="res://Scenes/Overworld/ActiveObjects/modification_station.gd" id="3_1pgpd"]
 [ext_resource type="PackedScene" uid="uid://hg8ub76ot240" path="res://Scenes/Overworld/ActiveObjects/map_script_bootstrap.tscn" id="3_3f8io"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x614i"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4qn5"]
 atlas = ExtResource("2_3f8io")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1pgpd"]
+atlas = ExtResource("2_3f8io")
+region = Rect2(16, 0, 16, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_avuh4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x614i")
+"texture": SubResource("AtlasTexture_a4qn5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1pgpd")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 4.0
 }]
 
 [node name="BootstrapModStation" unique_id=266201076 instance=ExtResource("1_oyvwk")]
 sprite_frames = SubResource("SpriteFrames_avuh4")
+offset = Vector2(0, -16)
+script = ExtResource("3_1pgpd")
 is_solid = true
 activation_type = 1
+ADDITIONAL_OCCUPIED_TILES = Array[Vector2i]([Vector2i(0, -1)])
 
 [node name="MapScriptBootstrap" parent="." index="0" unique_id=1038762891 instance=ExtResource("3_3f8io")]

@@ -52,12 +52,12 @@ func assignSelfToNPCs() -> void:
 		npc.assignMap(self)
 
 
-func tileIsTraversable(tile_loc: Vector2) -> bool:
+func tileIsTraversable(tile_loc: Vector2i) -> bool:
 	for tile_map in getTileMaps():
 		if tile_map.isSolidTile(tile_loc):
 			return false
 	for object in getActiveMapObjects():
-		if object.is_solid and gridCoordMatch(object, tile_loc):
+		if object.is_solid and tile_loc in object.occupiedTiles(gridPosition(object)):
 			return false
 	if gridCoordMatch($PartyToken, tile_loc):
 		return false
@@ -99,17 +99,17 @@ func getNPCs() -> Array:
 	return results
 
 
-static func gridPosition(object) -> Vector2:
+static func gridPosition(object) -> Vector2i:
 	var result = object.position / TILE_SIZE
-	return Vector2(floori(result.x), floori(result.y))
+	return Vector2i(floori(result.x), floori(result.y))
 
 
-static func vectorGridPosition(vector: Vector2) -> Vector2:
+static func vectorGridPosition(vector: Vector2i) -> Vector2i:
 	var result = vector / TILE_SIZE
-	return Vector2(floori(result.x), floori(result.y))
+	return Vector2i(floori(result.x), floori(result.y))
 
 
-static func gridPositionToCanvasPosition(grid_position: Vector2) -> Vector2:
+static func gridPositionToCanvasPosition(grid_position: Vector2i) -> Vector2i:
 	return grid_position * TILE_SIZE
 
 
@@ -119,7 +119,7 @@ static func centerTileOnScreenLocation() -> Vector2:
 	return gridPositionToCanvasPosition(result)
 
 
-func activeMapObjectAt(grid_position: Vector2) -> ActiveMapObject:
+func activeMapObjectAt(grid_position: Vector2i) -> ActiveMapObject:
 	for object in getActiveMapObjects():
 		if gridCoordMatch(object, grid_position):
 			return object
