@@ -33,7 +33,7 @@ static func buildPartyMembers() -> void:
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("MegaCrush", 1), true)
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Claw", 1), true)
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Horn", 1), true)
-		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Laser", 1), true)
+		#primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Laser", 1), true)
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Auto Rifle", 1), true)
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Honey", 1), true)
 		primus.installBlueprint(Blueprint.getBlueprintFromGlobalList("Acid Mist", 3), true)
