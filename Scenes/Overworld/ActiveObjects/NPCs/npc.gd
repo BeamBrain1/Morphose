@@ -36,3 +36,9 @@ func faceDirection(direction: GlobalProgramData.DIRECTION) -> void:
 
 func assignMap(map_in: OverworldMap) -> void:
 	map = map_in
+
+
+func turnRandom() -> void:
+	# 1 in 8 chance of turning
+	if randi() % 8 == 0:
+		faceDirection(GlobalProgramData.getRandomDirection())

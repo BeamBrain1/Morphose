@@ -60,3 +60,9 @@ sprite_frames = SubResource("SpriteFrames_og6fb")
 animation = &"up"
 
 [node name="MapScriptLivestock" parent="." index="0" unique_id=1038762891 instance=ExtResource("2_qv8wn")]
+
+[node name="TurnTimer" type="Timer" parent="." index="1" unique_id=1481573573]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="TurnTimer" to="." method="turnRandom"]

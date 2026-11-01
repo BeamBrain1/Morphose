@@ -1,0 +1,82 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://ddgw1nh5wk7ye"]
+
+[ext_resource type="Texture2D" uid="uid://dehlxm3xbgjyr" path="res://Graphics/OverworldObjects/worker.png" id="1_6jkd3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auv33"]
+atlas = ExtResource("1_6jkd3")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g87h2"]
+atlas = ExtResource("1_6jkd3")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_io8rt"]
+atlas = ExtResource("1_6jkd3")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dksjf"]
+atlas = ExtResource("1_6jkd3")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45a4g"]
+atlas = ExtResource("1_6jkd3")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7eifl"]
+atlas = ExtResource("1_6jkd3")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6gyh"]
+atlas = ExtResource("1_6jkd3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vclad"]
+atlas = ExtResource("1_6jkd3")
+region = Rect2(16, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auv33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g87h2")
+}],
+"loop": true,
+"name": &"down",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_io8rt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dksjf")
+}],
+"loop": true,
+"name": &"left",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45a4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7eifl")
+}],
+"loop": true,
+"name": &"right",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6gyh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vclad")
+}],
+"loop": true,
+"name": &"up",
+"speed": 4.0
+}]

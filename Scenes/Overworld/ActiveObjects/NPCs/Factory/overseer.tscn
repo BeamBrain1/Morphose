@@ -1,12 +1,17 @@
 [gd_scene format=3 uid="uid://dsdw12fbkus56"]
 
 [ext_resource type="PackedScene" uid="uid://doyikojm6miw2" path="res://Scenes/Overworld/ActiveObjects/NPCs/NPC.tscn" id="1_etqr1"]
+[ext_resource type="Texture2D" uid="uid://c88n5nn54ipx3" path="res://Graphics/OverworldObjects/overseer.png" id="2_5unn4"]
 [ext_resource type="Texture2D" uid="uid://dr3i1brp2w7py" path="res://Graphics/OverworldObjects/npc1.png" id="2_cotmi"]
 [ext_resource type="PackedScene" uid="uid://n6mhny3h1n0l" path="res://Scenes/Overworld/MapScripts/Factory/map_script_overseer.tscn" id="3_etqr1"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vk4ap"]
-atlas = ExtResource("2_cotmi")
-region = Rect2(0, 32, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3skor"]
+atlas = ExtResource("2_5unn4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g347l"]
+atlas = ExtResource("2_5unn4")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_06x2n"]
 atlas = ExtResource("2_cotmi")
@@ -24,11 +29,14 @@ region = Rect2(0, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vk4ap")
+"texture": SubResource("AtlasTexture_3skor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g347l")
 }],
 "loop": true,
 "name": &"down",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -57,6 +65,6 @@ animations = [{
 
 [node name="NPCOverseer" unique_id=277077586 instance=ExtResource("1_etqr1")]
 sprite_frames = SubResource("SpriteFrames_og6fb")
-animation = &"up"
+animation = &"down"
 
 [node name="MapScriptOverseer" parent="." index="0" unique_id=1038762891 instance=ExtResource("3_etqr1")]
