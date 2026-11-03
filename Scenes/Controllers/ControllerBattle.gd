@@ -67,9 +67,7 @@ func mainLoop():
 
 
 func battleFled() -> void:
-	$BattleMessageDisplay.pushBattleMessage("Successfully escaped.")
 	battle_won = false
-	await showBattleMessages(true)
 	emit_signal("battle_result", battle_won)
 
 
