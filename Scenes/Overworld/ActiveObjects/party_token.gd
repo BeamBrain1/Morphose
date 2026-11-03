@@ -7,6 +7,11 @@ signal stepped
 signal interact
 
 
+func _ready() -> void:
+	super()
+	play()
+
+
 func _process(delta) -> void:
 	pass
 
