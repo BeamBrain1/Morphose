@@ -50,11 +50,12 @@ func mainLoop():
 		current_actor.endTurn()
 		if not isBattleOver():
 			pushCombatantBattleMessages(current_actor)
-		await showBattleMessages(true)
 
 		# Check if battle is over after each action
 		if isBattleOver():	# Character may have died from poison
-			break
+			await showBattleMessages(true, false, true)
+		else:
+			await showBattleMessages(true)
 
 	# Battle end routine
 	if party_ran:
@@ -63,6 +64,7 @@ func mainLoop():
 		await battleLost()
 	elif allEnemiesDefeated():
 		await battleWon()
+	await get_tree().create_timer(1).timeout
 	switchToOverworldController()
 
 
@@ -87,7 +89,7 @@ func battleWon() -> void:
 	$BattleMessageDisplay.pushBattleMessage("Harvested " + str(victoryMuta()) + " Muta.")
 	ActiveSaveData.party.awardMuta(victoryMuta())
 	battle_won = true
-	await showBattleMessages(true, true)
+	await showBattleMessages(true, true, true)
 	emit_signal("battle_result", battle_won)
 
 

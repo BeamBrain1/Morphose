@@ -44,7 +44,7 @@ func displayMessages(manual_close: bool = false, append: bool = false, persist_i
 	await showMessagesCharacterByCharacter()
 	
 	if manual_close:
-		awaiting_end_of_message_prompt = true
+		$AllowAdvanceDelayTimer.start()
 	else:
 		endMessageDisplay()
 
@@ -102,3 +102,7 @@ func trimTextToDisplayableRows() -> void:
 		$Text.lines_skipped = maxi(0, ($Text.get_line_count() - 1) - numberOfDisplayableTextRows())
 	else:
 		$Text.lines_skipped = maxi(0, ($Text.get_line_count()) - numberOfDisplayableTextRows())
+
+
+func _on_allow_advance_delay_timer_timeout() -> void:
+	awaiting_end_of_message_prompt = true
