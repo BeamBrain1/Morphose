@@ -73,11 +73,13 @@ func pushActiveObject(name_in: String, num_tiles: int, direction: GlobalProgramD
 	await pushActor(name_in, num_tiles, direction, step_delay, change_direction)
 
 
-func pushActor(actor_name: String, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = DEFAULT_STEP_DELAY, change_direction: bool = true) -> void:
+func pushActor(actor_name: String, num_tiles: int, direction: GlobalProgramData.DIRECTION, step_delay: float = 0, change_direction: bool = true) -> void:
 	var actor = activeMap().getActiveObjectByName(actor_name)
 	for i in range(num_tiles):
 		actor.push(direction, change_direction)
-		await delay(step_delay)
+		await actor.stepped
+		if step_delay > 0:
+			await delay(step_delay)
 
 
 func globalFlags() -> OverworldFlags:

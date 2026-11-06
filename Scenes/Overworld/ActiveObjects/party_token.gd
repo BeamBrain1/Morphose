@@ -3,8 +3,9 @@ extends ActiveMapObject
 
 var map: OverworldMap
 
-signal stepped
 signal interact
+
+var last_step_scripted: bool = false
 
 
 func _ready() -> void:
@@ -13,54 +14,41 @@ func _ready() -> void:
 
 
 func _process(delta) -> void:
-	pass
+	super(delta)
 
 
 func attemptMoveUp(scripted: bool = false, change_direction: bool = true) -> void:
 	if change_direction:
 		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.UP])
-	var move_destination: Vector2i = OverworldMap.gridPosition(self) + Vector2i.UP
-	attemptMoveTo(move_destination, scripted)
+	attemptMoveTo(GlobalProgramData.DIRECTION.UP, scripted)
 
 
 func attemptMoveDown(scripted: bool = false, change_direction: bool = true) -> void:
 	if change_direction:
 		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.DOWN])
-	var move_destination: Vector2i = OverworldMap.gridPosition(self) + Vector2i.DOWN
-	attemptMoveTo(move_destination, scripted)
+	attemptMoveTo(GlobalProgramData.DIRECTION.DOWN, scripted)
 
 
 func attemptMoveLeft(scripted: bool = false, change_direction: bool = true) -> void:
 	if change_direction:
 		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.LEFT])
-	var move_destination: Vector2i = OverworldMap.gridPosition(self) + Vector2i.LEFT
-	attemptMoveTo(move_destination, scripted)
+	attemptMoveTo(GlobalProgramData.DIRECTION.LEFT, scripted)
 
 
 func attemptMoveRight(scripted: bool = false, change_direction: bool = true) -> void:
 	if change_direction:
 		play(GlobalProgramData.direction_string[GlobalProgramData.DIRECTION.RIGHT])
-	var move_destination: Vector2i = OverworldMap.gridPosition(self) + Vector2i.RIGHT
-	attemptMoveTo(move_destination, scripted)
+	attemptMoveTo(GlobalProgramData.DIRECTION.RIGHT, scripted)
 
 
-func push(direction: GlobalProgramData.DIRECTION, change_direction: bool = true) -> void:
-	match direction:
-		GlobalProgramData.DIRECTION.UP:
-			attemptMoveUp(true, change_direction)
-		GlobalProgramData.DIRECTION.RIGHT:
-			attemptMoveRight(true, change_direction)
-		GlobalProgramData.DIRECTION.DOWN:
-			attemptMoveDown(true, change_direction)
-		GlobalProgramData.DIRECTION.LEFT:
-			attemptMoveLeft(true, change_direction)
-		_:
-			push_error("Unrecognized direction: " + str(direction))
-
-
-func attemptMoveTo(destination_tile: Vector2, scripted: bool = false):
+func attemptMoveTo(direction: GlobalProgramData.DIRECTION, scripted: bool = false):
+	var direction_vector = GlobalProgramData.direction_vector[direction]
+	var destination_tile: Vector2i = OverworldMap.gridPosition(self) + direction_vector
 	if map.tileIsTraversable(destination_tile):
-		step(destination_tile, scripted)
+		last_step_scripted = scripted
+		push(direction)
+	else:	# If we can't move to the tile, step is imemdiately finished
+		emit_signal("stepped")
 
 
 func attemptInteract() -> void:
@@ -72,13 +60,6 @@ func attemptInteract() -> void:
 func updateGlobalPartyPosition() -> void:
 	var overworld_position: OverworldPosition = OverworldPosition.new(map.map_name, OverworldMap.gridPosition(self))
 	ActiveSaveData.party.setLocationAndDirection(overworld_position, currentFacingDirection())
-
-
-func step(tile_grid_loc: Vector2, scripted: bool = false) -> void:
-	setGridPosition(tile_grid_loc)
-	emit_signal("stepped", scripted)
-	if not scripted:
-		stepOnObjectAtCurrentPosition()
 
 
 func setGridPosition(tile_grid_loc: Vector2) -> void:
@@ -118,3 +99,12 @@ func faceDirection(direction: GlobalProgramData.DIRECTION) -> void:
 # Overrides parent. Party token "steps on" itself all the time but should do nothing
 func steppedOn() -> void:
 	pass
+
+
+# Overrides parent.
+func arriveAtDestination() -> void:
+	setGridPosition(move_to_tile)
+	is_moving = false
+	if not last_step_scripted:
+		stepOnObjectAtCurrentPosition()
+	emit_signal("stepped")

@@ -20,13 +20,13 @@ func processInput() -> void:
 	elif not player_controls_locked:
 		if Input.is_action_just_pressed("pause"):
 			emit_signal("request_open_char_builder")
-		elif Input.is_action_just_pressed("up"):
+		elif Input.is_action_pressed("up"):
 			party_token.attemptMoveUp()
-		elif Input.is_action_just_pressed("down"):
+		elif Input.is_action_pressed("down"):
 			party_token.attemptMoveDown()
-		elif Input.is_action_just_pressed("left"):
+		elif Input.is_action_pressed("left"):
 			party_token.attemptMoveLeft()
-		elif Input.is_action_just_pressed("right"):
+		elif Input.is_action_pressed("right"):
 			party_token.attemptMoveRight()
 		elif Input.is_action_just_pressed("overworld_interact"):
 			party_token.attemptInteract()

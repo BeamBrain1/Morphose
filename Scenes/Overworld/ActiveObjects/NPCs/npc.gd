@@ -10,24 +10,23 @@ func _ready() -> void:
 	faceDirection(initial_direction)
 
 
+func _process(delta) -> void:
+	super(delta)
+
+
 func push(direction: GlobalProgramData.DIRECTION, change_direction: bool = true) -> void:
-	attemptMove(direction, change_direction)
+	attemptMoveTo(direction, change_direction)
 
 
-func attemptMove(direction: GlobalProgramData.DIRECTION, change_direction) -> void:
+func attemptMoveTo(direction: GlobalProgramData.DIRECTION, change_direction: bool = true):
 	if change_direction:
 		play(GlobalProgramData.direction_string[direction])
-	var move_destination: Vector2 = OverworldMap.gridPosition(self) + GlobalProgramData.direction_vector[direction]
-	attemptMoveTo(move_destination)
-
-
-func attemptMoveTo(destination_tile: Vector2):
+	var direction_vector = GlobalProgramData.direction_vector[direction]
+	var destination_tile: Vector2i = OverworldMap.gridPosition(self) + direction_vector
 	if map.tileIsTraversable(destination_tile):
-		step(destination_tile)
-
-
-func step(tile_grid_loc: Vector2) -> void:
-	setGridPosition(tile_grid_loc)
+		push(direction)
+	else:	# If we can't move to the tile, step is imemdiately finished
+		emit_signal("stepped")
 
 
 func faceDirection(direction: GlobalProgramData.DIRECTION) -> void:

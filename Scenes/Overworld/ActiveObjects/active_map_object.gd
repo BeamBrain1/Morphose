@@ -9,6 +9,14 @@ const STEP_ON_SCRIPT_NAME: String = "StepOnScript"
 var map_script: MapScript
 
 signal request_script_execution
+signal stepped
+
+var is_moving: bool = false
+var current_travel_vector: Vector2i
+var move_to_tile: Vector2i
+var distance_moved_this_push: int = 0
+
+const MOVE_RATE: int = 2	# Pixels per tick moved when moving between tiles
 
 enum ACTIVATION_TYPE {STEP, INTERACT}
 @export var activation_type: ACTIVATION_TYPE
@@ -23,6 +31,14 @@ func _ready() -> void:
 			break
 
 
+func _process(delta) -> void:
+	if is_moving:
+		moveTick()
+		# If we are at or past our destination, we've arrived
+		if distance_moved_this_push >= OverworldMap.TILE_SIZE:
+			arriveAtDestination()
+
+
 func steppedOn() -> void:
 	if activation_type == ACTIVATION_TYPE.STEP and map_script != null:
 		emit_signal("request_script_execution", map_script)
@@ -34,7 +50,11 @@ func interactedWith() -> void:
 
 
 func push(direction: GlobalProgramData.DIRECTION, change_direction: bool = true) -> void:
-	setGridPosition(OverworldMap.gridPosition(self) + GlobalProgramData.direction_vector[direction])
+	if not is_moving:
+		current_travel_vector = GlobalProgramData.direction_vector[direction]
+		move_to_tile = OverworldMap.gridPosition(self) + current_travel_vector
+		distance_moved_this_push = 0
+		is_moving = true
 
 
 func setGridPosition(grid_position: Vector2) -> void:
@@ -63,3 +83,14 @@ func occupiedTiles(grid_position: Vector2i) -> Array:
 	for tile_offset in ADDITIONAL_OCCUPIED_TILES:
 		result.append(grid_position + tile_offset)
 	return result
+
+
+func moveTick() -> void:
+	position += Vector2(current_travel_vector * MOVE_RATE)
+	distance_moved_this_push += MOVE_RATE
+
+
+func arriveAtDestination() -> void:
+	setGridPosition(move_to_tile)
+	is_moving = false
+	emit_signal("stepped")

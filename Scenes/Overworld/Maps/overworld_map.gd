@@ -13,7 +13,10 @@ signal on_map_load
 
 func _ready() -> void:
 	getPartyToken().map = self
-	getPartyToken().stepped.connect(partyStepped)
+
+
+func _process(delta) -> void:
+	updateCamera()
 
 
 func initialize(name_in: String, party_grid_position: Vector2):
@@ -21,7 +24,6 @@ func initialize(name_in: String, party_grid_position: Vector2):
 	getPartyToken().setGridPosition(party_grid_position)
 	assignSelfToNPCs()
 	connectActiveObjectScripts()
-	updateCamera()
 	emit_signal("on_map_load", getOnLoadScript())
 
 
@@ -36,11 +38,6 @@ func getOnLoadScript() -> MapScript:
 		if node is MapScript:
 			return node
 	return null
-
-
-func partyStepped(scripted: bool = false) -> void:
-	updateCamera()
-	emit_signal("party_stepped", scripted)
 
 
 func updateCamera() -> void:
