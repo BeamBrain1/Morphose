@@ -21,13 +21,13 @@ func processInput() -> void:
 		if Input.is_action_just_pressed("pause"):
 			emit_signal("request_open_char_builder")
 		elif Input.is_action_pressed("up"):
-			party_token.attemptMoveUp()
+			party_token.attemptMoveTo(GlobalProgramData.DIRECTION.UP)
 		elif Input.is_action_pressed("down"):
-			party_token.attemptMoveDown()
+			party_token.attemptMoveTo(GlobalProgramData.DIRECTION.DOWN)
 		elif Input.is_action_pressed("left"):
-			party_token.attemptMoveLeft()
+			party_token.attemptMoveTo(GlobalProgramData.DIRECTION.LEFT)
 		elif Input.is_action_pressed("right"):
-			party_token.attemptMoveRight()
+			party_token.attemptMoveTo(GlobalProgramData.DIRECTION.RIGHT)
 		elif Input.is_action_just_pressed("overworld_interact"):
 			party_token.attemptInteract()
 

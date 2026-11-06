@@ -24,9 +24,17 @@ func attemptMoveTo(direction: GlobalProgramData.DIRECTION, change_direction: boo
 	var direction_vector = GlobalProgramData.direction_vector[direction]
 	var destination_tile: Vector2i = OverworldMap.gridPosition(self) + direction_vector
 	if map.tileIsTraversable(destination_tile):
-		push(direction)
+		startMoveTo(direction)
 	else:	# If we can't move to the tile, step is imemdiately finished
 		emit_signal("stepped")
+
+
+func startMoveTo(direction: GlobalProgramData.DIRECTION):
+	if not is_moving:
+		current_travel_vector = GlobalProgramData.direction_vector[direction]
+		move_to_tile = OverworldMap.gridPosition(self) + current_travel_vector
+		distance_moved_this_push = 0
+		is_moving = true
 
 
 func faceDirection(direction: GlobalProgramData.DIRECTION) -> void:

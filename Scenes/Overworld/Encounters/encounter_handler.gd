@@ -13,8 +13,8 @@ func assignMap(map_in: OverworldMap) -> void:
 	current_map.party_stepped.connect(partyStepped)
 
 
-func partyStepped(scripted_step: bool = false) -> void:
-	if not scripted_step and current_map.partyEncounterZone() != null and not current_map.partyLocationHasNonPartyActiveObject():
+func partyStepped(encounter_triggering_step: bool = true) -> void:
+	if encounter_triggering_step and current_map.partyEncounterZone() != null and not current_map.partyLocationHasNonPartyActiveObject():
 		ActiveSaveData.overworld_danger_level += 1 + randi() % ENCOUNTER_RATE
 		if ActiveSaveData.overworld_danger_level >= ENCOUNTER_THRESHOLD:
 			doEncounter(current_map.partyEncounterZone())

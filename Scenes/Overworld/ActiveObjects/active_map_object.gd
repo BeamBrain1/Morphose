@@ -16,7 +16,7 @@ var current_travel_vector: Vector2i
 var move_to_tile: Vector2i
 var distance_moved_this_push: int = 0
 
-const MOVE_RATE: int = 2	# Pixels per tick moved when moving between tiles
+const MOVE_RATE: int = 1	# Pixels per tick moved when moving between tiles
 
 enum ACTIVATION_TYPE {STEP, INTERACT}
 @export var activation_type: ACTIVATION_TYPE

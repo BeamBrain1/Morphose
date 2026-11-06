@@ -22,6 +22,7 @@ func _process(delta) -> void:
 func initialize(name_in: String, party_grid_position: Vector2):
 	map_name = name_in
 	getPartyToken().setGridPosition(party_grid_position)
+	getPartyToken().connect("stepped", partyStepped)
 	assignSelfToNPCs()
 	connectActiveObjectScripts()
 	emit_signal("on_map_load", getOnLoadScript())
@@ -42,6 +43,10 @@ func getOnLoadScript() -> MapScript:
 
 func updateCamera() -> void:
 	position = centerTileOnScreenLocation() - $PartyToken.position
+
+
+func partyStepped(encounter_triggering: bool) -> void:
+	emit_signal("party_stepped", encounter_triggering)
 
 
 func assignSelfToNPCs() -> void:
