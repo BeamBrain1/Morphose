@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://qxwgr84rr7wo"]
+
+[ext_resource type="Script" uid="uid://dwabluj7v374b" path="res://Scenes/Overworld/UI/screen_transition.gd" id="1_xg3qp"]
+
+[node name="ScreenTransition" type="Node2D" unique_id=1473042991]
+script = ExtResource("1_xg3qp")
+
+[node name="Top" type="ColorRect" parent="." unique_id=1322624041]
+offset_right = 320.0
+color = Color(0, 0, 0, 1)
+
+[node name="Bottom" type="ColorRect" parent="." unique_id=1063737308]
+offset_top = 240.0
+offset_right = 320.0
+offset_bottom = 240.0
+color = Color(0, 0, 0, 1)
+
+[node name="Left" type="ColorRect" parent="." unique_id=77122622]
+offset_top = 16.0
+offset_bottom = 224.0
+color = Color(0, 0, 0, 1)
+
+[node name="Right" type="ColorRect" parent="." unique_id=1321973027]
+offset_left = 320.0
+offset_top = 16.0
+offset_right = 320.0
+offset_bottom = 224.0
+color = Color(0, 0, 0, 1)
