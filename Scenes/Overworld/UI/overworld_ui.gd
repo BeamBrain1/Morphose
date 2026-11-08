@@ -3,6 +3,8 @@ extends Node2D
 
 signal closed_dialog
 
+
+
 func _ready() -> void:
 	closeDialog()
 

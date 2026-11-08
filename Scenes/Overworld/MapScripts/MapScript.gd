@@ -147,7 +147,7 @@ func setMapTile(layer: String, grid_position: Vector2, atlas_offset: Vector2) ->
 
 
 func warpTo(map_name: String, grid_position: Vector2) -> void:
-	await controllerOverworld().warpPartyTo(OverworldPosition.new(map_name, grid_position))
+	await controllerOverworld().transitionToMap(OverworldPosition.new(map_name, grid_position))
 
 
 func doEncounter(enemy_list: Array[String]) -> void:

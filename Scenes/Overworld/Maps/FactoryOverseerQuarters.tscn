@@ -24,4 +24,4 @@ position = Vector2(-256, 64)
 destination_map = "FactoryHalls2"
 destination_tile = Vector2(0, 5)
 
-[node name="OverseerQuartersScript" parent="." index="5" unique_id=1038762891 instance=ExtResource("5_8sjvf")]
+[node name="StartOfActionScript" parent="." index="5" unique_id=1038762891 instance=ExtResource("5_8sjvf")]

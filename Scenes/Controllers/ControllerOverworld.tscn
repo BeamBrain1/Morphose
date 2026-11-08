@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bo3xlx1smhxx6" path="res://Scenes/Controllers/controller_overworld.gd" id="1_b4ioc"]
 [ext_resource type="PackedScene" uid="uid://sj31v1jusuab" path="res://Scenes/Overworld/UI/OverworldUI.tscn" id="2_gokxk"]
+[ext_resource type="PackedScene" uid="uid://qxwgr84rr7wo" path="res://Scenes/Overworld/UI/ScreenTransition.tscn" id="2_i5n7n"]
 [ext_resource type="PackedScene" uid="uid://bm6ar1srre2dh" path="res://Scenes/Overworld/UI/OverworldInputHandler.tscn" id="2_yt1py"]
 [ext_resource type="PackedScene" uid="uid://ctyux4ccg7bof" path="res://Scenes/Overworld/Encounters/EncounterHandler.tscn" id="3_6atlb"]
 
 [node name="ControllerOverworld" type="Node2D" unique_id=936877717]
 script = ExtResource("1_b4ioc")
+ScreenTransitioner = ExtResource("2_i5n7n")
 metadata/_custom_type_script = "uid://c6b3kksmaoyke"
 
 [node name="OverworldInputHandler" parent="." unique_id=857220114 instance=ExtResource("2_yt1py")]

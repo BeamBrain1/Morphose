@@ -48,7 +48,7 @@ func toBattleController(enemy_list: Array) -> void:
 func toOverworld() -> void:
 	setActiveController("Overworld")
 	active_controller.execute_script.connect($ScriptHandler.assignAndExecuteScript)
-	active_controller.on_map_load.connect($ScriptHandler.onMapLoad)
+	active_controller.resume_persistent_script.connect($ScriptHandler.resumePersistentScript)
 	active_controller.loadSavedPartyLocation()
 
 

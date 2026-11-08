@@ -48,4 +48,4 @@ destination_tile = Vector2(22, 4)
 
 [node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]
 
-[node name="WorkerQuartersScript" parent="." unique_id=1038762891 instance=ExtResource("7_12pb8")]
+[node name="StartOfActionScript" parent="." unique_id=1038762891 instance=ExtResource("7_12pb8")]

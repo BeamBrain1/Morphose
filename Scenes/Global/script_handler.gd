@@ -54,9 +54,6 @@ func resumeStoredPersistentScript() -> void:
 	current_script.resumeExecution()
 
 
-func onMapLoad(on_load_script: MapScript = null) -> void:
-	if on_load_script != null:
-		call_deferred("assignAndExecuteScript", on_load_script)
-		await execution_finished
+func resumePersistentScript() -> void:
 	if hasPersistentScript():
 		resumeStoredPersistentScript()

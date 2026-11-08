@@ -60,4 +60,4 @@ position = Vector2(240, 64)
 
 [node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]
 
-[node name="SecurityQuartersScript" parent="." unique_id=1038762891 instance=ExtResource("8_843yj")]
+[node name="StartOfActionScript" parent="." unique_id=1038762891 instance=ExtResource("8_843yj")]

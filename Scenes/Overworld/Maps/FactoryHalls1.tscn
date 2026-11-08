@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d3dlncwngtt3l" path="res://Scenes/Overworld/MapScripts/Factory/factory_halls_1_script.tscn" id="6_xfsxh"]
 [ext_resource type="PackedScene" uid="uid://bmd72gir6vcsv" path="res://Scenes/Overworld/ActiveObjects/ScriptTrigger.tscn" id="7_6t03b"]
 [ext_resource type="PackedScene" uid="uid://k6m4wunobdhx" path="res://Scenes/Overworld/MapScripts/Factory/defector_join_script.tscn" id="8_wtojk"]
+[ext_resource type="PackedScene" uid="uid://bx1a46myu6pp6" path="res://Scenes/Overworld/MapScripts/Factory/factory_halls_1_action_script.tscn" id="10_kuy3t"]
 
 [node name="OverworldMap" unique_id=1987703735 instance=ExtResource("1_vmuxm")]
 
@@ -90,4 +91,6 @@ position = Vector2(368, 48)
 
 [node name="DefectorJoinScript" parent="ActiveObjects/ScriptTrigger2" index="0" unique_id=1547776963 instance=ExtResource("8_wtojk")]
 
-[node name="FactoryHalls1Script" parent="." index="5" unique_id=491540715 instance=ExtResource("6_xfsxh")]
+[node name="OnLoadScript" parent="." index="5" unique_id=491540715 instance=ExtResource("6_xfsxh")]
+
+[node name="StartOfActionScript" parent="." index="6" unique_id=1345377899 instance=ExtResource("10_kuy3t")]

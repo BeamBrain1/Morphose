@@ -23,4 +23,4 @@ destination_map = "WorldMap"
 [node name="OverseerNPC" parent="ActiveObjects" parent_id_path=PackedInt32Array(664758579) index="2" unique_id=277077586 instance=ExtResource("4_3tec0")]
 position = Vector2(0, -176)
 
-[node name="FactoryExitScript" parent="." index="5" unique_id=1038762891 instance=ExtResource("5_k1wyh")]
+[node name="OnLoadScript" parent="." index="5" unique_id=1038762891 instance=ExtResource("5_k1wyh")]

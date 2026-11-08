@@ -81,4 +81,4 @@ destination_tile = Vector2(22, 1)
 
 [node name="TileMapLayersUpper" type="Node2D" parent="." unique_id=1884149053]
 
-[node name="MapScriptPens" parent="." unique_id=1038762891 instance=ExtResource("6_ajufu")]
+[node name="OnLoadScript" parent="." unique_id=1038762891 instance=ExtResource("6_ajufu")]

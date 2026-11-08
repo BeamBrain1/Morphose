@@ -1,22 +1,26 @@
 extends Node2D
 
 const TRANSITION_STEP_TIME: float = 0.1
+const CLOSE_TO_OPEN_DELAY_TIME: float = 0.5
 
 
 func transitionClose() -> void:
 	while not transitionCloseFinished():
 		contractBorders()
 		await get_tree().create_timer(TRANSITION_STEP_TIME).timeout
+	await get_tree().create_timer(CLOSE_TO_OPEN_DELAY_TIME / 2).timeout		# Split delay between close and open
 
 
 func transitionOpen() -> void:
+	await get_tree().create_timer(CLOSE_TO_OPEN_DELAY_TIME / 2).timeout
 	while not transitionOpenFinished():
 		openBorders()
 		await get_tree().create_timer(TRANSITION_STEP_TIME).timeout
+	call_deferred("queue_free")
 
 
 func transitionCloseFinished() -> bool:
-	return $Top.size.y >= $Bottom.position.y or $Left.size.x >= $Right.position
+	return $Top.size.y >= $Bottom.position.y or $Left.size.x >= $Right.position.x
 
 
 func transitionOpenFinished() -> bool:

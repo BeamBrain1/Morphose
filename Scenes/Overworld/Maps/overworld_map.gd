@@ -10,6 +10,13 @@ signal party_stepped
 signal request_script_execution
 signal on_map_load
 
+# Script called immediately upon the map being loaded into memory.
+# It should be used to write modifications (terrain changes, NPC placement) that should be immediately visible.
+const ON_LOAD_SCRIPT_NODE_NAME = "OnLoadScript"
+
+# The start-of-action script is used after fully transitioning to the map, at point where player would normally gain control.
+# Used for cutscenes that occur on map load
+const START_OF_ACTION_SCRIPT_NODE_NAME = "StartOfActionScript"
 
 func _ready() -> void:
 	getPartyToken().map = self
@@ -25,7 +32,6 @@ func initialize(name_in: String, party_grid_position: Vector2):
 	getPartyToken().connect("stepped", partyStepped)
 	assignSelfToNPCs()
 	connectActiveObjectScripts()
-	emit_signal("on_map_load", getOnLoadScript())
 
 
 func connectActiveObjectScripts() -> void:
@@ -33,12 +39,24 @@ func connectActiveObjectScripts() -> void:
 		obj.request_script_execution.connect(requestScriptExecution)
 
 
-# On-load script is executed when map is loaded. First child node that is a MapScript (additional MapScript children do nothing)
 func getOnLoadScript() -> MapScript:
-	for node in get_children():
-		if node is MapScript:
-			return node
+	if hasOnLoadScript():
+		return get_node(ON_LOAD_SCRIPT_NODE_NAME)
 	return null
+
+
+func hasOnLoadScript() -> bool:
+	return has_node(ON_LOAD_SCRIPT_NODE_NAME)
+
+
+func getStartOfActionScript() -> MapScript:
+	if hasStartOfActionScript():
+		return get_node(START_OF_ACTION_SCRIPT_NODE_NAME)
+	return null
+
+
+func hasStartOfActionScript() -> bool:
+	return has_node(START_OF_ACTION_SCRIPT_NODE_NAME)
 
 
 func updateCamera() -> void:
