@@ -6,16 +6,14 @@ const CLOSE_TO_OPEN_DELAY_TIME: float = 0.5
 
 func transitionClose() -> void:
 	while not transitionCloseFinished():
-		contractBorders()
-		await get_tree().create_timer(TRANSITION_STEP_TIME).timeout
+		await contractBordersStep()
 	await get_tree().create_timer(CLOSE_TO_OPEN_DELAY_TIME / 2).timeout		# Split delay between close and open
 
 
 func transitionOpen() -> void:
 	await get_tree().create_timer(CLOSE_TO_OPEN_DELAY_TIME / 2).timeout
 	while not transitionOpenFinished():
-		openBorders()
-		await get_tree().create_timer(TRANSITION_STEP_TIME).timeout
+		await openBordersStep()
 	call_deferred("queue_free")
 
 
@@ -27,19 +25,23 @@ func transitionOpenFinished() -> bool:
 	return $Top.size.y == 0 or $Left.size.x == 0
 
 
-func contractBorders() -> void:
+func contractBordersStep() -> void:
 	$Top.size.y += OverworldMap.TILE_SIZE
 	$Left.size.x += OverworldMap.TILE_SIZE
 	$Bottom.size.y += OverworldMap.TILE_SIZE
 	$Bottom.position.y -= OverworldMap.TILE_SIZE
 	$Right.size.x += OverworldMap.TILE_SIZE
 	$Right.position.x -= OverworldMap.TILE_SIZE
+	$AudioTransitionStep.play()
+	await get_tree().create_timer(TRANSITION_STEP_TIME).timeout
 
 
-func openBorders() -> void:
+func openBordersStep() -> void:
 	$Top.size.y -= OverworldMap.TILE_SIZE
 	$Left.size.x -= OverworldMap.TILE_SIZE
 	$Bottom.size.y -= OverworldMap.TILE_SIZE
 	$Bottom.position.y += OverworldMap.TILE_SIZE
 	$Right.size.x -= OverworldMap.TILE_SIZE
 	$Right.position.x += OverworldMap.TILE_SIZE
+	$AudioTransitionStep.play()
+	await get_tree().create_timer(TRANSITION_STEP_TIME).timeout
