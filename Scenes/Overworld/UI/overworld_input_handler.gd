@@ -16,7 +16,7 @@ func _process(delta):
 func processInput() -> void:
 	if UI.inDialog():
 		if Input.is_action_just_pressed("overworld_interact"):
-			UI.closeDialog()
+			UI.advanceDialog()
 	elif not player_controls_locked:
 		if Input.is_action_just_pressed("pause"):
 			emit_signal("request_open_char_builder")

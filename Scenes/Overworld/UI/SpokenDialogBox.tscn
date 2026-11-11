@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bwikwq5mjl4is"]
+
+[ext_resource type="StyleBox" uid="uid://b8aqvyddpey1k" path="res://Graphics/UI/Styleboxes/dialog_box.tres" id="1_m2f1c"]
+[ext_resource type="Script" uid="uid://hxqyi5boa3vn" path="res://Scenes/Overworld/UI/spoken_dialog_box.gd" id="1_m4ob7"]
+[ext_resource type="LabelSettings" uid="uid://btdeeu7pj4c44" path="res://Scenes/Global/UI/Configs/LabelDefault8x8.tres" id="3_bk0f1"]
+
+[node name="SpokenDialogBox" type="Panel" unique_id=2062045688]
+offset_top = 180.0
+offset_right = 320.0
+offset_bottom = 236.0
+theme_override_styles/panel = ExtResource("1_m2f1c")
+script = ExtResource("1_m4ob7")
+expand_programmatically = false
+metadata/_custom_type_script = "uid://uub1h1pdlop6"
+
+[node name="Text" type="Label" parent="." unique_id=2076363445]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 312.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 8
+label_settings = ExtResource("3_bk0f1")
+autowrap_mode = 3

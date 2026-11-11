@@ -21,6 +21,12 @@ func displayDialog(speaker: String, dialog: String) -> void:
 	$SpokenDialogBox.displayDialog(speaker, dialog)
 
 
+# Advance dialog in dialog box. If this function is called when dialog fully displayed, close dialog box
+func advanceDialog() -> void:
+	if $SpokenDialogBox.advanceDialog():
+		closeDialog()
+
+
 func closeDialog() -> void:
 	$SpokenDialogBox.close()
 	emit_signal("closed_dialog")
