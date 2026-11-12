@@ -3,6 +3,11 @@ extends DialogBox
 
 const SYSTEM_DIALOG: String = "SYSTEM"
 
+var awaiting_end_of_message_prompt: bool = false
+var outputting_message: bool = false	# Is the box currently outputting a message?
+const WRITE_CHAR_INTERVAL: float = 0.04
+const POST_ENDLINE_DELAY: float = 0.2
+
 func isOpen() -> bool:
 	return visible
 
