@@ -21,8 +21,11 @@ func displayDialog(speaker: String, dialog: String) -> void:
 	show()
 	if speaker.matchn(SYSTEM_DIALOG):
 		$Text.text = dialog
+		$Text.visible_characters = 0
 	else:
 		$Text.text = speaker + "\n\n" + dialog
+		$Text.visible_characters = speaker.length() + 1	# Speaker is displayed all at once
+	showDialogCharacterByCharacter()
 
 
 func close() -> void:
@@ -31,24 +34,24 @@ func close() -> void:
 
 # Advance dialog. Returns true if dialog was fully displayed when this function was called
 func advanceDialog() -> bool:
-	if fullMessageVisible():
+	if fullDialogVisible():
 		return true
 	if outputting_message:
 		queue_show_full_message = true
 	return false
 
 
-func showFullMessage() -> void:
+func showFullDialog() -> void:
 	$Text.visible_characters = $Text.text.length()
 
 
 # Returns true if message is currently being fully displayed, false otherwise
-func fullMessageVisible() -> bool:
+func fullDialogVisible() -> bool:
 	return $Text.visible_characters == -1 or $Text.visible_characters >= $Text.text.length()
 
 
 # Output text one character at a time
-func showMessagesCharacterByCharacter() -> void:
+func showDialogCharacterByCharacter() -> void:
 	queue_show_full_message = false
 	outputting_message = true
 	while $Text.visible_characters < $Text.text.length():
