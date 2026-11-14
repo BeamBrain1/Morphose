@@ -6,7 +6,8 @@ const SYSTEM_DIALOG: String = "SYSTEM"
 var awaiting_end_of_message_prompt: bool = false
 var outputting_message: bool = false	# Is the box currently outputting a message?
 const WRITE_CHAR_INTERVAL: float = 0.04
-const POST_ENDLINE_DELAY: float = 0.2
+const START_WRITE_DELAY: float = 0.1
+
 var queue_show_full_message: bool = false
 
 func isOpen() -> bool:
@@ -54,12 +55,11 @@ func fullDialogVisible() -> bool:
 func showDialogCharacterByCharacter() -> void:
 	queue_show_full_message = false
 	outputting_message = true
+	await get_tree().create_timer(START_WRITE_DELAY).timeout
 	while $Text.visible_characters < $Text.text.length():
-		if $Text.text[$Text.visible_characters] == "\n":	# If about to draw an endline cahracter, use endline delay
-			await get_tree().create_timer(POST_ENDLINE_DELAY).timeout
-		else:	# Otherwise, use normal character delay
-			await get_tree().create_timer(WRITE_CHAR_INTERVAL).timeout
+		await get_tree().create_timer(WRITE_CHAR_INTERVAL).timeout
 		$Text.visible_characters += 1
+		$AudioWriteChar.play()
 		if queue_show_full_message:
 			$Text.visible_characters = $Text.text.length()
 	outputting_message = false
