@@ -84,5 +84,5 @@ animations = [{
 
 [node name="SecurityNPC" unique_id=277077586 instance=ExtResource("1_ectow")]
 sprite_frames = SubResource("SpriteFrames_ectow")
-animation = &"up"
-initial_direction = 0
+animation = &"right"
+frame_progress = 0.34522507

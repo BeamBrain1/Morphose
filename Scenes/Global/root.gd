@@ -8,7 +8,6 @@ const CONTROLLER_DIRECTORY_AND_PREFIX = "res://Scenes/Controllers/Controller"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$ScriptHandler.assignRoot(self)
-	#get_tree().root.content_scale_size = Vector2(960, 720)
 	randomize()
 	loadStartingPartyMembers()
 	if GlobalProgramData.DEBUG_MODE:
