@@ -13,4 +13,3 @@ func initialize(blueprint_name_in: String, tier_in: int = tier) -> void:
 
 func body() -> void:
 	await giveBlueprint(blueprint_name, tier)
-	await displayDialog(SpokenDialogBox.SYSTEM_DIALOG, "Copied genetic blueprint for " + Blueprint.getDialogDisplayNameFromParameters(blueprint_name, tier) + ".")

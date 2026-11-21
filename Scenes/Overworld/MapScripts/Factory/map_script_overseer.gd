@@ -10,6 +10,7 @@ func body() -> void:
 	if battle_won:
 		await destroyActiveObject(holder)
 		await setFlag("OverseerKilled")
+		await giveBlueprint("Horn", 1)
 		await displayDialog("Defector", "...We did it.")
 		await displayDialog("Defector", "We actually did it! We're free! We never have to see this place again! Aren't you glad you didn't eat me?")
 		await displayDialog("Defector", "I've... never left the factory. I don't know what's out there. But anywhere's better than here, right?")

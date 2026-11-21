@@ -167,8 +167,10 @@ func removePartyMember(member_name: String) -> void:
 	ActiveSaveData.party.removePartyMember(member_name)
 
 
-func giveBlueprint(bp_name: String, tier: int = 1) -> void:
+func giveBlueprint(bp_name: String, tier: int = 1, verbose: bool = true) -> void:
 	ActiveSaveData.party.collectBlueprint(Blueprint.getBlueprintFromGlobalList(bp_name, tier))
+	if verbose:
+		await displayDialog(SpokenDialogBox.SYSTEM_DIALOG, "Received genetic blueprint for " + Blueprint.getDialogDisplayNameFromParameters(bp_name, tier) + ".")
 
 
 func openCharBuildScreen(at_mod_station: bool) -> void:
